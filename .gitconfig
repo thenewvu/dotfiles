@@ -1,0 +1,9 @@
+[user]
+	name = Vu Le
+	email = thenewvu@gmail.com
+[core]
+	editor = vim
+[credential]
+	helper = cache --timeout 360000
+[gc]
+	autoDetach = false
