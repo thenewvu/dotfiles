@@ -1,1 +1,60 @@
-/mnt/work/repos/dotfiles/.config/i3status/config
+general {
+	colors = false
+	interval = 10
+}
+
+order += "load"
+order += "cpu_temperature 0"
+order += "disk /"
+order += "wireless wlp2s0"
+order += "wireless wlp6s0"
+order += "ethernet p3p1"
+order += "battery 0"
+order += "volume master"
+order += "tztime local"
+
+load {
+        format = " L:%1min"
+}
+
+cpu_temperature 0 {
+        format = "T:%degrees°C"
+        path = "/sys/devices/platform/coretemp.0/hwmon/hwmon1/temp1_input"
+}
+
+disk "/" {
+        format = "D:%percentage_used"
+        prefix_type = "decimal"
+}
+
+wireless wlp2s0 {
+        format_up = "W:%essid(%quality)"
+        format_down = ""
+}
+
+wireless wlp6s0 {
+        format_up = "W:%essid(%quality)"
+        format_down = ""
+}
+
+ethernet p3p1 {
+        format_up = "E:%ip"
+        format_down = ""
+}
+
+battery 0 {
+        format = "%status %percentage"
+        path = "/sys/class/power_supply/BAT0/uevent"
+}
+
+tztime local {
+        format = "%A %Y-%m-%d %H:%M"
+}
+
+volume master {
+        format = "V:%volume"
+        format_muted = ""
+        device = "default"
+        mixer = "Master"
+        mixer_idx = 0
+}

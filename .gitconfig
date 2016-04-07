@@ -5,5 +5,3 @@
 	editor = vim
 [credential]
 	helper = cache --timeout 360000
-[gc]
-	autoDetach = false

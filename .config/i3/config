@@ -1,1 +1,200 @@
-/mnt/work/repos/dotfiles/.config/i3/config
+#################################################################
+## Startup settings                                            ##
+#################################################################
+
+# change background color
+exec --no-startup-id xsetroot -solid "#1d1f21"
+
+# change screen brightness
+exec --no-startup-id xbacklight -set 20
+
+#################################################################
+## Behavior-related settings                                   ##
+#################################################################
+
+# disable focusing by mouse hover
+focus_follows_mouse no
+
+#################################################################
+## UI-related settings                                         ##
+#################################################################
+
+# font for render window title and status bar
+font pango: Fira Code Bold 8
+
+# disable window title for non-floating windows
+# for_window [class="^.*"] border pixel 0
+for_window [window_role="pop-up"] border pixel 1
+new_window none
+new_float normal 2
+
+# hide all edge window borders
+hide_edge_borders both
+
+# change window color
+#<class>                   <border>        <background>   <text>       <indicator>
+client.focused             #2A2A2A         #1d1f21        #d2cccc      #1d1f21
+client.focused_inactive    #2A2A2A         #1d1f21        #818181      #1d1f21
+client.unfocused           #2A2A2A         #1d1f21        #818181      #1d1f21
+
+for_window [class=".*"] title_format "<b>%class</b>"
+
+#################################################################
+## Key-related settings                                        ##
+#################################################################
+
+set $mod Mod4
+
+# mouse+$mod to drag floating windows
+floating_modifier $mod
+
+# key binding to change window focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# key binding to move the focusing window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# key binding to switch split mode to horizontal
+bindsym $mod+Mod1+Right split h
+
+# key binding to switch split mode to vertical
+bindsym $mod+Mod1+Down split v
+
+# key binding to make/unmake the focusing window fullscreen
+bindsym $mod+f fullscreen toggle
+
+# key bniding to change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# key binding to toggle tiling/floating mode on the focusing window
+bindsym $mod+Shift+space floating toggle
+
+# key binding to focus the parent container
+bindsym $mod+a focus parent
+
+# key binding to focus the child container
+bindsym $mod+z focus child
+
+# key binding to switch to beetween workspaces
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
+bindsym $mod+0 workspace 10
+
+# key binding to move the focusing container to another workspace
+bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+5 move container to workspace 5
+bindsym $mod+Shift+6 move container to workspace 6
+bindsym $mod+Shift+7 move container to workspace 7
+bindsym $mod+Shift+8 move container to workspace 8
+bindsym $mod+Shift+9 move container to workspace 9
+bindsym $mod+Shift+0 move container to workspace 10
+
+# key bindings to move workspaces to another output screen
+bindsym $mod+Shift+Mod1+Left  move workspace to output left
+bindsym $mod+Shift+Mod1+Right move workspace to output right
+
+# key binding to resize window (another way is $mod+right_mouse)
+mode "resize"
+{
+        # same bindings, but for the arrow keys
+        bindsym Left            resize shrink   width   2  px or 2  ppt
+        bindsym Down            resize grow     height  2  px or 2  ppt
+        bindsym Up              resize shrink   height  2  px or 2  ppt
+        bindsym Right           resize grow     width   2  px or 2  ppt
+        bindsym Mod1+Left       resize shrink   width   10 px or 10 ppt
+        bindsym Mod1+Down       resize grow     height  10 px or 10 ppt
+        bindsym Mod1+Up         resize shrink   height  10 px or 10 ppt
+        bindsym Mod1+Right      resize grow     width   10 px or 10 ppt
+
+        # ESC to exit "resize" mode
+        bindsym Escape mode "default"
+}
+
+# key binding to kill focusing window
+bindsym $mod+Shift+q kill
+
+# key binding to start program launcher
+bindsym $mod+d exec dmenu_run -l 70 -fn 'Fira Code:size=9:style=Bold' -nb '#1d1f21' -nf '#818181' -sb '#1d1f21' -sf '#ffffff'
+
+# key binding to enter "resize" mode
+bindsym $mod+r mode "resize"
+
+# key binding to reload the i3 configuration file
+bindsym $mod+Shift+c reload
+
+# key binding to restart i3 inplace
+bindsym $mod+Shift+r restart
+
+# key binding to lock screen
+bindsym $mod+Pause exec i3lock --dpms --color=#1d1f21
+
+# key binding to open a terminal
+bindsym $mod+Return exec i3-sensible-terminal -e "fish"
+
+# key binding to exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
+# key binding to adjust audio volume
+bindsym XF86AudioRaiseVolume exec "amixer -q sset Master,0 1+ unmute"
+bindsym XF86AudioLowerVolume exec "amixer -q sset Master,0 1- unmute"
+bindsym XF86AudioMute exec "amixer -q sset Master,0 toggle"
+
+# key binging to adjust screen brightness
+bindsym XF86MonBrightnessUp exec xbacklight -inc 5
+bindsym XF86MonBrightnessDown exec xbacklight -dec 5 
+
+# i3 status bar settings
+bar
+{
+    colors
+    {
+        background #1d1f21
+        statusline #a4a4a4
+        separator  #7c7e7d
+
+        #<colorclass>      <border> <background> <text>
+        focused_workspace  #1d1f21  #1d1f21      #ffffff
+        active_workspace   #1d1f21  #1d1f21      #818181
+        inactive_workspace #1d1f21  #1d1f21      #818181
+        urgent_workspace   #1d1f21  #1d1f21      #CC342B
+    }
+
+    position top
+    status_command i3status
+    tray_output primary
+
+    # hide by default, $mod to show
+    # mode hide
+    # hidden_state hide
+    # modifier $mod
+
+    separator_symbol "  "
+}
