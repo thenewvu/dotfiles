@@ -4,7 +4,8 @@ general {
 }
 
 order += "load"
-order += "cpu_temperature 0"
+order += "cpu_temperature 1"
+order += "cpu_temperature 2"
 order += "disk /"
 order += "wireless wlp2s0"
 order += "wireless wlp6s0"
@@ -17,10 +18,16 @@ load {
         format = " L:%1min"
 }
 
-cpu_temperature 0 {
+cpu_temperature 1 {
         format = "T:%degrees°C"
         path = "/sys/devices/platform/coretemp.0/hwmon/hwmon1/temp1_input"
 }
+
+cpu_temperature 2 {
+        format = "T:%degrees°C"
+        path = "/sys/devices/platform/coretemp.0/hwmon/hwmon2/temp1_input"
+}
+
 
 disk "/" {
         format = "D:%percentage_used"
