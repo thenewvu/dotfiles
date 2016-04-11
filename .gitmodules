@@ -1,0 +1,3 @@
+[submodule ".themes/Zukitre-git"]
+	path = .themes/Zukitre-git
+	url = git@github.com:lassekongo83/zuki-themes.git
