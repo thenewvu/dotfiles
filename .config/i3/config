@@ -142,7 +142,7 @@ mode "resize"
 bindsym $mod+Shift+q kill
 
 # key binding to start program launcher
-bindsym $mod+d exec dmenu_run -fn 'Fira Code:size=9:style=Bold' -nb '#1d1f21' -nf '#818181' -sb '#1d1f21' -sf '#ffffff'
+bindsym $mod+Tab exec dmenu_run -fn 'Fira Code:size=9:style=Bold' -nb '#1d1f21' -nf '#818181' -sb '#1d1f21' -sf '#ffffff'
 
 # key binding to enter "resize" mode
 bindsym $mod+r mode "resize"
@@ -157,7 +157,7 @@ bindsym $mod+Shift+r restart
 bindsym $mod+Pause exec i3lock --dpms --color=#1d1f21
 
 # key binding to open a terminal
-bindsym $mod+Return exec i3-sensible-terminal -e "fish"
+bindsym $mod+grave exec i3-sensible-terminal -e "fish"
 
 # key binding to exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
@@ -169,7 +169,7 @@ bindsym XF86AudioMute exec "amixer -q sset Master,0 toggle"
 
 # key binging to adjust screen brightness
 bindsym XF86MonBrightnessUp exec xbacklight -inc 5
-bindsym XF86MonBrightnessDown exec xbacklight -dec 5 
+bindsym XF86MonBrightnessDown exec xbacklight -dec 5
 
 # i3 status bar settings
 bar
