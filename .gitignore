@@ -27,3 +27,4 @@
 .node_modules/
 Downloads/
 logs/
+/.node_repl_history
