@@ -171,6 +171,9 @@ bindsym XF86AudioMute exec "amixer -q sset Master,0 toggle"
 bindsym XF86MonBrightnessUp exec xbacklight -inc 5
 bindsym XF86MonBrightnessDown exec xbacklight -dec 5
 
+# key binding to take a screenshot
+bindsym $mod+Print exec "import -window root ~/Downloads/Screenshot$(date +-%F-%H-%M-%S).png"
+
 # i3 status bar settings
 bar
 {
