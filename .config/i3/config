@@ -147,6 +147,9 @@ bindsym $mod+Tab exec dmenu_run -fn 'Fira Code:size=9:style=Bold' -nb '#1d1f21' 
 # key binding to enter "resize" mode
 bindsym $mod+r mode "resize"
 
+# key binding to stick a floating window
+bindsym $mod+Shift+t sticky toggle
+
 # key binding to reload the i3 configuration file
 bindsym $mod+Shift+c reload
 
@@ -167,7 +170,7 @@ bindsym XF86AudioRaiseVolume exec "amixer -q sset Master,0 1+ unmute"
 bindsym XF86AudioLowerVolume exec "amixer -q sset Master,0 1- unmute"
 bindsym XF86AudioMute exec "amixer -q sset Master,0 toggle"
 
-# key binging to adjust screen brightness
+# key binding to adjust screen brightness
 bindsym XF86MonBrightnessUp exec xbacklight -inc 5
 bindsym XF86MonBrightnessDown exec xbacklight -dec 5
 
