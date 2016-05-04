@@ -177,6 +177,10 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 5
 # key binding to take a screenshot
 bindsym $mod+Print exec "import -window root ~/Downloads/Screenshot$(date +-%F-%H-%M-%S).png"
 
+# key binding to toggle scratchpad
+bindsym $mod+Shift+grave move scratchpad
+bindsym grave scratchpad show
+
 # i3 status bar settings
 bar
 {
