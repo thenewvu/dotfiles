@@ -179,7 +179,7 @@ bindsym $mod+Print exec "import -window root ~/Downloads/Screenshot$(date +-%F-%
 
 # key binding to toggle scratchpad
 bindsym $mod+Shift+grave move scratchpad
-bindsym grave scratchpad show
+bindsym Mod1+grave scratchpad show
 
 # i3 status bar settings
 bar
