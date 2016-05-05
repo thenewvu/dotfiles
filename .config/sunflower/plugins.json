@@ -1,4 +1,5 @@
 {
+    "DefaultFindFiles": {}, 
     "FileList": {
         "columns": [
             "name", 
