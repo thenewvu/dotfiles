@@ -2,6 +2,8 @@
 env:
   node: true
   es6: true
+  jquery: true
+  browser: true
 
 rules:
   # Possible Errors
@@ -67,7 +69,7 @@ rules:
   quotes: [2, "single", "avoid-escape"]
   semi: 2
   space-before-blocks: [2, "always"]
-  space-before-function-paren: [2, "never"]
+  space-before-function-paren: 0
   space-in-parens: [2, "never"]
   space-infix-ops: 2
   space-unary-ops: 2
@@ -87,24 +89,3 @@ rules:
 
   # My custom rules
   no-underscore-dangle: 0
-
-# Global scoped method and vars
-globals:
-  DTRACE_HTTP_CLIENT_REQUEST           : false
-  LTTNG_HTTP_CLIENT_REQUEST            : false
-  COUNTER_HTTP_CLIENT_REQUEST          : false
-  DTRACE_HTTP_CLIENT_RESPONSE          : false
-  LTTNG_HTTP_CLIENT_RESPONSE           : false
-  COUNTER_HTTP_CLIENT_RESPONSE         : false
-  DTRACE_HTTP_SERVER_REQUEST           : false
-  LTTNG_HTTP_SERVER_REQUEST            : false
-  COUNTER_HTTP_SERVER_REQUEST          : false
-  DTRACE_HTTP_SERVER_RESPONSE          : false
-  LTTNG_HTTP_SERVER_RESPONSE           : false
-  COUNTER_HTTP_SERVER_RESPONSE         : false
-  DTRACE_NET_STREAM_END                : false
-  LTTNG_NET_STREAM_END                 : false
-  COUNTER_NET_SERVER_CONNECTION_CLOSE  : false
-  DTRACE_NET_SERVER_CONNECTION         : false
-  LTTNG_NET_SERVER_CONNECTION          : false
-  COUNTER_NET_SERVER_CONNECTION        : false
