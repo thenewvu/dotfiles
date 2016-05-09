@@ -9,6 +9,7 @@ Xft.lcdfilter: lcddefault
 URxvt.font: xft:Fira Code:size=8:style=Bold
 URxvt.boldFont: xft:Fira Code:size=8:style=Bold
 URxvt.letterSpace: -2
+URxvt.saveLines: 65535
 
 ! special
 *.foreground:   #c5c8c6
