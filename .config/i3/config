@@ -8,6 +8,10 @@ exec --no-startup-id xsetroot -solid "#1d1f21"
 # change screen brightness
 # exec --no-startup-id xbacklight -set 20
 
+# Open a small terminal at startup
+exec --no-startup-id urxvt -name urxvt_scratchpad --geometry 70x15
+for_window [instance="urxvt_scratchpad"] floating enable; move scratchpad; scratchpad show; move position 865px 512px; move scratchpad; border pixel 1
+
 #################################################################
 ## Behavior-related settings                                   ##
 #################################################################
