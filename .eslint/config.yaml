@@ -90,3 +90,6 @@ rules:
 
   # My custom rules
   no-underscore-dangle: 0
+
+globals:
+  atom: true
