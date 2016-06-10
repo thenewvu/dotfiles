@@ -162,6 +162,7 @@ bindsym $mod+Shift+r restart
 
 # key binding to lock screen
 bindsym $mod+Pause exec i3lock --dpms --color=#1d1f21
+bindsym $mod+Escape exec i3lock --dpms --color=#1d1f21
 
 # key binding to open a terminal
 bindsym $mod+grave exec i3-sensible-terminal -e "fish"
