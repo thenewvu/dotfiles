@@ -1,0 +1,96 @@
+<application>
+  <component name="ProjectManager">
+    <defaultProject>
+      <component name="EslintConfiguration">
+        <custom-configuration-file used="true" path="$USER_HOME$/.eslint/config.yaml" />
+      </component>
+      <component name="Git.Settings">
+        <option name="ROOT_SYNC" value="DONT_SYNC" />
+        <option name="FORCE_PUSH_ALLOWED" value="true" />
+      </component>
+      <component name="GitSharedSettings">
+        <option name="FORCE_PUSH_PROHIBITED_PATTERNS">
+          <list />
+        </option>
+      </component>
+      <component name="InspectionProjectProfileManager">
+        <profile version="1.0">
+          <option name="myName" value="Project Default" />
+          <inspection_tool class="Eslint" enabled="true" level="ERROR" enabled_by_default="true" />
+        </profile>
+        <option name="PROJECT_PROFILE" value="Project Default" />
+        <option name="USE_PROJECT_PROFILE" value="true" />
+        <version value="1.0" />
+      </component>
+      <component name="JavaScriptLibraryMappings">
+        <includedPredefinedLibrary name="ECMAScript 6" />
+        <includedPredefinedLibrary name="Node.js Core" />
+      </component>
+      <component name="JavaScriptSettings">
+        <option name="languageLevel" value="ES6" />
+      </component>
+      <component name="ProjectDictionaryState">
+        <dictionary name="vu" />
+      </component>
+      <component name="ProjectInspectionProfilesVisibleTreeState">
+        <entry key="Project Default">
+          <profile-state>
+            <expanded-state>
+              <State>
+                <id />
+              </State>
+            </expanded-state>
+            <selected-state>
+              <State>
+                <id>AngularJS</id>
+              </State>
+            </selected-state>
+          </profile-state>
+        </entry>
+      </component>
+      <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+        <OptionsSetting value="true" id="Add" />
+        <OptionsSetting value="true" id="Remove" />
+        <OptionsSetting value="true" id="Checkout" />
+        <OptionsSetting value="true" id="Update" />
+        <OptionsSetting value="true" id="Status" />
+        <OptionsSetting value="true" id="Edit" />
+        <ConfirmationsSetting value="0" id="Add" />
+        <ConfirmationsSetting value="0" id="Remove" />
+      </component>
+      <component name="PropertiesComponent">
+        <property name="settings.editor.selected.configurable" value="preferences.sourceCode" />
+        <property name="JavaScriptPreferStrict" value="true" />
+        <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
+        <property name="nodejs_interpreter_path" value="/usr/bin/node" />
+        <property name="js.eslint.eslintPackage" value="$USER_HOME$/.node_modules/lib/node_modules/eslint" />
+        <property name="last_opened_file_path" value="$USER_HOME$/.eslint/config.yaml" />
+        <property name="js.eslint.nodeInterpreter" value="project" />
+        <property name="javascript.nodejs.core.library.configured.version" value="6.2.1" />
+        <property name="settings.editor.splitter.proportion" value="0.2" />
+      </component>
+      <component name="VagrantProjectSettings">
+        <option name="instanceFolder" value="" />
+        <option name="provider" value="" />
+      </component>
+      <component name="VcsContentAnnotationSettings">
+        <option name="myLimit" value="2678400000" />
+      </component>
+      <component name="masterDetails">
+        <states>
+          <state key="ScopeChooserConfigurable.UI">
+            <settings>
+              <splitter-proportions>
+                <option name="proportions">
+                  <list>
+                    <option value="0.2" />
+                  </list>
+                </option>
+              </splitter-proportions>
+            </settings>
+          </state>
+        </states>
+      </component>
+    </defaultProject>
+  </component>
+</application>
