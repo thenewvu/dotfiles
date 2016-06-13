@@ -59,7 +59,7 @@
         <ConfirmationsSetting value="0" id="Remove" />
       </component>
       <component name="PropertiesComponent">
-        <property name="settings.editor.selected.configurable" value="preferences.sourceCode" />
+        <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Font" />
         <property name="JavaScriptPreferStrict" value="true" />
         <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
         <property name="nodejs_interpreter_path" value="/usr/bin/node" />
