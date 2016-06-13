@@ -6,8 +6,6 @@
 	"installed_packages":
 	[
 		"AutoFileName",
-		"EsFormatter",
-		"ESLint",
 		"GitSavvy",
 		"Package Control",
 		"Pretty JSON",
