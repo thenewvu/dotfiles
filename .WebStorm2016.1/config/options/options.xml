@@ -16,7 +16,7 @@
     <property name="MochaJavaScriptTestRunnerSupport.hideIgnoredTests" value="true" />
     <property name="MochaJavaScriptTestRunnerSupport.scrollToSource" value="true" />
     <property name="MochaJavaScriptTestRunnerSupport.selectFirtsDefect" value="true" />
-    <property name="KEYMAP" value="last&#10;format&#10;file&#10;terminal&#10;symbol" />
+    <property name="KEYMAP" value="close editor&#10;last&#10;format&#10;file&#10;terminal" />
     <property name="sm_test_statistics_table_columnsWidth0" value="75" />
     <property name="sm_test_statistics_table_columnsOrder0" value="0" />
     <property name="sm_test_statistics_table_columnsWidth1" value="75" />
@@ -34,7 +34,7 @@
     <property name="js.rename.search.in.comments" value="true" />
     <property name="js.rename.search.for.text.occurrences" value="false" />
     <property name="MochaJavaScriptTestRunner.Splitter.Proportion" value="0.38622755" />
-    <property name="lastTip" value="2" />
+    <property name="lastTip" value="3" />
     <property name="INSPECTION_FILTER_HISTORY" value="doc" />
   </component>
 </application>

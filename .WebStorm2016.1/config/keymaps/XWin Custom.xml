@@ -8,6 +8,9 @@
   <action id="ActivateTerminalToolWindow">
     <keyboard-shortcut first-keystroke="alt t" />
   </action>
+  <action id="CloseEditor">
+    <keyboard-shortcut first-keystroke="alt x" />
+  </action>
   <action id="EditorContextInfo" />
   <action id="GotoFile">
     <keyboard-shortcut first-keystroke="shift ctrl n" />
