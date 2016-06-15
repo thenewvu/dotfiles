@@ -34,3 +34,4 @@ web-browsers.xml
 window.manager.xml
 /port.lock
 /port
+/disabled_update.txt
