@@ -1,12 +1,18 @@
 <keymap version="1" name="XWin Custom" parent="Default for XWin">
+  <action id="ActivateFavoritesToolWindow" />
+  <action id="ActivateFindToolWindow" />
   <action id="ActivateProjectToolWindow">
     <keyboard-shortcut first-keystroke="alt tab" />
   </action>
+  <action id="ActivateRunToolWindow" />
   <action id="ActivateStructureToolWindow">
-    <keyboard-shortcut first-keystroke="alt s" />
+    <keyboard-shortcut first-keystroke="alt 1" />
   </action>
   <action id="ActivateTerminalToolWindow">
-    <keyboard-shortcut first-keystroke="alt t" />
+    <keyboard-shortcut first-keystroke="alt 3" />
+  </action>
+  <action id="ActivateVersionControlToolWindow">
+    <keyboard-shortcut first-keystroke="alt 2" />
   </action>
   <action id="CloseEditor">
     <keyboard-shortcut first-keystroke="alt x" />
