@@ -15,7 +15,7 @@
 	[
 		"subpixel_antialias"
 	],
-	"font_size": 9,
+	"font_size": 8,
 	"hot_exit": false,
 	"ignored_packages":
 	[
@@ -28,8 +28,8 @@
 	],
 	"line_padding_bottom": 6,
 	"line_padding_top": 6,
+	"tab_size": 2,
 	"theme": "Hero Dark.sublime-theme",
 	"translate_tabs_to_spaces": true,
-	"trim_trailing_white_space_on_save": true,
-	"tab_size": 2
+	"trim_trailing_white_space_on_save": true
 }
