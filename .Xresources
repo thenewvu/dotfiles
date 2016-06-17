@@ -6,8 +6,8 @@ Xft.autohint: false
 Xft.hintstyle: hintslight
 Xft.lcdfilter: lcddefault
 
-URxvt.font: xft:Fira Code:size=10:style=Bold
-URxvt.boldFont: xft:Fira Code:size=10:style=Bold
+URxvt.font: xft:Fira Code:size=9:style=Bold
+URxvt.boldFont: xft:Fira Code:size=9:style=Bold
 URxvt.letterSpace: -2
 URxvt.saveLines: 65535
 
