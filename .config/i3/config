@@ -5,6 +5,8 @@
 # change background color
 exec --no-startup-id xsetroot -solid "#1d1f21"
 
+exec --no-startup-id xrandr --output eDP1 --mode 1366x768 --output HDMI1 --mode 1366x768 --above eDP1
+
 # change screen brightness
 # exec --no-startup-id xbacklight -set 20
 
