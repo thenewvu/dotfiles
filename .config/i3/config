@@ -122,8 +122,15 @@ bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 
 # key bindings to move workspaces to another output screen
+bindsym $mod+Shift+Mod1+Up    move workspace to output up
+bindsym $mod+Shift+Mod1+Down  move workspace to output down
 bindsym $mod+Shift+Mod1+Left  move workspace to output left
 bindsym $mod+Shift+Mod1+Right move workspace to output right
+
+bindsym $mod+Shift+Mod1+k move workspace to output up
+bindsym $mod+Shift+Mod1+j move workspace to output down
+bindsym $mod+Shift+Mod1+h move workspace to output left
+bindsym $mod+Shift+Mod1+l move workspace to output right
 
 # key binding to resize window (another way is $mod+right_mouse)
 mode "resize"
