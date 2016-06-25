@@ -37,5 +37,7 @@
     <property name="lastTip" value="10" />
     <property name="INSPECTION_FILTER_HISTORY" value="doc" />
     <property name="Copy.OpenInEditor" value="true" />
+    <property name="evlsprt.12" value="155d7ab4bee" />
+    <property name="evlsprt2.12" value="155818161d3" />
   </component>
 </application>
