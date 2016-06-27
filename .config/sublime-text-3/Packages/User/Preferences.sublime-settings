@@ -1,6 +1,6 @@
 {
 	"close_windows_when_empty": false,
-	"color_scheme": "Packages/User/Espresso Soda.tmTheme",
+	"color_scheme": "Packages/Base16 Color Schemes/base16-google.light.tmTheme",
 	"ensure_newline_at_eof_on_save": true,
 	"folder_exclude_patterns":
 	[
@@ -15,7 +15,7 @@
 	[
 		"subpixel_antialias"
 	],
-	"font_size": 8,
+	"font_size": 11,
 	"hot_exit": false,
 	"ignored_packages":
 	[
