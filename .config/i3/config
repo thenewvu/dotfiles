@@ -3,7 +3,7 @@
 #################################################################
 
 # change background color
-exec --no-startup-id xsetroot -solid "#1d1f21"
+exec --no-startup-id xsetroot -solid "#FFFFFF"
 
 exec --no-startup-id xrandr --output eDP1 --mode 1366x768 --output HDMI1 --mode 1366x768 --above eDP1
 
@@ -28,22 +28,18 @@ focus_follows_mouse no
 # font for render window title and status bar
 font pango: Fira Code Bold 8
 
-# disable window title for non-floating windows
-# for_window [class="^.*"] border pixel 0
-for_window [window_role="pop-up"] border pixel 1
-new_window none
-new_float normal 2
+# remove title and set 1px border for new windows
+new_window pixel 1 px
 
-# hide all edge window borders
-hide_edge_borders both
+# window decorations
+# class                 border  backgr. text    indicator child_border
+client.focused          #4c7899 #3971ED #ffffff #2e9ef4   #3971ED
+client.focused_inactive #333333 #5f676a #ffffff #484e50   #5f676a
+client.unfocused        #333333 #222222 #999999 #292d2e   #222222
+client.urgent           #2f343a #CC342B #ffffff #CC342B   #CC342B
+client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 
-# change window color
-#<class>                   <border>        <background>   <text>       <indicator>
-client.focused             #2A2A2A         #1d1f21        #d2cccc      #1d1f21
-client.focused_inactive    #2A2A2A         #1d1f21        #818181      #1d1f21
-client.unfocused           #2A2A2A         #1d1f21        #818181      #1d1f21
-
-for_window [class=".*"] title_format "<b>%class</b>"
+client.background       #ffffff
 
 #################################################################
 ## Key-related settings                                        ##
@@ -155,7 +151,7 @@ mode "resize"
 bindsym $mod+Shift+q kill
 
 # key binding to start program launcher
-bindsym $mod+Tab exec dmenu_run -fn 'Fira Code:size=9:style=Bold' -nb '#1d1f21' -nf '#818181' -sb '#1d1f21' -sf '#ffffff'
+bindsym $mod+Tab exec dmenu_run -fn 'Fira Code:size=9:style=Bold' -nb '#FFFFFF' -nf '#373B41' -sb '#FFFFFF' -sf '#3971ED'
 
 # key binding to enter "resize" mode
 bindsym $mod+r mode "resize"
@@ -170,8 +166,8 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 
 # key binding to lock screen
-bindsym $mod+Pause exec i3lock --dpms --color=#1d1f21
-bindsym $mod+Escape exec i3lock --dpms --color=#1d1f21
+bindsym $mod+Pause exec i3lock --dpms --color=#FFFFFF
+bindsym $mod+Escape exec i3lock --dpms --color=#FFFFFF
 
 # key binding to open a terminal
 bindsym $mod+grave exec i3-sensible-terminal -e "fish"
@@ -200,15 +196,15 @@ bar
 {
     colors
     {
-        background #1d1f21
-        statusline #a4a4a4
-        separator  #7c7e7d
+        background #FFFFFF
+        statusline #373B41
+        separator  #373B41
 
         #<colorclass>      <border> <background> <text>
-        focused_workspace  #1d1f21  #1d1f21      #ffffff
-        active_workspace   #1d1f21  #1d1f21      #818181
-        inactive_workspace #1d1f21  #1d1f21      #818181
-        urgent_workspace   #1d1f21  #1d1f21      #CC342B
+        focused_workspace  #FFFFFF  #FFFFFF      #3971ED
+        active_workspace   #FFFFFF  #FFFFFF      #373B41
+        inactive_workspace #FFFFFF  #FFFFFF      #373B41
+        urgent_workspace   #FFFFFF  #FFFFFF      #CC342B
     }
 
     position top
@@ -216,9 +212,9 @@ bar
     tray_output primary
 
     # hide by default, $mod to show
-    # mode hide
-    # hidden_state hide
-    # modifier $mod
+    mode hide
+    hidden_state hide
+    modifier $mod
 
     separator_symbol "  "
 }
