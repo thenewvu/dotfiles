@@ -26,8 +26,8 @@
 		"draw_normal",
 		"draw_active"
 	],
-	"line_padding_bottom": 6,
-	"line_padding_top": 6,
+	"line_padding_bottom": 3,
+	"line_padding_top": 3,
 	"tab_size": 2,
 	"theme": "Soda Light.sublime-theme",
 	"translate_tabs_to_spaces": true,
