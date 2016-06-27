@@ -1,6 +1,6 @@
 {
 	"close_windows_when_empty": false,
-	"color_scheme": "Packages/Theme - Hero/Hero Dark.tmTheme",
+	"color_scheme": "Packages/User/Espresso Soda.tmTheme",
 	"ensure_newline_at_eof_on_save": true,
 	"folder_exclude_patterns":
 	[
@@ -15,7 +15,7 @@
 	[
 		"subpixel_antialias"
 	],
-	"font_size": 10,
+	"font_size": 8,
 	"hot_exit": false,
 	"ignored_packages":
 	[
@@ -29,7 +29,7 @@
 	"line_padding_bottom": 6,
 	"line_padding_top": 6,
 	"tab_size": 2,
-	"theme": "Hero Dark.sublime-theme",
+	"theme": "Soda Light.sublime-theme",
 	"translate_tabs_to_spaces": true,
 	"trim_trailing_white_space_on_save": true
 }
