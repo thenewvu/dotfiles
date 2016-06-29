@@ -1,3 +1,6 @@
 [submodule ".themes/Zukitre-git"]
 	path = .themes/Zukitre-git
 	url = git@github.com:lassekongo83/zuki-themes.git
+[submodule ".config/sublime-text-3/Packages/Base16"]
+	path = .config/sublime-text-3/Packages/Base16
+	url = git://github.com/chriskempson/base16-textmate.git
