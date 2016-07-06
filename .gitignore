@@ -35,3 +35,9 @@ logs/
 /.gtk-bookmarks
 /.tixati/
 /.3T/
+/.cmake/
+/.android/
+/.gradle/
+/.AndroidStudio2.1/
+/.CLion2016.1/
+/.oracle_jre_usage/
