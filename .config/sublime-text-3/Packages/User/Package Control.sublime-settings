@@ -5,8 +5,10 @@
 	],
 	"installed_packages":
 	[
+		"AlignTab",
 		"AutoFileName",
 		"GitSavvy",
+		"HaoGist",
 		"MarkdownTOC",
 		"Package Control",
 		"Pretty JSON",

@@ -1,0 +1,32 @@
+{
+    // Gist token
+    "token": "c3eb2d34b4cc2c14e8dee826d9ceda1e0098d872",
+
+    // Workspace to store the gists, if this setting is empty,
+    // workspace will be set as {packages_path}/User/HaoGist
+    "workspace": "/mnt/work/repos/gist",
+
+    // Browser Path, you should set a valid browser path, otherwise, it will have problem
+    // Some policy prevents setting chrome as default browser, so this setting is here
+    "default_chrome_path": "/usr/bin/google-chrome-stable",
+
+    // Delay seconds for hiding panel
+    "delay_seconds_for_hiding_panel": 1.5,
+
+    // Update gist on save
+    "auto_update_on_save": true,
+
+    // If set to true, debug message will be output to console
+    "debug_mode": false,
+
+    // http_proxies settings, you can set it as below example,
+    // see more detail at:
+    // http://docs.python-requests.org/en/latest/user/advanced/#proxies
+    /*
+        "http_proxies": {
+            "http"  : "http://user:%23Cpassword%23C:server:port",
+            "https" : "http://user:%23Cpassword%23C:server:port"
+        }
+    */
+    "http_proxies": {}
+}
