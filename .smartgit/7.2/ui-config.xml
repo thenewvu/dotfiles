@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<obj key="UiConfig" type="@UiConfig" id="_ID_1">
+	<obj key="git" type="@GitConfig" id="_ID_2">
+		<obj key="projectToolBar-4.6" type="@ToolBarStructure" id="_ID_3">
+			<collection key="items" type="Object">
+				<obj key="" type="@ToolBarButton" id="_ID_4">
+					<prop key="id" value="fetch" type="String"/>
+				</obj>
+				<obj key="" type="@ToolBarButton" id="_ID_5">
+					<prop key="id" value="sync" type="String"/>
+				</obj>
+				<obj key="" type="@ToolBarButton" id="_ID_6">
+					<prop key="id" value="push" type="String"/>
+				</obj>
+				<obj key="" type="@ToolBarSeparator" id="_ID_7">
+					<prop key="stretching" value="false" type="boolean"/>
+				</obj>
+				<obj key="" type="@ToolBarButton" id="_ID_8">
+					<prop key="id" value="flowContext" type="String"/>
+				</obj>
+				<obj key="" type="@ToolBarSeparator" id="_ID_9">
+					<prop key="stretching" value="false" type="boolean"/>
+				</obj>
+				<obj key="" type="@ToolBarButton" id="_ID_10">
+					<prop key="id" value="merge" type="String"/>
+				</obj>
+				<obj key="" type="@ToolBarButton" id="_ID_11">
+					<prop key="id" value="commit" type="String"/>
+				</obj>
+				<obj key="" type="@ToolBarSeparator" id="_ID_12">
+					<prop key="stretching" value="true" type="boolean"/>
+				</obj>
+				<obj key="" type="@ToolBarButton" id="_ID_13">
+					<prop key="id" value="stage" type="String"/>
+				</obj>
+				<obj key="" type="@ToolBarButton" id="_ID_14">
+					<prop key="id" value="indexEditor" type="String"/>
+				</obj>
+				<obj key="" type="@ToolBarButton" id="_ID_15">
+					<prop key="id" value="unstage" type="String"/>
+				</obj>
+				<obj key="" type="@ToolBarSeparator" id="_ID_16">
+					<prop key="stretching" value="false" type="boolean"/>
+				</obj>
+				<obj key="" type="@ToolBarButton" id="_ID_17">
+					<prop key="id" value="remove" type="String"/>
+				</obj>
+				<obj key="" type="@ToolBarButton" id="_ID_18">
+					<prop key="id" value="discard" type="String"/>
+				</obj>
+				<obj key="" type="@ToolBarButton" id="_ID_19">
+					<prop key="id" value="delete" type="String"/>
+				</obj>
+				<obj key="" type="@ToolBarSeparator" id="_ID_20">
+					<prop key="stretching" value="true" type="boolean"/>
+				</obj>
+				<obj key="" type="@ToolBarButton" id="_ID_21">
+					<prop key="id" value="log" type="String"/>
+				</obj>
+				<obj key="" type="@ToolBarButton" id="_ID_22">
+					<prop key="id" value="annotate" type="String"/>
+				</obj>
+				<obj key="" type="@ToolBarSeparator" id="_ID_23">
+					<prop key="stretching" value="true" type="boolean"/>
+				</obj>
+				<obj key="" type="@ToolBarButton" id="_ID_24">
+					<prop key="id" value="windowLayoutSetMain" type="String"/>
+				</obj>
+				<obj key="" type="@ToolBarButton" id="_ID_25">
+					<prop key="id" value="windowLayoutSetReview" type="String"/>
+				</obj>
+			</collection>
+			<prop key="textBelowIcon" value="true" type="boolean"/>
+			<prop key="visible" value="false" type="boolean"/>
+		</obj>
+		<obj key="logToolBar-5" type="@ToolBarStructure" id="_ID_26">
+			<collection key="items" type="Object">
+				<obj key="" type="@ToolBarButton" id="_ID_27">
+					<prop key="id" value="pull" type="String"/>
+				</obj>
+				<obj key="" type="@ToolBarButton" id="_ID_28">
+					<prop key="id" value="pushBranches" type="String"/>
+				</obj>
+				<obj key="" type="@ToolBarSeparator" id="_ID_29">
+					<prop key="stretching" value="false" type="boolean"/>
+				</obj>
+				<obj key="" type="@ToolBarButton" id="_ID_30">
+					<prop key="id" value="checkout" type="String"/>
+				</obj>
+				<obj key="" type="@ToolBarButton" id="_ID_31">
+					<prop key="id" value="branchAddTag" type="String"/>
+				</obj>
+				<obj key="" type="@ToolBarButton" id="_ID_32">
+					<prop key="id" value="branchAdd" type="String"/>
+				</obj>
+				<obj key="" type="@ToolBarButton" id="_ID_33">
+					<prop key="id" value="branchDelete" type="String"/>
+				</obj>
+				<obj key="" type="@ToolBarSeparator" id="_ID_34">
+					<prop key="stretching" value="false" type="boolean"/>
+				</obj>
+				<obj key="" type="@ToolBarButton" id="_ID_35">
+					<prop key="id" value="merge" type="String"/>
+				</obj>
+				<obj key="" type="@ToolBarButton" id="_ID_36">
+					<prop key="id" value="cherryPick" type="String"/>
+				</obj>
+				<obj key="" type="@ToolBarButton" id="_ID_37">
+					<prop key="id" value="revert" type="String"/>
+				</obj>
+				<obj key="" type="@ToolBarButton" id="_ID_38">
+					<prop key="id" value="rebaseHeadTo" type="String"/>
+				</obj>
+				<obj key="" type="@ToolBarButton" id="_ID_39">
+					<prop key="id" value="reset" type="String"/>
+				</obj>
+				<obj key="" type="@ToolBarSeparator" id="_ID_40">
+					<prop key="stretching" value="true" type="boolean"/>
+				</obj>
+				<obj key="" type="@ToolBarButton" id="_ID_41">
+					<prop key="id" value="windowLayoutSetMain" type="String"/>
+				</obj>
+				<obj key="" type="@ToolBarButton" id="_ID_42">
+					<prop key="id" value="windowLayoutSetReview" type="String"/>
+				</obj>
+			</collection>
+			<prop key="textBelowIcon" value="true" type="boolean"/>
+			<prop key="visible" value="false" type="boolean"/>
+		</obj>
+	</obj>
+	<obj key="hg" type="_NULL_" id=""/>
+	<obj key="filterConfiguration" type="@FindObjectConfiguration" id="_ID_43">
+		<prop key="enteredPattern" value="" type="_NULL_"/>
+		<collection key="patterns" type="String"/>
+		<prop key="regularExpressions" value="false" type="boolean"/>
+	</obj>
+</obj>
