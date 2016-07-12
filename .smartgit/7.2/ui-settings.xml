@@ -161,7 +161,7 @@
 	</obj>
 	<prop key="gitAnnotateLayout" value="" type="_NULL_"/>
 	<prop key="hgAnnotateLayout" value="" type="_NULL_"/>
-	<prop key="gitProjectLayout.main" value="([-479x261:branches ](((([+864x295:files ]([+497x156:directories ][+497x136:output ]))[+1364x402:changes ])[-2x1:message ])[-1093x156:outgoing ]))" type="String"/>
+	<prop key="gitProjectLayout.main" value="([-479x261:branches ](((([+718x295:files ]([+643x156:directories ][+643x136:output ]))[+1364x402:changes ])[-2x1:message ])[-1093x156:outgoing ]))" type="String"/>
 	<prop key="gitProjectLayout.review" value="([+2x1:directories ][+7x1:files ][+3x1:message ])[+10x3:changes ]([-1x1:branches ][-3x1:outgoing ][-3x1:output ])" type="String"/>
 	<prop key="gitProjectLayout.mainIsDefault" value="true" type="boolean"/>
 	<prop key="gitLogLayout.main" value="((([-548x106:output ](([+1069x464:graph ][+292x464:branches ])([-423x220:details ][+938x233:files ])))[-1364x191:changes ])[-399x203:comments ])" type="String"/>
@@ -374,23 +374,23 @@
 		</collection>
 		<collection key="columnWidths" type="Object">
 			<obj key="" type="@ColumnWidth" id="_ID_52">
-				<prop key="id" value="State" type="String"/>
-				<prop key="width" value="591" type="int"/>
-				<prop key="width2x" value="0" type="int"/>
-			</obj>
-			<obj key="" type="@ColumnWidth" id="_ID_53">
 				<prop key="id" value="Relative Path" type="String"/>
 				<prop key="width" value="558" type="int"/>
 				<prop key="width2x" value="0" type="int"/>
 			</obj>
+			<obj key="" type="@ColumnWidth" id="_ID_53">
+				<prop key="id" value="State" type="String"/>
+				<prop key="width" value="591" type="int"/>
+				<prop key="width2x" value="0" type="int"/>
+			</obj>
 			<obj key="" type="@ColumnWidth" id="_ID_54">
-				<prop key="id" value="Relative Directory" type="String"/>
-				<prop key="width" value="428" type="int"/>
+				<prop key="id" value="Name" type="String"/>
+				<prop key="width" value="297" type="int"/>
 				<prop key="width2x" value="0" type="int"/>
 			</obj>
 			<obj key="" type="@ColumnWidth" id="_ID_55">
-				<prop key="id" value="Name" type="String"/>
-				<prop key="width" value="297" type="int"/>
+				<prop key="id" value="Relative Directory" type="String"/>
+				<prop key="width" value="428" type="int"/>
 				<prop key="width2x" value="0" type="int"/>
 			</obj>
 		</collection>
@@ -398,10 +398,10 @@
 	<obj key="gitViewFileFilter" type="@ViewFilter" id="_ID_56">
 		<prop key="viewRecursive" value="true" type="boolean"/>
 		<prop key="viewFromSubmodules" value="true" type="boolean"/>
-		<prop key="viewIgnoredFiles" value="false" type="boolean"/>
+		<prop key="viewIgnoredFiles" value="true" type="boolean"/>
 		<prop key="viewSkipped" value="false" type="boolean"/>
 		<prop key="viewUnversionedFiles" value="true" type="boolean"/>
-		<prop key="viewUnchangedFiles" value="false" type="boolean"/>
+		<prop key="viewUnchangedFiles" value="true" type="boolean"/>
 		<prop key="viewUnchangedAssumed" value="false" type="boolean"/>
 	</obj>
 	<obj key="hgViewFileFilter" type="_NULL_" id=""/>
