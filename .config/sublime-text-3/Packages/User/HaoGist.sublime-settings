@@ -1,10 +1,10 @@
 {
     // Gist token
-    "token": "c3eb2d34b4cc2c14e8dee826d9ceda1e0098d872",
+    "token": "2ac26661a863143891880cb07376e854bceb51cc",
 
     // Workspace to store the gists, if this setting is empty,
     // workspace will be set as {packages_path}/User/HaoGist
-    "workspace": "/mnt/work/repos/gist",
+    "workspace": "/mnt/work/projects/gist",
 
     // Browser Path, you should set a valid browser path, otherwise, it will have problem
     // Some policy prevents setting chrome as default browser, so this setting is here
