@@ -1,8 +1,17 @@
 set noswapfile
 set hlsearch
 set laststatus=2
-set tabstop=2 softtabstop=0 expandtab shiftwidth=2
 set number
+set autoindent
+set noexpandtab
+set copyindent
+set preserveindent
+set softtabstop=0
+set shiftwidth=0
+set tabstop=2
+set listchars=trail:·,tab:»\ 
+set list
+highlight SpecialKey ctermfg=7 guifg=gray
 syntax on
 
 " automatically set syntax *.md files to markdown
