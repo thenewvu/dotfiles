@@ -2,6 +2,7 @@
 	"close_windows_when_empty": false,
 	"color_scheme": "Packages/Base16/themes/base16-google-light.tmTheme",
 	"ensure_newline_at_eof_on_save": true,
+	"draw_white_space": "all",
 	"folder_exclude_patterns":
 	[
 		".svn",
@@ -30,6 +31,5 @@
 	"line_padding_top": 3,
 	"tab_size": 2,
 	"theme": "Soda Light.sublime-theme",
-	"translate_tabs_to_spaces": true,
 	"trim_trailing_white_space_on_save": true
 }
