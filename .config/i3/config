@@ -26,7 +26,7 @@ focus_follows_mouse no
 #################################################################
 
 # font for render window title and status bar
-font pango: Fira Code Bold 8
+font pango: Fira Code Retina 10
 
 # remove title and set 1px border for new windows
 new_window pixel 1 px
@@ -151,7 +151,7 @@ mode "resize"
 bindsym $mod+Shift+q kill
 
 # key binding to start program launcher
-bindsym $mod+Tab exec dmenu_run -fn 'Fira Code:size=9:style=Bold' -nb '#FFFFFF' -nf '#373B41' -sb '#FFFFFF' -sf '#3971ED'
+bindsym $mod+Tab exec dmenu_run -fn 'Fira Code Retina:size=12' -nb '#FFFFFF' -nf '#373B41' -sb '#FFFFFF' -sf '#3971ED'
 
 # key binding to enter "resize" mode
 bindsym $mod+r mode "resize"
