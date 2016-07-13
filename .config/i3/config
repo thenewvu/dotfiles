@@ -31,6 +31,9 @@ font pango: Fira Code Retina 10
 # remove title and set 1px border for new windows
 new_window pixel 1 px
 
+# custom title format
+for_window [class=".*"] title_format "%class"
+
 # window decorations
 # class                 border  backgr. text    indicator child_border
 client.focused          #3971ED #3971ED #ffffff #3971ED   #3971ED
