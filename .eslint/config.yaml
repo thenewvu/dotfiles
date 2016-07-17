@@ -60,7 +60,7 @@ rules:
   # http://eslint.org/docs/rules/#stylistic-issues
   comma-spacing: 2
   eol-last: 2
-  indent: ["error", "tab", {SwitchCase: 1}]
+  indent: ["off"]
   keyword-spacing: 2
   max-len: [2, 80, 2]
   new-parens: 2
