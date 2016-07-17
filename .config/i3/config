@@ -14,8 +14,8 @@ workspace_layout tabbed
 # exec --no-startup-id xbacklight -set 20
 
 # Open a small terminal at startup
-# exec --no-startup-id urxvt -name urxvt_scratchpad --geometry 70x15
-# for_window [instance="urxvt_scratchpad"] floating enable; move scratchpad; scratchpad show; move position 865px 512px; move scratchpad; border pixel 1
+exec --no-startup-id urxvt -name urxvt_scratchpad --geometry 128x20
+for_window [instance="urxvt_scratchpad"] floating enable; move scratchpad; scratchpad show;
 
 #################################################################
 ## Behavior-related settings                                   ##
@@ -29,7 +29,7 @@ focus_follows_mouse no
 #################################################################
 
 # font for render window title and status bar
-font pango: Fira Code Retina 9
+font pango: Fira Code Retina 8
 
 # remove title and set 1px border for new windows
 new_window pixel 1 px
@@ -157,7 +157,7 @@ mode "resize"
 bindsym $mod+Shift+q kill
 
 # key binding to start program launcher
-bindsym $mod+Tab exec dmenu_run -fn 'Fira Code Retina:size=11' -nb '#FFFFFF' -nf '#373B41' -sb '#FFFFFF' -sf '#3971ED'
+bindsym $mod+Tab exec dmenu_run -fn 'Fira Code Retina:size=9' -nb '#FFFFFF' -nf '#373B41' -sb '#FFFFFF' -sf '#3971ED'
 
 # key binding to enter "resize" mode
 bindsym $mod+r mode "resize"
