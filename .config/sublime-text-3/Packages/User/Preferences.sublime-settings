@@ -11,12 +11,12 @@
 		"CVS",
 		"node_modules"
 	],
-	"font_face": "Fira Code Retina",
+	"font_face": "Source Code Pro Semibold",
 	"font_options":
 	[
 		"subpixel_antialias"
 	],
-	"font_size": 9,
+	"font_size": 11,
 	"hot_exit": false,
 	"ignored_packages":
 	[
