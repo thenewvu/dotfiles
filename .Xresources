@@ -6,8 +6,8 @@ Xft.hinting: 1
 Xft.antialias: 1
 Xft.rgba: rgb
 
-URxvt.font: xft:Source Code Pro:size=10:style:Medium
-URxvt.boldFont: xft:Source Code Pro:size=10:style:Medium
+URxvt.font: xft:Source Code Pro:size=10:style:Semibold
+URxvt.boldFont: xft:Source Code Pro:size=10:style:Semibold
 URxvt.letterSpace: -2
 URxvt.saveLines: 65535
 
