@@ -3,7 +3,6 @@
 	"color_scheme": "Packages/Base16/themes/base16-google-light.tmTheme",
 	"draw_white_space": "all",
 	"ensure_newline_at_eof_on_save": true,
-	"word_wrap": "false",
 	"folder_exclude_patterns":
 	[
 		".svn",
@@ -12,12 +11,12 @@
 		"CVS",
 		"node_modules"
 	],
-	"font_face": "Source Code Pro Semibold",
+	"font_face": "InputMonoCompressed Medium",
 	"font_options":
 	[
 		"subpixel_antialias"
 	],
-	"font_size": 11,
+	"font_size": 9,
 	"hot_exit": false,
 	"ignored_packages":
 	[
@@ -33,5 +32,6 @@
 	"remember_open_files": true,
 	"tab_size": 2,
 	"theme": "Soda Light.sublime-theme",
-	"trim_trailing_white_space_on_save": true
+	"trim_trailing_white_space_on_save": true,
+	"word_wrap": "false"
 }
