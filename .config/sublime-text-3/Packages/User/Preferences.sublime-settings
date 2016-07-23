@@ -11,7 +11,7 @@
 		"CVS",
 		"node_modules"
 	],
-	"font_face": "InputMonoCompressed Medium",
+	"font_face": "InputMonoCompressed",
 	"font_options":
 	[
 		"subpixel_antialias"

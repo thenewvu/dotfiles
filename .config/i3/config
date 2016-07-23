@@ -29,7 +29,7 @@ focus_follows_mouse no
 #################################################################
 
 # font for render window title and status bar
-font pango: InputMonoCompressed Medium 9
+font pango: Input Mono Compressed 8
 
 # remove title and set 1px border for new windows
 new_window pixel 1 px
@@ -157,7 +157,7 @@ mode "resize"
 bindsym $mod+Shift+q kill
 
 # key binding to start program launcher
-bindsym $mod+Tab exec dmenu_run -fn 'InputMonoCompressed:size=11:style:Regular' -nb '#FFFFFF' -nf '#373B41' -sb '#FFFFFF' -sf '#3971ED'
+bindsym $mod+Tab exec dmenu_run -fn 'InputMonoCompressed:size=10:style:Regular' -nb '#FFFFFF' -nf '#373B41' -sb '#FFFFFF' -sf '#3971ED'
 
 # key binding to enter "resize" mode
 bindsym $mod+r mode "resize"
