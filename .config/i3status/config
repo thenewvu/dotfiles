@@ -1,6 +1,6 @@
 general {
-	colors = false
-	interval = 10
+        colors = false
+        interval = 5
 }
 
 order += "load"
@@ -15,42 +15,45 @@ order += "volume master"
 order += "tztime local"
 
 load {
-        format = " L:%1min"
+        format = "  %1min"
 }
 
 cpu_temperature 1 {
-        format = "T:%degrees°C"
-        path = "/sys/devices/platform/coretemp.0/hwmon/hwmon1/temp1_input"
+        format = "  %degrees°C"
+        path = "/sys/class/thermal/thermal_zone6/temp"
 }
 
 cpu_temperature 2 {
-        format = "T:%degrees°C"
-        path = "/sys/devices/platform/coretemp.0/hwmon/hwmon2/temp1_input"
+        format = "  %degrees°C"
+        path = "/sys/class/thermal/thermal_zone7/temp"
 }
 
-
 disk "/" {
-        format = "D:%percentage_used"
+        format = "  %percentage_used"
         prefix_type = "decimal"
 }
 
 wireless wlp2s0 {
-        format_up = "W:%essid(%quality)"
+        format_up = "  %essid (%quality)"
         format_down = ""
 }
 
 wireless wlp6s0 {
-        format_up = "W:%essid(%quality)"
+        format_up = "  %essid (%quality)"
         format_down = ""
 }
 
 ethernet p3p1 {
-        format_up = "E:%ip"
+        format_up = "  %ip"
         format_down = ""
 }
 
 battery 0 {
-        format = "%status %percentage"
+        format = "%status  %percentage"
+        format_down = ""
+        status_chr = ""
+        status_bat = ""
+        status_full = ""
         path = "/sys/class/power_supply/BAT0/uevent"
 }
 
@@ -59,8 +62,8 @@ tztime local {
 }
 
 volume master {
-        format = "V:%volume"
-        format_muted = ""
+        format = "  %volume"
+        format_muted = " %volume"
         device = "default"
         mixer = "Master"
         mixer_idx = 0

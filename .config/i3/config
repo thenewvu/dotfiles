@@ -34,7 +34,7 @@ for_window [window_role="task_dialog"] floating enable
 #################################################################
 
 # font for render window title and status bar
-font pango: Input Mono Compressed 8
+font pango: Liberation 9
 
 # remove title and set 1px border for new windows
 new_window pixel 1 px
@@ -162,7 +162,7 @@ mode "resize"
 bindsym $mod+Shift+q kill
 
 # key binding to start program launcher
-bindsym $mod+Tab exec dmenu_run -fn 'InputMonoCompressed:size=10:style:Regular' -nb '#FFFFFF' -nf '#373B41' -sb '#FFFFFF' -sf '#3971ED'
+bindsym $mod+Tab exec dmenu_run -fn 'Liberation:size=11:style:Regular' -nb '#FFFFFF' -nf '#373B41' -sb '#FFFFFF' -sf '#3971ED'
 
 # key binding to enter "resize" mode
 bindsym $mod+r mode "resize"
@@ -205,6 +205,8 @@ bindsym Mod1+grave scratchpad show
 # i3 status bar settings
 bar
 {
+    font pango: Liberation, Awesome 8
+
     colors
     {
         background #FFFFFF
@@ -227,5 +229,6 @@ bar
     hidden_state hide
     modifier $mod
 
-    separator_symbol "  "
+    # separator_symbol "  "
+    separator_symbol " "
 }
