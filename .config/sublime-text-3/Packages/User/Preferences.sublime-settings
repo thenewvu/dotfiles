@@ -8,10 +8,11 @@
 		".svn",
 		".git",
 		".hg",
+		".idea",
 		"CVS",
 		"node_modules"
 	],
-	"font_face": "InputMonoCompressed",
+	"font_face": "InputMonoCompressed Light",
 	"font_options":
 	[
 		"subpixel_antialias"
@@ -27,8 +28,8 @@
 		"draw_normal",
 		"draw_active"
 	],
-	"line_padding_bottom": 3,
-	"line_padding_top": 3,
+	"line_padding_bottom": 0,
+	"line_padding_top": 0,
 	"remember_open_files": true,
 	"tab_size": 2,
 	"theme": "Soda Light.sublime-theme",
