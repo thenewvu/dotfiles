@@ -34,7 +34,7 @@ for_window [window_role="task_dialog"] floating enable
 #################################################################
 
 # font for render window title and status bar
-font pango: Liberation 9
+font pango: Awesome 8
 
 # remove title and set 1px border for new windows
 new_window pixel 1 px
@@ -162,7 +162,7 @@ mode "resize"
 bindsym $mod+Shift+q kill
 
 # key binding to start program launcher
-bindsym $mod+Tab exec dmenu_run -fn 'Liberation:size=11:style:Regular' -nb '#FFFFFF' -nf '#373B41' -sb '#FFFFFF' -sf '#3971ED'
+bindsym $mod+Tab exec dmenu_run -fn 'ImputMonoCompressed:size=10:style:Regular' -nb '#FFFFFF' -nf '#373B41' -sb '#FFFFFF' -sf '#3971ED'
 
 # key binding to enter "resize" mode
 bindsym $mod+r mode "resize"
@@ -184,7 +184,7 @@ bindsym $mod+Escape exec i3lock --dpms --color=#FFFFFF
 bindsym $mod+grave exec i3-sensible-terminal -e "fish"
 
 # key binding to exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Do you really want to exit i3?' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # key binding to adjust audio volume
 bindsym XF86AudioRaiseVolume exec "amixer -q sset Master,0 1+ unmute"
@@ -205,7 +205,7 @@ bindsym Mod1+grave scratchpad show
 # i3 status bar settings
 bar
 {
-    font pango: Liberation, Awesome 8
+    font pango: Awesome 8
 
     colors
     {
