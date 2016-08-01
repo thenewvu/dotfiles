@@ -29,9 +29,6 @@ focus_follows_mouse no
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="task_dialog"] floating enable
 
-for_window [window_role="pop-up"] border normal
-for_window [window_role="task_dialog"] border normal
-
 
 #################################################################
 ## UI-related settings                                         ##
@@ -45,6 +42,10 @@ new_window pixel 1 px
 
 # custom title format
 for_window [class=".*"] title_format "%class"
+
+# enable border and title for popup and dialog windows
+for_window [window_role="pop-up"] border normal
+for_window [window_role="task_dialog"] border normal
 
 # window decorations
 # class                 border  backgr. text    indicator child_border
@@ -144,6 +145,9 @@ bindsym $mod+Shift+Mod1+k move workspace to output up
 bindsym $mod+Shift+Mod1+j move workspace to output down
 bindsym $mod+Shift+Mod1+h move workspace to output left
 bindsym $mod+Shift+Mod1+l move workspace to output right
+
+# toggle border
+bindsym $mod+b border toggle
 
 # key binding to resize window (another way is $mod+right_mouse)
 mode "resize"
