@@ -3,7 +3,7 @@ set hlsearch
 set laststatus=2
 set number
 set autoindent
-set noexpandtab
+set expandtab
 set copyindent
 set preserveindent
 set softtabstop=0
