@@ -14,7 +14,7 @@ workspace_layout tabbed
 # exec --no-startup-id xbacklight -set 20
 
 # Open a small terminal at startup
-exec --no-startup-id urxvt -name urxvt_scratchpad --geometry 128x20
+exec --no-startup-id urxvt -name urxvt_scratchpad --geometry 156x20
 for_window [instance="urxvt_scratchpad"] floating enable; move scratchpad; scratchpad show;
 
 #################################################################
