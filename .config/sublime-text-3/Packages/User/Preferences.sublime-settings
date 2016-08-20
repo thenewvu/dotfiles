@@ -1,7 +1,6 @@
 {
 	"close_windows_when_empty": false,
 	"color_scheme": "Packages/Base16/themes/base16-google-light.tmTheme",
-	"draw_white_space": "all",
 	"ensure_newline_at_eof_on_save": true,
 	"folder_exclude_patterns":
 	[
