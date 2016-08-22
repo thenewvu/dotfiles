@@ -7,3 +7,5 @@
 	helper = cache --timeout 360000
 [gc]
 	autoDetach = false
+[pull]
+	rebase = true
