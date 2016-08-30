@@ -1,6 +1,10 @@
 {
+  "caret_extra_top": 2,
+  "caret_extra_bottom": 0,
+  "caret_extra_width": 6,
+	"caret_style": "solid",
 	"close_windows_when_empty": false,
-	"color_scheme": "Packages/Base16/themes/base16-google-light.tmTheme",
+	"color_scheme": "Packages/User/Summerfruit.tmTheme",
 	"ensure_newline_at_eof_on_save": true,
 	"folder_exclude_patterns":
 	[
@@ -11,7 +15,7 @@
 		"CVS",
 		"node_modules"
 	],
-	"font_face": "InputMonoCompressed Light",
+	"font_face": "InputMonoCompressed Medium",
 	"font_options":
 	[
 		"subpixel_antialias"
