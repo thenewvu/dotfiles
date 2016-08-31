@@ -58,7 +58,7 @@ rules:
 
   # Stylistic Issues
   # http://eslint.org/docs/rules/#stylistic-issues
-  comma-spacing: 2
+  comma-spacing: ["off"]
   eol-last: 2
   indent: ["off"]
   keyword-spacing: 2
