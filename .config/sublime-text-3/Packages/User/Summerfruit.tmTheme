@@ -133,7 +133,7 @@
 			<key>name</key>
 			<string>Support</string>
 			<key>scope</key>
-			<string>support</string>
+			<string>support.class.builtin</string>
 			<key>settings</key>
 			<dict>
 				<key>fontStyle</key>

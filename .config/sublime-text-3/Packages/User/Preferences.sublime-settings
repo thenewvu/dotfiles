@@ -3,6 +3,7 @@
 	"caret_style": "blink",
 	"close_windows_when_empty": false,
 	"color_scheme": "Packages/User/Summerfruit.tmTheme",
+	"draw_indent_guides": false,
 	"ensure_newline_at_eof_on_save": true,
 	"folder_exclude_patterns":
 	[
@@ -24,7 +25,6 @@
 	[
 		"Vintage"
 	],
-	"draw_indent_guides": false,
 	"line_padding_bottom": 0,
 	"line_padding_top": 0,
 	"remember_open_files": true,
