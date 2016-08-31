@@ -1,8 +1,6 @@
 {
-  "caret_extra_top": 2,
-  "caret_extra_bottom": 0,
-  "caret_extra_width": 6,
-	"caret_style": "solid",
+	"caret_extra_width": 2,
+	"caret_style": "blink",
 	"close_windows_when_empty": false,
 	"color_scheme": "Packages/User/Summerfruit.tmTheme",
 	"ensure_newline_at_eof_on_save": true,
@@ -26,11 +24,7 @@
 	[
 		"Vintage"
 	],
-	"indent_guide_options":
-	[
-		"draw_normal",
-		"draw_active"
-	],
+	"draw_indent_guides": false,
 	"line_padding_bottom": 0,
 	"line_padding_top": 0,
 	"remember_open_files": true,

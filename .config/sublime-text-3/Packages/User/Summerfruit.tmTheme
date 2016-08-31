@@ -14,7 +14,7 @@
 			<key>settings</key>
 			<dict>
 				<key>background</key>
-				<string>#fdfdfd</string>
+				<string>#ffffff</string>
 				<key>caret</key>
 				<string>#3971ED</string>
 				<key>foreground</key>
@@ -24,7 +24,7 @@
 				<key>lineHighlight</key>
 				<string>#FFFFFF0D</string>
 				<key>selection</key>
-				<string>#FFFFFF</string>
+				<string>#ffffff</string>
 				<key>selectionBorder</key>
 				<string>#3971ED</string>
 				<key>findHighlight</key>
@@ -63,7 +63,7 @@
 				<key>foreground</key>
 				<string>#C5C8C6</string>
 				<key>background</key>
-				<string>#FFFFFF</string>
+				<string>#ffffff</string>
 			</dict>
 		</dict>
 		<dict>
@@ -196,7 +196,7 @@
 			<key>name</key>
 			<string>[{()}]</string>
 			<key>scope</key>
-			<string>meta.brace</string>
+			<string>meta.brace,punctuation.definition.parameters</string>
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
