@@ -7,7 +7,6 @@ function fish_prompt
   set -l yellow f4c20d
   set -l red db3236
   set -l blue 4885ed
-  echo ''
   for i in (seq 4)
     seq (math $COLUMNS/16) | xargs -I -- echo -n (set_color $green)'━'
     seq (math $COLUMNS/16) | xargs -I -- echo -n (set_color $yellow)'━'
