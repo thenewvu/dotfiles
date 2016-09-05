@@ -7,11 +7,12 @@ function fish_prompt
   set -l yellow f4c20d
   set -l red db3236
   set -l blue 4885ed
-  for i in (seq 2)
-    seq (math $COLUMNS/8) | xargs -I -- echo -n (set_color $green)'━'
-    seq (math $COLUMNS/8) | xargs -I -- echo -n (set_color $yellow)'━'
-    seq (math $COLUMNS/8) | xargs -I -- echo -n (set_color $red)'━'
-    seq (math $COLUMNS/8) | xargs -I -- echo -n (set_color $blue)'━'
+  set -l colors $green $yellow $red $blue
+  for i in (seq 4)
+    seq (math $COLUMNS/16) | xargs -I -- echo -n (set_color $colors[(math (random)%(count $colors)+1)])'━'
+    seq (math $COLUMNS/16) | xargs -I -- echo -n (set_color $colors[(math (random)%(count $colors)+1)])'━'
+    seq (math $COLUMNS/16) | xargs -I -- echo -n (set_color $colors[(math (random)%(count $colors)+1)])'━'
+    seq (math $COLUMNS/16) | xargs -I -- echo -n (set_color $colors[(math (random)%(count $colors)+1)])'━'
   end
   echo ''
 
