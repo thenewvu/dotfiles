@@ -43,6 +43,9 @@ nnoremap E $
 nnoremap $ <nop>
 nnoremap ^ <nop>
 
+                                                                      " allow saving of files as sudo when I forgot to start vim using sudo.
+cmap w!! w !sudo tee > /dev/null %
+
                                                                       " start vundle
 set nocompatible
 filetype off
