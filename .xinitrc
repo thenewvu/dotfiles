@@ -52,4 +52,5 @@ fi
 # https://wiki.archlinux.org/index.php/Touchpad_Synaptics#Disable_trackpad_while_typing
 syndaemon -i 1 -t -k -d
 
+sh ~/.fehbg &
 exec i3

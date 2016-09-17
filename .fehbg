@@ -1,0 +1,2 @@
+#!/bin/sh
+feh --randomize --bg-fill --no-fehbg /home/vu/.wallpapers/*
