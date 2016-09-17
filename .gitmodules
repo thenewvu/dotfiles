@@ -1,10 +1,3 @@
-[submodule ".themes/Zukitre-git"]
-	path = .themes/Zukitre-git
-	url = git@github.com:lassekongo83/zuki-themes.git
 [submodule ".config/sublime-text-3/Packages/Base16"]
 	path = .config/sublime-text-3/Packages/Base16
 	url = git://github.com/chriskempson/base16-textmate.git
-[submodule ".themes/OS-X-El-Capitan-git"]
-	path = .themes/OS-X-El-Capitan-git
-	url = git@github.com:thenewvu/OS-X-El-Capitan.git
-  branch = add-margin-around-checkbutton-radiobutton
