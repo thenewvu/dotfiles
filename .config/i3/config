@@ -2,9 +2,10 @@
 ## Startup settings                                            ##
 #################################################################
 
-# change background color
-exec --no-startup-id xsetroot -solid "#FFFFFF"
+# set background color
+# exec --no-startup-id xsetroot -solid "#FFFFFF"
 
+# set dual monitor layout
 exec --no-startup-id xrandr --output eDP1 --mode 1366x768 --output HDMI1 --mode 1366x768 --above eDP1
 
 # default tabbed layout mode for new containers
@@ -14,7 +15,7 @@ workspace_layout tabbed
 # exec --no-startup-id xbacklight -set 20
 
 # Open a small terminal at startup
-exec --no-startup-id urxvt -name urxvt_scratchpad --geometry 209x40
+exec --no-startup-id urxvt -name urxvt_scratchpad --geometry 209x20
 for_window [instance="urxvt_scratchpad"] floating enable; move scratchpad; scratchpad show; border normal;
 
 #################################################################
