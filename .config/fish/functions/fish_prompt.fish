@@ -7,13 +7,10 @@ function fish_prompt
   set -l yellow f4c20d
   set -l red db3236
   set -l blue 4885ed
-  set -l colors $green $yellow $red $blue
-  for i in (seq 4)
-    seq (math $COLUMNS/16) | xargs -I -- echo -n (set_color $colors[(math (random)%(count $colors)+1)])'━'
-    seq (math $COLUMNS/16) | xargs -I -- echo -n (set_color $colors[(math (random)%(count $colors)+1)])'━'
-    seq (math $COLUMNS/16) | xargs -I -- echo -n (set_color $colors[(math (random)%(count $colors)+1)])'━'
-    seq (math $COLUMNS/16) | xargs -I -- echo -n (set_color $colors[(math (random)%(count $colors)+1)])'━'
-  end
+  seq (math $COLUMNS/4) | xargs -I -- echo -n (set_color $red)'━'
+  seq (math $COLUMNS/4) | xargs -I -- echo -n (set_color $yellow)'━'
+  seq (math $COLUMNS/4) | xargs -I -- echo -n (set_color $green)'━'
+  seq (math $COLUMNS-$COLUMNS/4-$COLUMNS/4-$COLUMNS/4) | xargs -I -- echo -n (set_color $blue)'━'
   echo ''
 
   echo -n (set_color $red)(whoami)(set_color $green)'@'(set_color $yellow)(hostname)':'

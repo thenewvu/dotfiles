@@ -13,7 +13,7 @@ URxvt.saveLines: 65535
 
 URxvt.scrollstyle: plain
 URxvt.scrollBar_right: true
-URxvt.scrollColor: #3971ED
+URxvt.scrollColor: #657B83
 
 URxvt.cursorUnderline: false
 URxvt.cursorBlink: true

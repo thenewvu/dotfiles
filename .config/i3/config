@@ -16,7 +16,7 @@ workspace_layout tabbed
 
 # Open a small terminal at startup
 exec --no-startup-id urxvt -name urxvt_scratchpad --geometry 209x20
-for_window [instance="urxvt_scratchpad"] floating enable; move scratchpad; scratchpad show; border normal;
+for_window [instance="urxvt_scratchpad"] floating enable; move scratchpad; scratchpad show; border 1px;
 
 #################################################################
 ## Behavior-related settings                                   ##
@@ -50,9 +50,9 @@ for_window [window_role="task_dialog"] border normal
 
 # window decorations
 # class                 border  backgr. text    indicator child_border
-client.focused          #3971ED #3971ED #ffffff #3971ED   #3971ED
-client.focused_inactive #888888 #888888 #ffffff #888888   #888888
-client.unfocused        #eeeeee #ffffff #373B41 #ffffff   #eeeeee
+client.focused          #657B83 #657B83 #ffffff #657B83   #657B83
+client.focused_inactive #93A1A1 #93A1A1 #ffffff #93A1A1   #93A1A1
+client.unfocused        #93A1A1 #93A1A1 #ffffff #93A1A1   #93A1A1
 client.urgent           #CC342B #CC342B #ffffff #CC342B   #CC342B
 client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 
