@@ -30,6 +30,7 @@ focus_follows_mouse no
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="task_dialog"] floating enable
 
+for_window [class="google-chrome" title="Floating for YouTube™" window_role="app"] floating enable
 
 #################################################################
 ## UI-related settings                                         ##
