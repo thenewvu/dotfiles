@@ -3,8 +3,8 @@ if not set -q LANG >/dev/null
   set -gx LANG en_US.UTF-8
 end
 
-# add global node module binary dir to PATH
-set -gx PATH /home/vu/.node_modules/bin $PATH
+# additional bin paths
+set -gx PATH /home/vu/.node_modules/bin /home/vu/.bin $PATH
 
 # start X at login
 if status --is-login
