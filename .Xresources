@@ -23,6 +23,18 @@ URxvt.scrollTtyOutput: false
 URxvt.scrollWithBuffer: true
 URxvt.scrollTtyKeypress: true
 
+URxvt.perl-ext-common:  default,tabbed,matcher,selection-to-clipboard
+
+URxvt.url-launcher: /usr/bin/xdg-open
+URxvt.matcher.button: 1
+URxvt.colorUL: 12
+
+URxvt.tabbed.tabbar-fg: 0
+URxvt.tabbed.tabbar-bg: 15
+URxvt.tabbed.tab-fg: 12
+URxvt.tabbed.tab-bg: 15
+
+
 ! Base16 Google
 ! Scheme: Seth Wright (http://sethawright.com)
 
