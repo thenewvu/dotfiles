@@ -16,7 +16,7 @@ workspace_layout tabbed
 
 # Open a small terminal at startup
 exec --no-startup-id urxvt -name urxvt_scratchpad --geometry 209x20
-for_window [instance="urxvt_scratchpad"] floating enable; move scratchpad; scratchpad show; border 1px;
+for_window [instance="urxvt_scratchpad"] floating enable, move scratchpad, scratchpad show, border 1px
 
 #################################################################
 ## Behavior-related settings                                   ##
@@ -30,7 +30,7 @@ focus_follows_mouse no
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="task_dialog"] floating enable
 
-for_window [class="google-chrome" title="Floating for YouTube™" window_role="app"] floating enable
+for_window [class="google-chrome" title="Floating for YouTube™" window_role="app"] floating enable, sticky enable
 
 #################################################################
 ## UI-related settings                                         ##
@@ -209,7 +209,7 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 3
 bindsym $mod+Print exec "import -window root ~/Downloads/Screenshot$(date +-%F-%H-%M-%S).png"
 
 # key binding to toggle scratchpad
-bindsym $mod+Shift+grave move scratchpad; scratchpad show;
+bindsym $mod+Shift+grave move scratchpad, scratchpad show
 bindsym Mod1+grave scratchpad show
 
 # i3 status bar settings
