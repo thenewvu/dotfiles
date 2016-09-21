@@ -27,6 +27,11 @@ URxvt.perl-ext-common:  default,tabbed,matcher,selection-to-clipboard,searchable
 
 URxvt.url-launcher: /usr/bin/xdg-open
 URxvt.matcher.button: 1
+URxvt.matcher.pattern.1:  \\bwww\\.[\\w-]+\\.[\\w./?&@#-]*[\\w/-]
+URxvt.matcher.pattern.2:  \\B(/\\S+?):(\\d+)(?=:|$)
+URxvt.matcher.pattern.3:  (^|\\s+)(/\\S+.\\S+)
+URxvt.matcher.launcher.2: subl3 $1:$2
+URxvt.matcher.launcher.3: subl3 $2
 URxvt.colorUL: 12
 
 URxvt.tabbed.tabbar-fg: 0
