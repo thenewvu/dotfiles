@@ -7,7 +7,7 @@ end
 set -gx PATH /home/vu/.node_modules/bin /home/vu/.bin $PATH
 
 # default editor
-set -gx VISUAL="vim"
+set -gx VISUAL "vim"
 
 # start X at login
 if status --is-login
