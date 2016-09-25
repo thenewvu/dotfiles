@@ -40,6 +40,11 @@ set foldnestmax=100 foldlevel=0
 " auto fold for javascript
 let javaScript_fold=1
 
+if executable('rg')
+  set grepprg=rg\ --no-heading\ --vimgrep
+  set grepformat=%f:%l:%c:%m
+endif
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " VISUAL SETTINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
