@@ -155,10 +155,10 @@ bindsym $mod+b border toggle
 mode "resize"
 {
         # same bindings, but for the arrow keys
-        bindsym Left            resize shrink   width   2  px or 2  ppt
-        bindsym Down            resize grow     height  2  px or 2  ppt
-        bindsym Up              resize shrink   height  2  px or 2  ppt
-        bindsym Right           resize grow     width   2  px or 2  ppt
+        bindsym Left            resize shrink   width   1  px or 1  ppt
+        bindsym Down            resize grow     height  1  px or 1  ppt
+        bindsym Up              resize shrink   height  1  px or 1  ppt
+        bindsym Right           resize grow     width   1  px or 1  ppt
         bindsym Mod1+Left       resize shrink   width   10 px or 10 ppt
         bindsym Mod1+Down       resize grow     height  10 px or 10 ppt
         bindsym Mod1+Up         resize shrink   height  10 px or 10 ppt
