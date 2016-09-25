@@ -1,67 +1,146 @@
-syntax enable                                                         " enable syntax processing
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" STARTUP SETTINGS
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" recognize *.md as markdown files
+autocmd BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
+
+" open a NERDTree automatically when vim starts up if no files were specified
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" BEHAVIOR SETTINGS
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" enable syntax processing
+syntax enable
+
+" disable swap file
 set noswapfile
+
+" enable mouse interactive
 set mouse=a
 
-set tabstop=2                                                         " number of visual spaces per TAB
-set softtabstop=2                                                     " number of spaces in tab when editing
-set expandtab                                                         " tabs are spaces
+" search ignore case by default
+set ignorecase
 
-set number                                                            " show line numbers
-set showcmd                                                           " show command in bottom bar
+" redraw only when we need to.
+set lazyredraw
+
+" search as characters are entered
+set incsearch
+
+" enable folding
+set foldenable
+" set fold method to `syntax`
+set foldmethod=syntax
+" only fold the first level
+set foldnestmax=100 foldlevel=0
+" auto fold for javascript
+let javaScript_fold=1
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" VISUAL SETTINGS
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" highlight the column at the cursor
+" set cursorcolumn
+
+" highlight the 80th column as a ruler
+set colorcolumn=80
+hi ColorColumn ctermbg=grey
+
+" number of visual spaces per TAB
+set tabstop=2
+" number of spaces in tab when editing
+set softtabstop=2
+" tabs are spaces
+set expandtab
+
+" show line numbers
+set number
+
+" show command in bottom bar
+set showcmd
+
+" show status bar by default
 set laststatus=2
 
-set wildmenu                                                          " visual autocomplete for command menu
-set lazyredraw                                                        " redraw only when we need to.
-set showmatch                                                         " highlight matching [{()}]
+" visual autocomplete for command menu
+set wildmenu
 
-set incsearch                                                         " search as characters are entered
-set hlsearch                                                          " highlight matches
-                                                                      " \space to turn off search highlight
-nnoremap <leader><space> :nohlsearch<CR>
+" highlight matching [{()}]
+set showmatch
 
-set textwidth=0
-set wrapmargin=0
+" highlight search matches
+set hlsearch
 
-set foldenable                                                        " enable folding
-set foldlevelstart=10                                                 " open most folds by default
-                                                                      " space to open/closes folds
-nnoremap <space> za
-set foldmethod=indent                                                 " fold based on indent level
+" wrap text at the 80th column
+set textwidth=80 wrapmargin=0
 
-                                                                      " visualize whitespaces
-set listchars=trail:·,tab:»\ 
+" decorate folds
+hi Folded ctermbg=white cterm=standout
+
+" set whitespace chars
+set listchars=trail:·,tab:»\i
+" display whitespaces
 set list
+" decorate whitespaces
 highlight SpecialKey ctermfg=7 guifg=gray
 
-                                                                      " move vertically by visual line
+" decorate foldtext
+let &foldtext = "EightHeaderFolds( '\\=s:fullwidth-2', 'left', [ repeat( '  ', v:foldlevel - 1 ), '.', '' ], '\\= s:foldlines . \" lines\"', '' )"
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" PLUGIN SETTINGS
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+call plug#begin('~/.vim/plugged')
+
+Plug 'terryma/vim-multiple-cursors'
+Plug 'scrooloose/nerdtree'
+Plug 'junegunn/vim-easy-align'
+Plug 'lilydjwg/colorizer'
+Plug 'pangloss/vim-javascript'
+Plug 'bimbalaszlo/vim-eightheader'
+
+" Add plugins to &runtimepath
+call plug#end()
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" KEY SETTINGS
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" move vertically by visual line
 nnoremap j gj
 nnoremap k gk
 
-                                                                      " move to beginning/end of line
+" move to beginning/end of line
 nnoremap B ^
 nnoremap E $
-
-                                                                      " $/^ doesn't do anything
+" $/^ doesn't do anything
 nnoremap $ <nop>
 nnoremap ^ <nop>
 
-                                                                      " allow saving of files as sudo when I forgot to start vim using sudo.
+" space to open/closes folds
+nnoremap <space> zMzv
+
+" <leader><space> to turn off search highlight
+nnoremap <leader><space> :nohlsearch<CR>
+
+" <ctrl><w> to close the current tab
+nnoremap <C-w> :q<CR>
+
+" <ctrl><t> to open some file in a new tab
+nnoremap <C-t> :tabedit 
+
+" allow saving of files as sudo
 cmap w!! w !sudo tee > /dev/null %
 
-                                                                      " start vundle
-set nocompatible
-filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+" <ctrl><b> to toggle NERDTree
+nnoremap <C-b> :NERDTreeToggle<CR>
 
-Plugin 'terryma/vim-multiple-cursors'
-Plugin 'scrooloose/nerdtree'
-Plugin 'ctrlpvim/ctrlp.vim'
-                                                                      " finish vundle
-call vundle#end()
-filetype plugin indent on
-
-                                                                      " fix *.md files are not recognized as markdown files
-autocmd BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
-
-map <C-b> :NERDTreeToggle<CR>
+" <ctrl><p> to fzf
+nnoremap <C-p> :FZF<CR>
