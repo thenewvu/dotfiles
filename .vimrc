@@ -42,8 +42,9 @@ if executable('rg')
   set grepformat=%f:%l:%c:%m
 endif
 
-" syntastic settings
-set statusline+=%#warningmsg#
+" syntastic settings]
+set statusline=%f\ [%l,%v][%p%%]
+set statusline+=%=\ 
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
