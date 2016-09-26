@@ -137,6 +137,8 @@ Plug 'lilydjwg/colorizer'
 Plug 'pangloss/vim-javascript'
 Plug 'bimbalaszlo/vim-eightheader'
 Plug 'scrooloose/syntastic'
+Plug 'tpope/vim-commentary'
+Plug 'raimondi/delimitmate'
 
 " Add plugins to &runtimepath
 call plug#end()
