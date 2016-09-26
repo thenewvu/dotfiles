@@ -144,6 +144,9 @@ nnoremap <C-w> :q<CR>
 " <ctrl><t> to open some file in a new tab
 nnoremap <C-t> :tabedit 
 
+" <ctrl><f> to search some text
+nnoremap <C-f> :grep -F 
+
 " allow saving of files as sudo
 cmap w!! w !sudo tee > /dev/null %
 
