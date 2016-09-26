@@ -56,6 +56,9 @@ endif
 set colorcolumn=80
 hi ColorColumn ctermbg=grey
 
+" style SignColumn
+hi SignColumn ctermbg=white ctermfg=0A
+
 " number of visual spaces per TAB
 set tabstop=2
 " number of spaces in tab when editing
