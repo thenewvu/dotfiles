@@ -1,13 +1,16 @@
 # fix locale issue in the recent fish version
 if not set -q LANG >/dev/null
-  set -gx LANG en_US.UTF-8
+  set LANG en_US.UTF-8
 end
 
 # additional bin paths
-set -gx PATH /home/vu/.node_modules/bin /home/vu/.bin $PATH
+set PATH /home/vu/.node_modules/bin /home/vu/.bin $PATH
 
 # default editor
-set -gx VISUAL "vim"
+set VISUAL "vim"
+
+# set custom search tool for FZF
+set FZF_CTRL_T_COMMAND "rg --hidden --files -g \"!**/.git\" -g \"!node_modules\""
 
 # start X at login
 if status --is-login
