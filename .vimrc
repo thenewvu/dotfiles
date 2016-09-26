@@ -72,8 +72,8 @@ highlight link SyntasticStyleWarningSign SignColumn
 " highlight the column at the cursor
 " set cursorcolumn
 
-" highlight the 80th column as a ruler
-set colorcolumn=80
+" highlight the 100th column as a ruler
+set colorcolumn=100
 hi ColorColumn ctermbg=grey
 
 " style SignColumn
@@ -106,8 +106,8 @@ set showmatch
 " highlight search matches
 set hlsearch
 
-" wrap text at the 80th column
-set textwidth=80 wrapmargin=0
+" wrap text at the 100th column
+set textwidth=100 wrapmargin=0
 
 " decorate folds
 hi Folded ctermbg=white cterm=standout
