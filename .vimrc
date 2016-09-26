@@ -116,10 +116,8 @@ set textwidth=100 wrapmargin=0
 " decorate folds
 hi Folded ctermbg=white cterm=standout
 
-" set whitespace chars
-set listchars=trail:·,tab:»\i
-" display whitespaces
-set list
+" display whitespace chars
+set list listchars=trail:·,tab:»\ 
 " decorate whitespaces
 highlight SpecialKey ctermfg=7 guifg=gray
 
