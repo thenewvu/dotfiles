@@ -15,6 +15,9 @@ syntax enable
 " disable swap file
 set noswapfile
 
+" set maximum of tabs
+set tabpagemax=5
+
 " enable mouse interactive
 set mouse=a
 
