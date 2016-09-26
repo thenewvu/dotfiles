@@ -55,10 +55,10 @@ let g:syntastic_check_on_wq = 1
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_javascript_eslint_exe = 'eslint -c ~/.eslint/config.yaml'
 
-let g:syntastic_error_symbol = '❌'
-let g:syntastic_style_error_symbol = '⁉️'
-let g:syntastic_warning_symbol = '⚠️'
-let g:syntastic_style_warning_symbol = '💩'
+let g:syntastic_error_symbol = ''
+let g:syntastic_style_error_symbol = ''
+let g:syntastic_warning_symbol = ''
+let g:syntastic_style_warning_symbol = ''
 
 highlight link SyntasticErrorSign SignColumn
 highlight link SyntasticWarningSign SignColumn
@@ -77,7 +77,7 @@ set colorcolumn=100
 hi ColorColumn ctermbg=grey
 
 " style SignColumn
-hi SignColumn ctermbg=white ctermfg=0A
+hi SignColumn ctermbg=yellow ctermfg=white
 
 " number of visual spaces per TAB
 set tabstop=2
