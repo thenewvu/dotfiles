@@ -83,6 +83,8 @@ hi SignColumn ctermbg=white ctermfg=0A
 set tabstop=2
 " number of spaces in tab when editing
 set softtabstop=2
+" set indent size
+set shiftwidth=2
 " tabs are spaces
 set expandtab
 
