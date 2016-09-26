@@ -155,3 +155,10 @@ nnoremap <C-b> :NERDTreeToggle<CR>
 
 " <ctrl><p> to fzf
 nnoremap <C-p> :FZF<CR>
+
+" <ctrl><jklh> to navigate to splits
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
