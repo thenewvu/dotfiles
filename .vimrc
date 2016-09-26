@@ -64,7 +64,7 @@ set softtabstop=2
 set expandtab
 
 " show line numbers
-set number
+" set number
 
 " show command in bottom bar
 set showcmd
