@@ -40,10 +40,34 @@ set foldnestmax=100 foldlevel=0
 " auto fold for javascript
 let javaScript_fold=1
 
+" use ripgrep to search if available
 if executable('rg')
   set grepprg=rg\ --no-heading\ --vimgrep
   set grepformat=%f:%l:%c:%m
 endif
+
+" syntastic settings
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_loc_list_height = 5
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 1
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_javascript_eslint_exe = 'eslint -c ~/.eslint/config.yaml'
+
+let g:syntastic_error_symbol = '❌'
+let g:syntastic_style_error_symbol = '⁉️'
+let g:syntastic_warning_symbol = '⚠️'
+let g:syntastic_style_warning_symbol = '💩'
+
+highlight link SyntasticErrorSign SignColumn
+highlight link SyntasticWarningSign SignColumn
+highlight link SyntasticStyleErrorSign SignColumn
+highlight link SyntasticStyleWarningSign SignColumn
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " VISUAL SETTINGS
@@ -113,6 +137,7 @@ Plug 'junegunn/vim-easy-align'
 Plug 'lilydjwg/colorizer'
 Plug 'pangloss/vim-javascript'
 Plug 'bimbalaszlo/vim-eightheader'
+Plug 'scrooloose/syntastic'
 
 " Add plugins to &runtimepath
 call plug#end()
