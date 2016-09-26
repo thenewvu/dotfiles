@@ -141,6 +141,8 @@ Plug 'scrooloose/syntastic'
 Plug 'tpope/vim-commentary'
 Plug 'raimondi/delimitmate'
 Plug 'romgrk/winteract.vim'
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
 
 " Add plugins to &runtimepath
 call plug#end()
