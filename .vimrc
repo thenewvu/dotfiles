@@ -140,6 +140,7 @@ Plug 'bimbalaszlo/vim-eightheader'
 Plug 'scrooloose/syntastic'
 Plug 'tpope/vim-commentary'
 Plug 'raimondi/delimitmate'
+Plug 'romgrk/winteract.vim'
 
 " Add plugins to &runtimepath
 call plug#end()
@@ -193,3 +194,6 @@ nnoremap <C-H> <C-W><C-H>
 xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
+
+" Start interactive window
+nmap gw :InteractiveWindow<CR>
