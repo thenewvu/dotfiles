@@ -12,6 +12,12 @@ autocmd BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
 " enable syntax processing
 syntax enable
 
+" make backspace work like most other apps
+set backspace=indent,eol,start
+
+" fix delete key doesn't work as expected
+:fixdel
+
 " disable swap file
 set noswapfile
 
@@ -45,7 +51,7 @@ if executable('rg')
   set grepformat=%f:%l:%c:%m
 endif
 
-" syntastic settings]
+" syntastic settings
 set statusline=%f
 set statusline+=%=\ 
 set statusline+=%{SyntasticStatuslineFlag()}[%l,%v][%p%%]
@@ -68,6 +74,16 @@ highlight link SyntasticErrorSign SignColumn
 highlight link SyntasticWarningSign SignColumn
 highlight link SyntasticStyleErrorSign SignColumn
 highlight link SyntasticStyleWarningSign SignColumn
+
+" fzf settings
+" jump to the existing window/tab if possible
+let g:fzf_buffers_jump = 1
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab drop',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit' }
+
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " VISUAL SETTINGS
@@ -191,7 +207,7 @@ nnoremap <leader><space> :nohlsearch<CR>
 nnoremap <C-w> :q<CR>
 
 " <ctrl><t> to open some file in a new tab
-nnoremap <C-t> :tabedit 
+nnoremap <C-t> :tab drop 
 
 " <ctrl><f> to search some text
 nnoremap <C-f> :grep -F 
