@@ -154,7 +154,7 @@ fu! CustomFoldText()
   let foldSize = 1 + v:foldend - v:foldstart
   let foldSizeStr = " " . foldSize . " lines "
   let lineCount = line("$")
-  let foldPercentage = printf("[%.1f", (foldSize*1.0)/lineCount*100) . "%] "
+  let foldPercentage = printf("[%4.1f", (foldSize*1.0)/lineCount*100) . "%] "
   let expansionString = repeat(".", w - strwidth(foldSizeStr.line.foldPercentage))
   return line . expansionString . foldSizeStr . foldPercentage
 endf
