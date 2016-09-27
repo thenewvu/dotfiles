@@ -77,8 +77,8 @@ highlight link SyntasticStyleWarningSign SignColumn
 " set cursorcolumn
 
 " highlight the 100th column as a ruler
-set colorcolumn=100
-hi ColorColumn ctermbg=grey
+" set colorcolumn=100
+" hi ColorColumn ctermbg=grey
 
 " style SignColumn
 hi SignColumn ctermbg=yellow ctermfg=white
