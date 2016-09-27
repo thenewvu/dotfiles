@@ -122,8 +122,29 @@ set list listchars=trail:·,tab:»\
 highlight SpecialKey ctermfg=7 guifg=gray
 
 " decorate foldtext
-let &foldtext = "EightHeaderFolds( '\\=s:fullwidth-2', 'left', [ repeat( '  ', v:foldlevel - 1 ), '.', '' ], '\\= s:foldlines . \" lines\"', '' )"
+" ref: http://www.gregsexton.org/2011/03/improving-the-text-displayed-in-a-fold/
+fu! CustomFoldText()
+  "get first non-blank line
+  let fs = v:foldstart
+  while getline(fs) =~ '^\s*$' | let fs = nextnonblank(fs + 1)
+  endwhile
+  if fs > v:foldend
+    let line = getline(v:foldstart)
+  else
+    let line = substitute(getline(fs), '\t', repeat(' ', &tabstop), 'g')
+  endif
 
+  let w = winwidth(0) - &foldcolumn - (&number ? 8 : 0)
+  let foldSize = 1 + v:foldend - v:foldstart
+  let foldSizeStr = " " . foldSize . " lines "
+  let foldLevelStr = repeat("+--", v:foldlevel - 1)
+  let lineCount = line("$")
+  let foldPercentage = printf("[%.1f", (foldSize*1.0)/lineCount*100) . "%] "
+  let expansionString = repeat(".", w - strwidth(foldSizeStr.line.foldLevelStr.foldPercentage))
+  return line . expansionString . foldSizeStr . foldPercentage . foldLevelStr
+endf
+" custom fold text function (cleaner than default)
+set foldtext=CustomFoldText()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PLUGIN SETTINGS
@@ -136,7 +157,6 @@ Plug 'scrooloose/nerdtree'
 Plug 'junegunn/vim-easy-align'
 Plug 'lilydjwg/colorizer'
 Plug 'pangloss/vim-javascript'
-Plug 'bimbalaszlo/vim-eightheader'
 Plug 'scrooloose/syntastic'
 Plug 'tpope/vim-commentary'
 Plug 'raimondi/delimitmate'
