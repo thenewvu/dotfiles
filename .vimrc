@@ -46,9 +46,9 @@ if executable('rg')
 endif
 
 " syntastic settings]
-set statusline=%f\ [%l,%v][%p%%]
+set statusline=%f
 set statusline+=%=\ 
-set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%{SyntasticStatuslineFlag()}[%l,%v][%p%%]
 set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 1
