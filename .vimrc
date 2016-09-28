@@ -34,7 +34,8 @@ set mouse=a
 set ignorecase
 
 " redraw only when we need to.
-" set lazyredraw
+set lazyredraw
+set ttyfast
 
 " search as characters are entered
 set incsearch
