@@ -14,6 +14,7 @@ URxvt.boldItalicFont: xft:InputMonoNarrow:pixelsize=10:style:Medium
 URxvt.letterSpace: -2
 URxvt.saveLines: 65535
 
+URxvt.scrollBar: false
 URxvt.scrollstyle: plain
 URxvt.scrollBar_right: true
 URxvt.scrollColor: #657B83
@@ -27,7 +28,7 @@ URxvt.scrollWithBuffer: true
 URxvt.scrollTtyKeypress: true
 
 URxvt.cutchars: ()*,<>[]{}|`""''
-URxvt.perl-ext-common: default,tabbed,matcher,selection-to-clipboard,searchable-scrollback
+URxvt.perl-ext-common: default,tabbedex,matcher,selection-to-clipboard,searchable-scrollback
 
 URxvt.url-launcher: /usr/bin/xdg-open
 URxvt.matcher.button: 1
@@ -38,6 +39,12 @@ URxvt.matcher.pattern.3: \\bhttps?:\/\/[\\w-.]*\/[\\w./?&@#-]*.(jpg|jpeg|png|web
 URxvt.matcher.launcher.3: feh $0
 URxvt.colorUL: 12
 
+URxvt.tabbed.autohide: true
+URxvt.tabbed.transparent:false
+URxvt.tabbed.new-button:false
+URxvt.tabbed.title:true
+URxvt.tabbed.title-fg:12
+URxvt.tabbed.title-bg:15
 URxvt.tabbed.tabbar-fg: 0
 URxvt.tabbed.tabbar-bg: 15
 URxvt.tabbed.tab-fg: 12
