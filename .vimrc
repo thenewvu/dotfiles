@@ -83,8 +83,6 @@ let g:fzf_action = {
   \ 'ctrl-x': 'split',
   \ 'ctrl-v': 'vsplit' }
 
-
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " VISUAL SETTINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -179,6 +177,7 @@ Plug 'romgrk/winteract.vim'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'bkad/CamelCaseMotion'
+Plug 'mhinz/vim-grepper'
 
 " Add plugins to &runtimepath
 call plug#end()
@@ -210,9 +209,6 @@ nnoremap <C-w> :q<CR>
 " <ctrl><t> to open some file in a new tab
 nnoremap <C-t> :tab drop 
 
-" <ctrl><f> to search some text
-nnoremap <C-f> :grep -F 
-
 " allow saving of files as sudo
 cmap w!! w !sudo tee > /dev/null %
 
@@ -242,3 +238,8 @@ map <silent> b <Plug>CamelCaseMotion_b
 map <silent> e <Plug>CamelCaseMotion_e
 map <silent> ge <Plug>CamelCaseMotion_ge
 
+" <ctrl><f> to :Grepper
+nnoremap <C-f> :Grepper<cr>
+" <g><s> to use Grepper
+nmap gs <plug>(GrepperOperator)
+xmap gs <plug>(GrepperOperator)
