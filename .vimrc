@@ -178,6 +178,7 @@ Plug 'raimondi/delimitmate'
 Plug 'romgrk/winteract.vim'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
+Plug 'bkad/CamelCaseMotion'
 
 " Add plugins to &runtimepath
 call plug#end()
@@ -234,3 +235,10 @@ nmap ga <Plug>(EasyAlign)
 
 " Start interactive window
 nmap gw :InteractiveWindow<CR>
+
+" Overwrite, w,b,e,ge by CamelCaseMotion
+map <silent> w <Plug>CamelCaseMotion_w
+map <silent> b <Plug>CamelCaseMotion_b
+map <silent> e <Plug>CamelCaseMotion_e
+map <silent> ge <Plug>CamelCaseMotion_ge
+
