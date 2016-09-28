@@ -240,6 +240,4 @@ nmap gw :InteractiveWindow<CR>
 
 " <ctrl><f> to :Grepper
 nnoremap <C-f> :Grepper<cr>
-" <g><s> to use Grepper
-nmap gs <plug>(GrepperOperator)
-xmap gs <plug>(GrepperOperator)
+
