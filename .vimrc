@@ -12,6 +12,9 @@ autocmd BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
 " enable syntax processing
 syntax enable
 
+" enable auto-indenting when pasting by default
+set paste
+
 " make backspace work like most other apps
 set backspace=indent,eol,start
 
@@ -185,6 +188,9 @@ call plug#end()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " KEY SETTINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" <f2> to toggle paste mode
+set pastetoggle=<F2>
 
 " move vertically by visual line
 nnoremap j gj
