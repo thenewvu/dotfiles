@@ -33,10 +33,8 @@ URxvt.perl-ext-common: default,tabbedex,matcher,selection-to-clipboard,searchabl
 URxvt.url-launcher: /usr/bin/xdg-open
 URxvt.matcher.button: 1
 URxvt.matcher.pattern.1: \\bwww\\.[\\w-]+\\.[\\w./?&@#-]*[\\w/-]
-URxvt.matcher.pattern.2: \\B(/\\S+?):(\\d+)(?=:|$)
-URxvt.matcher.launcher.2: subl3 $1:$2
-URxvt.matcher.pattern.3: \\bhttps?:\/\/[\\w-.]*\/[\\w./?&@#-]*.(jpg|jpeg|png|webp)
-URxvt.matcher.launcher.3: feh $0
+URxvt.matcher.pattern.2: \\bhttps?:\/\/[\\w-.]*\/[\\w./?&@#-]*.(jpg|jpeg|png|webp)
+URxvt.matcher.launcher.2: feh $0
 URxvt.colorUL: 12
 
 URxvt.tabbed.autohide: true
