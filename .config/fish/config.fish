@@ -10,7 +10,7 @@ set PATH /home/vu/.node_modules/bin /home/vu/.bin $PATH
 set VISUAL "vim"
 
 # set custom search tool for FZF
-set FZF_CTRL_T_COMMAND "rg --hidden --files -g \"!**/.git\" -g \"!node_modules\""
+set FZF_CTRL_T_COMMAND 'rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 
 # disable fish greeting
 set fish_greeting ""
