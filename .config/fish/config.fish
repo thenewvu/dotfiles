@@ -12,6 +12,9 @@ set VISUAL "vim"
 # set custom search tool for FZF
 set FZF_CTRL_T_COMMAND "rg --hidden --files -g \"!**/.git\" -g \"!node_modules\""
 
+# disable fish greeting
+set fish_greeting ""
+
 # start X at login
 if status --is-login
   if test -z "$DISPLAY" -a "$XDG_VTNR" -eq "1"
