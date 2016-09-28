@@ -87,6 +87,11 @@ let g:fzf_action = {
   \ 'ctrl-x': 'split',
   \ 'ctrl-v': 'vsplit' }
 
+" vimfiler settings
+let g:vimfiler_as_default_explorer = 1
+let g:vimfiler_safe_mode_by_default = 0
+let g:vimfiler_enable_auto_cd = 1
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " VISUAL SETTINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -170,7 +175,6 @@ set foldtext=CustomFoldText()
 call plug#begin('~/.vim/plugged')
 
 Plug 'terryma/vim-multiple-cursors'
-Plug 'scrooloose/nerdtree'
 Plug 'junegunn/vim-easy-align'
 Plug 'lilydjwg/colorizer'
 Plug 'pangloss/vim-javascript'
@@ -182,6 +186,8 @@ Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'mhinz/vim-grepper'
 Plug 'chaoren/vim-wordmotion'
+Plug 'Shougo/unite.vim'
+Plug 'haya14busa/vimfiler.vim'
 
 " Add plugins to &runtimepath
 call plug#end()
@@ -219,8 +225,8 @@ nnoremap <C-t> :tab drop
 " allow saving of files as sudo
 cmap w!! w !sudo tee > /dev/null %
 
-" <ctrl><b> to toggle NERDTree
-nnoremap <C-b> :NERDTreeToggle<CR>
+" <ctrl><b> to toggle file explorer 
+nnoremap <C-b> :VimFilerExplorer<CR>
 
 " <ctrl><p> to fzf
 nnoremap <C-p> :FZF<CR>
