@@ -13,7 +13,7 @@ autocmd BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
 syntax enable
 
 " enable auto-indenting when pasting by default
-set paste
+" set paste
 
 " make backspace work like most other apps
 set backspace=indent,eol,start
@@ -180,7 +180,7 @@ Plug 'lilydjwg/colorizer'
 Plug 'pangloss/vim-javascript'
 Plug 'scrooloose/syntastic'
 Plug 'tpope/vim-commentary'
-Plug 'raimondi/delimitmate'
+Plug 'jiangmiao/auto-pairs'
 Plug 'romgrk/winteract.vim'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
@@ -247,4 +247,3 @@ nmap gw :InteractiveWindow<CR>
 
 " <ctrl><f> to :Grepper
 nnoremap <C-f> :Grepper<cr>
-
