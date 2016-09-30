@@ -1,11 +1,34 @@
 [user]
-	name = Vu Le
-	email = thenewvu@gmail.com
+  name = Vu Le
+  email = thenewvu@gmail.com
 [core]
-	editor = vim
+  editor = vim
 [credential]
-	helper = cache --timeout 360000
+  helper = cache --timeout 360000
 [gc]
-	autoDetach = false
+  autoDetach = false
 [pull]
-	rebase = true
+  rebase = true
+[alias]
+  ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
+  ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
+  fl = log -u
+  d = diff
+  dc = diff --cached
+  dr = "!f() { git diff "$1"^.."$1"; }; f"
+  done = "!f() { git branch | grep "$1" | cut -c 3- | grep -v done | xargs -I{} git branch -m {} done-{}; }; f"
+  assume = update-index --assume-unchanged
+  unassume = update-index --no-assume-unchanged
+  assumed = "!git ls-files -v | grep ^h | cut -c 3-"
+  unassumeall = "!git assumed | xargs git update-index --no-assume-unchanged"
+  assumeall = "!git st -s | awk {'print $2'} | xargs git assume"
+  lt = describe --tags --abbrev=0
+  ours = "!f() { git co --ours $@ && git add $@; }; f"
+  theirs = "!f() { git co --theirs $@ && git add $@; }; f"
+  st = status -s
+  ci = commit -m
+  ca = commit --amend -m
+  cl = clone
+  sl = stash list
+  sa = stash apply
+  ss = stash save
