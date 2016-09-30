@@ -4,3 +4,6 @@
 [submodule ".bin/pacman-utils"]
 	path = .bin/pacman-utils
 	url = git@github.com:whatevsz/pacman-utils.git
+[submodule ".config/inkscape/symbols/inkscape-open-symbols"]
+	path = .config/inkscape/symbols/inkscape-open-symbols
+	url = git@github.com:Xaviju/inkscape-open-symbols.git
