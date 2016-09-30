@@ -1,4 +1,4 @@
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " STARTUP SETTINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -31,7 +31,10 @@ set tabpagemax=5
 set mouse=a
 
 " search ignore case by default
-set ignorecase
+" set ignorecase
+
+" search with smart case
+set smartcase
 
 " redraw only when we need to.
 set lazyredraw
