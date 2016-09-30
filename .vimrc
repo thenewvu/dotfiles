@@ -209,9 +209,13 @@ nnoremap k gk
 " move to beginning/end of line
 nnoremap B ^
 nnoremap E $
+
 " $/^ doesn't do anything
-nnoremap $ <nop>
-nnoremap ^ <nop>
+" nnoremap $ <nop>
+" nnoremap ^ <nop>
+
+" <ctr><q> works as <ctrl><y> to scroll buffer up
+nnoremap <C-q> <C-y>
 
 " space to open/closes folds
 nnoremap <space> zMzv
