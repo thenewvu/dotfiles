@@ -222,6 +222,9 @@ nnoremap E $
 " <ctr><q> works as <ctrl><y> to scroll buffer up
 nnoremap <C-q> <C-y>
 
+" make <o> just like <i>
+nnoremap o i
+
 " space to open/closes folds
 nnoremap <space> zMzv
 
