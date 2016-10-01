@@ -49,3 +49,4 @@ logs/
 .gksu.lock
 .docker/
 .standard-cache/
+.docker/
