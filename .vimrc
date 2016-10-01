@@ -145,6 +145,8 @@ set showmatch
 set hlsearch
 
 " wrap text at the 100th column
+set wrap
+set linebreak
 set textwidth=100 wrapmargin=0
 
 " decorate folds
