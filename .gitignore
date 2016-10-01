@@ -48,3 +48,4 @@ logs/
 /.CLion2016.2/
 .gksu.lock
 .docker/
+.standard-cache/

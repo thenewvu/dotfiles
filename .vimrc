@@ -1,9 +1,12 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" STARTUP SETTINGS
+" AUTOCMD SETTINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " recognize *.md as markdown files
 autocmd BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
+
+" format js files on save using standard-format
+autocmd bufwritepost *.js silent !standard-format -w %
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " BEHAVIOR SETTINGS
@@ -14,6 +17,9 @@ syntax enable
 
 " enable auto-indenting when pasting by default
 " set paste
+
+" autoreload when files are changed outside of vim
+set autoread
 
 " make backspace work like most other apps
 set backspace=indent,eol,start
@@ -69,13 +75,12 @@ let g:syntastic_loc_list_height = 5
 let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 1
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_javascript_eslint_exe = 'eslint -c ~/.eslint/config.yaml'
+let g:syntastic_javascript_checkers = ['standard']
 
-let g:syntastic_error_symbol = ''
-let g:syntastic_style_error_symbol = ''
-let g:syntastic_warning_symbol = ''
-let g:syntastic_style_warning_symbol = ''
+let g:syntastic_error_symbol = 'EE'
+let g:syntastic_style_error_symbol = 'SE'
+let g:syntastic_warning_symbol = 'WW'
+let g:syntastic_style_warning_symbol = 'SW'
 
 highlight link SyntasticErrorSign SignColumn
 highlight link SyntasticWarningSign SignColumn
