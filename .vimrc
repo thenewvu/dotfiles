@@ -95,6 +95,9 @@ let g:vimfiler_as_default_explorer = 1
 let g:vimfiler_safe_mode_by_default = 0
 let g:vimfiler_enable_auto_cd = 1
 
+" vim-markdown settings
+let g:vim_markdown_folding_disabled = 1
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " VISUAL SETTINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -191,6 +194,8 @@ Plug 'mhinz/vim-grepper'
 Plug 'chaoren/vim-wordmotion'
 Plug 'Shougo/unite.vim'
 Plug 'haya14busa/vimfiler.vim'
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
 
 " Add plugins to &runtimepath
 call plug#end()
