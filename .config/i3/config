@@ -172,7 +172,7 @@ mode "resize"
 bindsym $mod+Shift+q kill
 
 # key binding to start program launcher
-bindsym $mod+Tab exec dmenu_run -fn 'ImputMonoCompressed:size=10:style:Regular' -nb '#FFFFFF' -nf '#373B41' -sb '#FFFFFF' -sf '#3971ED'
+bindsym $mod+Tab exec dmenu_run -fn 'Inconsolata:size=10:style:Medium' -nb '#FFFFFF' -nf '#373B41' -sb '#FFFFFF' -sf '#3971ED'
 
 # key binding to enter "resize" mode
 bindsym $mod+r mode "resize"
