@@ -6,10 +6,10 @@ Xft.hinting: 1
 Xft.antialias: 1
 Xft.rgba: rgb
 
-URxvt.font: xft:InputMonoNarrow:pixelsize=10:style:Regular
-URxvt.boldFont: xft:InputMonoNarrow:pixelsize=10:style:Regular
-URxvt.italicFont: xft:InputMonoNarrow:pixelsize=10:style:Regular
-URxvt.boldItalicFont: xft:InputMonoNarrow:pixelsize=10:style:Regular
+URxvt.font: xft:Inconsolata:size=8:style:Medium
+URxvt.boldFont: xft:Inconsolata:size=8:style:Medium
+URxvt.italicFont: xft:Inconsolata:size=8:style:Medium
+URxvt.boldItalicFont: xft:Inconsolata:size=8:style:Medium
 
 URxvt.letterSpace: -2
 URxvt.saveLines: 65535
@@ -20,7 +20,7 @@ URxvt.scrollBar_right: true
 URxvt.scrollColor: #657B83
 
 URxvt.cursorUnderline: false
-URxvt.cursorBlink: true
+URxvt.cursorBlink: false
 URxvt.cursorColor: #3971ED
 
 URxvt.scrollTtyOutput: false
