@@ -24,7 +24,7 @@
 .subversion/
 .viminfo
 .wicd/
-.node_modules/
+.node-modules/
 Downloads/
 logs/
 /.node_repl_history
