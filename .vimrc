@@ -129,6 +129,7 @@ set expandtab
 " show relative line numbers
 set relativenumber
 hi LineNr ctermfg=7 ctermbg=white
+hi CursorLineNr ctermfg=7 ctermbg=white
 
 " show command in bottom bar
 set showcmd
