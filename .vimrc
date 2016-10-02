@@ -46,6 +46,10 @@ set smartcase
 set lazyredraw
 set ttyfast
 
+" to make <alt> mapping works on URxvt
+" ref: http://vim.wikia.com/wiki/Get_Alt_key_to_work_in_terminal
+set termencoding=latin1
+
 " search as characters are entered
 set incsearch
 
