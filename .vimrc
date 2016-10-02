@@ -1,19 +1,12 @@
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" AUTOCMD SETTINGS
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" recognize *.md as markdown files
-autocmd BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
-
-" format js files on save using standard-format
-autocmd bufwritepost *.js silent !standard-format -w %
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " BEHAVIOR SETTINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " enable syntax processing
 syntax enable
+
+" recognize *.md as markdown files
+autocmd BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
 
 " enable auto-indenting when pasting by default
 " set paste
@@ -42,7 +35,7 @@ set mouse=a
 " search with smart case
 set smartcase
 
-" redraw only when we need to.
+" optimize rendering
 set lazyredraw
 set ttyfast
 
@@ -71,16 +64,18 @@ set statusline+=%{SyntasticStatuslineFlag()}[%l,%v][%p%%]
 set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_loc_list_height = 5
-let g:syntastic_auto_loc_list = 0
+let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 1
+let g:syntastic_full_redraws=1
 let g:syntastic_javascript_checkers = ['standard']
+autocmd bufwritepost *.js silent !standard --fix %
+autocmd bufwritepost *.js redraw!
 
-let g:syntastic_error_symbol = 'EE'
-let g:syntastic_style_error_symbol = 'SE'
-let g:syntastic_warning_symbol = 'WW'
-let g:syntastic_style_warning_symbol = 'SW'
+let g:syntastic_error_symbol = '>>'
+let g:syntastic_style_error_symbol = 'S>'
+let g:syntastic_warning_symbol = '>>'
+let g:syntastic_style_warning_symbol = 'S>'
 
 highlight link SyntasticErrorSign SignColumn
 highlight link SyntasticWarningSign SignColumn
