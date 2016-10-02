@@ -130,8 +130,9 @@ set shiftwidth=2
 " tabs are spaces
 set expandtab
 
-" show line numbers
-" set number
+" show relative line numbers
+set relativenumber
+hi LineNr ctermfg=7 ctermbg=white
 
 " show command in bottom bar
 set showcmd
