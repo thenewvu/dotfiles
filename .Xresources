@@ -33,7 +33,7 @@ URxvt.cutchars: ()*,<>[]{}|`""''
 URxvt.perl-ext-common: default,tabbedex,matcher,selection-to-clipboard,searchable-scrollback
 
 URxvt.url-launcher: /usr/bin/xdg-open
-URxvt.matcher.button: 1
+URxvt.matcher.button: 3
 URxvt.matcher.pattern.1: \\bwww\\.[\\w-]+\\.[\\w./?&@#-]*[\\w/-]
 URxvt.matcher.pattern.2: \\bhttps?:\/\/[\\w-.]*\/[\\w./?&@#-]*.(jpg|jpeg|png|webp)
 URxvt.matcher.launcher.2: feh $0
