@@ -69,8 +69,13 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 1
 let g:syntastic_full_redraws=1
 let g:syntastic_javascript_checkers = ['standard']
-autocmd bufwritepost *.js silent !standard --fix %
-autocmd bufwritepost *.js redraw!
+
+" ref: http://learnvimscriptthehardway.stevelosh.com/chapters/14.html
+:augroup standardjs
+: autocmd!
+: autocmd BufWritePost *.js silent !standard --fix %
+: autocmd BufWritePost *.js redraw!
+:augroup END
 
 let g:syntastic_error_symbol = '>>'
 let g:syntastic_style_error_symbol = 'S>'
