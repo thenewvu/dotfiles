@@ -11,8 +11,6 @@ URxvt.boldFont: xft:Inconsolata:size=8:style:Medium
 URxvt.italicFont: xft:Inconsolata:size=8:style:Medium
 URxvt.boldItalicFont: xft:Inconsolata:size=8:style:Medium
 
-URxvt.meta8: true
-
 URxvt.letterSpace: -2
 URxvt.saveLines: 65535
 
