@@ -4,7 +4,7 @@ if not set -q LANG >/dev/null
 end
 
 # additional bin paths
-set PATH /home/vu/.node_modules/bin /home/vu/.bin $PATH
+set PATH /home/vu/.node-modules/bin /home/vu/.bin $PATH
 
 # default editor
 set VISUAL "vim"
