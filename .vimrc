@@ -110,7 +110,24 @@ let g:vim_markdown_folding_disabled = 1
 " hi ColorColumn ctermbg=grey
 
 " style SignColumn
-hi SignColumn ctermbg=yellow ctermfg=white
+hi SignColumn ctermbg=white ctermfg=yellow
+
+" custom syntastic error highlight
+hi SpellBad ctermfg=yellow ctermbg=white
+hi SpellCap ctermfg=yellow ctermbg=white
+
+" custom search highlight
+hi Search ctermfg=15 ctermbg=3
+
+" custom tab bar color
+hi TabLineFill ctermfg=white ctermbg=grey cterm=none
+hi TabLine ctermfg=white ctermbg=grey cterm=none
+hi TabLineSel ctermfg=white ctermbg=grey cterm=standout
+hi Title ctermfg=white ctermbg=grey cterm=none
+
+" custom status line color
+hi StatusLine ctermfg=white ctermbg=grey cterm=none
+hi StatusLineNC ctermfg=white ctermbg=grey cterm=none
 
 " number of visual spaces per TAB
 set tabstop=2
