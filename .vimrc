@@ -5,6 +5,9 @@
 " enable syntax processing
 syntax enable
 
+" use the system clipboard
+set clipboard^=unnamedplus,unnamed
+
 " recognize *.md as markdown files
 autocmd BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
 
