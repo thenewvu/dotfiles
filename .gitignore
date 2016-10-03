@@ -50,3 +50,4 @@ logs/
 .docker/
 .standard-cache/
 .docker/
+.smartgit/
