@@ -189,7 +189,7 @@ fu! CustomFoldText()
     let line = substitute(getline(fs), '\t', repeat(' ', &tabstop), 'g')
   endif
 
-  let w = winwidth(0) - &foldcolumn - (&number ? 8 : 0)
+  let w = winwidth(0) - &foldcolumn - ((&number || &relativenumber) ? 8 : 0)
   let foldSize = 1 + v:foldend - v:foldstart
   let foldSizeStr = " " . foldSize . " lines "
   let lineCount = line("$")
