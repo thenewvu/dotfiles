@@ -262,7 +262,7 @@ nnoremap <space> zMzv
 nnoremap <leader><space> :nohlsearch<CR>
 
 " <ctrl><w> to close the current tab
-nnoremap <C-w> :q<CR>
+nnoremap <C-w> :tabclose<CR>
 
 " <ctrl><t> to open some file in a new tab
 nnoremap <C-t> :tab drop 
