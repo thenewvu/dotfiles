@@ -12,7 +12,7 @@ URxvt.italicFont: xft:Inconsolata:size=8:style:Medium
 URxvt.boldItalicFont: xft:Inconsolata:size=8:style:Medium
 
 URxvt.letterSpace: -2
-URxvt.saveLines: 65535
+URxvt.saveLines: 3000
 
 URxvt.scrollBar: false
 URxvt.scrollstyle: plain
