@@ -1,20 +1,20 @@
 # fix locale issue in the recent fish version
 if not set -q LANG >/dev/null
-  set LANG en_US.UTF-8
+  set -gx LANG en_US.UTF-8
 end
 
 # additional bin paths
-set PATH /home/vu/.node_modules/bin /home/vu/.bin $PATH
+set -gx PATH /home/vu/.node_modules/bin /home/vu/.bin $PATH
 
 # default editor
-set VISUAL "vim"
+set -gx VISUAL "vim"
 
 # set custom search tool for FZF
-set FZF_DEFAULT_COMMAND 'rg --files --hidden --glob="!.git/*"'
-set FZF_CTRL_T_COMMAND 'rg --files --hidden --glob="!.git/*"'
+set -gx FZF_DEFAULT_COMMAND 'rg --files --hidden --glob="!.git/*"'
+set -gx FZF_CTRL_T_COMMAND 'rg --files --hidden --glob="!.git/*"'
 
 # disable fish greeting
-set fish_greeting ""
+set -gx fish_greeting ""
 
 # start X at login
 if status --is-login
