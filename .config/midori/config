@@ -1,0 +1,29 @@
+[settings]
+default-encoding=UTF-8
+default-font-family=Liberation Serif
+monospace-font-family=Inconsolata
+default-monospace-font-size=9
+minimum-font-size=7
+enable-developer-extras=true
+enable-site-specific-quirks=true
+enable-javascript=true
+default-charset=UTF-8
+last-window-width=1364
+last-window-height=766
+last-web-search=2
+location-entry-search=http://www.google.com/search?q=%s
+show-statusbar=false
+toolbar-items=TabNew,Back,NextForward,ReloadStop,BookmarkAdd,Location,Search,Trash,CompactMenu
+zoom-level=0.80000001192092896
+homepage=about:search
+tabhome=about:dial
+download-folder=/home/vu
+toolbar-style=MIDORI_TOOLBAR_SMALL_ICONS
+preferred-encoding=MIDORI_ENCODING_UNICODE
+user-agent=Mozilla/5.0 (X11; Linux) AppleWebKit/538.15 (KHTML, like Gecko) Chrome/18.0.1025.133 Safari/538.15 Midori/0.5
+
+[extensions]
+libnojs.so=true
+libexternal-download-manager.so/aria2=true
+libhistory-list.so=true
+libshortcuts.so=true
