@@ -250,7 +250,8 @@ nnoremap E $
 " nnoremap ^ <nop>
 
 " <ctr><q> works as <ctrl><y> to scroll buffer up
-nnoremap <C-q> <C-y>
+nnoremap <C-j> <C-e>
+nnoremap <C-k> <C-y>
 
 " space to open/closes folds
 nnoremap <space> zMzv
@@ -274,19 +275,22 @@ nnoremap <C-b> :VimFilerExplorer<CR>
 nnoremap <C-p> :FZF<CR>
 
 " <ctrl><jklh> to navigate to splits
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
+execute "set <M-J>=\ej"
+nnoremap <M-J> <C-W><C-J>
+execute "set <M-K>=\ek"
+nnoremap <M-K> <C-W><C-K>
+execute "set <M-L>=\el"
+nnoremap <M-L> <C-W><C-L>
+execute "set <M-H>=\eh"
+nnoremap <M-H> <C-W><C-H>
 
 " mappings to move lines
 " ref: http://vim.wikia.com/wiki/Moving_lines_up_or_down
 nnoremap <S-j> :m .+1<CR>==
 nnoremap <S-k> :m .-2<CR>==
-" inoremap <S-j> <Esc>:m .+1<CR>==gi
-" inoremap <S-k> <Esc>:m .-2<CR>==gi
 vnoremap <S-j> :m '>+1<CR>gv=gv
 vnoremap <S-k> :m '<-2<CR>gv=gv
+
 
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
