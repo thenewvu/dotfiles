@@ -16,6 +16,10 @@ set -gx FZF_CTRL_T_COMMAND 'rg --files --hidden --glob="!.git/*"'
 # disable fish greeting
 set -gx fish_greeting ""
 
+# expac aliases
+alias paclist="expac --timefmt='%Y-%m-%d %T' '%l\t%n' | sort | tail -n 50"
+alias pacsize='expac -H M "%011m\t%-20n\t%10d" (comm -23 <(pacman -Qqen | sort) <(pacman -Qqg base base-devel | sort)) | sort -n'
+
 # start X at login
 if status --is-login
   if test -z "$DISPLAY" -a "$XDG_VTNR" -eq "1"
