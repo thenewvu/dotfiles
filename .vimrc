@@ -294,6 +294,12 @@ vnoremap <S-k> :m '<-2<CR>gv=gv
 " remap <o> to avoid hanging
 nnoremap <o> <S-A><CR><i>
 
+" <ctrl><s> to save file
+nnoremap <C-S> :w<CR>
+
+" <ctrl><a> to select all
+nnoremap <C-A> gg<S-V><S-G>
+
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
