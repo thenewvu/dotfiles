@@ -52,3 +52,4 @@ logs/
 .docker/
 .smartgit/
 .surf
+.gist
