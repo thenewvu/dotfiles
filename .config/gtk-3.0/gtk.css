@@ -1,12 +1,14 @@
+* {
+  outline-style: none;
+}
+
 tab {
-	padding-top: 0px;
-	padding-bottom: 0px;
-	padding-left: 2px;
-	padding-right: 2px;
-	outline-style: none;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-left: 2px;
+  padding-right: 2px;
 }
 
 statusbar {
-	margin: -9px;
+  margin: -9px;
 }
-
