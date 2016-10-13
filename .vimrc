@@ -8,6 +8,9 @@ syntax enable
 " use the system clipboard
 set clipboard^=unnamedplus,unnamed
 
+" open file in new tabs from quick list
+set switchbuf+=usetab,newtab
+
 " recognize *.md as markdown files
 autocmd BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
 
