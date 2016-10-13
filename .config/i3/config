@@ -37,7 +37,7 @@ for_window [class="google-chrome" title="Floating for YouTube™" window_role="a
 #################################################################
 
 # font for render window title
-font pango: Inconsolata 8
+font pango: Inconsolata 9
 
 # remove title and set 1px border for new windows
 new_window pixel 1 px
