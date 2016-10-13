@@ -6,10 +6,10 @@ Xft.hinting: 1
 Xft.antialias: 1
 Xft.rgba: rgb
 
-URxvt.font: xft:Inconsolata:size=8:style:Medium
-URxvt.boldFont: xft:Inconsolata:size=8:style:Medium
-URxvt.italicFont: xft:Inconsolata:size=8:style:Medium
-URxvt.boldItalicFont: xft:Inconsolata:size=8:style:Medium
+URxvt.font: xft:Inconsolata:size=10:style:Regular
+URxvt.boldFont: xft:Inconsolata:size=10:style:Regular
+URxvt.italicFont: xft:Inconsolata:size=10:style:Regular
+URxvt.boldItalicFont: xft:Inconsolata:size=10:style:Regular
 
 URxvt.letterSpace: -2
 URxvt.saveLines: 3000
