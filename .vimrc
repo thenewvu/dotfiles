@@ -5,6 +5,9 @@
 " enable syntax processing
 syntax enable
 
+" auto re-source .vimrc on change
+autocmd! bufwritepost .vimrc source %
+
 " use the system clipboard
 set clipboard^=unnamedplus,unnamed
 
@@ -57,25 +60,22 @@ set foldnestmax=100 foldlevel=0
 " auto fold for javascript
 let javaScript_fold=1
 
-" use ripgrep to search if available
+" use ripgrep to search text if available
 if executable('rg')
   set grepprg=rg\ --no-heading\ --vimgrep
   set grepformat=%f:%l:%c:%m
 endif
 
 " syntastic settings
-set statusline=%f
-set statusline+=%=\ 
-set statusline+=%{SyntasticStatuslineFlag()}[%l,%v][%p%%]
-set statusline+=%*
-
 let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 2
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_loc_list_height = 2
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_full_redraws=1
 let g:syntastic_javascript_checkers = ['standard']
 
+" format js files on save in suckless way
 " ref: http://learnvimscriptthehardway.stevelosh.com/chapters/14.html
 :augroup standardjs
 : autocmd!
@@ -83,16 +83,6 @@ let g:syntastic_javascript_checkers = ['standard']
 : autocmd BufWritePost *.js :SyntasticCheck
 : autocmd BufWritePost *.js redraw!
 :augroup END
-
-let g:syntastic_error_symbol = '>>'
-let g:syntastic_style_error_symbol = 'S>'
-let g:syntastic_warning_symbol = '>>'
-let g:syntastic_style_warning_symbol = 'S>'
-
-highlight link SyntasticErrorSign SignColumn
-highlight link SyntasticWarningSign SignColumn
-highlight link SyntasticStyleErrorSign SignColumn
-highlight link SyntasticStyleWarningSign SignColumn
 
 " fzf settings
 " jump to the existing window/tab if possible
@@ -114,32 +104,63 @@ let g:vim_markdown_folding_disabled = 1
 " VISUAL SETTINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" highlight the column at the cursor
-" set cursorcolumn
+" custom selection color
+hi Visual ctermbg=7 ctermfg=None
 
-" highlight the 100th column as a ruler
-" set colorcolumn=100
-" hi ColorColumn ctermbg=grey
+" custom SignColumn color
+hi SignColumn ctermbg=White ctermfg=Yellow
 
-" style SignColumn
-hi SignColumn ctermbg=white ctermfg=yellow
+" custom syntastic error color
+hi SpellBad ctermfg=Yellow ctermbg=White
+hi SpellCap ctermfg=Yellow ctermbg=White
 
-" custom syntastic error highlight
-hi SpellBad ctermfg=yellow ctermbg=white
-hi SpellCap ctermfg=yellow ctermbg=white
-
-" custom search highlight
+" custom search color
 hi Search ctermfg=15 ctermbg=3
 
 " custom tab bar color
-hi TabLineFill ctermfg=white ctermbg=grey cterm=none
-hi TabLine ctermfg=white ctermbg=grey cterm=none
-hi TabLineSel ctermfg=white ctermbg=grey cterm=standout
-hi Title ctermfg=white ctermbg=grey cterm=none
+hi TabLineFill ctermfg=LightGrey ctermbg=Black cterm=none
+hi TabLine ctermfg=LightGrey ctermbg=Black cterm=none
+hi TabLineSel ctermfg=Black ctermbg=White cterm=none
+hi Title ctermfg=LightGrey ctermbg=Black cterm=none
 
 " custom status line color
-hi StatusLine ctermfg=white ctermbg=grey cterm=none
-hi StatusLineNC ctermfg=white ctermbg=grey cterm=none
+hi StatusLine ctermfg=White ctermbg=Black cterm=none
+hi StatusLineNC ctermfg=White ctermbg=Black cterm=none
+
+" custom matched bracket color
+hi MatchParen cterm=none ctermbg=Yellow ctermfg=White
+
+" custom fold title color
+hi Folded ctermbg=White cterm=standout
+
+" custom syntastic error symbol on SignColumn
+let g:syntastic_error_symbol = '>>'
+let g:syntastic_style_error_symbol = 'S>'
+let g:syntastic_warning_symbol = '>>'
+let g:syntastic_style_warning_symbol = 'S>'
+
+" show all syntastic errors on SignColumn
+hi link SyntasticErrorSign SignColumn
+hi link SyntasticWarningSign SignColumn
+hi link SyntasticStyleErrorSign SignColumn
+hi link SyntasticStyleWarningSign SignColumn
+
+" display whitespace chars
+set list listchars=trail:·,tab:»\ 
+" custom whitespace color
+hi SpecialKey ctermfg=LightGrey
+
+" show relative line numbers
+set relativenumber
+" custom line number color
+hi LineNr ctermfg=LightGrey ctermbg=White
+hi CursorLineNr ctermfg=LightGrey ctermbg=White
+
+" custom statusline
+set statusline=%f
+set statusline+=%=\ 
+set statusline+=%{SyntasticStatuslineFlag()}[%l,%v][%p%%]
+set statusline+=%*
 
 " number of visual spaces per TAB
 set tabstop=2
@@ -150,11 +171,6 @@ set shiftwidth=2
 " tabs are spaces
 set expandtab
 
-" show relative line numbers
-set relativenumber
-hi LineNr ctermfg=7 ctermbg=white
-hi CursorLineNr ctermfg=7 ctermbg=white
-
 " show command in bottom bar
 set showcmd
 
@@ -164,10 +180,10 @@ set laststatus=2
 " visual autocomplete for command menu
 set wildmenu
 
-" highlight matching [{()}]
+" color matching [{()}]
 set showmatch
 
-" highlight search matches
+" color search matches
 set hlsearch
 
 " wrap text at the 100th column
@@ -175,13 +191,6 @@ set wrap
 set linebreak
 set textwidth=100 wrapmargin=0
 
-" decorate folds
-hi Folded ctermbg=white cterm=standout
-
-" display whitespace chars
-set list listchars=trail:·,tab:»\ 
-" decorate whitespaces
-highlight SpecialKey ctermfg=7 guifg=gray
 
 " decorate foldtext
 " ref: http://www.gregsexton.org/2011/03/improving-the-text-displayed-in-a-fold/
@@ -259,7 +268,7 @@ nnoremap <C-k> <C-y>
 " space to open/closes folds
 nnoremap <space> zMzv
 
-" <leader><space> to turn off search highlight
+" <leader><space> to turn off search color
 nnoremap <leader><space> :nohlsearch<CR>
 
 " <ctrl><w> to close the current tab
