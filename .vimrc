@@ -249,6 +249,24 @@ call plug#end()
 " <f2> to toggle paste mode
 set pastetoggle=<F2>
 
+" <f4> to toggle quick fix 
+nnoremap <leader>q :call QuickfixToggle()<cr>
+
+" function to toggle quick fix
+" ref: http://learnvimscriptthehardway.stevelosh.com/chapters/38.html
+let g:quickfix_is_open = 0
+function! QuickfixToggle()
+    if g:quickfix_is_open
+        cclose
+        let g:quickfix_is_open = 0
+        execute g:quickfix_return_to_window . "wincmd w"
+    else
+        let g:quickfix_return_to_window = winnr()
+        copen
+        let g:quickfix_is_open = 1
+    endif
+endfunction
+
 " move vertically by visual line
 nnoremap j gj
 nnoremap k gk
