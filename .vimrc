@@ -340,3 +340,10 @@ nmap gw :InteractiveWindow<CR>
 
 " <ctrl><f> to :Grepper
 nnoremap <C-f> :Grepper<cr>
+
+" <Enter> to add new line and in insert mode
+nnoremap <cr> o
+
+" <Shift><Enter> to add new line but not in insert mode
+nnoremap <cr> o<esc>
+
