@@ -39,7 +39,7 @@ set tabpagemax=5
 set mouse=a
 
 " search ignore case by default
-" set ignorecase
+set ignorecase
 
 " search with smart case
 set smartcase
