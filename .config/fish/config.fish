@@ -20,6 +20,9 @@ set -gx fish_greeting ""
 alias paclist="expac --timefmt='%Y-%m-%d %T' '%l\t%n' | sort | tail -n 50"
 alias pacsize='expac -H M "%011m\t%-20n\t%10d" (comm -23 <(pacman -Qqen | sort) <(pacman -Qqg base base-devel | sort)) | sort -n'
 
+set -gx JAVA_TOOL_OPTIONS '-Xmx128m -Dawt.useSystemAAFontSettings=lcd -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
+set -gx _JAVA_OPTIONSx '-Xmx128m -Dawt.useSystemAAFontSettings=lcd -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
+
 # start X at login
 if status --is-login
   if test -z "$DISPLAY" -a "$XDG_VTNR" -eq "1"
