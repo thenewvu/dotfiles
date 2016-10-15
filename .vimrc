@@ -352,9 +352,6 @@ nmap gw :InteractiveWindow<CR>
 " <ctrl><f> to :Grepper
 nnoremap <C-f> :Grepper<cr>
 
-" <cr> to add new line and in insert mode
-nnoremap <cr> o
-
 " <ctrl><r> to search in the current file
 nnoremap <c-r> /
 
@@ -365,10 +362,5 @@ inoremap <c-v> <esc><f2>p<f2>i
 " <ctrl><shift><u> to redo
 nnoremap <c-s-u> <c-r>
 
-" customize quick fix
-augroup custom_quick_fix
-  autocmd!
-  " map <ctrl><t> to open the current file in new tab in quick fix
-  autocmd FileType qf nnoremap <buffer> <c-t> <cr>:cw<cr>
-  autocmd FileType qf nnoremap <buffer> <esc> :cclose<cr>
-augroup END
+" <F5> to redraw
+nnoremap <F5> :redraw!<cr>
