@@ -349,3 +349,6 @@ nnoremap <cr> o<esc>
 
 " <ctrl><r> to search in the current file
 nnoremap <c-r> /
+
+" <ctrl><shift><u> to redo
+nnoremap <c-s-u> <c-r>
