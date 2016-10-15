@@ -1,21 +1,26 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " BEHAVIOR SETTINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" auto source .vimrc on change
+augroup auto_source_vimrc
+  autocmd!
+  autocmd BufWritePost .vimrc source %
+augroup END
+
+" auto open *.md as markdown
+augroup open_md_as_markdown
+  autocmd!
+  autocmd BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
+augroup END
 
 " enable syntax processing
 syntax enable
-
-" auto re-source .vimrc on change
-autocmd! bufwritepost .vimrc source %
 
 " use the system clipboard
 set clipboard^=unnamedplus,unnamed
 
 " open file in new tabs from quick list
 set switchbuf+=usetab,newtab
-
-" recognize *.md as markdown files
-autocmd BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
 
 " enable auto-indenting when pasting by default
 " set paste
@@ -77,10 +82,9 @@ let g:syntastic_javascript_checkers = ['standard']
 
 " format js files on save in suckless way
 " ref: http://learnvimscriptthehardway.stevelosh.com/chapters/14.html
-:augroup standardjs
+:augroup auto_format_js
 : autocmd!
 : autocmd BufWritePost *.js silent !standard --fix %
-: autocmd BufWritePost *.js :SyntasticCheck
 : autocmd BufWritePost *.js redraw!
 :augroup END
 
@@ -326,6 +330,7 @@ nnoremap <o> <S-A><CR><i>
 
 " <ctrl><s> to save file
 nnoremap <C-S> :w<CR>
+inoremap <C-S> <esc>:w<CR>
 
 " <ctrl><a> to select all
 nnoremap <C-A> gg<S-V><S-G>
@@ -341,14 +346,23 @@ nmap gw :InteractiveWindow<CR>
 " <ctrl><f> to :Grepper
 nnoremap <C-f> :Grepper<cr>
 
-" <Enter> to add new line and in insert mode
+" <cr> to add new line and in insert mode
 nnoremap <cr> o
-
-" <Shift><Enter> to add new line but not in insert mode
-nnoremap <cr> o<esc>
 
 " <ctrl><r> to search in the current file
 nnoremap <c-r> /
 
+" <ctrl><v> to paste in normal and insert mode
+nnoremap <c-v> <f2>p<f2>
+inoremap <c-v> <esc><f2>p<f2>i
+
 " <ctrl><shift><u> to redo
 nnoremap <c-s-u> <c-r>
+
+" customize quick fix
+augroup custom_quick_fix
+  autocmd!
+  " map <ctrl><t> to open the current file in new tab in quick fix
+  autocmd FileType qf nnoremap <buffer> <c-t> <cr>:cw<cr>
+  autocmd FileType qf nnoremap <buffer> <esc> :cclose<cr>
+augroup END
