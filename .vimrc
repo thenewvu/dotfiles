@@ -16,6 +16,12 @@ augroup END
 " enable syntax processing
 syntax enable
 
+" display a confirm dialog when closing an unsaved file
+set confirm
+
+" set default encoding
+set encoding=utf-8
+
 " use the system clipboard
 set clipboard^=unnamedplus,unnamed
 
