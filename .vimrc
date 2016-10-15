@@ -347,3 +347,5 @@ nnoremap <cr> o
 " <Shift><Enter> to add new line but not in insert mode
 nnoremap <cr> o<esc>
 
+" <ctrl><r> to search in the current file
+nnoremap <c-r> /
