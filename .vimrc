@@ -7,6 +7,17 @@ function! AdjustWindowHeight(minheight, maxheight)
   exe max([min([line("$"), a:maxheight]), a:minheight]) . "wincmd _"
 endfunction
 
+" function that toggles vietnamese telex keymap
+let g:keymap_vi = 0
+function! ToggleKeymapVietnamese()
+    if g:keymap_vi
+        let g:keymap_vi = 0
+        execute "set keymap="
+    else
+        execute "set keymap=vietnamese-telex"
+        let g:keymap_vi = 1
+    endif
+endfunction
 
 " function that returns a cleaner fold text title
 " ref: http://www.gregsexton.org/2011/03/improving-the-text-displayed-in-a-fold/
@@ -359,3 +370,9 @@ nnoremap <c-s-u> <c-r>
 
 " <F5> to redraw
 nnoremap <F5> :redraw!<cr>
+
+" <alt><z> to toggle vietnamese-telex keymap
+execute "set <m-z>=\ez"
+nnoremap <m-z> :call ToggleKeymapVietnamese()<cr>
+inoremap <m-z> :call ToggleKeymapVietnamese()<cr>
+
