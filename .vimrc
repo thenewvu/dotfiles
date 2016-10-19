@@ -2,10 +2,33 @@
 " UTILS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" function that adjust window height
+" function that adjusts window height
 function! AdjustWindowHeight(minheight, maxheight)
   exe max([min([line("$"), a:maxheight]), a:minheight]) . "wincmd _"
 endfunction
+
+
+" function that returns a cleaner fold text title
+" ref: http://www.gregsexton.org/2011/03/improving-the-text-displayed-in-a-fold/
+function! GenFoldText()
+  "get first non-blank line
+  let foldstart = v:foldstart
+  while getline(foldstart) =~ '^\s*$' | let foldstart = nextnonblank(foldstart + 1)
+  endwhile
+  if foldstart > v:foldend
+    let line = getline(v:foldstart)
+  else
+    let line = substitute(getline(foldstart), '\t', repeat(' ', &tabstop), 'g')
+  endif
+
+  let w = winwidth(0) - &foldcolumn - ((&number || &relativenumber) ? 8 : 0)
+  let foldSize = 1 + v:foldend - v:foldstart
+  let foldSizeStr = " " . foldSize . " lines "
+  let lineCount = line("$")
+  let foldPercentage = printf("[%4.1f", (foldSize*1.0)/lineCount*100) . "%] "
+  let expansionString = repeat(".", w - strwidth(foldSizeStr.line.foldPercentage))
+  return line . expansionString . foldSizeStr . foldPercentage
+endf
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " BEHAVIOR SETTINGS
@@ -213,30 +236,8 @@ set wrap
 set linebreak
 set textwidth=100 wrapmargin=0
 
-
-" decorate foldtext
-" ref: http://www.gregsexton.org/2011/03/improving-the-text-displayed-in-a-fold/
-fu! CustomFoldText()
-  "get first non-blank line
-  let fs = v:foldstart
-  while getline(fs) =~ '^\s*$' | let fs = nextnonblank(fs + 1)
-  endwhile
-  if fs > v:foldend
-    let line = getline(v:foldstart)
-  else
-    let line = substitute(getline(fs), '\t', repeat(' ', &tabstop), 'g')
-  endif
-
-  let w = winwidth(0) - &foldcolumn - ((&number || &relativenumber) ? 8 : 0)
-  let foldSize = 1 + v:foldend - v:foldstart
-  let foldSizeStr = " " . foldSize . " lines "
-  let lineCount = line("$")
-  let foldPercentage = printf("[%4.1f", (foldSize*1.0)/lineCount*100) . "%] "
-  let expansionString = repeat(".", w - strwidth(foldSizeStr.line.foldPercentage))
-  return line . expansionString . foldSizeStr . foldPercentage
-endf
-" custom fold text function (cleaner than default)
-set foldtext=CustomFoldText()
+" set custom create fold text function
+set foldtext=GenFoldText()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PLUGIN SETTINGS
