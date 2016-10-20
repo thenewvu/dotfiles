@@ -28,7 +28,7 @@ URxvt.scrollWithBuffer: true
 URxvt.scrollTtyKeypress: true
 
 URxvt.cutchars: ()*,<>[]{}|`""''
-URxvt.perl-ext-common: default,tabbedex,matcher,selection-to-clipboard,searchable-scrollback
+URxvt.perl-ext-common: default,tabbedex,matcher,selection-to-clipboard,searchable-scrollback,resize-font
 
 URxvt.url-launcher: /usr/bin/xdg-open
 URxvt.matcher.button: 3
