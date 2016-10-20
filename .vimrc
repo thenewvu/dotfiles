@@ -374,5 +374,5 @@ nnoremap <F5> :redraw!<cr>
 " <alt><z> to toggle vietnamese-telex keymap
 execute "set <m-z>=\ez"
 nnoremap <m-z> :call ToggleKeymapVietnamese()<cr>
-inoremap <m-z> :call ToggleKeymapVietnamese()<cr>
+inoremap <m-z> <esc>:call ToggleKeymapVietnamese()<cr>i
 
