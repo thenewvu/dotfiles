@@ -284,8 +284,8 @@ call plug#end()
 set pastetoggle=<F2>
 
 " move vertically by visual line
-nmap j gj<space>
-nmap k gk<space>
+nmap j gjzv
+nmap k gkzv
 
 " move to beginning/end of line
 nnoremap B ^
