@@ -300,7 +300,7 @@ nnoremap <C-j> <C-e>
 nnoremap <C-k> <C-y>
 
 " space to open/closes folds
-nnoremap <space> zMzv
+nnoremap <space> zMzvzz
 
 " <leader><space> to turn off search color
 nnoremap <leader><space> :nohlsearch<CR>
@@ -367,9 +367,6 @@ inoremap <c-v> <esc><f2>p<f2>i
 
 " <ctrl><shift><u> to redo
 nnoremap <c-s-u> <c-r>
-
-" <F5> to redraw
-nnoremap <F5> :redraw!<cr>
 
 " <alt><z> to toggle vietnamese-telex keymap
 execute "set <m-z>=\ez"
