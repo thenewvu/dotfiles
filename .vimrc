@@ -373,3 +373,5 @@ execute "set <m-z>=\ez"
 nnoremap <m-z> :call ToggleKeymapVietnamese()<cr>
 inoremap <m-z> <esc>:call ToggleKeymapVietnamese()<cr>i
 
+" <f5> to reload current file
+nnoremap <F5> :edit<cr>
