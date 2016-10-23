@@ -46,3 +46,10 @@ alias gc="git ci"
 alias gd="git diff"
 alias gdc="git diff --cached"
 alias gco="git checkout"
+
+# yaourt aliases
+alias yt="yaourt"
+alias yts="yaourt -Ss"
+alias ytss="yaourt -S"
+alias ytr="yaourt -R"
+alias ytu="yaourt -Syu --aur --noconfirm"
