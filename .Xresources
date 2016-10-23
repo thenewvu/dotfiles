@@ -6,12 +6,12 @@ Xft.hinting: 1
 Xft.antialias: 1
 Xft.rgba: rgb
 
-URxvt.font: xft:Inconsolata:size=10:style:Regular
-URxvt.boldFont: xft:Inconsolata:size=10:style:Regular
-URxvt.italicFont: xft:Inconsolata:size=10:style:Regular
-URxvt.boldItalicFont: xft:Inconsolata:size=10:style:Regular
+URxvt.font: xft:Iosevka Term:pixelsize=14:style:Medium
+URxvt.boldFont: xft:Iosevka Term:pixelsize=14:style:Medium
+URxvt.italicFont: xft:Iosevka Term:pixelsize=14:style:Medium
+URxvt.boldItalicFont: xft:Iosevka Term:pixelsize=14:style:Medium
 
-URxvt.letterSpace: -2
+URxvt.letterSpace: -1
 URxvt.saveLines: 3000
 
 URxvt.scrollBar: false
