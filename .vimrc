@@ -249,12 +249,6 @@ set number
 hi LineNr ctermfg=LightGrey ctermbg=White
 hi CursorLineNr ctermfg=LightGrey ctermbg=White
 
-" custom statusline
-set statusline=%f
-set statusline+=%=\ 
-set statusline+=%{SyntasticStatuslineFlag()}[%l,%v][%p%%]
-set statusline+=%*
-
 " number of visual spaces per TAB
 set tabstop=2
 " number of spaces in tab when editing
