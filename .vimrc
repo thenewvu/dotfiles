@@ -19,6 +19,33 @@ function! ToggleKeymapVietnamese()
     endif
 endfunction
 
+" LightLine util functions
+function! LightLineModified()
+  if &filetype == "help"
+    return ""
+  elseif &modified
+    return "+"
+  elseif &modifiable
+    return ""
+  else
+    return ""
+  endif
+endfunction
+
+function! LightLineReadonly()
+  if &filetype == "help"
+    return ""
+  elseif &readonly
+    return "READONLY"
+  else
+    return ""
+  endif
+endfunction
+
+function! LightLineFugitive()
+  return exists('*fugitive#head') ? fugitive#head() : ''
+endfunction
+
 " function that returns a cleaner fold text title
 " ref: http://www.gregsexton.org/2011/03/improving-the-text-displayed-in-a-fold/
 function! GenFoldText()
@@ -48,6 +75,7 @@ endf
 augroup auto_source_vimrc
   autocmd!
   autocmd BufWritePost .vimrc source %
+  autocmd BufWritePost .vimrc :call lightline#update()
 augroup END
 
 " auto open *.md as markdown
@@ -152,6 +180,8 @@ let g:fzf_action = {
 let g:vimfiler_as_default_explorer = 1
 let g:vimfiler_safe_mode_by_default = 0
 let g:vimfiler_enable_auto_cd = 1
+let g:unite_force_overwrite_statusline = 0
+let g:vimfiler_force_overwrite_statusline = 0
 
 " vim-markdown settings
 let g:vim_markdown_folding_disabled = 1
@@ -159,6 +189,9 @@ let g:vim_markdown_folding_disabled = 1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " VISUAL SETTINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" disable SignColumn
+set signcolumn=no
 
 " custom selection color
 hi Visual ctermbg=7 ctermfg=None
@@ -207,7 +240,11 @@ set list listchars=trail:·,tab:»\
 hi SpecialKey ctermfg=LightGrey
 
 " show relative line numbers
-set relativenumber
+" set relativenumber
+
+" show line number
+set number
+
 " custom line number color
 hi LineNr ctermfg=LightGrey ctermbg=White
 hi CursorLineNr ctermfg=LightGrey ctermbg=White
@@ -250,6 +287,28 @@ set textwidth=100 wrapmargin=0
 " set custom create fold text function
 set foldtext=GenFoldText()
 
+let g:lightline = {
+      \ 'colorscheme': 'solarized',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'fugitive', 'readonly', 'filename', 'modified' ] ],
+      \   'right': [ [ 'syntastic', 'lineinfo' ], ['percent'], [ 'fileformat', 'fileencoding', 'filetype' ] ]
+      \ },
+      \ 'component_function': {
+      \   'fugitive': 'LightLineFugitive',
+      \   'readonly': 'LightLineReadonly',
+      \   'modified': 'LightLineModified'
+      \ },
+      \ 'component_expand': {
+      \   'syntastic': 'SyntasticStatuslineFlag',
+      \ },
+      \ 'component_type': {
+      \   'syntastic': 'error',
+      \ },
+      \ 'separator': { 'left': '║⟫', 'right': '⟪║' },
+      \ 'subseparator': { 'left': '⟫', 'right': '⟪' }
+      \ }
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PLUGIN SETTINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -272,6 +331,7 @@ Plug 'Shougo/unite.vim'
 Plug 'haya14busa/vimfiler.vim'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
+Plug 'itchyny/lightline.vim'
 
 " Add plugins to &runtimepath
 call plug#end()
