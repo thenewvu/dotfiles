@@ -172,6 +172,7 @@ let g:syntastic_javascript_checkers = ['standard']
 " jump to the existing window/tab if possible
 let g:fzf_buffers_jump = 1
 let g:fzf_action = {
+  \ 'enter': 'tab drop',
   \ 'ctrl-t': 'tab drop',
   \ 'ctrl-x': 'split',
   \ 'ctrl-v': 'vsplit' }
