@@ -172,7 +172,6 @@ let g:syntastic_javascript_checkers = ['standard']
 " jump to the existing window/tab if possible
 let g:fzf_buffers_jump = 1
 let g:fzf_action = {
-  \ 'enter': 'tab drop',
   \ 'ctrl-t': 'tab drop',
   \ 'ctrl-x': 'split',
   \ 'ctrl-v': 'vsplit' }
@@ -417,7 +416,7 @@ nmap gw :InteractiveWindow<CR>
 nnoremap <C-f> :Grepper<cr>
 
 " <ctrl><r> to search in the current file
-nnoremap <c-r> /
+nnoremap <c-r> :BLines<cr>
 
 " <ctrl><v> to paste in normal and insert mode
 nnoremap <c-v> <f2>p<f2>
