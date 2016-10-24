@@ -50,6 +50,6 @@ alias gco="git checkout"
 # yaourt aliases
 alias yt="yaourt"
 alias yts="yaourt -Ss"
-alias ytss="yaourt -S"
+alias yta="yaourt -S"
 alias ytr="yaourt -R"
 alias ytu="yaourt -Syu --aur --noconfirm"
