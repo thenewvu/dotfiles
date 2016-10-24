@@ -41,6 +41,7 @@ alias pacsize='expac -H M "%011m\t%-20n\t%10d" (comm -23 <(pacman -Qqen | sort) 
 
 # git aliases
 alias gs="git st"
+alias ga="git add"
 alias gl="git ls"
 alias gc="git ci"
 alias gd="git diff"
