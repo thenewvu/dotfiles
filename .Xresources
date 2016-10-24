@@ -10,14 +10,8 @@ URxvt.font: xft:Iosevka Term:pixelsize=14:style:Medium
 URxvt.boldFont: xft:Iosevka Term:pixelsize=14:style:Medium
 URxvt.italicFont: xft:Iosevka Term:pixelsize=14:style:Medium
 URxvt.boldItalicFont: xft:Iosevka Term:pixelsize=14:style:Medium
-URxvt*skipBuiltinGlyphs: true
-URxvt.imLocale: en_US.UTF-8
-URxvt.intensityStyles: true
-URxvt.inheritPixmap: false
-URxvt.xftAntialias: true
-URxvt.loginShell: true
 
-URxvt.letterSpace: -1
+URxvt.letterSpace: 0
 URxvt.saveLines: 3000
 
 URxvt.scrollBar: false
