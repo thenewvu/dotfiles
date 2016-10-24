@@ -99,7 +99,7 @@ set encoding=utf-8
 " use the system clipboard
 set clipboard^=unnamedplus,unnamed
 
-" open file in new tabs from quick list
+" open files in new tabs from quick list
 set switchbuf+=usetab,newtab
 
 " enable auto-indenting when pasting by default
@@ -264,6 +264,9 @@ set showcmd
 
 " show status bar by default
 set laststatus=2
+
+" always show tab line
+set showtabline=2
 
 " visual autocomplete for command menu
 set wildmenu
@@ -430,3 +433,6 @@ inoremap <m-z> <esc>:call ToggleKeymapVietnamese()<cr>i
 
 " <f5> to reload current file
 nnoremap <F5> :edit<cr>
+
+" <f10> to open vimrc
+nnoremap <f10> :tab drop ~/.vimrc<cr>
