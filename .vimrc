@@ -435,3 +435,7 @@ nnoremap <F5> :edit<cr>
 
 " <f10> to open vimrc
 nnoremap <f10> :tab drop ~/.vimrc<cr>
+
+" center window after <n> and <N>
+nnoremap n nzz
+nnoremap N Nzz
