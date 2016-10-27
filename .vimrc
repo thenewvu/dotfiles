@@ -276,10 +276,9 @@ set showmatch
 " color search matches
 set hlsearch
 
-" wrap text at the 100th column
+" wrap text 
 set wrap
-set linebreak
-set textwidth=100 wrapmargin=0
+set textwidth=0 wrapmargin=0
 
 " set custom create fold text function
 set foldtext=GenFoldText()
@@ -439,3 +438,7 @@ nnoremap <f10> :tab drop ~/.vimrc<cr>
 " center window after <n> and <N>
 nnoremap n nzz
 nnoremap N Nzz
+
+" redude <esc> delay
+" ref: http://www.johnhawthorn.com/2012/09/vi-escape-delays/
+set timeoutlen=1000 ttimeoutlen=0
