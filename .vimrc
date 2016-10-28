@@ -186,6 +186,10 @@ let g:vimfiler_force_overwrite_statusline = 0
 " vim-markdown settings
 let g:vim_markdown_folding_disabled = 1
 
+" redude <esc> delay
+" ref: http://www.johnhawthorn.com/2012/09/vi-escape-delays/
+set timeoutlen=1000 ttimeoutlen=0
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " VISUAL SETTINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -439,6 +443,3 @@ nnoremap <f10> :tab drop ~/.vimrc<cr>
 nnoremap n nzz
 nnoremap N Nzz
 
-" redude <esc> delay
-" ref: http://www.johnhawthorn.com/2012/09/vi-escape-delays/
-set timeoutlen=1000 ttimeoutlen=0
