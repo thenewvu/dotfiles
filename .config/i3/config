@@ -16,7 +16,7 @@ workspace_layout tabbed
 
 # Open a small terminal at startup
 exec --no-startup-id urxvt -name urxvt_scratchpad --geometry 140x30
-for_window [instance="urxvt_scratchpad"] floating enable, move scratchpad, scratchpad show, border 1px
+for_window [instance="urxvt_scratchpad"] floating enable, move scratchpad, scratchpad show, border normal
 
 #################################################################
 ## Behavior-related settings                                   ##
@@ -43,7 +43,7 @@ font pango: Iosevka 9
 new_window pixel 1 px
 
 # custom title format
-for_window [class=".*"] title_format "%class"
+for_window [class=".*"] title_format "%title"
 
 # enable border and title for popup and dialog windows
 for_window [window_role="pop-up"] border normal
