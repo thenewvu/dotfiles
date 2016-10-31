@@ -42,10 +42,10 @@ URxvt.tabbed.transparent: false
 URxvt.tabbed.new-button: false
 URxvt.tabbed.title: true
 URxvt.tabbed.title-fg: 15
-URxvt.tabbed.title-bg: 245
+URxvt.tabbed.title-bg: 240
 URxvt.tabbed.tabbar-fg: 15
-URxvt.tabbed.tabbar-bg: 245
-URxvt.tabbed.tab-fg: 238
+URxvt.tabbed.tabbar-bg: 240
+URxvt.tabbed.tab-fg: 232
 URxvt.tabbed.tab-bg: 15
 
 
