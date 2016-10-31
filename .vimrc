@@ -78,6 +78,12 @@ augroup auto_source_vimrc
   autocmd BufWritePost .vimrc :call lightline#update()
 augroup END
 
+" auto source .Xresources on change
+augroup auto_source_xresources
+  autocmd!
+  autocmd BufWritePost .Xresources silent !xrdb %
+augroup END
+
 " auto open *.md as markdown
 augroup open_md_as_markdown
   autocmd!
