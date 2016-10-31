@@ -40,7 +40,7 @@ URxvt.colorUL: 12
 URxvt.tabbed.autohide: true
 URxvt.tabbed.transparent:false
 URxvt.tabbed.new-button:false
-URxvt.tabbed.title:true
+URxvt.tabbed.title:false
 URxvt.tabbed.title-fg:12
 URxvt.tabbed.title-bg:15
 URxvt.tabbed.tabbar-fg: 0
