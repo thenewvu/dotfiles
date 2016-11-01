@@ -293,6 +293,12 @@ set textwidth=0 wrapmargin=0
 " set custom create fold text function
 set foldtext=GenFoldText()
 
+let g:grepper = {
+    \ 'tools': ['rg', 'git', 'grep'],
+    \ 'open':  1,
+    \ 'jump':  0,
+    \ }
+
 let g:lightline = {
       \ 'colorscheme': 'solarized',
       \ 'active': {
