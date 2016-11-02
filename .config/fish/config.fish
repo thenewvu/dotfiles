@@ -27,7 +27,8 @@ end
 # default editor for yaourt
 set -gx VISUAL "vim"
 
-# custom fzf commands
+# fzf settings
+set -gx FZF_DEFAULT_OPTS '--color=bw'
 set -gx FZF_DEFAULT_COMMAND 'rg --files --hidden --glob="!.git/*"'
 set -gx FZF_CTRL_T_COMMAND 'rg --files --hidden --glob="!.git/*"'
 
