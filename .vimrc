@@ -200,6 +200,9 @@ set timeoutlen=1000 ttimeoutlen=0
 " VISUAL SETTINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" set color scheme
+colorscheme mac_classic
+
 " disable SignColumn
 set signcolumn=no
 
