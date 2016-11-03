@@ -188,6 +188,13 @@ let g:vim_markdown_folding_disabled = 1
 " ref: http://www.johnhawthorn.com/2012/09/vi-escape-delays/
 set timeoutlen=1000 ttimeoutlen=0
 
+" VimGrepper settings
+let g:grepper = {
+    \ 'tools': ['rg', 'git', 'grep'],
+    \ 'open':  1,
+    \ 'jump':  0,
+    \ }
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " VISUAL SETTINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -198,68 +205,18 @@ colorscheme mac_classic
 " disable SignColumn
 set signcolumn=no
 
-" custom selection color
-hi Visual ctermbg=7 ctermfg=None
-
-" custom SignColumn color
-hi SignColumn ctermbg=White ctermfg=Yellow
-
-" custom syntastic error color
-hi SpellBad ctermfg=Yellow ctermbg=White
-hi SpellCap ctermfg=Yellow ctermbg=White
-
-" custom search color
-hi Search ctermfg=15 ctermbg=3
-
-" custom tab bar color
-hi TabLineFill ctermfg=LightGrey ctermbg=Black cterm=none
-hi TabLine ctermfg=LightGrey ctermbg=Black cterm=none
-hi TabLineSel ctermfg=Black ctermbg=White cterm=none
-hi Title ctermfg=LightGrey ctermbg=Black cterm=none
-
-" custom status line color
-hi StatusLine ctermfg=White ctermbg=Black cterm=none
-hi StatusLineNC ctermfg=White ctermbg=Black cterm=none
-
-" custom matched bracket color
-hi MatchParen cterm=none ctermbg=Yellow ctermfg=White
-
-" custom fold title color
-hi Folded ctermbg=White cterm=standout
-
-" custom syntastic error symbol on SignColumn
-let g:syntastic_error_symbol = '>>'
-let g:syntastic_style_error_symbol = 'S>'
-let g:syntastic_warning_symbol = '>>'
-let g:syntastic_style_warning_symbol = 'S>'
-
-" show all syntastic errors on SignColumn
-hi link SyntasticErrorSign SignColumn
-hi link SyntasticWarningSign SignColumn
-hi link SyntasticStyleErrorSign SignColumn
-hi link SyntasticStyleWarningSign SignColumn
-
-" display whitespace chars
-set list listchars=trail:·,tab:»\ 
-" custom whitespace color
-hi SpecialKey ctermfg=LightGrey
-
-" show relative line numbers
-" set relativenumber
-
 " show line number
 set number
 
-" custom line number color
-hi LineNr ctermfg=LightGrey ctermbg=White
-hi CursorLineNr ctermfg=LightGrey ctermbg=White
-
 " number of visual spaces per TAB
 set tabstop=2
+
 " number of spaces in tab when editing
 set softtabstop=2
+
 " set indent size
 set shiftwidth=2
+
 " tabs are spaces
 set expandtab
 
@@ -288,12 +245,7 @@ set textwidth=0 wrapmargin=0
 " set custom create fold text function
 set foldtext=GenFoldText()
 
-let g:grepper = {
-    \ 'tools': ['rg', 'git', 'grep'],
-    \ 'open':  1,
-    \ 'jump':  0,
-    \ }
-
+" LightLine settings
 let g:lightline = {
       \ 'colorscheme': 'solarized',
       \ 'active': {
@@ -316,9 +268,27 @@ let g:lightline = {
       \ 'subseparator': { 'left': '⟫', 'right': '⟪' }
       \ }
 
-" [ListToggle]
+" ListToggle settings
 " set height of location/quick list window
 let g:lt_height = 3
+
+" custom selection color
+hi Visual ctermbg=7 ctermfg=None
+
+" custom search color
+hi Search ctermfg=15 ctermbg=3
+
+" custom matched bracket color
+hi MatchParen cterm=none ctermbg=Yellow ctermfg=White
+
+" display whitespace chars
+set list listchars=trail:·,tab:»\ 
+" custom whitespace color
+hi SpecialKey ctermfg=LightGrey
+
+" custom line number color
+hi LineNr ctermfg=LightGrey ctermbg=White
+hi CursorLineNr ctermfg=LightGrey ctermbg=White
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PLUGIN SETTINGS
