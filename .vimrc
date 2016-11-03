@@ -2,11 +2,6 @@
 " UTILS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" function that adjusts window height
-function! AdjustWindowHeight(minheight, maxheight)
-  exe max([min([line("$"), a:maxheight]), a:minheight]) . "wincmd _"
-endfunction
-
 " function that toggles vietnamese telex keymap
 let g:keymap_vi = 0
 function! ToggleKeymapVietnamese()
@@ -89,9 +84,6 @@ augroup open_md_as_markdown
   autocmd!
   autocmd BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
 augroup END
-
-" adjust quick fix window height
-au FileType qf call AdjustWindowHeight(1, 3)
 
 " enable syntax processing
 syntax enable
@@ -324,6 +316,10 @@ let g:lightline = {
       \ 'subseparator': { 'left': '⟫', 'right': '⟪' }
       \ }
 
+" [ListToggle]
+" set height of location/quick list window
+let g:lt_height = 3
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PLUGIN SETTINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -347,6 +343,7 @@ Plug 'haya14busa/vimfiler.vim'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 Plug 'itchyny/lightline.vim'
+Plug 'Valloric/ListToggle'
 
 " Add plugins to &runtimepath
 call plug#end()
@@ -457,4 +454,9 @@ nnoremap <f10> :tab drop ~/.vimrc<cr>
 " center window after <n> and <N>
 nnoremap n nzz
 nnoremap N Nzz
+
+" [ListToggle]
+" set key mappings for toggle location/quick list window
+let g:lt_location_list_toggle_map = '<F3>'
+let g:lt_quickfix_list_toggle_map = '<F4>'
 
