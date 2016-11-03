@@ -344,6 +344,7 @@ Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 Plug 'itchyny/lightline.vim'
 Plug 'Valloric/ListToggle'
+Plug 'tpope/vim-fugitive'
 
 " Add plugins to &runtimepath
 call plug#end()
