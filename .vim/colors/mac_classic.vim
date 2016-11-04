@@ -62,8 +62,8 @@ hi SpecialKey ctermfg=LightGrey
 
 " Search: {{{2
 " [IncSearch is stronger than Search]
-hi IncSearch  guifg=NONE guibg=#FFCE77 ctermbg=222 gui=NONE
-hi Search  guibg=#FFE6BB ctermbg=223
+hi IncSearch  guifg=NONE guibg=#FFCE77 ctermbg=3 gui=NONE
+hi Search  guibg=#FFE6BB ctermbg=3
 
 " Syntax: {{{1
 hi Normal  guifg=#000000 ctermfg=0 guibg=#FFFFFF ctermbg=15
