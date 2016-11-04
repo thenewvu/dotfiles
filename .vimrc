@@ -275,6 +275,10 @@ let g:lt_height = 3
 " display whitespace chars
 set list listchars=trail:·,tab:»\ 
 
+" custom syntastic error color
+hi SpellBad ctermfg=White ctermbg=Red
+hi SpellCap ctermfg=White ctermbg=Red
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PLUGIN SETTINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
