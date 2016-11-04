@@ -272,23 +272,8 @@ let g:lightline = {
 " set height of location/quick list window
 let g:lt_height = 3
 
-" custom selection color
-hi Visual ctermbg=7 ctermfg=None
-
-" custom search color
-hi Search ctermfg=15 ctermbg=3
-
-" custom matched bracket color
-hi MatchParen cterm=none ctermbg=Yellow ctermfg=White
-
 " display whitespace chars
 set list listchars=trail:·,tab:»\ 
-" custom whitespace color
-hi SpecialKey ctermfg=LightGrey
-
-" custom line number color
-hi LineNr ctermfg=LightGrey ctermbg=White
-hi CursorLineNr ctermfg=LightGrey ctermbg=White
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PLUGIN SETTINGS

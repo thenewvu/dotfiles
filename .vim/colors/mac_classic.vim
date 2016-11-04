@@ -47,13 +47,18 @@ hi Cursor  guifg=#FFFFFF ctermfg=15 guibg=#3C4C72 ctermbg=240
 hi Visual  guibg=#C6DEFF ctermbg=189
 hi CursorLine  guibg=#F0F6FF ctermbg=15
 hi CursorColumn  guibg=#F0F6FF ctermbg=15
-hi LineNr  guifg=#808080 ctermfg=244 guibg=#EFEFEF ctermbg=7
+hi LineNr ctermfg=LightGrey ctermbg=White
+hi CursorLineNr ctermfg=LightGrey ctermbg=White
 hi VertSplit  guifg=#FFFFFF ctermfg=15 guibg=#CFCFCF ctermbg=252 gui=NONE
 hi MatchParen  guifg=#1E39F6 ctermfg=27 guibg=NONE gui=bold
 hi Pmenu guibg=#EFEFEF ctermbg=7
 hi PmenuSel  guibg=#C6DEFF ctermbg=189
 hi Directory  guifg=#D51015 ctermfg=160 gui=bold
-hi Folded  guifg=#0066FF guibg=#FFFFFF ctermbg=White cterm=standout
+hi Folded  guifg=#0066FF ctermfg=LightGrey guibg=#FFFFFF ctermbg=White cterm=none
+hi Visual ctermbg=7 ctermfg=None
+hi Search ctermfg=15 ctermbg=3
+hi MatchParen cterm=none ctermbg=Yellow ctermfg=White
+hi SpecialKey ctermfg=LightGrey
 
 " Search: {{{2
 " [IncSearch is stronger than Search]
