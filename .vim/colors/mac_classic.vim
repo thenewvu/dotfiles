@@ -55,7 +55,6 @@ hi Pmenu guibg=#EFEFEF ctermbg=7
 hi PmenuSel  guibg=#C6DEFF ctermbg=189
 hi Directory  guifg=#D51015 ctermfg=160 gui=bold
 hi Folded  guifg=#0066FF ctermfg=LightGrey guibg=#FFFFFF ctermbg=White cterm=none
-hi Visual ctermbg=7 ctermfg=None
 hi Search ctermfg=15 ctermbg=3
 hi MatchParen cterm=none ctermbg=Yellow ctermfg=White
 hi SpecialKey ctermfg=LightGrey
