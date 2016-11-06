@@ -11,6 +11,8 @@ URxvt.boldFont: xft:Iosevka Term:pixelsize=14:style:Medium
 URxvt.italicFont: xft:Iosevka Term:pixelsize=14:style:Medium
 URxvt.boldItalicFont: xft:Iosevka Term:pixelsize=14:style:Medium
 
+URxvt.geometry: 160x25
+
 URxvt.letterSpace: -1
 URxvt.saveLines: 3000
 
