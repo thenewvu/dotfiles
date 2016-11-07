@@ -50,13 +50,12 @@ hi CursorColumn  guibg=#F0F6FF ctermbg=15
 hi LineNr ctermfg=LightGrey ctermbg=White
 hi CursorLineNr ctermfg=LightGrey ctermbg=White
 hi VertSplit  guifg=#FFFFFF ctermfg=15 guibg=#CFCFCF ctermbg=252 gui=NONE
-hi MatchParen  guifg=#1E39F6 ctermfg=27 guibg=NONE gui=bold
 hi Pmenu guibg=#EFEFEF ctermbg=7
 hi PmenuSel  guibg=#C6DEFF ctermbg=189
 hi Directory  guifg=#D51015 ctermfg=160 gui=bold
-hi Folded  guifg=#0066FF ctermfg=LightGrey guibg=#FFFFFF ctermbg=White cterm=none
+hi Folded  guifg=#0066FF ctermfg=Blue guibg=#FFFFFF ctermbg=White cterm=none
 hi Search ctermfg=15 ctermbg=3
-hi MatchParen cterm=none ctermbg=Yellow ctermfg=White
+hi MatchParen cterm=none ctermbg=Yellow ctermfg=White guifg=White guibg=#FBA922
 hi SpecialKey ctermfg=LightGrey
 
 " Search: {{{2
@@ -68,7 +67,7 @@ hi Search  guibg=#FFE6BB ctermbg=3
 hi Normal  guifg=#000000 ctermfg=0 guibg=#FFFFFF ctermbg=15
 hi Boolean  guifg=#6E79F1 ctermfg=69 gui=bold
 hi Character  guifg=#D51015 ctermfg=160 gui=bold
-hi Comment  guifg=#0066FF ctermfg=27 gui=italic
+hi Comment  guifg=#DFDFDF ctermfg=Grey gui=italic
 hi Conditional  guifg=#1E39F6 ctermfg=27 gui=bold
 hi Constant  guifg=#D51015 ctermfg=160 gui=bold
 hi Define  guifg=#1E39F6 ctermfg=27 gui=bold
