@@ -29,8 +29,7 @@ focus_follows_mouse no
 # https://wiki.archlinux.org/index.php/i3#Iconic_fonts_in_the_status_bar
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="task_dialog"] floating enable
-
-for_window [class="google-chrome" title="Floating for YouTube™" window_role="app"] floating enable, sticky enable, border 1px
+for_window [title="Floating for YouTube™"] floating enable, sticky enable, border 1px
 
 #################################################################
 ## UI-related settings                                         ##
