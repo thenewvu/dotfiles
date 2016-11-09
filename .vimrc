@@ -41,6 +41,10 @@ function! LightLineFugitive()
   return exists('*fugitive#head') ? fugitive#head() : ''
 endfunction
 
+function! LightLineKeyMap()
+  return &keymap
+endfunction
+
 " function that returns a cleaner fold text title
 " ref: http://www.gregsexton.org/2011/03/improving-the-text-displayed-in-a-fold/
 function! GenFoldText()
@@ -249,14 +253,15 @@ set foldtext=GenFoldText()
 let g:lightline = {
       \ 'colorscheme': 'solarized',
       \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
+      \   'left': [ [ 'mode', 'paste', 'keymap'],
       \             [ 'fugitive', 'readonly', 'filename', 'modified' ] ],
       \   'right': [ [ 'syntastic', 'lineinfo' ], ['percent'], [ 'fileformat', 'fileencoding', 'filetype' ] ]
       \ },
       \ 'component_function': {
       \   'fugitive': 'LightLineFugitive',
       \   'readonly': 'LightLineReadonly',
-      \   'modified': 'LightLineModified'
+      \   'modified': 'LightLineModified',
+      \   'keymap': 'LightLineKeyMap'
       \ },
       \ 'component_expand': {
       \   'syntastic': 'SyntasticStatuslineFlag',
