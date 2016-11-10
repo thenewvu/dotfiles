@@ -7,7 +7,7 @@
 
 " Boilerplate: {{{1
 set background=light
-highlight clear
+" highlight clear
 
 if exists("syntax_on")
   syntax reset
