@@ -426,5 +426,3 @@ nnoremap N Nzz
 let g:lt_location_list_toggle_map = '<F3>'
 let g:lt_quickfix_list_toggle_map = '<F4>'
 
-" Create empty line without leaving normal mode
-nnoremap <Enter> m`o<Esc>k``
