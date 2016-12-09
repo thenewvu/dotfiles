@@ -310,6 +310,7 @@ Plug 'itchyny/lightline.vim'
 Plug 'Valloric/ListToggle'
 Plug 'tpope/vim-fugitive'
 Plug 'sickill/vim-pasta'
+Plug 'brooth/far.vim'
 
 " Add plugins to &runtimepath
 call plug#end()
