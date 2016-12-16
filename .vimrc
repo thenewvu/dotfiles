@@ -70,6 +70,16 @@ endf
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " BEHAVIOR SETTINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" enable backup and set backup and working  dir
+set backup
+set writebackup
+set backupdir=~/.cache/vim,.
+set directory=~/.cache/vim,.
+
+" enable auto save
+let g:auto_save = 1
+
 " auto source .vimrc on change
 augroup auto_source_vimrc
   autocmd!
@@ -115,9 +125,6 @@ set backspace=indent,eol,start
 
 " fix delete key doesn't work as expected
 :fixdel
-
-" disable swap file
-set noswapfile
 
 " set maximum of tabs
 set tabpagemax=5
@@ -311,6 +318,7 @@ Plug 'Valloric/ListToggle'
 Plug 'tpope/vim-fugitive'
 Plug 'sickill/vim-pasta'
 Plug 'brooth/far.vim'
+Plug '907th/vim-auto-save'
 
 " Add plugins to &runtimepath
 call plug#end()
