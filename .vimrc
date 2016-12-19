@@ -77,9 +77,6 @@ set writebackup
 set backupdir=~/.cache/vim,.
 set directory=~/.cache/vim,.
 
-" enable auto save
-let g:auto_save = 1
-
 " auto source .vimrc on change
 augroup auto_source_vimrc
   autocmd!
@@ -318,7 +315,6 @@ Plug 'Valloric/ListToggle'
 Plug 'tpope/vim-fugitive'
 Plug 'sickill/vim-pasta'
 Plug 'brooth/far.vim'
-Plug '907th/vim-auto-save'
 
 " Add plugins to &runtimepath
 call plug#end()
