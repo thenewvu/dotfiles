@@ -74,6 +74,7 @@ endf
 " enable backup and set backup and working  dir
 set backup
 set writebackup
+set noswapfile
 set backupdir=~/.cache/vim,.
 set directory=~/.cache/vim,.
 
@@ -311,8 +312,8 @@ Plug 'haya14busa/vimfiler.vim'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 Plug 'itchyny/lightline.vim'
-Plug 'Valloric/ListToggle'
 Plug 'tpope/vim-fugitive'
+" Pasting in Vim with indentation adjusted to destination context
 Plug 'sickill/vim-pasta'
 Plug 'brooth/far.vim'
 
@@ -342,7 +343,7 @@ nnoremap E $
 nnoremap <C-j> <C-e>
 nnoremap <C-k> <C-y>
 
-" space to open/closes folds
+" space to open/close folds
 nnoremap <space> zMzvzz
 
 " <leader><space> to turn off search color
@@ -425,9 +426,4 @@ nnoremap <f10> :tab drop ~/.vimrc<cr>
 " center window after <n> and <N>
 nnoremap n nzz
 nnoremap N Nzz
-
-" [ListToggle]
-" set key mappings for toggle location/quick list window
-let g:lt_location_list_toggle_map = '<F3>'
-let g:lt_quickfix_list_toggle_map = '<F4>'
 
