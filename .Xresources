@@ -6,10 +6,10 @@ Xft.hinting: 1
 Xft.antialias: 1
 Xft.rgba: rgb
 
-URxvt.font: xft:Iosevka Term:pixelsize=14:style:Medium
-URxvt.boldFont: xft:Iosevka Term:pixelsize=14:style:Medium
-URxvt.italicFont: xft:Iosevka Term:pixelsize=14:style:Medium
-URxvt.boldItalicFont: xft:Iosevka Term:pixelsize=14:style:Medium
+URxvt.font: xft:Liberation Mono:size=8:style:Regular
+URxvt.boldFont: xft:Liberation Mono:size=8:style:Regular
+URxvt.italicFont: xft:Liberation Mono:size=8:style:Regular
+URxvt.boldItalicFont: xft:Liberation Mono:size=8:style:Regular
 
 URxvt.geometry: 160x25
 

@@ -6,7 +6,7 @@
 # exec --no-startup-id xsetroot -solid "#FFFFFF"
 
 # set dual monitor layout
-exec --no-startup-id xrandr --output eDP1 --mode 1366x768 --output HDMI1 --mode 1366x768 --above eDP1
+# exec --no-startup-id xrandr --output eDP1 --mode 1366x768 --output HDMI1 --mode 1366x768 --above eDP1
 
 # default tabbed layout mode for new containers
 workspace_layout tabbed
@@ -36,7 +36,7 @@ for_window [title="Floating for YouTube™"] floating enable, sticky enable, bor
 #################################################################
 
 # font for render window title
-font pango: Iosevka Bold 9
+font pango: Liberation Mono Bold 7
 
 # remove title and set 1px border for new windows
 new_window pixel 1 px
@@ -171,7 +171,7 @@ mode "resize"
 bindsym $mod+Shift+q kill
 
 # key binding to start program launcher
-bindsym $mod+Tab exec dmenu_run -fn 'Iosevka:size=10:style:Medium' -nb '#FFFFFF' -nf '#373B41' -sb '#FFFFFF' -sf '#3971ED'
+bindsym $mod+Tab exec dmenu_run -fn 'Liberation Mono:size=7:style:Medium' -nb '#FFFFFF' -nf '#373B41' -sb '#FFFFFF' -sf '#3971ED'
 
 # key binding to enter "resize" mode
 bindsym $mod+r mode "resize"
@@ -214,7 +214,7 @@ bindsym Mod1+grave scratchpad show
 # i3 status bar settings
 bar
 {
-    font pango: Awesome 8
+    font pango: Awesome 7
 
     colors
     {
