@@ -71,12 +71,9 @@ endf
 " BEHAVIOR SETTINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" enable backup and set backup and working  dir
-set backup
-set writebackup
+" disable backup and swap file
+set nobackup
 set noswapfile
-set backupdir=~/.cache/vim,.
-set directory=~/.cache/vim,.
 
 " auto source .vimrc on change
 augroup auto_source_vimrc
@@ -248,7 +245,7 @@ set showmatch
 set hlsearch
 
 " wrap text 
-set wrap
+set wrap linebreak
 set textwidth=0 wrapmargin=0
 
 " set custom create fold text function
