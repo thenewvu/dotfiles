@@ -313,6 +313,7 @@ Plug 'tpope/vim-fugitive'
 " Pasting in Vim with indentation adjusted to destination context
 Plug 'sickill/vim-pasta'
 Plug 'brooth/far.vim'
+Plug 'plasticboy/vim-markdown'
 
 " Add plugins to &runtimepath
 call plug#end()
