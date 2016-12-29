@@ -54,3 +54,6 @@ logs/
 .surf
 .gist
 .linphonerc
+.config/wireshark
+.linphone*
+.mozilla
