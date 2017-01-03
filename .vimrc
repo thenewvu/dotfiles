@@ -314,6 +314,9 @@ Plug 'tpope/vim-fugitive'
 Plug 'sickill/vim-pasta'
 Plug 'brooth/far.vim'
 Plug 'plasticboy/vim-markdown'
+Plug 'othree/html5.vim'
+Plug 'alvan/vim-closetag'
+Plug 'mxw/vim-jsx'
 
 " Add plugins to &runtimepath
 call plug#end()
