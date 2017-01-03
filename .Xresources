@@ -11,7 +11,7 @@ URxvt.boldFont: xft:Liberation Mono:size=8:style:Regular
 URxvt.italicFont: xft:Liberation Mono:size=8:style:Regular
 URxvt.boldItalicFont: xft:Liberation Mono:size=8:style:Regular
 
-URxvt.geometry: 160x25
+URxvt.geometry: 120x25
 
 URxvt.letterSpace: -1
 URxvt.saveLines: 3000
