@@ -17,7 +17,7 @@ end
 set -gx fish_greeting ""
 
 # extend bin paths
-set -gx PATH /home/vu/.node_modules/bin /home/vu/.bin $PATH
+set PATH /home/vu/.node_modules/bin /home/vu/.bin $PATH
 
 # fix locale issue in the recent fish version
 if not set -q LANG >/dev/null
@@ -46,6 +46,7 @@ alias ga="git add"
 alias gl="git ls"
 alias gc="git ci"
 alias gd="git diff"
+alias gp="git push"
 alias gdc="git diff --cached"
 alias gco="git checkout"
 
