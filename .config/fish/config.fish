@@ -17,7 +17,7 @@ end
 set -gx fish_greeting ""
 
 # extend bin paths
-set PATH /home/vu/.node_modules/bin /home/vu/.bin $PATH
+set -gx PATH /home/vu/.node_modules/bin /home/vu/.bin $PATH
 
 # fix locale issue in the recent fish version
 if not set -q LANG >/dev/null
