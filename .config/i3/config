@@ -8,6 +8,9 @@
 # set dual monitor layout
 # exec --no-startup-id xrandr --output eDP1 --mode 1366x768 --output HDMI1 --mode 1366x768 --above eDP1
 
+# disable touchpad by default
+exec --no-startup-id ~/.bin/toggle-touchpad.sh
+
 # default tabbed layout mode for new containers
 workspace_layout tabbed
 
