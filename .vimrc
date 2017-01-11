@@ -94,6 +94,10 @@ augroup open_md_as_markdown
   autocmd BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
 augroup END
 
+augroup trim_trailing_whitespaces
+  autocmd BufWritePre * %s/\s\+$//e
+augroup END
+
 " enable syntax processing
 syntax enable
 
@@ -201,6 +205,10 @@ let g:grepper = {
     \ 'jump':  0,
     \ }
 
+let g:closetag_filenames = "*.html,*.xml,*.js,*.jsx"
+
+let g:jsx_ext_required = 0
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " VISUAL SETTINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -244,8 +252,10 @@ set showmatch
 " color search matches
 set hlsearch
 
-" wrap text 
+" wrap text
 set wrap linebreak
+set breakindent
+set showbreak=»»
 set textwidth=0 wrapmargin=0
 
 " set custom create fold text function
@@ -280,7 +290,7 @@ let g:lightline = {
 let g:lt_height = 3
 
 " display whitespace chars
-set list listchars=trail:·,tab:»\ 
+set list listchars=trail:·,tab:»\
 
 " custom syntastic error color
 hi SpellBad ctermfg=White ctermbg=Red
@@ -354,12 +364,12 @@ nnoremap <leader><space> :nohlsearch<CR>
 nnoremap <C-w> :tabclose<CR>
 
 " <ctrl><t> to open some file in a new tab
-nnoremap <C-t> :tab drop 
+nnoremap <C-t> :tab drop ./
 
 " allow saving of files as sudo
 cmap w!! w !sudo tee > /dev/null %
 
-" <ctrl><b> to toggle file explorer 
+" <ctrl><b> to toggle file explorer
 nnoremap <C-b> :VimFilerExplorer<CR>
 
 " <ctrl><p> to fzf
