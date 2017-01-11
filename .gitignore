@@ -58,3 +58,4 @@ logs/
 .linphone*
 .mozilla
 .yarnrc
+**.tmp
