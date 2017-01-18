@@ -175,6 +175,7 @@ let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 1
 let g:syntastic_full_redraws=1
 let g:syntastic_javascript_checkers = ['standard']
+let g:syntastic_javascriptjsx_checkers = ['standard']
 
 " format js files on save in suckless way
 " ref: http://learnvimscriptthehardway.stevelosh.com/chapters/14.html
