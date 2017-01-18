@@ -93,7 +93,7 @@ augroup END
 " auto source .Xresources on change
 augroup auto_source_xresources
   autocmd!
-  autocmd BufWritePost .Xresources silent !xrdb %
+  autocmd BufWritePost .Xresources silent !xrdb ~/.Xresources
 augroup END
 
 " auto open *.md as markdown
