@@ -158,15 +158,15 @@ bindsym $mod+b border toggle
 # key binding to resize window (another way is $mod+right_mouse)
 mode "resize"
 {
-        bindsym h resize shrink right 1px or 1ppt
-        bindsym j resize grow down 1px or 1ppt
-        bindsym k resize shrink down 1px or 1ppt
-        bindsym l resize grow right 1px or 1ppt
+        bindsym h resize shrink width 1px or 1ppt
+        bindsym j resize grow height 1px or 1ppt
+        bindsym k resize shrink height 1px or 1ppt
+        bindsym l resize grow width 1px or 1ppt
 
-        bindsym Left resize shrink right 1px or 1ppt
-        bindsym Down resize grow down 1px or 1ppt
-        bindsym Up resize shrink down 1px or 1ppt
-        bindsym Right resize grow right 1px or 1ppt
+        bindsym Left resize shrink width 1px or 1ppt
+        bindsym Down resize grow height 1px or 1ppt
+        bindsym Up resize shrink height 1px or 1ppt
+        bindsym Right resize grow width 1px or 1ppt
 
         # ESC to exit "resize" mode
         bindsym Escape mode "default"
