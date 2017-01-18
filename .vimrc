@@ -45,6 +45,14 @@ function! LightLineKeyMap()
   return &keymap
 endfunction
 
+function! LightLineTabFilename(n)
+  let buflist = tabpagebuflist(a:n)
+  let winnr = tabpagewinnr(a:n)
+  let bufnum = buflist[winnr - 1]
+  let bufname = expand('#'.bufnum.':F')
+  return strlen(bufname) ? substitute(bufname, '.*/\([^/]\+/\)', '\1', '') : '[No name]'
+endfunction
+
 " function that returns a cleaner fold text title
 " ref: http://www.gregsexton.org/2011/03/improving-the-text-displayed-in-a-fold/
 function! GenFoldText()
@@ -274,6 +282,9 @@ let g:lightline = {
       \   'readonly': 'LightLineReadonly',
       \   'modified': 'LightLineModified',
       \   'keymap': 'LightLineKeyMap'
+      \ },
+      \ 'tab_component_function': {
+      \   'filename': 'LightLineTabFilename',
       \ },
       \ 'component_expand': {
       \   'syntastic': 'SyntasticStatuslineFlag',
