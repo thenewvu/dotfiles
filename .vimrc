@@ -297,12 +297,13 @@ let g:lightline = {
       \ 'subseparator': { 'left': '⟫', 'right': '⟪' }
       \ }
 
+
 " ListToggle settings
 " set height of location/quick list window
 let g:lt_height = 3
 
 " display whitespace chars
-set list listchars=trail:·,tab:»\
+set list listchars=trail:·,tab:»\ 
 
 " custom syntastic error color
 hi SpellBad ctermfg=White ctermbg=Red
