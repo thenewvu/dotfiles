@@ -4,16 +4,16 @@ Xft.lcdfilter:  lcddefault
 Xft.hintstyle:  hintfull
 Xft.hinting: 1
 Xft.antialias: 1
-Xft.rgba: rgb
+Xft.rgba: none
 
-URxvt.font: xft:Liberation Mono:size=8:style:Regular
-URxvt.boldFont: xft:Liberation Mono:size=8:style:Regular
-URxvt.italicFont: xft:Liberation Mono:size=8:style:Regular
-URxvt.boldItalicFont: xft:Liberation Mono:size=8:style:Regular
+URxvt.font: xft:Iosevka Term:size=8
+URxvt.boldFont: xft:Iosevka Term:size=8
+URxvt.italicFont: xft:Iosevka Term:size=8
+URxvt.boldItalicFont: xft:Iosevka Term:size=8
 
 URxvt.geometry: 120x25
 
-URxvt.letterSpace: -1
+URxvt.letterSpace: 0
 URxvt.saveLines: 3000
 
 URxvt.scrollBar: false
