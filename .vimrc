@@ -409,7 +409,8 @@ vnoremap <S-k> :m '<-2<CR>gv=gv
 nnoremap <o> <S-A><CR><i>
 
 " <ctrl><s> to save file
-nnoremap <C-S> :w<CR>
+nnoremap <C-S> <esc>:w<CR>
+vnoremap <C-S> <esc>:w<CR>
 inoremap <C-S> <esc>:w<CR>
 
 " <ctrl><a> to select all
