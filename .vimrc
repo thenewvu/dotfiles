@@ -452,3 +452,6 @@ nnoremap <f10> :tab drop ~/.vimrc<cr>
 nnoremap n nzz
 nnoremap N Nzz
 
+" <o> and <O> without insert mode
+nnoremap o o<esc>
+nnoremap O O<esc>
