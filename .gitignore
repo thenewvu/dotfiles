@@ -59,3 +59,4 @@ logs/
 .mozilla
 .yarnrc
 **.tmp
+.config/cmus
