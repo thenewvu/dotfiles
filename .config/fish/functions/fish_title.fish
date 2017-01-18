@@ -1,0 +1,1 @@
+/home/vu/.config/fisherman/bobthefish/fish_title.fish
