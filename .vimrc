@@ -193,13 +193,6 @@ let g:fzf_action = {
   \ 'ctrl-x': 'split',
   \ 'ctrl-v': 'vsplit' }
 
-" vimfiler settings
-let g:vimfiler_as_default_explorer = 1
-let g:vimfiler_safe_mode_by_default = 0
-let g:vimfiler_enable_auto_cd = 1
-let g:unite_force_overwrite_statusline = 0
-let g:vimfiler_force_overwrite_statusline = 0
-
 " vim-markdown settings
 let g:vim_markdown_folding_disabled = 1
 
@@ -328,7 +321,6 @@ Plug 'junegunn/fzf.vim'
 Plug 'mhinz/vim-grepper'
 Plug 'chaoren/vim-wordmotion'
 Plug 'Shougo/unite.vim'
-Plug 'haya14busa/vimfiler.vim'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 Plug 'itchyny/lightline.vim'
@@ -381,9 +373,6 @@ nnoremap <C-t> :tab drop ./
 
 " allow saving of files as sudo
 cmap w!! w !sudo tee > /dev/null %
-
-" <ctrl><b> to toggle file explorer
-nnoremap <C-b> :VimFilerExplorer<CR>
 
 " <ctrl><p> to fzf
 nnoremap <C-p> :FZF<CR>
