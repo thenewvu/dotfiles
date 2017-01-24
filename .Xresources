@@ -6,10 +6,10 @@ Xft.hinting: 1
 Xft.antialias: 1
 Xft.rgba: none
 
-URxvt.font: xft:Iosevka Term:size=8
-URxvt.boldFont: xft:Iosevka Term:size=8
-URxvt.italicFont: xft:Iosevka Term:size=8
-URxvt.boldItalicFont: xft:Iosevka Term:size=8
+URxvt.font: xft:Hermit:size=7
+URxvt.boldFont: xft:Hermit:size=7
+URxvt.italicFont: xft:Hermit:size=7
+URxvt.boldItalicFont: xft:Hermit:size=7
 
 URxvt.geometry: 120x25
 
