@@ -11,7 +11,7 @@ URxvt.boldFont: xft:Hermit:size=7
 URxvt.italicFont: xft:Hermit:size=7
 URxvt.boldItalicFont: xft:Hermit:size=7
 
-URxvt.geometry: 120x25
+URxvt.geometry: 156x25
 
 URxvt.letterSpace: 0
 URxvt.saveLines: 3000
