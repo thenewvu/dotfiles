@@ -39,7 +39,7 @@ for_window [title="Floating for YouTube™"] floating enable, sticky enable, bor
 #################################################################
 
 # font for render window title
-font pango: Iosevka Bold 7
+font pango: Hermit 7
 
 # remove title and set 1px border for new windows
 new_window pixel 1 px
@@ -174,7 +174,7 @@ mode "resize"
 bindsym $mod+Shift+q kill
 
 # key binding to start program launcher
-bindsym $mod+Tab exec dmenu_run -fn 'Iosevka:size=8:style:Bold' -nb '#FFFFFF' -nf '#373B41' -sb '#FFFFFF' -sf '#3971ED'
+bindsym $mod+Tab exec dmenu_run -fn 'Hermit:size=8:style:Bold' -nb '#FFFFFF' -nf '#373B41' -sb '#FFFFFF' -sf '#3971ED'
 
 # key binding to enter "resize" mode
 bindsym $mod+r mode "resize"
