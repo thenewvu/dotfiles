@@ -185,6 +185,11 @@ let g:syntastic_javascriptjsx_checkers = ['standard']
 : autocmd BufWritePost *.js redraw!
 :augroup END
 
+:augroup auto_format_css
+: autocmd!
+: autocmd BufWritePost *.css silent! :CSScomb
+:augroup END
+
 " fzf settings
 " jump to the existing window/tab if possible
 let g:fzf_buffers_jump = 1
@@ -336,6 +341,7 @@ Plug 'plasticboy/vim-markdown'
 Plug 'othree/html5.vim'
 Plug 'alvan/vim-closetag'
 Plug 'mxw/vim-jsx'
+Plug 'csscomb/vim-csscomb'
 
 " Add plugins to &runtimepath
 call plug#end()
