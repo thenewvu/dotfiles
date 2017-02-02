@@ -399,10 +399,14 @@ nnoremap <M-H> <C-W><C-H>
 
 " mappings to move lines
 " ref: http://vim.wikia.com/wiki/Moving_lines_up_or_down
-nnoremap <S-j> :m .+1<CR>==
-nnoremap <S-k> :m .-2<CR>==
-vnoremap <S-j> :m '>+1<CR>gv=gv
-vnoremap <S-k> :m '<-2<CR>gv=gv
+" nnoremap <S-j> :m .+1<CR>==
+" nnoremap <S-k> :m .-2<CR>==
+" vnoremap <S-j> :m '>+1<CR>gv=gv
+" vnoremap <S-k> :m '<-2<CR>gv=gv
+nnoremap <S-j> <nop>
+nnoremap <S-k> <nop>
+vnoremap <S-j> <nop>
+vnoremap <S-k> <nop>
 
 " remap <o> to avoid hanging
 nnoremap <o> <S-A><CR><i>
