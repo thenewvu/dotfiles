@@ -60,3 +60,5 @@ logs/
 .yarnrc
 **.tmp
 .config/cmus
+.config/Flavio Tordini/
+.config/orion.application/
