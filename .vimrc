@@ -458,3 +458,5 @@ nnoremap N Nzz
 " <o> and <O> without insert mode
 nnoremap o o<esc>
 nnoremap O O<esc>
+
+nnoremap <f1> <nop>
