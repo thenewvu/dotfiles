@@ -103,7 +103,7 @@ augroup open_md_as_markdown
 augroup END
 
 augroup trim_trailing_whitespaces
-  autocmd BufWritePre * %s/\s\+$//e
+  autocmd BufWritePre *.js %s/\s\+$//e
 augroup END
 
 " enable syntax processing
@@ -318,26 +318,17 @@ hi SpellCap ctermfg=White ctermbg=Red
 call plug#begin('~/.vim/plugged')
 
 Plug 'terryma/vim-multiple-cursors'
-Plug 'junegunn/vim-easy-align'
 Plug 'lilydjwg/colorizer'
 Plug 'pangloss/vim-javascript'
 Plug 'scrooloose/syntastic'
 Plug 'tpope/vim-commentary'
 Plug 'jiangmiao/auto-pairs'
-Plug 'romgrk/winteract.vim'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'mhinz/vim-grepper'
 Plug 'chaoren/vim-wordmotion'
-Plug 'Shougo/unite.vim'
-Plug 'godlygeek/tabular'
-Plug 'plasticboy/vim-markdown'
-Plug 'itchyny/lightline.vim'
 Plug 'tpope/vim-fugitive'
-" Pasting in Vim with indentation adjusted to destination context
 Plug 'sickill/vim-pasta'
-Plug 'brooth/far.vim'
-Plug 'plasticboy/vim-markdown'
 Plug 'othree/html5.vim'
 Plug 'alvan/vim-closetag'
 Plug 'mxw/vim-jsx'
@@ -375,8 +366,8 @@ nnoremap <space> zMzvzz
 " <leader><space> to turn off search color
 nnoremap <leader><space> :nohlsearch<CR>
 
-" <ctrl><w> to close the current tab
-nnoremap <C-w> :tabclose<CR>
+" <ctrl><w> to close the current buffer
+nnoremap <C-w> :bdelete<CR>
 
 " <ctrl><t> to open some file in a new tab
 nnoremap <C-t> :tab drop ./
@@ -413,19 +404,10 @@ nnoremap <o> <S-A><CR><i>
 
 " <ctrl><s> to save file
 nnoremap <C-S> <esc>:w<CR>
-vnoremap <C-S> <esc>:w<CR>
 inoremap <C-S> <esc>:w<CR>
 
 " <ctrl><a> to select all
 nnoremap <C-A> gg<S-V><S-G>
-
-" Start interactive EasyAlign in visual mode (e.g. vipga)
-xmap ga <Plug>(EasyAlign)
-" Start interactive EasyAlign for a motion/text object (e.g. gaip)
-nmap ga <Plug>(EasyAlign)
-
-" Start interactive window
-nmap gw :InteractiveWindow<CR>
 
 " <ctrl><f> to :Grepper
 nnoremap <C-f> :Grepper<cr>
@@ -459,4 +441,7 @@ nnoremap N Nzz
 nnoremap o o<esc>
 nnoremap O O<esc>
 
+" disable mapping on <f1>
 nnoremap <f1> <nop>
+inoremap <f1> <nop>
+vnoremap <f1> <nop>
