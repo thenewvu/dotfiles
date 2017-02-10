@@ -333,6 +333,7 @@ Plug 'othree/html5.vim'
 Plug 'alvan/vim-closetag'
 Plug 'mxw/vim-jsx'
 Plug 'csscomb/vim-csscomb'
+Plug 'itchyny/lightline.vim'
 
 " Add plugins to &runtimepath
 call plug#end()
