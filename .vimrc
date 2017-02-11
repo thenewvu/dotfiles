@@ -223,10 +223,6 @@ let g:jsx_ext_required = 0
 " set color scheme
 colorscheme mac_classic
 
-" set a ruler at the 65th column
-set colorcolumn=80
-highlight ColorColumn ctermbg=lightgrey
-
 " disable SignColumn
 set signcolumn=no
 
