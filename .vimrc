@@ -99,7 +99,7 @@ augroup END
 " auto open *.md as markdown
 augroup open_md_as_markdown
   autocmd!
-  autocmd BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
+  autocmd BufNewFile,BufFilePre,BufRead *.md,README,readme set filetype=markdown
 augroup END
 
 augroup trim_trailing_whitespaces
