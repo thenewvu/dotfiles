@@ -442,3 +442,8 @@ nnoremap O O<esc>
 nnoremap <f1> <nop>
 inoremap <f1> <nop>
 vnoremap <f1> <nop>
+
+" Mapping to easily underline markdown headers
+" ref: https://coderwall.com/p/skqpxq/easy-underlining-of-markdown-headings-in-vim
+map <leader>mh yypVr-
+map <leader>mH yypVr=
