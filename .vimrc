@@ -197,6 +197,8 @@ let g:fzf_action = {
   \ 'ctrl-t': 'tab drop',
   \ 'ctrl-x': 'split',
   \ 'ctrl-v': 'vsplit' }
+" Use urxvt instead
+let g:fzf_launcher = 'urxvt -geometry 120x30 -e sh -c %s'
 
 " vim-markdown settings
 let g:vim_markdown_folding_disabled = 1
