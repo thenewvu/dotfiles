@@ -449,3 +449,6 @@ vnoremap <f1> <nop>
 " ref: https://coderwall.com/p/skqpxq/easy-underlining-of-markdown-headings-in-vim
 map <leader>mh yypVr-
 map <leader>mH yypVr=
+
+" short way to create a dir
+nnoremap <c-d> :!mkdir ./
