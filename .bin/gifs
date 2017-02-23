@@ -2,7 +2,7 @@
 
 NOW=$(date +"%Y%m%d-%H%M%S")
 MOV="/tmp/$1-$NOW.mov"
-GIF="/tmp/$1-$NOW-optimized.gif"
+GIF="/tmp/$1-$NOW.gif"
 
 ffcast -vv -s ffmpeg -f x11grab -show_region 1 -r 15 -s "%wx%h" -i ":0.0+%x,%y" $MOV && \
   ffmpeg-gif $MOV $GIF
