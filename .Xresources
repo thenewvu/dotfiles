@@ -14,7 +14,7 @@ URxvt.boldItalicFont: xft:Hermit:size=9
 URxvt.geometry: 120x24
 
 URxvt.letterSpace: 0
-URxvt.saveLines: 3000
+URxvt.saveLines: 1000
 
 URxvt.scrollBar: false
 URxvt.scrollstyle: plain
