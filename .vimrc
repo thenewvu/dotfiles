@@ -187,7 +187,7 @@ let g:syntastic_javascriptjsx_checkers = ['standard']
 
 :augroup auto_format_css
 : autocmd!
-: autocmd BufWritePost *.css silent! :CSScomb
+: autocmd BufWritePost *.css silent !csscomb -c ~/.csscomb.json %
 :augroup END
 
 " fzf settings
@@ -330,7 +330,6 @@ Plug 'sickill/vim-pasta'
 Plug 'othree/html5.vim'
 Plug 'alvan/vim-closetag'
 Plug 'mxw/vim-jsx'
-Plug 'csscomb/vim-csscomb'
 Plug 'itchyny/lightline.vim'
 
 " Add plugins to &runtimepath
