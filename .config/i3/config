@@ -17,6 +17,9 @@ workspace_layout tabbed
 # change screen brightness
 # exec --no-startup-id xbacklight -set 20
 
+# autohide mouse cursor after 2 seconds
+exec --no-startup-id unclutter -idle 2
+
 # Open a small terminal at startup
 exec --no-startup-id urxvt -name urxvt_scratchpad
 for_window [instance="urxvt_scratchpad"] floating enable, move scratchpad, scratchpad show, border pixel 1
