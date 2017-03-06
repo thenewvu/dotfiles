@@ -1,0 +1,10 @@
+#!/bin/bash
+
+exec /usr/bin/google-chrome-stable \
+  --single-process \
+  --memory-model=low \
+  --disable-plugins \
+  --disable-extensions \
+  --load-component-extension="/home/vu/.config/google-chrome/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/2.0.12_0","/home/vu/.config/google-chrome/Default/Extensions/lmhkpmbekcpmknklioeibfkpmmfibljd/2.14.1_0" \
+  --start-fullscreen
+
