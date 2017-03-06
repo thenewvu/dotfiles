@@ -83,6 +83,9 @@ endf
 set nobackup
 set noswapfile
 
+" leader as ;
+let mapleader = ";"
+
 " auto source .vimrc on change
 augroup auto_source_vimrc
   autocmd!
@@ -161,12 +164,6 @@ set foldnestmax=100 foldlevel=0
 " auto fold for javascript
 let javaScript_fold=1
 
-" use ripgrep to search text if available
-if executable('rg')
-  set grepprg=rg\ --no-heading\ --vimgrep
-  set grepformat=%f:%l:%c:%m
-endif
-
 " syntastic settings
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
@@ -200,23 +197,17 @@ let g:fzf_action = {
 " Use urxvt instead
 let g:fzf_launcher = 'urxvt -geometry 120x30 -e sh -c %s'
 
-" vim-markdown settings
-let g:vim_markdown_folding_disabled = 1
-
 " redude <esc> delay
 " ref: http://www.johnhawthorn.com/2012/09/vi-escape-delays/
 set timeoutlen=1000 ttimeoutlen=0
 
-" VimGrepper settings
-let g:grepper = {
-    \ 'tools': ['rg', 'git', 'grep'],
-    \ 'open':  1,
-    \ 'jump':  0,
-    \ }
-
 let g:closetag_filenames = "*.html,*.xml,*.js,*.jsx"
 
 let g:jsx_ext_required = 0
+
+let g:far#window_layout = "tab"
+let g:far#auto_preview = 0
+let g:far#source = 'vimgrep'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " VISUAL SETTINGS
@@ -323,7 +314,6 @@ Plug 'tpope/vim-commentary'
 Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'mhinz/vim-grepper'
 Plug 'chaoren/vim-wordmotion'
 Plug 'tpope/vim-fugitive'
 Plug 'sickill/vim-pasta'
@@ -331,6 +321,7 @@ Plug 'othree/html5.vim'
 Plug 'alvan/vim-closetag'
 Plug 'mxw/vim-jsx'
 Plug 'itchyny/lightline.vim'
+Plug 'brooth/far.vim'
 
 " Add plugins to &runtimepath
 call plug#end()
@@ -407,9 +398,6 @@ inoremap <C-S> <esc>:w<CR>
 " <ctrl><a> to select all
 nnoremap <C-A> gg<S-V><S-G>
 
-" <ctrl><f> to :Grepper
-nnoremap <C-f> :Grepper<cr>
-
 " <ctrl><r> to search in the current file
 nnoremap <c-r> :BLines<cr>
 
@@ -451,3 +439,8 @@ map <leader>mH yypVr=
 
 " short way to create a dir
 nnoremap <c-d> :!mkdir ./
+
+" shortcut key to search and replace
+nnoremap <leader>f :F 
+nnoremap <leader>F :Far 
+
