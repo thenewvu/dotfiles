@@ -219,6 +219,11 @@ colorscheme mac_classic
 " disable SignColumn
 set signcolumn=no
 
+" set ruler at 80th column
+set colorcolumn=80
+set textwidth=80
+highlight ColorColumn ctermbg=254
+
 " show line number
 set number
 
