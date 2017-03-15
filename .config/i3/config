@@ -10,6 +10,8 @@ exec --no-startup-id xsetroot -solid "#FAFAFA"
 
 # disable touchpad by default
 exec --no-startup-id ~/.bin/toggle-touchpad.sh
+# disable caps lock by default
+exec --no-startup-id setxkbmap -option ctrl:nocaps
 
 # default tabbed layout mode for new containers
 workspace_layout tabbed
