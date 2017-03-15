@@ -54,11 +54,12 @@ battery 0 {
         status_chr = ""
         status_bat = ""
         status_full = ""
-        path = "/sys/class/power_supply/BAT0/uevent"
+        status_unk= ""
+        path = "/sys/class/power_supply/BAT%d/uevent"
 }
 
 tztime local {
-        format = "%A %Y-%m-%d %H:%M"
+        format = "    %a %Y/%m/%d - %H:%M"
 }
 
 volume master {
