@@ -158,6 +158,10 @@ bindsym $mod+Shift+Mod1+l move workspace to output right
 # toggle border
 bindsym $mod+b border toggle
 
+# xflux
+bindsym $mod+F5 exec --no-startup-id xflux -l 21 -g 105
+bindsym $mod+F6 exec --no-startup-id killall xflux
+
 # key binding to resize window (another way is $mod+right_mouse)
 mode "resize"
 {
