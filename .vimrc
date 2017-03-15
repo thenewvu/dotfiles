@@ -75,6 +75,13 @@ function! GenFoldText()
   return line . expansionString . foldSizeStr . foldPercentage
 endf
 
+" function to sort lines by length in descending order
+function! SortLinesByLengthDesc() range
+    execute a:firstline . "," . a:lastline . 's/^\(.*\)$/\=strdisplaywidth( submatch(0) ) . " " . submatch(0)/'
+    execute a:firstline . "," . a:lastline . 'sort! n'
+    execute a:firstline . "," . a:lastline . 's/^\d\+\s//'
+endfunction
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " BEHAVIOR SETTINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -447,5 +454,6 @@ nnoremap <c-d> :!mkdir ./
 
 " shortcut key to search and replace
 nnoremap <leader>f :F 
-nnoremap <leader>F :Far 
+nnoremap <leader>F :Far
 
+vnoremap <leader>s :call SortLinesByLengthDesc()<cr><cr>
