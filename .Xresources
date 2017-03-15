@@ -63,7 +63,8 @@ URxvt.tabbed.tab-bg: 15
 #define base04 #b4b7b4
 #define base05 #c5c8c6
 #define base06 #e0e0e0
-#define base07 #ffffff
+! #define base07 #ffffff
+#define base07 #fafafa
 #define base08 #CC342B
 #define base09 #F96A38
 #define base0A #FBA922
