@@ -3,7 +3,7 @@
 #################################################################
 
 # set background color
-# exec --no-startup-id xsetroot -solid "#FFFFFF"
+exec --no-startup-id xsetroot -solid "#FAFAFA"
 
 # set dual monitor layout
 # exec --no-startup-id xrandr --output eDP1 --mode 1366x768 --output HDMI1 --mode 1366x768 --above eDP1
