@@ -6,10 +6,10 @@ Xft.hinting: 1
 Xft.antialias: 1
 Xft.rgba: none
 
-URxvt.font: xft:Hermit:size=9
-URxvt.boldFont: xft:Hermit:size=9
-URxvt.italicFont: xft:Hermit:size=9
-URxvt.boldItalicFont: xft:Hermit:size=9
+URxvt.font: xft:Operator Mono for Powerline:style=Light Italic:size=12
+URxvt.boldFont: xft:Operator Mono for Powerline:style=Light Italic:size=12
+URxvt.italicFont: xft:Operator Mono for Powerline:style=Light Italic:size=12
+URxvt.boldItalicFont: xft:Operator Mono for Powerline:style=Light Italic:size=12
 
 URxvt.geometry: 120x24
 
