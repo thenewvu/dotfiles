@@ -37,7 +37,7 @@ set -gx JAVA_TOOL_OPTIONS '-Xmx128m -Dawt.useSystemAAFontSettings=lcd -Dswing.de
 set -gx _JAVA_OPTIONSx '-Xmx128m -Dawt.useSystemAAFontSettings=lcd -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
 
 # package management aliases
-alias paclist="expac --timefmt='%Y-%m-%d %T' '%l\t%n' | sort | tail -n 50"
+alias paclist="expac --timefmt='%Y-%m-%d %T' '%l\t%n' | sort"
 alias pacsize='expac -H M "%011m\t%-20n\t%10d" (comm -23 <(pacman -Qqen | sort) <(pacman -Qqg base base-devel | sort)) | sort -n'
 
 # git aliases
