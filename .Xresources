@@ -6,10 +6,10 @@ Xft.hinting: 1
 Xft.antialias: 1
 Xft.rgba: none
 
-URxvt.font: xft:Operator Mono for Powerline:style=Light Italic:size=9
-URxvt.boldFont: xft:Operator Mono for Powerline:style=Light Italic:size=9
-URxvt.italicFont: xft:Operator Mono for Powerline:style=Light Italic:size=9
-URxvt.boldItalicFont: xft:Operator Mono for Powerline:style=Light Italic:size=9
+URxvt.font: xft:Operator Mono Light:style=Italic:size=9,xft:PragmataPro Mono:style=Italic:size=9
+URxvt.boldFont: xft:Operator Mono Light:style=Italic:size=9,xft:PragmataPro Mono:style=Italic:size=9
+URxvt.italicFont: xft:Operator Mono Light:style=Italic:size=9,xft:PragmataPro Mono:style=Italic:size=9
+URxvt.boldItalicFont: xft:Operator Mono Light:style=Italic:size=9,xft:PragmataPro Mono:style=Italic:size=9
 
 URxvt.geometry: 120x24
 
