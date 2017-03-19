@@ -1,15 +1,15 @@
 Xft.dpi: 96
 Xft.autohint: 0
-Xft.lcdfilter:  lcddefault
-Xft.hintstyle:  hintfull
+Xft.lcdfilter: lcddefault
+Xft.hintstyle: hintfull
 Xft.hinting: 1
 Xft.antialias: 1
 Xft.rgba: none
 
-URxvt.font: xft:Operator Mono for Powerline:style=Light Italic:size=12
-URxvt.boldFont: xft:Operator Mono for Powerline:style=Light Italic:size=12
-URxvt.italicFont: xft:Operator Mono for Powerline:style=Light Italic:size=12
-URxvt.boldItalicFont: xft:Operator Mono for Powerline:style=Light Italic:size=12
+URxvt.font: xft:Operator Mono for Powerline:style=Light Italic:size=9
+URxvt.boldFont: xft:Operator Mono for Powerline:style=Light Italic:size=9
+URxvt.italicFont: xft:Operator Mono for Powerline:style=Light Italic:size=9
+URxvt.boldItalicFont: xft:Operator Mono for Powerline:style=Light Italic:size=9
 
 URxvt.geometry: 120x24
 
@@ -30,15 +30,14 @@ URxvt.scrollWithBuffer: true
 URxvt.scrollTtyKeypress: true
 
 URxvt.cutchars: ()*,<>[]{}|`""''
-URxvt.perl-ext-common: default,tabbedex,matcher,selection-to-clipboard,searchable-scrollback,resize-font,keyboard-select
+URxvt.perl-ext-common: default,tabbedex,matcher,selection-to-clipboard,\
+  searchable-scrollback,resize-font,keyboard-select
 URxvt.keysym.M-Escape: perl:keyboard-select:activate
 URxvt.keysym.M-s: perl:keyboard-select:search
 
 URxvt.url-launcher: /usr/bin/xdg-open
 URxvt.matcher.button: 1
 URxvt.matcher.pattern.1: \\bwww\\.[\\w-]+\\.[\\w./?&@#-]*[\\w/-]
-URxvt.matcher.pattern.2: \\bhttps?:\/\/[\\w-.]*\/[\\w./?&@#-]*.(jpg|jpeg|png|webp)
-URxvt.matcher.launcher.2: feh $0
 URxvt.colorUL: 12
 
 URxvt.tabbed.autohide: true
@@ -63,7 +62,6 @@ URxvt.tabbed.tab-bg: 15
 #define base04 #b4b7b4
 #define base05 #c5c8c6
 #define base06 #e0e0e0
-! #define base07 #ffffff
 #define base07 #fafafa
 #define base08 #CC342B
 #define base09 #F96A38
