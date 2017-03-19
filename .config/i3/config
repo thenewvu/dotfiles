@@ -14,7 +14,7 @@ exec --no-startup-id ~/.bin/toggle-touchpad.sh
 exec --no-startup-id setxkbmap -option ctrl:nocaps
 
 # start xflux at startup
-exec --no-startup-id xflux -l 21.03 -g 105.83
+exec --no-startup-id xflux -l 36 -g 128
 
 # default tabbed layout mode for new containers
 workspace_layout tabbed
@@ -162,7 +162,7 @@ bindsym $mod+Shift+Mod1+l move workspace to output right
 bindsym $mod+b border toggle
 
 # key mappings for xflux
-bindsym $mod+F5 exec --no-startup-id xflux -l 21.03 -g 105.83
+bindsym $mod+F5 exec --no-startup-id xflux -l 36 -g 12
 bindsym $mod+F6 exec --no-startup-id killall xflux
 
 # key binding to resize window (another way is $mod+right_mouse)
