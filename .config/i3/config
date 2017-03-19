@@ -222,7 +222,7 @@ bindsym XF86MonBrightnessUp exec xbacklight -inc 3
 bindsym XF86MonBrightnessDown exec xbacklight -dec 3
 
 # key binding to take a screenshot
-bindsym Print exec import -window root /tmp/screenshot$(date +-%Y%m%d-%H%M%S).png
+bindsym Print exec import -window root /tmp/screenshot$(date +-%Y%m%d-%H%M%S).jpg
 
 # key binding to toggle touchpad
 bindsym Mod1+space exec ~/.bin/toggle-touchpad.sh
