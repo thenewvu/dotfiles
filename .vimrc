@@ -1,60 +1,51 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" UTILS
+" BEHAVIOR SETTINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" function that toggles vietnamese telex keymap
-let g:keymap_vi = 0
-function! ToggleKeymapVietnamese()
-    if g:keymap_vi
-        let g:keymap_vi = 0
-        execute "set keymap="
-    else
-        execute "set keymap=vietnamese-telex"
-        let g:keymap_vi = 1
-    endif
-endfunction
-
-" LightLine util functions
-function! LightLineModified()
-  if &filetype == "help"
-    return ""
-  elseif &modified
-    return "+"
-  elseif &modifiable
-    return ""
-  else
-    return ""
-  endif
-endfunction
-
-function! LightLineReadonly()
-  if &filetype == "help"
-    return ""
-  elseif &readonly
-    return "READONLY"
-  else
-    return ""
-  endif
-endfunction
-
-function! LightLineFugitive()
-  return exists('*fugitive#head') ? fugitive#head() : ''
-endfunction
-
-function! LightLineKeyMap()
-  return &keymap
-endfunction
-
-function! LightLineTabFilename(n)
-  let buflist = tabpagebuflist(a:n)
-  let winnr = tabpagewinnr(a:n)
-  let bufnum = buflist[winnr - 1]
-  let bufname = expand('#'.bufnum.':F')
-  return strlen(bufname) ? substitute(bufname, '.*/\([^/]\+/\)', '\1', '') : '[No name]'
-endfunction
-
-" function that returns a cleaner fold text title
-" ref: http://www.gregsexton.org/2011/03/improving-the-text-displayed-in-a-fold/
+" set leader to >;<
+let g:mapleader = ";"
+" disable backup and swap files
+set nobackup
+set noswapfile
+" enable syntax processing
+syntax enable
+" display a confirm dialog when closing an unsaved file
+set confirm
+" set default encoding to utf-8
+set encoding=utf-8
+" use the system clipboard when yank something
+set clipboard^=unnamedplus,unnamed
+" open files from buffers into a new tab or existing
+" tab that opening the file
+set switchbuf+=usetab,newtab
+" autoreload when files are changed outside of vim
+set autoread
+" make backspace work like most other apps
+set backspace=indent,eol,start
+" enable mouse interactive
+set mouse=a
+" ignore case in searching
+set ignorecase
+" search with smart case
+set smartcase
+" optimize rendering
+set lazyredraw
+set ttyfast
+" enable incremental searching
+set incsearch
+" redude <esc> delay
+set timeoutlen=1000 ttimeoutlen=0
+" enable folding
+set foldenable
+" set folding method to `syntax`
+set foldmethod=syntax
+" only fold the first level
+set foldnestmax=100 foldlevel=0
+" enable folding for javascript syntax
+let javaScript_fold=1
+" enable folding for vim syntax
+let vim_fold=1
+" function that returns a cleaner folding text title
+" ref: https://goo.gl/Ma7UWE
 function! GenFoldText()
   "get first non-blank line
   let foldstart = v:foldstart
@@ -74,386 +65,202 @@ function! GenFoldText()
   let expansionString = repeat(".", w - strwidth(foldSizeStr.line.foldPercentage))
   return line . expansionString . foldSizeStr . foldPercentage
 endf
+" set a custom folding function
+set foldtext=GenFoldText()
+" keep undo history across sessions, by storing in file.
+silent !mkdir ~/.config/nvim/backups > /dev/null 2>&1
+set undodir=~/.config/nvim/backups
+set undofile
 
-" function to sort lines by length in descending order
-function! SortLinesByLengthDesc() range
-    execute a:firstline . "," . a:lastline . 's/^\(.*\)$/\=strdisplaywidth( submatch(0) ) . " " . submatch(0)/'
-    execute a:firstline . "," . a:lastline . 'sort! n'
-    execute a:firstline . "," . a:lastline . 's/^\d\+\s//'
-endfunction
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" BEHAVIOR SETTINGS
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" disable backup and swap file
-set nobackup
-set noswapfile
-
-" leader as ;
-let mapleader = ";"
-
-" auto source .vimrc on change
+" auto source .vimrc on save
 augroup auto_source_vimrc
   autocmd!
   autocmd BufWritePost .vimrc source %
-  autocmd BufWritePost .vimrc :call lightline#update()
 augroup END
 
-" auto source .Xresources on change
+" auto source .Xresources on save
 augroup auto_source_xresources
   autocmd!
-  autocmd BufWritePost .Xresources silent !xrdb ~/.Xresources
+  autocmd BufWritePost .Xresources xrdb ~/.Xresources
 augroup END
 
-" auto open *.md as markdown
-augroup open_md_as_markdown
-  autocmd!
-  autocmd BufNewFile,BufFilePre,BufRead *.md,README,readme set filetype=markdown
-augroup END
-
+" auto trim trailing whitespaces on save
 augroup trim_trailing_whitespaces
-  autocmd BufWritePre *.js %s/\s\+$//e
+  autocmd BufWritePre *.js,*.css,*.html %s/\s\+$//e
 augroup END
 
-" enable syntax processing
-syntax enable
+" auto format javascript files on save
+augroup auto_format_js
+ autocmd!
+ autocmd BufWritePost *.js AsyncRun standard --fix %
+augroup END
 
-" display a confirm dialog when closing an unsaved file
-set confirm
-
-" set default encoding
-set encoding=utf-8
-
-" use the system clipboard
-set clipboard^=unnamedplus,unnamed
-
-" open files in new tabs from quick list
-set switchbuf+=usetab,newtab
-
-" enable auto-indenting when pasting by default
-" set paste
-
-" autoreload when files are changed outside of vim
-set autoread
-
-" make backspace work like most other apps
-set backspace=indent,eol,start
-
-" fix delete key doesn't work as expected
-:fixdel
-
-" set maximum of tabs
-set tabpagemax=5
-
-" enable mouse interactive
-set mouse=a
-
-" search ignore case by default
-set ignorecase
-
-" search with smart case
-set smartcase
-
-" optimize rendering
-set lazyredraw
-set ttyfast
-
-" search as characters are entered
-set incsearch
-
-" enable folding
-set foldenable
-" set fold method to `syntax`
-set foldmethod=syntax
-" only fold the first level
-set foldnestmax=100 foldlevel=0
-" auto fold for javascript
-let javaScript_fold=1
-
-" syntastic settings
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_loc_list_height = 2
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 1
-let g:syntastic_full_redraws=1
-let g:syntastic_javascript_checkers = ['standard']
-let g:syntastic_javascriptjsx_checkers = ['standard']
-
-" format js files on save in suckless way
-" ref: http://learnvimscriptthehardway.stevelosh.com/chapters/14.html
-:augroup auto_format_js
-: autocmd!
-: autocmd BufWritePost *.js silent !standard --fix %
-: autocmd BufWritePost *.js redraw!
-:augroup END
-
-:augroup auto_format_css
-: autocmd!
-: autocmd BufWritePost *.css silent !csscomb -c ~/.csscomb.json %
-:augroup END
-
-" fzf settings
-" jump to the existing window/tab if possible
-let g:fzf_buffers_jump = 1
-let g:fzf_action = {
-  \ 'ctrl-t': 'tab drop',
-  \ 'ctrl-x': 'split',
-  \ 'ctrl-v': 'vsplit' }
-" Use urxvt instead
-let g:fzf_launcher = 'urxvt -geometry 120x30 -e sh -c %s'
-
-" redude <esc> delay
-" ref: http://www.johnhawthorn.com/2012/09/vi-escape-delays/
-set timeoutlen=1000 ttimeoutlen=0
-
-let g:closetag_filenames = "*.html,*.xml,*.js,*.jsx"
-
-let g:jsx_ext_required = 0
-
-let g:far#window_layout = "tab"
-let g:far#auto_preview = 0
-let g:far#source = 'vimgrep'
+" auto format css files on save
+augroup auto_format_css
+ autocmd!
+ autocmd BufWritePost *.css AsyncRun csscomb -c ~/.csscomb.json %
+augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " VISUAL SETTINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 " set color scheme
 colorscheme mac_classic
-
-" disable SignColumn
-set signcolumn=no
-
-" set ruler at 80th column
+" set ruler
 set colorcolumn=80
+" set preferred text width
 set textwidth=80
+" set ruler colors
 highlight ColorColumn ctermbg=254
-
-" show line number
+" show line numbers
 set number
-
-" number of visual spaces per TAB
+" set number of visual spaces per TAB
 set tabstop=2
-
-" number of spaces in tab when editing
+" set number of spaces in tab when editing
 set softtabstop=2
-
 " set indent size
 set shiftwidth=2
-
-" tabs are spaces
+" convert tabs are spaces automatically
 set expandtab
-
 " show command in bottom bar
 set showcmd
-
-" show status bar by default
+" show status bar
 set laststatus=2
-
-" always show tab line
+" always show tab bar
 set showtabline=2
-
-" visual autocomplete for command menu
+" show autocomplete for command menu
 set wildmenu
-
-" color matching [{()}]
+" show color for matching brackets
 set showmatch
-
-" color search matches
+" show color for search matches
 set hlsearch
-
-" wrap text
+" wrap long lines without breaking words
 set wrap linebreak
 set breakindent
 set showbreak=»»
-set textwidth=0 wrapmargin=0
-
-" set custom create fold text function
-set foldtext=GenFoldText()
-
-" LightLine settings
-let g:lightline = {
-      \ 'colorscheme': 'solarized',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste', 'keymap'],
-      \             [ 'fugitive', 'readonly', 'modified' ] ],
-      \   'right': [ [ 'syntastic', 'lineinfo' ], ['percent'], [ 'fileformat', 'fileencoding', 'filetype' ] ]
-      \ },
-      \ 'component_function': {
-      \   'fugitive': 'LightLineFugitive',
-      \   'readonly': 'LightLineReadonly',
-      \   'modified': 'LightLineModified',
-      \   'keymap': 'LightLineKeyMap'
-      \ },
-      \ 'tab_component_function': {
-      \   'filename': 'LightLineTabFilename',
-      \ },
-      \ 'component_expand': {
-      \   'syntastic': 'SyntasticStatuslineFlag',
-      \ },
-      \ 'component_type': {
-      \   'syntastic': 'error',
-      \ },
-      \ 'separator': { 'left': ' ', 'right': ' ' },
-      \ 'subseparator': { 'left': ' ', 'right': '' }
-      \ }
-
-
-" ListToggle settings
-" set height of location/quick list window
-let g:lt_height = 3
-
-" display whitespace chars
+set textwidth=0
+set wrapmargin=0
+" visualize whitespace chars
 set list listchars=trail:·,tab:»\ 
 
-" custom syntastic error color
-hi SpellBad ctermfg=White ctermbg=Red
-hi SpellCap ctermfg=White ctermbg=Red
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" KEY SETTINGS
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" key mapping to toggle paste mode
+set pastetoggle=<F2>
+" key mappings to jump to begin/end of lines
+nnoremap B ^
+nnoremap E $
+" key mapping to scroll buffers
+nnoremap <C-j> <esc><C-e>
+nnoremap <C-k> <esc><C-y>
+inoremap <C-j> <esc><C-e>
+inoremap <C-k> <esc><C-y>
+vnoremap <C-j> <esc><C-e>
+vnoremap <C-k> <esc><C-y>
+" key mapping to unfold current block and close other blocks
+nnoremap <space> zMzvzz
+" key mapping to clear highlighing search marches
+nnoremap <leader><space> :nohlsearch<CR>
+" key mapping to close current buffer
+nnoremap <C-w> :bdelete<CR>
+" key mapping to open a new file in a new tab or
+" the existing tab that opening the file
+nnoremap <C-t> :tab drop ./
+" key mapping to save the current file as sudo
+cmap w!! w !sudo tee > /dev/null %
+" key mappings to navigate between windows
+nnoremap <A-j> <C-W><C-J>
+nnoremap <A-k> <C-W><C-K>
+nnoremap <A-l> <C-W><C-L>
+nnoremap <A-h> <C-W><C-H>
+" key mappings to save current file
+nnoremap <C-S> <esc>:w<CR>
+inoremap <C-S> <esc>:w<CR>
+" key mapping to select all
+nnoremap <C-A> gg<S-V><S-G>
+" key mapping to paste with paste mode
+nnoremap <C-v> <f2>p<f2>
+inoremap <C-v> <esc><f2>p<f2>i
+" key mapping to redo
+nnoremap <c-s-u> <c-r>
+" key mapping to toggle Vietnamese telex input
+nnoremap <m-z> :call ToggleKeymapVietnamese()<cr>
+inoremap <m-z> <esc>:call ToggleKeymapVietnamese()<cr>i
+" key mapping to reload current file then force to redraw
+nnoremap <c-l> :edit<cr>:redraw<cr>
+" key mapping to open vimrc
+nnoremap <f10> :tab drop ~/.vimrc<cr>
+" key mapping to insert new line without entering insert mode
+nnoremap o o<esc>
+nnoremap O O<esc>
+" disable mapping on <f1>
+nnoremap <f1> <nop>
+inoremap <f1> <nop>
+vnoremap <f1> <nop>
+" key mapping to underline markdown headers
+" ref: https://goo.gl/6zf93B
+nnoremap <leader>mh yypVr-
+nnoremap <leader>mH yypVr=
+" key mapping to create a new directory
+nnoremap <c-d> :!mkdir ./
+" key mapping to move current line up/down
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+" centerize highlighted search
+nnoremap n nzz
+nnoremap N Nzz
+" key mapping to exit terminal mode
+tnoremap <Esc> <C-\><C-n>
+" key mapping to navigate to split windows when terminal mode
+tnoremap <A-h> <C-\><C-n><C-w>h
+tnoremap <A-j> <C-\><C-n><C-w>j
+tnoremap <A-k> <C-\><C-n><C-w>k
+tnoremap <A-l> <C-\><C-n><C-w>l
+tnoremap <A-H> <C-\><C-n>gT
+tnoremap <A-L> <C-\><C-n>gt
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PLUGIN SETTINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 call plug#begin('~/.vim/plugged')
-
 Plug 'terryma/vim-multiple-cursors'
 Plug 'lilydjwg/colorizer'
 Plug 'pangloss/vim-javascript'
-Plug 'scrooloose/syntastic'
 Plug 'tpope/vim-commentary'
 Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
+nnoremap <C-p> :FZF<CR>
+nnoremap <c-r> :BLines<cr>
 Plug 'chaoren/vim-wordmotion'
 Plug 'tpope/vim-fugitive'
 Plug 'sickill/vim-pasta'
 Plug 'othree/html5.vim'
 Plug 'alvan/vim-closetag'
+let g:closetag_filenames = "*.html,*.xml,*.js,*.jsx"
 Plug 'mxw/vim-jsx'
-Plug 'itchyny/lightline.vim'
+let g:jsx_ext_required = 0
 Plug 'brooth/far.vim'
-
-" Add plugins to &runtimepath
-call plug#end()
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" KEY SETTINGS
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" <f2> to toggle paste mode
-set pastetoggle=<F2>
-
-" move vertically by visual line
-nmap j gj
-nmap k gk
-
-" move to beginning/end of line
-nnoremap B ^
-nnoremap E $
-
-" $/^ doesn't do anything
-" nnoremap $ <nop>
-" nnoremap ^ <nop>
-
-" <ctr><q> works as <ctrl><y> to scroll buffer up
-nnoremap <C-j> <C-e>
-nnoremap <C-k> <C-y>
-
-" space to open/close folds
-nnoremap <space> zMzvzz
-
-" <leader><space> to turn off search color
-nnoremap <leader><space> :nohlsearch<CR>
-
-" <ctrl><w> to close the current buffer
-nnoremap <C-w> :bdelete<CR>
-
-" <ctrl><t> to open some file in a new tab
-nnoremap <C-t> :tab drop ./
-
-" allow saving of files as sudo
-cmap w!! w !sudo tee > /dev/null %
-
-" <ctrl><p> to fzf
-nnoremap <C-p> :FZF<CR>
-
-" <ctrl><jklh> to navigate to splits
-execute "set <M-J>=\ej"
-nnoremap <M-J> <C-W><C-J>
-execute "set <M-K>=\ek"
-nnoremap <M-K> <C-W><C-K>
-execute "set <M-L>=\el"
-nnoremap <M-L> <C-W><C-L>
-execute "set <M-H>=\eh"
-nnoremap <M-H> <C-W><C-H>
-
-" mappings to move lines
-" ref: http://vim.wikia.com/wiki/Moving_lines_up_or_down
-" nnoremap <S-j> :m .+1<CR>==
-" nnoremap <S-k> :m .-2<CR>==
-" vnoremap <S-j> :m '>+1<CR>gv=gv
-" vnoremap <S-k> :m '<-2<CR>gv=gv
-nnoremap <S-j> <nop>
-nnoremap <S-k> <nop>
-vnoremap <S-j> <nop>
-vnoremap <S-k> <nop>
-
-" remap <o> to avoid hanging
-nnoremap <o> <S-A><CR><i>
-
-" <ctrl><s> to save file
-nnoremap <C-S> <esc>:w<CR>
-inoremap <C-S> <esc>:w<CR>
-
-" <ctrl><a> to select all
-nnoremap <C-A> gg<S-V><S-G>
-
-" <ctrl><r> to search in the current file
-nnoremap <c-r> :BLines<cr>
-
-" <ctrl><v> to paste in normal and insert mode
-nnoremap <c-v> <f2>p<f2>
-inoremap <c-v> <esc><f2>p<f2>i
-
-" <ctrl><shift><u> to redo
-nnoremap <c-s-u> <c-r>
-
-" <alt><z> to toggle vietnamese-telex keymap
-execute "set <m-z>=\ez"
-nnoremap <m-z> :call ToggleKeymapVietnamese()<cr>
-inoremap <m-z> <esc>:call ToggleKeymapVietnamese()<cr>i
-
-" <f5> to reload current file
-nnoremap <F5> :edit<cr>
-
-" <f10> to open vimrc
-nnoremap <f10> :tab drop ~/.vimrc<cr>
-
-" center window after <n> and <N>
-nnoremap n nzz
-nnoremap N Nzz
-
-" <o> and <O> without insert mode
-nnoremap o o<esc>
-nnoremap O O<esc>
-
-" disable mapping on <f1>
-nnoremap <f1> <nop>
-inoremap <f1> <nop>
-vnoremap <f1> <nop>
-
-" Mapping to easily underline markdown headers
-" ref: https://coderwall.com/p/skqpxq/easy-underlining-of-markdown-headings-in-vim
-map <leader>mh yypVr-
-map <leader>mH yypVr=
-
-" short way to create a dir
-nnoremap <c-d> :!mkdir ./
-
-" shortcut key to search and replace
+let g:far#window_layout = "tab"
+let g:far#auto_preview = 0
+let g:far#source = 'vimgrep'
 nnoremap <leader>f :F 
 nnoremap <leader>F :Far
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+let g:airline_theme= 'base16'
+let g:airline_powerline_fonts = 2
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#fnamemod = ':.'
+let g:airline#extensions#tabline#fnamecollapse = 0
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+let g:deoplete#enable_at_startup = 1
+" autocomplete filepaths based on current path of current file
+let g:deoplete#file#enable_buffer_path = 1
+Plug 'ervandew/supertab'
+Plug 'skywind3000/asyncrun.vim'
+noremap <F3> :call asyncrun#quickfix_toggle(8)<cr>
+let g:airline_section_error = '%{g:asyncrun_status}'
+call plug#end()
 
-vnoremap <leader>s :call SortLinesByLengthDesc()<cr><cr>

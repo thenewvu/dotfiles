@@ -66,3 +66,4 @@ logs/
 .python_history
 .config/youtube-viewer/
 .sdcv_history
+.vim/backups
