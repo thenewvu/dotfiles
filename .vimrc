@@ -14,9 +14,6 @@ set confirm
 set encoding=utf-8
 " use the system clipboard when yank something
 set clipboard^=unnamedplus,unnamed
-" open files from buffers into a new tab or existing
-" tab that opening the file
-set switchbuf+=usetab,newtab
 " autoreload when files are changed outside of vim
 set autoread
 " make backspace work like most other apps
@@ -86,19 +83,24 @@ augroup END
 
 " auto trim trailing whitespaces on save
 augroup trim_trailing_whitespaces
+  autocmd!
   autocmd BufWritePre *.js,*.css,*.html %s/\s\+$//e
 augroup END
 
 " auto format javascript files on save
 augroup auto_format_js
- autocmd!
- autocmd BufWritePost *.js AsyncRun standard --fix %
+  autocmd!
+  autocmd BufWritePost *.js AsyncRun
+        \ -post=:edit\ |\ call\ feedkeys("\<space>")
+        \ standard --fix %
 augroup END
 
 " auto format css files on save
 augroup auto_format_css
- autocmd!
- autocmd BufWritePost *.css AsyncRun csscomb -c ~/.csscomb.json %
+  autocmd!
+  autocmd BufWritePost *.css AsyncRun
+        \ -post=:edit\ |\ call\ feedkeys("\<space>")
+        \ csscomb -c ~/.csscomb.json %
 augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -141,7 +143,7 @@ set showbreak=»»
 set textwidth=0
 set wrapmargin=0
 " visualize whitespace chars
-set list listchars=trail:·,tab:»\ 
+set list listchars=tab:»\ ,trail:·
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " KEY SETTINGS
@@ -164,9 +166,8 @@ nnoremap <space> zMzvzz
 nnoremap <leader><space> :nohlsearch<CR>
 " key mapping to close current buffer
 nnoremap <C-w> :bdelete<CR>
-" key mapping to open a new file in a new tab or
-" the existing tab that opening the file
-nnoremap <C-t> :tab drop ./
+" key mapping to open a new file
+nnoremap <C-t> :edit ./
 " key mapping to save the current file as sudo
 cmap w!! w !sudo tee > /dev/null %
 " key mappings to navigate between windows
@@ -190,7 +191,7 @@ inoremap <m-z> <esc>:call ToggleKeymapVietnamese()<cr>i
 " key mapping to reload current file then force to redraw
 nnoremap <c-l> :edit<cr>:redraw<cr>
 " key mapping to open vimrc
-nnoremap <f10> :tab drop ~/.vimrc<cr>
+nnoremap <f10> :edit ~/.vimrc<cr>
 " key mapping to insert new line without entering insert mode
 nnoremap o o<esc>
 nnoremap O O<esc>
@@ -207,60 +208,76 @@ nnoremap <c-d> :!mkdir ./
 " key mapping to move current line up/down
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
-" centerize highlighted search
+" overwrite key mappings to centerize highlighted search
 nnoremap n nzz
 nnoremap N Nzz
-" key mapping to exit terminal mode
-tnoremap <Esc> <C-\><C-n>
-" key mapping to navigate to split windows when terminal mode
-tnoremap <A-h> <C-\><C-n><C-w>h
-tnoremap <A-j> <C-\><C-n><C-w>j
-tnoremap <A-k> <C-\><C-n><C-w>k
-tnoremap <A-l> <C-\><C-n><C-w>l
-tnoremap <A-H> <C-\><C-n>gT
-tnoremap <A-L> <C-\><C-n>gt
+" overwrite key mappings to navigate buffers
+nnoremap gt :bn<cr>
+nnoremap gT :bp<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PLUGIN SETTINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.vim/plugged')
+" plugin provides sublime-liked multiple cursors
 Plug 'terryma/vim-multiple-cursors'
+" plugin previews hex/rgb/rgba colors
 Plug 'lilydjwg/colorizer'
+" plugin provides javascript syntax highlight
 Plug 'pangloss/vim-javascript'
+" plugin allows to comment out text depends on its syntax
 Plug 'tpope/vim-commentary'
+" plugin automatically adds close bracket/quote
 Plug 'jiangmiao/auto-pairs'
+" plugin to fuzzy search files/texts
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
+" key mapping to fuzzy search file in the current working dir
 nnoremap <C-p> :FZF<CR>
+" key mapping to fuzzy search text in the current buffer
 nnoremap <c-r> :BLines<cr>
+" plugin allows to <w>/<b> over words
 Plug 'chaoren/vim-wordmotion'
+" plugin provides git functions, only required by airline so far
 Plug 'tpope/vim-fugitive'
+" plugin allows to paste with indentation adjusted based on the current context
 Plug 'sickill/vim-pasta'
+" plugin provides html5 syntax highlight
 Plug 'othree/html5.vim'
+" plugin automatically adds close tag
 Plug 'alvan/vim-closetag'
 let g:closetag_filenames = "*.html,*.xml,*.js,*.jsx"
+" plugin provides jsx syntax highlight
 Plug 'mxw/vim-jsx'
 let g:jsx_ext_required = 0
+" plugin allows to search/replace with preview and undoable
 Plug 'brooth/far.vim'
 let g:far#window_layout = "tab"
 let g:far#auto_preview = 0
-let g:far#source = 'vimgrep'
-nnoremap <leader>f :F 
+nnoremap <leader>f :F
 nnoremap <leader>F :Far
+" plugin provides powerline-liked status line and tab line
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 let g:airline_theme= 'base16'
 let g:airline_powerline_fonts = 2
+" enabled showing buffers on tabline
 let g:airline#extensions#tabline#enabled = 1
+" set filename mode to relative without being collapsed
 let g:airline#extensions#tabline#fnamemod = ':.'
 let g:airline#extensions#tabline#fnamecollapse = 0
+" plugin provides better autocomplete function
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 let g:deoplete#enable_at_startup = 1
 " autocomplete filepaths based on current path of current file
 let g:deoplete#file#enable_buffer_path = 1
+" plugin allows to select autocomplete options by <tab>
 Plug 'ervandew/supertab'
+" plugin provides a way to run asynchronously shell commands
 Plug 'skywind3000/asyncrun.vim'
+" key mapping toggle quickfix with a given height
 noremap <F3> :call asyncrun#quickfix_toggle(8)<cr>
+" show asyncrun's status on airline's error section
 let g:airline_section_error = '%{g:asyncrun_status}'
 call plug#end()
 
