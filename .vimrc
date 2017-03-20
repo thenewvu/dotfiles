@@ -75,6 +75,13 @@ augroup auto_source_vimrc
   autocmd BufWritePost .vimrc source %
 augroup END
 
+" auto save and reload current folding status
+augroup auto_save_folding_status
+  autocmd!
+  autocmd BufWritePre *.* mkview
+  autocmd BufWinEnter *.* silent! loadview
+augroup END
+
 " auto source .Xresources on save
 augroup auto_source_xresources
   autocmd!
@@ -90,17 +97,13 @@ augroup END
 " auto format javascript files on save
 augroup auto_format_js
   autocmd!
-  autocmd BufWritePost *.js AsyncRun
-        \ -post=:edit\ |\ call\ feedkeys("\<space>")
-        \ standard --fix %
+  autocmd BufWritePost *.js AsyncRun -post=:edit standard --fix %
 augroup END
 
 " auto format css files on save
 augroup auto_format_css
   autocmd!
-  autocmd BufWritePost *.css AsyncRun
-        \ -post=:edit\ |\ call\ feedkeys("\<space>")
-        \ csscomb -c ~/.csscomb.json %
+  autocmd BufWritePost *.css AsyncRun -post=:edit csscomb -c ~/.csscomb.json %
 augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -252,7 +255,7 @@ Plug 'mxw/vim-jsx'
 let g:jsx_ext_required = 0
 " plugin allows to search/replace with preview and undoable
 Plug 'brooth/far.vim'
-let g:far#window_layout = "tab"
+let g:far#window_layout = "current"
 let g:far#auto_preview = 0
 nnoremap <leader>f :F
 nnoremap <leader>F :Far
