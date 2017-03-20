@@ -81,7 +81,7 @@ augroup END
 " auto source .Xresources on save
 augroup auto_source_xresources
   autocmd!
-  autocmd BufWritePost .Xresources xrdb ~/.Xresources
+  autocmd BufWritePost .Xresources AsyncRun xrdb "%:p"
 augroup END
 
 " auto trim trailing whitespaces on save
