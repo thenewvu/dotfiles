@@ -276,6 +276,8 @@ let g:deoplete#enable_at_startup = 1
 let g:deoplete#file#enable_buffer_path = 1
 " plugin allows to select autocomplete options by <tab>
 Plug 'ervandew/supertab'
+" this allows to exploring autocomplete options from top-down
+let g:SuperTabDefaultCompletionType = '<c-n>'
 " plugin provides a way to run asynchronously shell commands
 Plug 'skywind3000/asyncrun.vim'
 " key mapping toggle quickfix with a given height
