@@ -73,13 +73,6 @@ augroup auto_source_vimrc
   autocmd BufWritePost .vimrc source %
 augroup END
 
-" auto save and reload current folding status
-augroup auto_save_folding_status
-  autocmd!
-  autocmd BufWritePre *.* mkview
-  autocmd BufWinEnter *.* silent! loadview
-augroup END
-
 " auto source .Xresources on save
 augroup auto_source_xresources
   autocmd!
@@ -95,13 +88,17 @@ augroup END
 " auto format javascript files on save
 augroup auto_format_js
   autocmd!
-  autocmd BufWritePost *.js AsyncRun -post=:edit standard --fix %
+  autocmd BufWritePost *.js AsyncRun
+    \ -post=:mkview\ |\ edit\ |\ silent!\ loadview
+    \ standard --fix %
 augroup END
 
 " auto format css files on save
 augroup auto_format_css
   autocmd!
-  autocmd BufWritePost *.css AsyncRun -post=:edit csscomb -c ~/.csscomb.json %
+  autocmd BufWritePost *.css AsyncRun
+    \ -post=:mkview\ |\ edit\ |\ silent!\ loadview
+    \ csscomb -c ~/.csscomb.json %
 augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -275,7 +272,7 @@ let g:deoplete#file#enable_buffer_path = 1
 " plugin allows to select autocomplete options by <tab>
 Plug 'ervandew/supertab'
 " this allows to exploring autocomplete options from top-down
-let g:SuperTabDefaultCompletionType = '<c-n>'
+" let g:SuperTabDefaultCompletionType = '<c-n>'
 " plugin provides a way to run asynchronously shell commands
 Plug 'skywind3000/asyncrun.vim'
 " key mapping toggle quickfix with a given height
