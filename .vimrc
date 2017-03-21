@@ -258,7 +258,7 @@ Plug 'brooth/far.vim'
 let g:far#window_layout = "current"
 let g:far#auto_preview = 0
 nnoremap <leader>f :F
-nnoremap <leader>F :Far
+nnoremap <leader>r :Far
 " plugin provides powerline-liked status line and tab line
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
