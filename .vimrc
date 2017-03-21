@@ -39,8 +39,6 @@ set foldmethod=syntax
 set foldnestmax=100 foldlevel=0
 " enable folding for javascript syntax
 let javaScript_fold=1
-" enable folding for vim syntax
-let vim_fold=1
 " function that returns a cleaner folding text title
 " ref: https://goo.gl/Ma7UWE
 function! GenFoldText()
