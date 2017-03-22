@@ -85,11 +85,16 @@ augroup trim_trailing_whitespaces
   autocmd BufWritePre *.js,*.css,*.html %s/\s\+$//e
 augroup END
 
+" function reloads file after reformatted it without changing view status
+function! ReloadFileAfterFormatted()
+  :mkview | edit | silent! loadview
+endf
+
 " auto format javascript files on save
 augroup auto_format_js
   autocmd!
   autocmd BufWritePost *.js AsyncRun
-    \ -post=:mkview\ |\ edit\ |\ silent!\ loadview
+    \ -post=:call\ ReloadFileAfterFormatted()
     \ standard --fix %
 augroup END
 
@@ -97,7 +102,7 @@ augroup END
 augroup auto_format_css
   autocmd!
   autocmd BufWritePost *.css AsyncRun
-    \ -post=:mkview\ |\ edit\ |\ silent!\ loadview
+    \ -post=:call\ ReloadFileAfterFormatted()
     \ csscomb -c ~/.csscomb.json %
 augroup END
 
