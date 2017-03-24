@@ -10,6 +10,9 @@ set noswapfile
 syntax enable
 " display a confirm dialog when closing an unsaved file
 set confirm
+" default directions for creating split windows
+set splitbelow
+set splitright
 " set default encoding to utf-8
 set encoding=utf-8
 " use the system clipboard when yank something
