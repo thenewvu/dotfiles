@@ -109,10 +109,10 @@ augroup auto_format_css
     \ csscomb -c ~/.csscomb.json %
 augroup END
 
-" auto startinsert a new terminal
-augroup auto_temrinal_startinsert
+" auto fix some known issues of terminal
+augroup auto_fix_temrinal
   autocmd!
-  autocmd BufEnter term://* startinsert
+  autocmd TermOpen * setlocal bufhidden=hide
 augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
