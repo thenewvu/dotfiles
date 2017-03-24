@@ -109,6 +109,12 @@ augroup auto_format_css
     \ csscomb -c ~/.csscomb.json %
 augroup END
 
+" auto startinsert a new terminal
+augroup auto_temrinal_startinsert
+  autocmd!
+  autocmd BufEnter term://* startinsert
+augroup END
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " VISUAL SETTINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -174,6 +180,10 @@ nnoremap <A-j> <C-W><C-J>
 nnoremap <A-k> <C-W><C-K>
 nnoremap <A-l> <C-W><C-L>
 nnoremap <A-h> <C-W><C-H>
+tnoremap <A-j> <C-\><C-n><C-W><C-J>
+tnoremap <A-k> <C-\><C-n><C-W><C-K>
+tnoremap <A-l> <C-\><C-n><C-W><C-L>
+tnoremap <A-h> <C-\><C-n><C-W><C-H>
 " key mappings to save current file
 nnoremap <C-S> <esc>:w<CR>
 inoremap <C-S> <esc>:w<CR>
@@ -218,6 +228,8 @@ nnoremap j jzz
 nnoremap k kzz
 vnoremap j jzz
 vnoremap k kzz
+" key mapping to open terminal
+nnoremap <leader>t :8split term://fish<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PLUGIN SETTINGS
