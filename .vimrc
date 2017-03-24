@@ -156,15 +156,8 @@ set pastetoggle=<F2>
 " key mappings to jump to begin/end of lines
 nnoremap B ^
 nnoremap E $
-" key mapping to scroll buffers
-nnoremap <C-j> <esc><C-e>
-nnoremap <C-k> <esc><C-y>
-inoremap <C-j> <esc><C-e>
-inoremap <C-k> <esc><C-y>
-vnoremap <C-j> <esc><C-e>
-vnoremap <C-k> <esc><C-y>
 " key mapping to unfold current block and close other blocks
-nnoremap <space> zMzvzz
+nnoremap <space> zMzv
 " key mapping to clear highlighing search marches
 nnoremap <leader><space> :nohlsearch<CR>
 " key mapping to close current buffer
@@ -217,6 +210,11 @@ nnoremap N Nzz
 " overwrite key mappings to navigate buffers
 nnoremap gt :bn<cr>
 nnoremap gT :bp<cr>
+" overwrite key mappings to make the caret always be middle
+nnoremap j jzz
+nnoremap k kzz
+vnoremap j jzz
+vnoremap k kzz
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PLUGIN SETTINGS
