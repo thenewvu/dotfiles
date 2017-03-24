@@ -285,5 +285,9 @@ Plug 'skywind3000/asyncrun.vim'
 noremap <F3> :call asyncrun#quickfix_toggle(8)<cr>
 " show asyncrun's status on airline's error section
 let g:airline_section_error = '%{g:asyncrun_status}'
+" plugin provides interactive window mode
+Plug 'romgrk/winteract.vim'
+nnoremap <leader>w :InteractiveWindow<cr>
+tnoremap <leader>w <C-\><C-n>:InteractiveWindow<cr>
 call plug#end()
 
