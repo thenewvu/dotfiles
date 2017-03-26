@@ -8,11 +8,8 @@ if [ "${connection_type}" == "wireless" ]; then
 
         #Change below to match your networks.
         case "$essid" in
-         "Tang 3")
-                arp -s 192.168.7.1 4c:f2:bf:b6:a5:10
-         ;;
-         "Tang 2")
-                arp -s 192.168.7.1 4c:f2:bf:b6:a5:10
+         "TANG3")
+                arp -s 192.168.3.33 c4:e9:84:ad:2f:10
          ;;
          "Luu Thi Thao")
                 arp -s 192.168.7.1 4c:f2:bf:b6:a5:10
