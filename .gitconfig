@@ -31,4 +31,11 @@
   cl = clone
   sl = stash list
   sa = stash apply
-  ss = stash save
+[diff]
+  tool = vimdiff
+[merge]
+  tool = vimdiff
+[difftool]
+  prompt = false
+[mergetool "vimdiff"]
+  cmd = nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
