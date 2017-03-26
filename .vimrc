@@ -301,5 +301,8 @@ let g:airline_section_error = '%{g:asyncrun_status}'
 Plug 'romgrk/winteract.vim'
 nnoremap <leader>w :InteractiveWindow<cr>
 tnoremap <leader>w <C-\><C-n>:InteractiveWindow<cr>
+" plugin provides text alignment feature
+Plug 'junegunn/vim-easy-align'
+vnoremap <leader>a :EasyAlign<cr>
 call plug#end()
 
