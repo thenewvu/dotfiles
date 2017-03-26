@@ -238,7 +238,7 @@ call plug#begin('~/.vim/plugged')
 " plugin provides sublime-liked multiple cursors
 Plug 'terryma/vim-multiple-cursors'
 " plugin previews hex/rgb/rgba colors
-Plug 'lilydjwg/colorizer'
+Plug 'chrisbra/colorizer'
 " plugin provides javascript syntax highlight
 Plug 'pangloss/vim-javascript'
 " plugin allows to comment out text depends on its syntax
