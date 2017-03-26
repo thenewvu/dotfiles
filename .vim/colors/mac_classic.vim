@@ -94,15 +94,15 @@ hi NonText  guifg=#DFDFDF ctermfg=253 guibg=#FFFFFF ctermbg=15
 hi SpecialKey  guifg=#DFDFDF ctermfg=253 guibg=#FFFFFF ctermbg=15
 
 " Diff styles {{{1
-hi diffAdded guifg=#007B22 guibg=#FFFFFF ctermfg=28 ctermbg=15
-hi diffRemoved guifg=#D51015 guibg=#FFFFFF ctermfg=160 ctermbg=15
-hi diffFile guifg=#6E79F1 guibg=#FFFFFF ctermfg=69 ctermbg=15
-hi diffNewFile guifg=#6E79F1 guibg=#FFFFFF ctermfg=69 ctermbg=15
-hi diffLine guifg=#000000 guibg=#FFFFFF ctermfg=0 ctermbg=15
+hi diffAdded guifg=#007B22 guibg=#FFFFFF ctermfg=white ctermbg=green
+hi diffRemoved guifg=#D51015 guibg=#FFFFFF ctermfg=white ctermbg=red
+hi diffFile guifg=#6E79F1 guibg=#FFFFFF ctermfg=white ctermbg=yellow
+hi diffNewFile guifg=#6E79F1 guibg=#FFFFFF ctermfg=white ctermbg=green
+hi diffLine guifg=#000000 guibg=#FFFFFF ctermfg=white ctermbg=magenta
 
-hi diffAdd guifg=#007B22 guibg=#FFFFFF ctermfg=28 ctermbg=15
-hi diffChange guifg=#007B22 guibg=#FFFFFF ctermfg=28 ctermbg=15
-hi diffText guifg=#007B22 guibg=#FFFFFF ctermfg=28 ctermbg=15
+hi diffAdd guifg=#007B22 guibg=#FFFFFF ctermfg=white ctermbg=green
+hi diffChange guifg=#007B22 guibg=#FFFFFF ctermfg=white ctermbg=yellow
+hi diffText guifg=#007B22 guibg=#FFFFFF ctermfg=white ctermbg=red
 hi link diffDelete diffRemoved
 " Git styles {{{1
 hi gitcommitFirstLine guifg=#000000 guibg=#FFFFFF ctermfg=0 ctermbg=15
