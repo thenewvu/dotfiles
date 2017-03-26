@@ -162,7 +162,7 @@ bindsym $mod+Shift+Mod1+l move workspace to output right
 bindsym $mod+b border toggle
 
 # key mappings for xflux
-bindsym $mod+F5 exec --no-startup-id xflux -l 36 -g 12
+bindsym $mod+F5 exec --no-startup-id xflux -l 36 -g 128
 bindsym $mod+F6 exec --no-startup-id killall xflux
 
 # key binding to resize window (another way is $mod+right_mouse)
