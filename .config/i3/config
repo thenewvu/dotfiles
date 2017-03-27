@@ -102,9 +102,13 @@ bindsym $mod+Shift+Right move right
 
 # key binding to switch split mode to horizontal
 bindsym $mod+Mod1+Right split h
+bindsym $mod+Mod1+h split h
+bindsym $mod+Mod1+l split h
 
 # key binding to switch split mode to vertical
 bindsym $mod+Mod1+Down split v
+bindsym $mod+Mod1+j split v
+bindsym $mod+Mod1+k split v
 
 # key binding to make/unmake the focusing window fullscreen
 bindsym $mod+f fullscreen toggle
