@@ -105,8 +105,8 @@ augroup END
 augroup auto_format_css
   autocmd!
   autocmd BufWritePost *.css AsyncRun
-    \ -post=:call\ ReloadFileAfterFormatted()
-    \ csscomb -c ~/.csscomb.json %
+    \ -post=:call\ ReloadFileAfterFormatted()\ |\ silent!\ g/^$/d\ |\ noautocmd\ w
+    \ csscomb %
 augroup END
 
 " auto fix some known issues of terminal
