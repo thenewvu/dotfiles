@@ -301,5 +301,7 @@ tnoremap <leader>w <C-\><C-n>:InteractiveWindow<cr>
 " plugin provides text alignment feature
 Plug 'junegunn/vim-easy-align'
 vnoremap <leader>a :EasyAlign<cr>
+" plugin provides faster horizontal movement
+Plug 'rhysd/clever-f.vim'
 call plug#end()
 
