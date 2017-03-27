@@ -118,8 +118,6 @@ augroup END
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " VISUAL SETTINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" set color scheme
-colorscheme mac_classic
 " set ruler
 set colorcolumn=80
 " set preferred text width
@@ -303,5 +301,10 @@ Plug 'junegunn/vim-easy-align'
 vnoremap <leader>a :EasyAlign<cr>
 " plugin provides faster horizontal movement
 Plug 'rhysd/clever-f.vim'
+" plugin provdes hemisu color scheme
+Plug 'noahfrederick/vim-hemisu'
+set rtp+=~/.vim/plugged/vim-hemisu
+set background=light
+colorschem hemisu
 call plug#end()
 
