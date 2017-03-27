@@ -282,15 +282,12 @@ let g:airline#extensions#tabline#enabled = 1
 " set filename mode to relative without being collapsed
 let g:airline#extensions#tabline#fnamemod = ':.'
 let g:airline#extensions#tabline#fnamecollapse = 0
-" plugin provides better autocomplete function
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-let g:deoplete#enable_at_startup = 1
-" autocomplete filepaths based on current path of current file
-let g:deoplete#file#enable_buffer_path = 1
-" plugin allows to select autocomplete options by <tab>
-Plug 'ervandew/supertab'
-" this allows to exploring autocomplete options from top-down
-let g:SuperTabDefaultCompletionType = '<c-n>'
+" plugin provides asynchronous code completion
+Plug 'maralla/completor.vim'
+" key mappings allow to use <tab> to select completion
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
 " plugin provides a way to run asynchronously shell commands
 Plug 'skywind3000/asyncrun.vim'
 " key mapping toggle quickfix with a given height
