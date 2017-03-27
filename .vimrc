@@ -301,6 +301,7 @@ Plug 'junegunn/vim-easy-align'
 vnoremap <leader>a :EasyAlign<cr>
 " plugin provides faster horizontal movement
 Plug 'rhysd/clever-f.vim'
+let g:clever_f_ignore_case = 1
 " plugin provdes hemisu color scheme
 Plug 'noahfrederick/vim-hemisu'
 set rtp+=~/.vim/plugged/vim-hemisu
