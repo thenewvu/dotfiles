@@ -31,9 +31,10 @@ URxvt.scrollTtyKeypress: true
 
 URxvt.cutchars: ()*,<>[]{}|`""''
 URxvt.perl-ext-common: default,tabbedex,matcher,selection-to-clipboard,\
-  searchable-scrollback,resize-font,keyboard-select
+  searchable-scrollback,resize-font,keyboard-select,autocomplete-ALL-the-things
 URxvt.keysym.M-Escape: perl:keyboard-select:activate
 URxvt.keysym.M-s: perl:keyboard-select:search
+URxvt.keysym.M-p: perl:aAtt:word-complete
 
 URxvt.url-launcher: /usr/bin/xdg-open
 URxvt.matcher.button: 1
