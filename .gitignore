@@ -67,3 +67,4 @@ logs/
 .config/youtube-viewer/
 .sdcv_history
 .vim/backups
+.gnupg

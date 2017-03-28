@@ -1,0 +1,25 @@
+#! /bin/sh
+
+# start sxhkd
+pgrep sxhkd > /dev/null || sxhkd&
+
+# disable touchpad by default
+~/.bin/touchpadctl disable
+
+# start xflux
+pgrep xflux > /dev/null || xflux -l 36 -g 128&
+
+# disable caps lock
+setxkbmap -option ctrl:nocaps
+
+# set desktop background color
+xsetroot -solid "#9e9e9e"
+
+bspc monitor -d I II III IV
+
+bspc config border_width         0
+bspc config window_gap           5
+
+bspc config split_ratio          0.52
+bspc config borderless_monocle   true
+bspc config gapless_monocle      true

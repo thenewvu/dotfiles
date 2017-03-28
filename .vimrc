@@ -76,6 +76,18 @@ augroup auto_source_vimrc
   autocmd BufWritePost .vimrc source %
 augroup END
 
+" auto source bspwmrc
+augroup auto_source_bspwmrc
+  autocmd!
+  autocmd BufWritePost bspwmrc !%
+augroup END
+
+" auto source sxhkd
+augroup auto_source_sxhkdrc
+  autocmd!
+  autocmd BufWritePost sxhkd !pkill -USR1 -x sxhkd
+augroup END
+
 " auto source .Xresources on save
 augroup auto_source_xresources
   autocmd!
