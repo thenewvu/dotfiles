@@ -1,0 +1,43 @@
+[[bar]]
+  fontcolor #373b41
+  background #fafafa
+  fontname Operator Mono Light:size=8
+  borderwidth 1
+  bordercolor #373b41
+  padding 2
+  margin-left 4
+  margin-right 2
+  location top
+  left
+    desktops
+  center
+    time
+    date
+  right
+    volume
+    battery
+
+[desktops]
+  id workspace
+  format %N
+  active:background #e0e0e0
+
+[time]
+  id clock
+  timeout 60
+  format %H:%M
+
+[date]
+  id clock
+  format %a %d/%m
+
+[battery]
+  id scale
+  source battery BAT0
+  med_font #FBA922
+  low_font #fff
+  low_color #F96A38
+
+[volume]
+  id scale
+  source alsa 0 Master
