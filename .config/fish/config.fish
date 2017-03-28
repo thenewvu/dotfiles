@@ -49,11 +49,3 @@ alias gd="git diff"
 alias gp="git push"
 alias gdc="git diff --cached"
 alias gco="git checkout"
-
-# yaourt aliases
-alias yt="yaourt"
-alias yts="yaourt -Ss"
-alias yta="yaourt -S"
-alias ytr="yaourt -R"
-alias ytu="yaourt -Syu --aur --noconfirm"
-alias ytc="sudo pacman-remove-orphans ; paccache -ruk0 ; paccache -rk 1"
