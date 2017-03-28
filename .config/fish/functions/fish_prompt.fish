@@ -1,1 +1,0 @@
-/home/vu/.config/fisherman/bobthefish/fish_prompt.fish

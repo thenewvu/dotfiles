@@ -1,1 +1,0 @@
-/home/vu/.config/fisherman/getopts/getopts.fish

@@ -1,6 +1,0 @@
-[Match]
-MACAddress=permanent MAC
-
-[Link]
-MACAddressPolicy=random
-NamePolicy=kernel database onboard slot path

@@ -68,3 +68,8 @@ logs/
 .sdcv_history
 .vim/backups
 .gnupg
+.config/nemo
+.config/sublime-text-3/
+.config/fish/conf.d/
+.config/fish/fishd.xana
+.config/fish/functions
