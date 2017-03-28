@@ -25,7 +25,7 @@ if not set -q LANG >/dev/null
 end
 
 # default editor for yaourt
-set -gx VISUAL "vim"
+set -gx VISUAL "nvim"
 
 # fzf settings
 set -gx FZF_DEFAULT_OPTS '--color=bw'
@@ -57,10 +57,3 @@ alias yta="yaourt -S"
 alias ytr="yaourt -R"
 alias ytu="yaourt -Syu --aur --noconfirm"
 alias ytc="sudo pacman-remove-orphans ; paccache -ruk0 ; paccache -rk 1"
-
-# docker aliases
-alias docker-remove-exited-containers="docker rm (docker ps -q -f status=exited)"
-alias docker-remove-dangling-images="docker rmi (docker images -q -f dangling=true)"
-
-# sdcv aliases
-alias define="sdcv"
