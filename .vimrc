@@ -85,7 +85,7 @@ augroup END
 " auto source sxhkd
 augroup auto_source_sxhkdrc
   autocmd!
-  autocmd BufWritePost sxhkd !pkill -USR1 -x sxhkd
+  autocmd BufWritePost sxhkdrc !pkill -USR1 -x sxhkd
 augroup END
 
 " auto source .Xresources on save
