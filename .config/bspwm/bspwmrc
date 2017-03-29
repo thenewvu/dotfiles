@@ -6,6 +6,9 @@ pgrep tint3 > /dev/null || tint3&
 # start sxhkd
 pgrep sxhkd > /dev/null || sxhkd&
 
+# start urxvt deamon
+pgrep urxvtd > /dev/null || urxvtd -q -f -o
+
 # disable touchpad by default
 ~/.bin/touchpadctl disable
 
