@@ -1,0 +1,16 @@
+#!/bin/bash
+
+device=`xinput | grep Mouse | grep -o "id=.." | grep -o "[0-9]*"`
+
+if [ $1 == 'disable' ]; then
+  xinput --disable $device
+elif [ $1 == 'enable' ]; then
+  xinput --enable $device
+elif [ $1 == 'toggle' ]; then
+  state=`xinput list-props "$device" | grep "Device Enabled" | grep -o "[01]$"`
+  if [ $state == '1' ]; then
+    xinput --disable $device
+  else
+    xinput --enable $device
+  fi
+fi

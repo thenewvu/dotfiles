@@ -28,6 +28,8 @@ XF86AudioMute
 XF86TouchpadToggle
   ~/.bin/touchpadctl toggle
 
+Num_Lock
+  ~/.bin/mousectl toggle
 #
 # bspwm hotkeys
 #
