@@ -75,7 +75,7 @@ set undofile
 " auto source .vimrc on save
 augroup auto_source_vimrc
   autocmd!
-  autocmd BufWritePost .vimrc source %
+  autocmd BufWritePost .vimrc source % | AirlineRefresh
 augroup END
 
 " auto source bspwmrc
