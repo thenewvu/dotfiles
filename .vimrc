@@ -3,6 +3,8 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " set leader to >;<
 let g:mapleader = ";"
+" set tmp dir
+set dir=$HOME/.vim/tmp/
 " disable backup and swap files
 set nobackup
 set noswapfile
@@ -294,6 +296,7 @@ let g:airline#extensions#tabline#fnamemod = ':.'
 let g:airline#extensions#tabline#fnamecollapse = 0
 " plugin provides asynchronous code completion
 Plug 'maralla/completor.vim'
+let g:completor_css_omni_trigger = '([\w-]+|@[\w-]*|[\w-]+:\s*[\w-]*)$'
 " key mappings allow to use <tab> to select completion
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
