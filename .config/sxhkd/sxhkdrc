@@ -28,6 +28,12 @@ XF86AudioMute
 XF86TouchpadToggle
   ~/.bin/touchpadctl toggle
 
+XF86MonBrightnessUp
+  xbacklight -inc 1
+
+XF86MonBrightnessDown
+  xbacklight -dec 1
+
 Scroll_Lock
   ~/.bin/mousectl toggle
 #
