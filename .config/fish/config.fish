@@ -49,3 +49,6 @@ alias gd="git diff"
 alias gp="git push"
 alias gdc="git diff --cached"
 alias gco="git checkout"
+
+# nvim as vim
+alias vim="nvim"
