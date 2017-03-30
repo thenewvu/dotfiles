@@ -72,60 +72,26 @@ silent !mkdir ~/.config/nvim/backups > /dev/null 2>&1
 set undodir=~/.config/nvim/backups
 set undofile
 
-" auto source .vimrc on save
-augroup auto_source_vimrc
-  autocmd!
-  autocmd BufWritePost .vimrc source % | AirlineRefresh
-augroup END
-
-" auto source bspwmrc
-augroup auto_source_bspwmrc
-  autocmd!
-  autocmd BufWritePost bspwmrc !%
-augroup END
-
-" auto source sxhkd
-augroup auto_source_sxhkdrc
-  autocmd!
-  autocmd BufWritePost sxhkdrc !pkill -USR1 -x sxhkd
-augroup END
-
-" auto source .Xresources on save
-augroup auto_source_xresources
-  autocmd!
-  autocmd BufWritePost .Xresources AsyncRun xrdb "%:p"
-augroup END
-
-" auto trim trailing whitespaces on save
-augroup trim_trailing_whitespaces
-  autocmd!
-  autocmd BufWritePre *.js,*.css,*.html %s/\s\+$//e
-augroup END
-
 " function reloads file after reformatted it without changing view status
 function! ReloadFileAfterFormatted()
   :mkview | edit | silent! loadview
 endf
 
-" auto format javascript files on save
-augroup auto_format_js
+" autocmd for some types of file
+augroup auto_source
   autocmd!
+  autocmd BufWritePost .vimrc source % | AirlineRefresh
+  autocmd BufWritePost bspwmrc !%
+  autocmd BufWritePost sxhkdrc !pkill -USR1 -x sxhkd
+  autocmd BufWritePost .Xresources AsyncRun xrdb "%:p"
+  autocmd BufWritePost config.fish !. %
+  autocmd BufWritePre *.js,*.css,*.html %s/\s\+$//e
   autocmd BufWritePost *.js AsyncRun
     \ -post=:call\ ReloadFileAfterFormatted()
     \ standard --fix %
-augroup END
-
-" auto format css files on save
-augroup auto_format_css
-  autocmd!
   autocmd BufWritePost *.css AsyncRun
     \ -post=:call\ ReloadFileAfterFormatted()\ |\ silent!\ g/^$/d\ |\ noautocmd\ w
     \ csscomb %
-augroup END
-
-" auto fix some known issues of terminal
-augroup auto_fix_temrinal
-  autocmd!
   autocmd TermOpen * setlocal bufhidden=hide
 augroup END
 
