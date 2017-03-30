@@ -1,8 +1,5 @@
 #! /bin/sh
 
-# start tint3
-pgrep tint3 > /dev/null || tint3&
-
 # start sxhkd
 pgrep sxhkd > /dev/null || sxhkd&
 
