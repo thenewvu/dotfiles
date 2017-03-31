@@ -4,7 +4,19 @@ clock () {
   echo -n "$(date "+%a %m-%d %H:%M")"
 }
 
+usedmem () {
+  echo -n `free -m | head -2 | tail -1| awk '{print $3}'`
+}
+
+totalmem () {
+  echo -n `free -m | head -2 | tail -1| awk '{print $2}'`
+}
+
+volume () {
+  echo -n `(amixer get Master | awk '/Mono.+/ {print $6=="[off]"?$6:$4}')`
+}
+
 while true; do
-  echo "%{c} $(clock)"
-  sleep 60
+  echo "%{c} [$(clock)] - [$(usedmem)/$(totalmem)M] - $(volume)"
+  sleep 15
 done
