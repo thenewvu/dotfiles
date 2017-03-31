@@ -1,0 +1,10 @@
+#!/usr/bin/bash
+
+clock () {
+  echo -n "$(date "+%a %m-%d %H:%M")"
+}
+
+while true; do
+  echo "%{c} $(clock)"
+  sleep 60
+done

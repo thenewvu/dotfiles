@@ -3,6 +3,12 @@
 # start sxhkd
 pgrep sxhkd > /dev/null || sxhkd&
 
+# start lemonbar
+pkill -USR1 -x lemonbar
+~/.config/lemonbar/lemonbarrc | lemonbar \
+  -F "#373b41" -B "#fafafa" \
+  -f "-misc-liberation mono-medium-r-normal--10-0-0-0-m-0-ascii-0" &
+
 # start urxvt deamon
 pgrep urxvtd > /dev/null || urxvtd -q -f -o
 
