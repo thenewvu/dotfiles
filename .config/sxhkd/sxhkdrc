@@ -9,7 +9,7 @@ super + Return
 # program launcher
 super + @space
   dmenu_run -fn 'Operator Mono Light:style:Italic:size=10' \
-    -nb '#fafafa' -nf '#373B41' -sb '#fafafa' -sf '#3971ED'
+    -nb '#fafafa' -nf '#c5c8c6' -sb '#fafafa' -sf '#373b41'
 
 # make sxhkd reload its configuration files:
 super + Escape
