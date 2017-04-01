@@ -22,15 +22,10 @@ pgrep xflux > /dev/null || xflux -l 36 -g 128&
 # disable caps lock
 setxkbmap -option ctrl:nocaps
 
-# set desktop background color
-xsetroot -solid "#9e9e9e"
+bspc monitor -d 1 2 3
 
-bspc monitor -d 1 2
-
-bspc config border_width         1
-bspc config window_gap           4
-bspc config normal_border_color  "#373b41"
-bspc config focused_border_color "#CC342B"
+bspc config border_width         0
+bspc config window_gap           2
 
 bspc config split_ratio          0.52
 bspc config borderless_monocle   false

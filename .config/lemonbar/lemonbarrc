@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 
 clock () {
-  echo -n "$(date "+%a %m-%d %H:%M")"
+  echo -n `date "+%a %m-%d %H:%M"`
 }
 
 usedmem () {
