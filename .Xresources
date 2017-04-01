@@ -13,6 +13,8 @@ URxvt.boldItalicFont: xft:Operator Mono Light:style=Italic:size=8,xft:PragmataPr
 
 URxvt.geometry: 120x24
 
+URxvt.fading: 30
+
 URxvt.letterSpace: 0
 URxvt.saveLines: 1000
 
