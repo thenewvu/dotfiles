@@ -90,7 +90,7 @@ augroup auto_source
     \ -post=:call\ ReloadFileAfterFormatted()
     \ standard --fix %
   autocmd BufWritePost *.css AsyncRun
-    \ -post=:call\ ReloadFileAfterFormatted()\ |\ silent!\ g/^$/d\ |\ noautocmd\ w
+    \ -post=:call\ ReloadFileAfterFormatted()
     \ csscomb %
   autocmd TermOpen * setlocal bufhidden=hide
 augroup END
