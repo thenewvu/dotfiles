@@ -6,10 +6,14 @@ Xft.hinting: 1
 Xft.antialias: 1
 Xft.rgba: none
 
-URxvt.font: xft:Operator Mono Light:style=Italic:size=8,xft:PragmataPro Mono:style=Italic:size=8
-URxvt.boldFont: xft:Operator Mono Light:style=Italic:size=8,xft:PragmataPro Mono:style=Italic:size=8
-URxvt.italicFont: xft:Operator Mono Light:style=Italic:size=8,xft:PragmataPro Mono:style=Italic:size=8
-URxvt.boldItalicFont: xft:Operator Mono Light:style=Italic:size=8,xft:PragmataPro Mono:style=Italic:size=8
+URxvt.font: xft:Operator Mono Light:style=Italic:size=8,\
+  xft:PragmataPro Mono:style=Italic:size=8
+URxvt.boldFont: xft:Operator Mono Light:style=Italic:size=8,\
+  xft:PragmataPro Mono:style=Italic:size=8
+URxvt.italicFont: xft:Operator Mono Light:style=Italic:size=8,\
+  xft:PragmataPro Mono:style=Italic:size=8
+URxvt.boldItalicFont: xft:Operator Mono Light:style=Italic:size=8,\
+  xft:PragmataPro Mono:style=Italic:size=8
 
 URxvt.geometry: 120x24
 
@@ -33,7 +37,8 @@ URxvt.scrollTtyKeypress: true
 
 URxvt.cutchars: ()*,<>[]{}|`""''
 URxvt.perl-ext-common: default,tabbedex,matcher,selection-to-clipboard,\
-  searchable-scrollback,resize-font,keyboard-select,autocomplete-ALL-the-things
+  searchable-scrollback,resize-font,keyboard-select,\
+  autocomplete-ALL-the-things
 URxvt.keysym.M-Escape: perl:keyboard-select:activate
 URxvt.keysym.M-s: perl:keyboard-select:search
 URxvt.keysym.M-p: perl:aAtt:word-complete
