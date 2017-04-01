@@ -99,7 +99,7 @@ augroup END
 " VISUAL SETTINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " set ruler
-set colorcolumn=80
+" set colorcolumn=80
 " set preferred text width
 set textwidth=80
 " set ruler colors
