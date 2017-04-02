@@ -74,3 +74,4 @@ logs/
 .config/fish/fishd.xana
 .config/fish/functions
 .config/inkscape/
+.bash_logout

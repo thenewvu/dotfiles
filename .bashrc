@@ -1,1 +1,1 @@
-export VISUAL="vim"
+export VISUAL="nvim"
