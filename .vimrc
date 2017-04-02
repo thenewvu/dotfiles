@@ -98,10 +98,6 @@ augroup END
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " VISUAL SETTINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" set colorscheme
-colorscheme darkblue
-" set preferred text width
-set textwidth=80
 " set ruler colors
 highlight ColorColumn ctermbg=254
 " show line numbers
@@ -255,7 +251,7 @@ nnoremap <leader>r :Far
 " plugin provides powerline-liked status line and tab line
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-let g:airline_theme= 'badcat'
+let g:airline_theme= 'base16_grayscale'
 let g:airline_powerline_fonts = 2
 " enabled showing buffers on tabline
 let g:airline#extensions#tabline#enabled = 1
@@ -288,5 +284,9 @@ let g:clever_f_ignore_case = 1
 let g:clever_f_fix_key_direction = 1
 let g:clever_f_across_no_line = 1
 let g:clever_f_chars_match_any_signs = ';'
+Plug 'owickstrom/vim-colors-paramount'
+set rtp+=~/.vim/plugged/vim-colors-paramount
+set background=dark
+colorscheme paramount
 call plug#end()
 
