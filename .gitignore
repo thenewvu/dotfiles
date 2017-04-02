@@ -73,3 +73,4 @@ logs/
 .config/fish/conf.d/
 .config/fish/fishd.xana
 .config/fish/functions
+.config/inkscape/
