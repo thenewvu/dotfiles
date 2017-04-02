@@ -21,8 +21,8 @@ setxkbmap -option ctrl:nocaps
 
 bspc monitor -d 1 2 3
 
-bspc config border_width         0
-bspc config window_gap           2
+bspc config border_width         1
+bspc config window_gap           0
 
 bspc config split_ratio          0.52
 bspc config borderless_monocle   false
