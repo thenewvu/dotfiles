@@ -208,6 +208,8 @@ vnoremap j jzz
 vnoremap k kzz
 " key mapping to open terminal
 nnoremap <leader>t :8split term://fish<cr>
+" key mapping to write current file with sudo
+cmap w!! w !sudo tee > /dev/null %
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PLUGIN SETTINGS
