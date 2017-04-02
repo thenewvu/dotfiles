@@ -7,11 +7,8 @@ pgrep sxhkd > /dev/null || sxhkd&
 pkill -USR1 -x lemonbar
 pkill -USR1 -x ~/.config/lemonbar/lemonbarrc
 ~/.config/lemonbar/lemonbarrc | lemonbar \
-  -F "#373b41" -B "#fafafa" \
-  -f "-misc-liberation mono-medium-r-normal--10-0-0-0-m-0-ascii-0" &
-
-# start urxvt deamon
-pgrep urxvtd > /dev/null || urxvtd -q -f -o
+  -F "#fafafa" -B "#373b41" \
+  -f "a14" &
 
 # disable touchpad by default
 ~/.bin/touchpadctl disable

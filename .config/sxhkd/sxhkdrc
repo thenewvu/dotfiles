@@ -4,12 +4,12 @@
 
 # terminal emulator
 super + Return
-  urxvtc
+  st -f "PxPlus IBM VGA8:style=Regular:size=12"
 
 # program launcher
 super + @space
-  dmenu_run -fn 'Operator Mono Light:style:Italic:size=10' \
-    -nb '#fafafa' -nf '#c5c8c6' -sb '#fafafa' -sf '#373b41'
+  dmenu_run -fn 'PxPlus IBM VGA8:style=Regular:size=10' \
+    -nb '#373b41' -nf '#c5c8c6' -sf '#fafafa'
 
 # make sxhkd reload its configuration files:
 super + Escape
