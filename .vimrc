@@ -98,6 +98,8 @@ augroup END
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " VISUAL SETTINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" set colorscheme
+colorscheme darkblue
 " set preferred text width
 set textwidth=80
 " set ruler colors
