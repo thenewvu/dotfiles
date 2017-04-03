@@ -251,7 +251,7 @@ nnoremap <leader>r :Far
 " plugin provides powerline-liked status line and tab line
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-let g:airline_theme= 'base16_grayscale'
+let g:airline_theme = 'base16_grayscale'
 let g:airline_powerline_fonts = 1
 let g:airline_left_sep = '▓▒░'
 let g:airline_left_alt_sep = ' '
