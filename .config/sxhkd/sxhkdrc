@@ -6,7 +6,7 @@
 
 # terminal emulator
 super + Return
-  st -f "PxPlus IBM VGA8:style=Regular:size=12"
+  st -f "Operator Mono:style=Bold Italic:size=12"
 
 # program launcher
 super + @space

@@ -252,7 +252,11 @@ nnoremap <leader>r :Far
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 let g:airline_theme= 'base16_grayscale'
-let g:airline_powerline_fonts = 2
+let g:airline_powerline_fonts = 1
+let g:airline_left_sep = '▓▒░'
+let g:airline_left_alt_sep = ' '
+let g:airline_right_sep = '░▒▓'
+let g:airline_right_alt_sep = ' '
 " enabled showing buffers on tabline
 let g:airline#extensions#tabline#enabled = 1
 " set filename mode to relative without being collapsed
