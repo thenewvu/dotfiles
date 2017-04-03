@@ -1,5 +1,11 @@
 #!/usr/bin/bash
 
+foreground="#fafafa"
+background="#373b41"
+font="a14"
+bat="BAT0"
+interval=15
+
 clock () {
   echo -n `date "+%a %m-%d %H:%M"`
 }
@@ -17,12 +23,18 @@ volume () {
 }
 
 battery () {
-  cur=`cat /sys/class/power_supply/BAT0/energy_now`
-  full=`cat /sys/class/power_supply/BAT0/energy_full`
+  cur=$(cat /sys/class/power_supply/$bat/energy_now)
+  full=$(cat /sys/class/power_supply/$bat/energy_full)
   echo -n "$(($cur * 100 / $full))"
 }
 
 while true; do
-  echo "%{c} [$(clock)] - [$(usedmem)/$(totalmem)M] - $(volume) - [$(battery)%]"
-  sleep 15
-done
+  echo "%{c} [$(clock)]"\
+    "- [$(usedmem)/$(totalmem)M]"\
+    "- $(volume)"\
+    "- [$(battery)%]"
+  sleep $interval
+done | lemonbar -p \
+  -F $foreground \
+  -B $background \
+  -f $font

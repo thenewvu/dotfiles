@@ -4,11 +4,7 @@
 pgrep sxhkd > /dev/null || sxhkd&
 
 # start lemonbar
-pkill -USR1 -x lemonbar
-pkill -USR1 -x ~/.config/lemonbar/lemonbarrc
-~/.config/lemonbar/lemonbarrc | lemonbar \
-  -F "#fafafa" -B "#373b41" \
-  -f "a14" &
+~/.config/lemonbar/lemonbarrc&
 
 # disable touchpad by default
 ~/.bin/touchpadctl disable
