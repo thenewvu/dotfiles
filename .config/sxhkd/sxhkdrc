@@ -10,7 +10,7 @@ super + Return
 
 # program launcher
 super + @space
-  dmenu_run -fn 'PxPlus IBM VGA8:style=Regular:size=10' \
+  dmenu_run -fn 'Operator Mono:style=Bold Italic:size=10' \
     -nb '#373b41' -nf '#c5c8c6' -sf '#fafafa'
 
 # make sxhkd reload its configuration files:
