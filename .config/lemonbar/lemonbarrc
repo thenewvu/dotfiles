@@ -28,8 +28,16 @@ battery () {
   echo -n "$(($cur * 100 / $full))"
 }
 
+until_day_end () {
+  seconds=$(($(date -d 23:59:59 +%s) - $(date +%s)))
+  hours=$((seconds/60/60))
+  minutes=$((seconds/60%60))
+  echo -n "$hours""h""$minutes""m"
+}
+
 while true; do
   echo "%{c} [$(clock)]"\
+    "- [$(until_day_end)]"\
     "- [$(usedmem)/$(totalmem)M]"\
     "- $(volume)"\
     "- [$(battery)%]"
