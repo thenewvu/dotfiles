@@ -34,4 +34,6 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
  unset f
 fi
 
+# ref: https://github.com/baskerville/bspwm/wiki/Playing-nicely-with-fish-shell
+export SXHKD_SHELL='/usr/bin/sh'
 exec bspwm
