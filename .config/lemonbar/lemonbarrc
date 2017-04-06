@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-foreground="#fafafa"
+foreground="#f0f0f0"
 background="#373b41"
 font="-misc-fixed-bold-r-normal--13-120-75-75-c-70-iso8859-1"
 bat="BAT0"
