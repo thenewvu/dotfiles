@@ -4,7 +4,7 @@
 pgrep sxhkd > /dev/null || sxhkd&
 
 # start lemonbar
-killall lemonbarrc && killall lemonbar && \
+(killall lemonbarrc || true) && (killall lemonbar || true) && \
   ~/.config/lemonbar/lemonbarrc&
 
 bspc monitor -d 1 2 3
