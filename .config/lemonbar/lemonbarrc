@@ -23,9 +23,17 @@ volume () {
 }
 
 battery () {
-  cur=$(cat /sys/class/power_supply/$bat/charge_now)
-  full=$(cat /sys/class/power_supply/$bat/charge_full)
-  echo -n "$(($cur * 100 / $full))"
+  if [ -f "/sys/class/power_supply/$bat/charge_now" ]; then
+    cur=$(cat /sys/class/power_supply/$bat/charge_now)
+    full=$(cat /sys/class/power_supply/$bat/charge_full)
+    echo -n "$(($cur * 100 / $full))"
+  elif [ -f "/sys/class/power_supply/$bat/energy_now" ]; then
+    cur=$(cat /sys/class/power_supply/$bat/energy_now)
+    full=$(cat /sys/class/power_supply/$bat/energy_full)
+    echo -n "$(($cur * 100 / $full))"
+  else
+    echo -n "?"
+  fi
 }
 
 until_day_end () {
