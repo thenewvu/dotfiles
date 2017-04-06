@@ -6,11 +6,11 @@
 
 # terminal emulator
 super + Return
-  st -f "Perfect DOS VGA 437:style=Regular:size=12"
+  st -f "PxPlus IBM VGA8:style=Regular:size=12"
 
 # program launcher
 super + @space
-  dmenu_run -fn 'Perfect DOS VGA 437:style=Regular:size=10' \
+  dmenu_run -fn 'PxPlus IBM VGA8:style=Regular:size=12' \
     -nb '#373b41' -nf '#c5c8c6' -sf '#fafafa'
 
 # make sxhkd reload its configuration files:
@@ -79,19 +79,19 @@ super + ctrl + {x,y,z}
 
 # preselect the direction
 super + ctrl + {h,j,k,l}
-	bspc node -p {west,south,north,east}
+  bspc node -p {west,south,north,east}
 
 # preselect the ratio
 super + ctrl + {1-9}
-	bspc node -o 0.{1-9}
+  bspc node -o 0.{1-9}
 
 # cancel the preselection for the focused node
 super + ctrl + space
-	bspc node -p cancel
+  bspc node -p cancel
 
 # cancel the preselection for the focused desktop
 super + ctrl + shift + space
-	bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
+  bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
 
 #
 # focus/swap
