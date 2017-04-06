@@ -1,6 +1,6 @@
 gtk-icon-theme-name = "breeze"
 gtk-theme-name = "Cloak-3.20"
-gtk-font-name = "PxPlus IBM VGA8"
+gtk-font-name = "PxPlus IBM VGA8 12"
 gtk-xft-antialias=1
 gtk-xft-lcdfilter=lcddefault
 gtk-xft-hinting=1
