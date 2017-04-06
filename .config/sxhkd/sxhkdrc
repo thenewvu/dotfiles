@@ -6,11 +6,11 @@
 
 # terminal emulator
 super + Return
-  st -f "Operator Mono:style=Bold Italic:size=12"
+  st -f "Perfect DOS VGA 437:style=Regular:size=12"
 
 # program launcher
 super + @space
-  dmenu_run -fn 'Operator Mono:style=Bold Italic:size=10' \
+  dmenu_run -fn 'Perfect DOS VGA 437:style=Regular:size=10' \
     -nb '#373b41' -nf '#c5c8c6' -sf '#fafafa'
 
 # make sxhkd reload its configuration files:
@@ -31,13 +31,20 @@ XF86TouchpadToggle
   ~/.bin/touchpadctl toggle
 
 XF86MonBrightnessUp
-  xbacklight -inc 1
+  xbacklight -inc 5
 
 XF86MonBrightnessDown
-  xbacklight -dec 1
+  xbacklight -dec 5
 
 Scroll_Lock
   ~/.bin/mousectl toggle
+
+XF86KbdBrightnessUp
+  xbacklight -inc 5
+
+XF86KbdBrightnessDown
+  xbacklight -dec 5
+
 #
 # bspwm hotkeys
 #

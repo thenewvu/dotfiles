@@ -4,16 +4,8 @@
 pgrep sxhkd > /dev/null || sxhkd&
 
 # start lemonbar
-~/.config/lemonbar/lemonbarrc&
-
-# disable touchpad by default
-~/.bin/touchpadctl disable
-
-# start xflux
-pgrep xflux > /dev/null || xflux -l 36 -g 128&
-
-# disable caps lock
-setxkbmap -option ctrl:nocaps
+killall lemonbarrc && killall lemonbar && \
+  ~/.config/lemonbar/lemonbarrc&
 
 bspc monitor -d 1 2 3
 
@@ -26,9 +18,3 @@ bspc config gapless_monocle       false
 bspc config click_to_focus        true
 bspc config initial_polarity      second_child
 bspc config presel_feedback_color "#0e0e0e"
-
-# prevent fullscreen
-bspc subscribe node_state | while read msg mid did nid state value; do
-  [ "$state $value" = "fullscreen on" ] || continue
-  bspc node $nid -t tiled
-done&

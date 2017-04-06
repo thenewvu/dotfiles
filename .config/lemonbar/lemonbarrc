@@ -2,7 +2,7 @@
 
 foreground="#fafafa"
 background="#373b41"
-font="a14"
+font="-misc-fixed-bold-r-normal--13-120-75-75-c-70-iso8859-1"
 bat="BAT0"
 interval=15
 
@@ -23,8 +23,8 @@ volume () {
 }
 
 battery () {
-  cur=$(cat /sys/class/power_supply/$bat/energy_now)
-  full=$(cat /sys/class/power_supply/$bat/energy_full)
+  cur=$(cat /sys/class/power_supply/$bat/charge_now)
+  full=$(cat /sys/class/power_supply/$bat/charge_full)
   echo -n "$(($cur * 100 / $full))"
 }
 
