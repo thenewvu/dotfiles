@@ -1,1 +1,1 @@
-/home/vu/.vimrc
+../.vimrc

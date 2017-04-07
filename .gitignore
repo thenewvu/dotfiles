@@ -75,3 +75,4 @@ logs/
 .config/fish/functions
 .config/inkscape/
 .bash_logout
+.vim/autoload/plug.vim.old
