@@ -288,9 +288,12 @@ let g:clever_f_ignore_case = 1
 let g:clever_f_fix_key_direction = 1
 let g:clever_f_across_no_line = 1
 let g:clever_f_chars_match_any_signs = ';'
+" Plugin provides paramount color scheme
 Plug 'owickstrom/vim-colors-paramount'
 set rtp+=~/.vim/plugged/vim-colors-paramount
 set background=dark
 colorscheme paramount
+" plugin provides swift syntax highlight
+Plug 'keith/swift.vim'
 call plug#end()
 
