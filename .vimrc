@@ -192,8 +192,8 @@ nnoremap <c-d> :!mkdir ./
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
 " overwrite key mappings to centerize highlighted search
-nnoremap n nzz
-nnoremap N Nzz
+nnoremap n nzzzv
+nnoremap N Nzzzv
 " overwrite key mappings to navigate buffers
 nnoremap gt :bn<cr>
 nnoremap gT :bp<cr>
