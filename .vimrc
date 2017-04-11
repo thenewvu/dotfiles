@@ -225,9 +225,9 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 " key mapping to fuzzy search file in the current working dir
-nnoremap <C-p> :FZF<CR>
+nnoremap <leader>p :FZF<CR>
 " key mapping to fuzzy search text in the current buffer
-nnoremap <c-r> :BLines<cr>
+nnoremap <leader>f :BLines<cr>
 " plugin allows to <w>/<b> over words
 Plug 'chaoren/vim-wordmotion'
 " plugin provides git functions, only required by airline so far
@@ -246,7 +246,7 @@ let g:jsx_ext_required = 0
 Plug 'brooth/far.vim'
 let g:far#window_layout = "current"
 let g:far#auto_preview = 0
-nnoremap <leader>f :F
+nnoremap <leader>s :F
 nnoremap <leader>r :Far
 " plugin provides powerline-liked status line and tab line
 Plug 'vim-airline/vim-airline'
