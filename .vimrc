@@ -139,62 +139,17 @@ set pastetoggle=<F2>
 " key mappings to jump to begin/end of lines
 nnoremap B ^
 nnoremap E $
-" key mapping to unfold current block and close other blocks
-nnoremap <space> zMzv
-" key mapping to clear highlighing search marches
-nnoremap <leader><space> :nohlsearch<CR>
-" key mapping to close current buffer
-nnoremap <C-w> :bdelete<CR>
-" key mapping to open a new file
-nnoremap <C-t> :edit ./
-" key mapping to save the current file as sudo
-cmap w!! w !sudo tee > /dev/null %
-" key mappings to navigate between windows
-nnoremap <A-j> <C-W><C-J>
-nnoremap <A-k> <C-W><C-K>
-nnoremap <A-l> <C-W><C-L>
-nnoremap <A-h> <C-W><C-H>
-tnoremap <A-j> <C-\><C-n><C-W><C-J>
-tnoremap <A-k> <C-\><C-n><C-W><C-K>
-tnoremap <A-l> <C-\><C-n><C-W><C-L>
-tnoremap <A-h> <C-\><C-n><C-W><C-H>
-" key mappings to save current file
-nnoremap <C-S> <esc>:w<CR>
-inoremap <C-S> <esc>:w<CR>
-" key mapping to select all
-nnoremap <C-A> gg<S-V><S-G>
-" key mapping to paste with paste mode
-nnoremap <C-v> <f2>p<f2>
-inoremap <C-v> <esc><f2>p<f2>i
-" key mapping to redo
-nnoremap <c-s-u> <c-r>
-" key mapping to toggle Vietnamese telex input
-nnoremap <m-z> :call ToggleKeymapVietnamese()<cr>
-inoremap <m-z> <esc>:call ToggleKeymapVietnamese()<cr>i
-" key mapping to reload current file then force to redraw
-nnoremap <c-l> :edit<cr>:redraw<cr>
-" key mapping to open vimrc
-nnoremap <f10> :edit ~/.vimrc<cr>
 " key mapping to insert new line without entering insert mode
 nnoremap o o<esc>
 nnoremap O O<esc>
-" disable mapping on <f1>
-nnoremap <f1> <nop>
-inoremap <f1> <nop>
-vnoremap <f1> <nop>
-" key mapping to underline markdown headers
-" ref: https://goo.gl/6zf93B
-nnoremap <leader>mh yypVr-
-nnoremap <leader>mH yypVr=
-" key mapping to create a new directory
-nnoremap <c-d> :!mkdir ./
-" key mapping to move current line up/down
-vnoremap J :m '>+1<CR>gv=gv
-vnoremap K :m '<-2<CR>gv=gv
+" key mapping to paste with paste mode
+nnoremap p <f2>p<f2>
+" key mapping to redo
+nnoremap U <c-r>zz
 " overwrite key mappings to centerize highlighted search
 nnoremap n nzzzv
 nnoremap N Nzzzv
-" overwrite key mappings to navigate buffers
+" key mappings to navigate buffers
 nnoremap gt :bn<cr>
 nnoremap gT :bp<cr>
 " overwrite key mappings to make the caret always be middle
@@ -202,8 +157,23 @@ nnoremap j jzz
 nnoremap k kzz
 vnoremap j jzz
 vnoremap k kzz
-" key mapping to open terminal
-nnoremap <leader>t :8split term://fish<cr>
+" key mapping to unfold current block and close other blocks
+nnoremap <space> zMzvzz
+" key mapping to clear highlighing search marches
+nnoremap <leader><space> :nohlsearch<CR>
+" key mapping to underline markdown headers
+" ref: https://goo.gl/6zf93B
+nnoremap <leader>mh yypVr-
+nnoremap <leader>mH yypVr=
+" key mappings to navigate between windows
+nnoremap <A-j> <C-W><C-J>
+nnoremap <A-k> <C-W><C-K>
+nnoremap <A-l> <C-W><C-L>
+nnoremap <A-h> <C-W><C-H>
+" key mapping to reload current file then force to redraw
+nnoremap <f5> :edit<cr>:redraw<cr>
+" key mapping to open vimrc
+nnoremap <f10> :edit ~/.vimrc<cr>
 " key mapping to write current file with sudo
 cmap w!! w !sudo tee > /dev/null %
 
@@ -227,13 +197,11 @@ Plug 'junegunn/fzf.vim'
 " key mapping to fuzzy search file in the current working dir
 nnoremap <leader>p :FZF<CR>
 " key mapping to fuzzy search text in the current buffer
-nnoremap <leader>f :BLines<cr>
+nnoremap <leader>s :BLines<cr>
 " plugin allows to <w>/<b> over words
 Plug 'chaoren/vim-wordmotion'
 " plugin provides git functions, only required by airline so far
 Plug 'tpope/vim-fugitive'
-" plugin allows to paste with indentation adjusted based on the current context
-Plug 'sickill/vim-pasta'
 " plugin provides html5 syntax highlight
 Plug 'othree/html5.vim'
 " plugin automatically adds close tag
@@ -246,7 +214,7 @@ let g:jsx_ext_required = 0
 Plug 'brooth/far.vim'
 let g:far#window_layout = "current"
 let g:far#auto_preview = 0
-nnoremap <leader>s :F
+nnoremap <leader>f :F
 nnoremap <leader>r :Far
 " plugin provides powerline-liked status line and tab line
 Plug 'vim-airline/vim-airline'
@@ -282,12 +250,6 @@ tnoremap <leader>w <C-\><C-n>:InteractiveWindow<cr>
 " plugin provides text alignment feature
 Plug 'junegunn/vim-easy-align'
 vnoremap <leader>a :EasyAlign<cr>
-" plugin provides faster horizontal movement
-Plug 'rhysd/clever-f.vim'
-let g:clever_f_ignore_case = 1
-let g:clever_f_fix_key_direction = 1
-let g:clever_f_across_no_line = 1
-let g:clever_f_chars_match_any_signs = ';'
 " Plugin provides paramount color scheme
 Plug 'owickstrom/vim-colors-paramount'
 set rtp+=~/.vim/plugged/vim-colors-paramount
