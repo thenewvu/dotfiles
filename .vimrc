@@ -166,16 +166,18 @@ nnoremap <leader><space> :nohlsearch<CR>
 nnoremap <leader>mh yypVr-
 nnoremap <leader>mH yypVr=
 " key mappings to navigate between windows
-nnoremap <A-j> <C-W><C-J>
-nnoremap <A-k> <C-W><C-K>
-nnoremap <A-l> <C-W><C-L>
-nnoremap <A-h> <C-W><C-H>
+nnoremap <leader>s <C-W><C-J>
+nnoremap <leader>w <C-W><C-K>
+nnoremap <leader>d <C-W><C-L>
+nnoremap <leader>a <C-W><C-H>
 " key mapping to reload current file then force to redraw
 nnoremap <f5> :edit<cr>:redraw<cr>
 " key mapping to open vimrc
 nnoremap <f10> :edit ~/.vimrc<cr>
 " key mapping to write current file with sudo
 cmap w!! w !sudo tee > /dev/null %
+" key mapping to close the current buffer
+nnoremap <leader>x :bd<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PLUGIN SETTINGS
@@ -195,9 +197,9 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 " key mapping to fuzzy search file in the current working dir
-nnoremap <leader>p :FZF<CR>
+nnoremap <leader>e :FZF<CR>
 " key mapping to fuzzy search text in the current buffer
-nnoremap <leader>s :BLines<cr>
+nnoremap <leader>q :BLines<cr>
 " plugin allows to <w>/<b> over words
 Plug 'chaoren/vim-wordmotion'
 " plugin provides git functions, only required by airline so far
@@ -245,11 +247,10 @@ noremap <F3> :call asyncrun#quickfix_toggle(8)<cr>
 let g:airline_section_error = '%{g:asyncrun_status}'
 " plugin provides interactive window mode
 Plug 'romgrk/winteract.vim'
-nnoremap <leader>w :InteractiveWindow<cr>
-tnoremap <leader>w <C-\><C-n>:InteractiveWindow<cr>
+nnoremap <leader>t :InteractiveWindow<cr>
 " plugin provides text alignment feature
 Plug 'junegunn/vim-easy-align'
-vnoremap <leader>a :EasyAlign<cr>
+vnoremap <leader>v :EasyAlign<cr>
 " Plugin provides paramount color scheme
 Plug 'owickstrom/vim-colors-paramount'
 set rtp+=~/.vim/plugged/vim-colors-paramount
