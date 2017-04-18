@@ -252,10 +252,10 @@ nnoremap <leader>t :InteractiveWindow<cr>
 Plug 'junegunn/vim-easy-align'
 vnoremap <leader>v :EasyAlign<cr>
 " Plugin provides paramount color scheme
-Plug 'owickstrom/vim-colors-paramount'
-set rtp+=~/.vim/plugged/vim-colors-paramount
+Plug 'pbrisbin/vim-colors-off'
+set rtp+=~/.vim/plugged/vim-colors-off
 set background=dark
-colorscheme paramount
+colorscheme off
 " plugin provides swift syntax highlight
 Plug 'keith/swift.vim'
 call plug#end()
