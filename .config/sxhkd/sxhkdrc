@@ -6,7 +6,7 @@
 
 # terminal emulator
 super + Return
-  st -f "Px437 IBM BIOS\-2y:style=Regular:size=10"
+  st -f "Px437 IBM BIOS\-2y:style=Regular:size=11"
 
 # program launcher
 super + @space
