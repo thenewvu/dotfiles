@@ -76,3 +76,5 @@ logs/
 .config/inkscape/
 .bash_logout
 .vim/autoload/plug.vim.old
+docs
+projects
