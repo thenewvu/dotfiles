@@ -6,11 +6,11 @@
 
 # terminal emulator
 super + Return
-  st -f "Px437 IBM BIOS\-2y:style=Regular:size=11"
+  st -f "Misc Fixed"
 
 # program launcher
 super + @space
-  dmenu_run -fn 'Px437 IBM BIOS\-2y:style=Regular:size=10' \
+  dmenu_run -fn 'Misc Fixed:size=8' \
     -nb '#373b41' -nf '#c5c8c6' -sf '#fafafa'
 
 # make sxhkd reload its configuration files:
