@@ -88,7 +88,7 @@ augroup auto_source
   autocmd BufWritePre *.js,*.css,*.html %s/\s\+$//e
   autocmd BufWritePost *.js AsyncRun
     \ -post=:call\ ReloadFileAfterFormatted()
-    \ standard --fix %
+    \ standard --fix --parser babel-eslint %
   autocmd BufWritePost *.css AsyncRun
     \ -post=:call\ ReloadFileAfterFormatted()
     \ csscomb %
