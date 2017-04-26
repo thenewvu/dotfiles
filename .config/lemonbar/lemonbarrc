@@ -2,7 +2,7 @@
 
 foreground="#f0f0f0"
 background="#373b41"
-font="-misc-fixed-medium-r-normal--8-80-75-75-c-50-iso8859-1"
+font="6x10"
 bat="BAT0"
 interval=15
 
