@@ -61,6 +61,9 @@ super + {_,shift + }q
 super + m
   bspc desktop -l next
 
+super + y
+  bspc query -N -n focused.automatic && bspc node -n last.!automatic || bspc node last.leaf -n focused
+
 #
 # state/flags
 #
