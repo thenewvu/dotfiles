@@ -262,5 +262,7 @@ set background=dark
 colorscheme off
 " plugin provides swift syntax highlight
 Plug 'keith/swift.vim'
+" plugin provides commands to convert between cases
+Plug 'chiedo/vim-case-convert'
 call plug#end()
 
