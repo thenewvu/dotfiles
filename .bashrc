@@ -13,3 +13,5 @@ alias gd="git diff"
 alias gp="git push"
 alias gdc="git diff --cached"
 alias gco="git checkout"
+
+alias yc="sudo pacman -Rns $(pacman -Qtdq)"
