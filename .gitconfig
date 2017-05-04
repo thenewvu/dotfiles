@@ -2,7 +2,7 @@
   name = Vu Le
   email = thenewvu@gmail.com
 [core]
-  editor = vim
+  editor = nvim
 [credential]
   helper = cache --timeout 360000
 [gc]
