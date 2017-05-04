@@ -4,6 +4,7 @@ export EDITOR="nvim"
 export FZF_DEFAULT_OPTS="--color=bw"
 export FZF_DEFAULT_COMMAND="rg --files --hidden --glob='!.git/*'"
 export FZF_CTRL_T_COMMAND="rg --files --hidden --glob='!.git/*'"
+export FREETYPE_PROPERTIES="truetype:interpreter-version=38"
 
 alias gs="git st"
 alias ga="git add"
