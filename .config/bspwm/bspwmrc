@@ -7,7 +7,7 @@ pgrep sxhkd > /dev/null || sxhkd&
 (killall lemonbarrc || true) && (killall lemonbar || true) && \
   ~/.config/lemonbar/lemonbarrc&
 
-bspc monitor -d 1 2 3
+bspc monitor -d 1 2 3 4 5
 
 bspc config border_width          1
 bspc config window_gap            5
