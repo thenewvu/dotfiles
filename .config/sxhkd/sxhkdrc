@@ -6,7 +6,7 @@
 
 # terminal emulator
 super + Return
-  st -f "SF Mono:pixelsize=13:style=Semibold"
+  st -f "SF Mono:pixelsize=10:style=Medium"
 
 # program launcher
 super + @space
@@ -35,9 +35,6 @@ XF86MonBrightnessUp
 
 XF86MonBrightnessDown
   xbacklight -dec 5
-
-Scroll_Lock
-  ~/.bin/mousectl toggle
 
 XF86KbdBrightnessUp
   xbacklight -inc 5
