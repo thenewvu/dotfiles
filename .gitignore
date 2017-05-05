@@ -79,3 +79,4 @@ logs/
 docs
 projects
 media
+.babel.json
