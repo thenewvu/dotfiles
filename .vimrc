@@ -1,7 +1,7 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " BEHAVIOR SETTINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" set leader to >;<
+" set leader to ;
 let g:mapleader = ";"
 " set tmp dir
 set dir=$HOME/.vim/tmp/
@@ -24,7 +24,7 @@ set autoread
 " make backspace work like most other apps
 set backspace=indent,eol,start
 " enable mouse interactive
-set mouse=a
+" set mouse=a
 " ignore case in searching
 set ignorecase
 " search with smart case
@@ -142,8 +142,6 @@ nnoremap E $
 " key mapping to insert new line without entering insert mode
 nnoremap o o<esc>
 nnoremap O O<esc>
-" key mapping to paste with paste mode
-nnoremap p <f2>p<f2>
 " key mapping to redo
 nnoremap U <c-r>zz
 " overwrite key mappings to centerize highlighted search
@@ -179,9 +177,11 @@ cmap w!! w !sudo tee > /dev/null %
 " key mapping to close the current buffer
 nnoremap <leader>x :bd<cr>
 " key mapping to run a shell command
-nnoremap <leader>b :AsyncRun
+nnoremap ! :AsyncRun 
 " key mapping to edit a file
 nnoremap <leader>e :e ./
+" key mapping to paste with indentation based on the current context
+nnoremap p p`[v`]=
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PLUGIN SETTINGS
