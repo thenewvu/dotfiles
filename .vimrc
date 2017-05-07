@@ -78,7 +78,7 @@ function! ReloadFileAfterFormatted()
 endf
 
 " autocmd for some types of file
-augroup auto_source
+augroup auto
   autocmd!
   autocmd BufWritePost .vimrc source % | AirlineRefresh
   autocmd BufWritePost bspwmrc !%
@@ -93,6 +93,8 @@ augroup auto_source
     \ -post=:call\ ReloadFileAfterFormatted()
     \ csscomb %
   autocmd TermOpen * setlocal bufhidden=hide
+  autocmd BufWinEnter,WinEnter term://* startinsert
+  autocmd BufLeave term://* stopinsert
 augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -163,11 +165,6 @@ nnoremap <leader><space> :nohlsearch<CR>
 " ref: https://goo.gl/6zf93B
 nnoremap <leader>mh yypVr-
 nnoremap <leader>mH yypVr=
-" key mappings to navigate between windows
-nnoremap J <C-W><C-J>
-nnoremap K <C-W><C-K>
-nnoremap L <C-W><C-L>
-nnoremap H <C-W><C-H>
 " key mapping to reload current file then force to redraw
 nnoremap <f5> :edit<cr>:redraw<cr>
 " key mapping to open vimrc
@@ -182,6 +179,21 @@ nnoremap ! :AsyncRun
 nnoremap <leader>e :e ./
 " key mapping to paste with indentation based on the current context
 nnoremap p p`[v`]=
+" key mapping to exit terminal mode
+tnoremap <esc> <c-\><c-n>
+" key mappings to navigate between splits in temrinal mode
+tnoremap <C-h> <C-\><C-n><C-w>h
+tnoremap <C-j> <C-\><C-n><C-w>j
+tnoremap <C-k> <C-\><C-n><C-w>k
+tnoremap <C-l> <C-\><C-n><C-w>l
+" key mappings to navigate between splits in normal mode
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+" key mapping to open a terminal in below split
+nnoremap <leader>t :below 10sp term://$SHELL<cr>
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PLUGIN SETTINGS
@@ -251,7 +263,7 @@ noremap <F3> :call asyncrun#quickfix_toggle(8)<cr>
 let g:airline_section_error = '%{g:asyncrun_status}'
 " plugin provides interactive window mode
 Plug 'romgrk/winteract.vim'
-nnoremap <leader>t :InteractiveWindow<cr>
+nnoremap <leader>w :InteractiveWindow<cr>
 " plugin provides text alignment feature
 Plug 'junegunn/vim-easy-align'
 vnoremap <leader>v :EasyAlign<cr>
