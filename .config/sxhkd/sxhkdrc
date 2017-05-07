@@ -6,11 +6,11 @@
 
 # terminal emulator
 super + Return
-  st -f "SF Mono:pixelsize=10:style=Medium"
+  st -f "SF Mono:size=10:style=Regular"
 
 # program launcher
 super + @space
-  dmenu_run -fn 'SF Mono:pixelsize=10:style=Bold' \
+  dmenu_run -fn 'SF Mono:pixelsize=10:style=Regular' \
     -nb '#373b41' -nf '#c5c8c6' -sf '#fafafa'
 
 # make sxhkd reload its configuration files:
