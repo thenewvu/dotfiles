@@ -276,5 +276,7 @@ colorscheme off
 Plug 'keith/swift.vim'
 " plugin provides commands to convert between cases
 Plug 'chiedo/vim-case-convert'
+" plugin provides seamlessly key mappings working with tmux
+Plug 'christoomey/vim-tmux-navigator'
 call plug#end()
 

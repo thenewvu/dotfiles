@@ -6,7 +6,7 @@
 
 # terminal emulator
 super + Return
-  st -f "SF Mono:size=10:style=Regular"
+  st -f "SF Mono:size=10:style=Regular" -e tmux
 
 # program launcher
 super + @space

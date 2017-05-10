@@ -80,3 +80,5 @@ docs
 projects
 media
 .babel.json
+.config/yarn
+.terminfo/
