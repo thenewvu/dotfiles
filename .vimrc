@@ -83,15 +83,6 @@ augroup auto
   autocmd BufWritePost .vimrc source % | AirlineRefresh
   autocmd BufWritePost bspwmrc !%
   autocmd BufWritePost sxhkdrc !pkill -USR1 -x sxhkd
-  autocmd BufWritePost .Xresources AsyncRun xrdb "%:p"
-  autocmd BufWritePost config.fish !. %
-  autocmd BufWritePre *.js,*.css,*.html %s/\s\+$//e
-  autocmd BufWritePost *.js AsyncRun
-    \ -post=:call\ ReloadFileAfterFormatted()
-    \ standard --fix --parser babel-eslint %
-  autocmd BufWritePost *.css AsyncRun
-    \ -post=:call\ ReloadFileAfterFormatted()
-    \ csscomb %
   autocmd TermOpen * setlocal bufhidden=hide
   autocmd BufWinEnter,WinEnter term://* startinsert
   autocmd BufLeave term://* stopinsert
@@ -173,8 +164,6 @@ nnoremap <f10> :edit ~/.vimrc<cr>
 cmap w!! w !sudo tee > /dev/null %
 " key mapping to close the current buffer
 nnoremap <leader>x :bd<cr>
-" key mapping to run a shell command
-nnoremap ! :AsyncRun 
 " key mapping to edit a file
 nnoremap <leader>e :e ./
 " key mapping to paste with indentation based on the current context
@@ -243,6 +232,8 @@ let g:airline_left_sep = '▓▒░'
 let g:airline_left_alt_sep = ' '
 let g:airline_right_sep = '░▒▓'
 let g:airline_right_alt_sep = ' '
+" Show just the line and column number in section z
+let g:airline_section_z = '%l:%v'
 " enabled showing buffers on tabline
 let g:airline#extensions#tabline#enabled = 1
 " set filename mode to relative without being collapsed
@@ -255,12 +246,6 @@ let g:completor_css_omni_trigger = '([\w-]+|@[\w-]*|[\w-]+:\s*[\w-]*)$'
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
-" plugin provides a way to run asynchronously shell commands
-Plug 'skywind3000/asyncrun.vim'
-" key mapping toggle quickfix with a given height
-noremap <F3> :call asyncrun#quickfix_toggle(8)<cr>
-" show asyncrun's status on airline's error section
-let g:airline_section_error = '%{g:asyncrun_status}'
 " plugin provides interactive window mode
 Plug 'romgrk/winteract.vim'
 nnoremap <leader>w :InteractiveWindow<cr>
@@ -278,5 +263,26 @@ Plug 'keith/swift.vim'
 Plug 'chiedo/vim-case-convert'
 " plugin provides seamlessly key mappings working with tmux
 Plug 'christoomey/vim-tmux-navigator'
+" plugin provides async formatting
+Plug 'sbdchd/neoformat'
+augroup neoformat
+  autocmd!
+  autocmd FileType javascript setlocal formatprg=prettier_dnc\ --local-only\ --pkg-conf\ --fallback
+  autocmd BufWritePre *.js Neoformat
+augroup END
+" use formatprg when available
+let g:neoformat_try_formatprg = 1
+" https://github.com/sbdchd/neoformat/issues/25
+let g:neoformat_only_msg_on_error = 1
+" plugin provides async linting
+Plug 'w0rp/ale'
+let g:ale_linters = {'javascript': ['eslint']}
+let g:ale_javascript_eslint_use_global = 1
+let g:ale_set_quickfix = 1
+let g:ale_open_list = 1
+let g:ale_lint_on_save = 1
+let g:ale_lint_on_text_changed = 0
+let g:airline_section_error = '%{ale#statusline#Status()}'
+let g:ale_warn_about_trailing_whitespace = 0
 call plug#end()
 
