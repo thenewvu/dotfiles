@@ -182,6 +182,9 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 " key mapping to open a terminal in below split
 nnoremap <leader>t :below 10sp term://$SHELL<cr>
+" disable noisy keys
+nnoremap J <nop>
+nnoremap K <nop>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
