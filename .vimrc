@@ -86,6 +86,7 @@ augroup auto
   autocmd TermOpen * setlocal bufhidden=hide
   autocmd BufWinEnter,WinEnter term://* startinsert
   autocmd BufLeave term://* stopinsert
+  autocmd FileType qf resize 3
 augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -271,7 +272,8 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'sbdchd/neoformat'
 augroup neoformat
   autocmd!
-  autocmd FileType javascript setlocal formatprg=prettier_dnc\ --local-only\ --pkg-conf\ --fallback
+  autocmd FileType javascript.jsx setlocal formatprg=prettier_dnc\ --pkg-conf
+  autocmd FileType javascript setlocal formatprg=prettier_dnc\ --pkg-conf
   autocmd BufWritePre *.js Neoformat
 augroup END
 " use formatprg when available
