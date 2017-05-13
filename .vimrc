@@ -285,6 +285,7 @@ let g:ale_javascript_eslint_use_global = 1
 let g:ale_set_quickfix = 1
 let g:ale_open_list = 1
 let g:ale_lint_on_save = 1
+let g:ale_lint_on_enter = 0
 let g:ale_lint_on_text_changed = 0
 let g:airline_section_error = '%{ale#statusline#Status()}'
 let g:ale_warn_about_trailing_whitespace = 0
