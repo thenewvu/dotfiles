@@ -159,8 +159,6 @@ nnoremap <leader>mh yypVr-
 nnoremap <leader>mH yypVr=
 " key mapping to reload current file then force to redraw
 nnoremap <f5> :edit<cr>:redraw<cr>
-" key mapping to open vimrc
-nnoremap <f10> :edit ~/.vimrc<cr>
 " key mapping to write current file with sudo
 cmap w!! w !sudo tee > /dev/null %
 " key mapping to close the current buffer
@@ -272,8 +270,16 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'sbdchd/neoformat'
 augroup neoformat
   autocmd!
-  autocmd FileType javascript.jsx setlocal formatprg=prettier_dnc\ --pkg-conf
-  autocmd FileType javascript setlocal formatprg=prettier_dnc\ --pkg-conf
+  autocmd FileType javascript.jsx setlocal formatprg=prettier_d
+        \\ --stdin
+        \\ --no-semi
+        \\ --print-width\ 56
+        \\ --single-quote
+  autocmd FileType javascript setlocal formatprg=prettier_d
+        \\ --stdin
+        \\ --no-semi
+        \\ --print-width\ 56
+        \\ --single-quote
   autocmd BufWritePre *.js Neoformat
 augroup END
 " use formatprg when available
@@ -283,6 +289,7 @@ let g:neoformat_only_msg_on_error = 1
 " plugin provides async linting
 Plug 'w0rp/ale'
 let g:ale_linters = {'javascript': ['eslint']}
+let g:ale_javascript_eslint_executable = 'eslint_d'
 let g:ale_javascript_eslint_use_global = 1
 let g:ale_set_quickfix = 1
 let g:ale_open_list = 1
@@ -292,5 +299,7 @@ let g:ale_lint_on_text_changed = 0
 let g:airline_section_error = '%{ale#statusline#Status()}'
 let g:ale_lint_on_filetype_changed = 0
 let g:ale_warn_about_trailing_whitespace = 0
+let g:ale_sign_error = '✘'
+let g:ale_sign_warning = '⚠'
 call plug#end()
 

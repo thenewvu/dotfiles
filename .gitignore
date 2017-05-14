@@ -82,3 +82,5 @@ media
 .babel.json
 .config/yarn
 .terminfo/
+.eslint_d
+.prettier_d

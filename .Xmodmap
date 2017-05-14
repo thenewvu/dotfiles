@@ -1,0 +1,4 @@
+remove Lock = Caps_Lock
+keysym F10 = Caps_Lock
+keysym Caps_Lock = F10
+add Lock = Caps_Lock
