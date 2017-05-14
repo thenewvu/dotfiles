@@ -164,23 +164,14 @@ cmap w!! w !sudo tee > /dev/null %
 " key mapping to close the current buffer
 nnoremap <leader>x :bd<cr>
 " key mapping to edit a file
-nnoremap <leader>e :e ./
+nnoremap <leader>o :e ./
 " key mapping to paste with indentation based on the current context
 nnoremap p p`[v`]=
-" key mapping to exit terminal mode
-tnoremap <esc> <c-\><c-n>
-" key mappings to navigate between splits in temrinal mode
-tnoremap <C-h> <C-\><C-n><C-w>h
-tnoremap <C-j> <C-\><C-n><C-w>j
-tnoremap <C-k> <C-\><C-n><C-w>k
-tnoremap <C-l> <C-\><C-n><C-w>l
 " key mappings to navigate between splits in normal mode
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
-" key mapping to open a terminal in below split
-nnoremap <leader>t :below 10sp term://$SHELL<cr>
 " disable noisy keys
 nnoremap J <nop>
 nnoremap K <nop>
