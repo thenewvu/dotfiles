@@ -279,9 +279,18 @@ let g:neoformat_try_formatprg = 1
 let g:neoformat_only_msg_on_error = 1
 " plugin provides async linting
 Plug 'w0rp/ale'
-let g:ale_linters = {'javascript': ['eslint']}
+let g:ale_linters = {
+      \ 'javascript': [
+      \   'eslint'
+      \ ],
+      \ 'jsx': [
+      \   'eslint'
+      \ ]
+      \ }
 let g:ale_javascript_eslint_executable = 'eslint_d'
 let g:ale_javascript_eslint_use_global = 1
+let g:ale_jsx_eslint_executable = 'eslint_d'
+let g:ale_jsx_eslint_use_global = 1
 let g:ale_set_quickfix = 1
 let g:ale_open_list = 1
 let g:ale_lint_on_save = 1

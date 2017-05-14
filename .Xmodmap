@@ -1,4 +1,5 @@
-remove Lock = Caps_Lock
-keysym F10 = Caps_Lock
-keysym Caps_Lock = F10
+keycode 66 = Control_L
+clear Lock
+add Control = Control_L
+keycode 117 = Caps_Lock
 add Lock = Caps_Lock
