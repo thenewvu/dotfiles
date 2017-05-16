@@ -31,8 +31,8 @@ set ignorecase
 " search with smart case
 set smartcase
 " optimize rendering
-set lazyredraw
-set ttyfast
+" set lazyredraw
+" set ttyfast
 " enable incremental searching
 set incsearch
 " redude <esc> delay
@@ -124,7 +124,7 @@ set showbreak=↪\
 set textwidth=0
 set wrapmargin=0
 " visualize whitespace chars
-set list listchars=tab:»\ ,trail:·
+set list listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " KEY SETTINGS
@@ -220,7 +220,7 @@ nnoremap <leader>ff :Far
 " plugin provides powerline-liked status line and tab line
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-let g:airline_theme = 'base16_grayscale'
+let g:airline_theme = 'spring_night'
 let g:airline_powerline_fonts = 1
 let g:airline_left_sep = '▓▒░'
 let g:airline_left_alt_sep = ' '
@@ -248,10 +248,10 @@ nnoremap <leader>w :InteractiveWindow<cr>
 Plug 'junegunn/vim-easy-align'
 vnoremap <leader>v :EasyAlign<cr>
 " Plugin provides paramount color scheme
-Plug 'pbrisbin/vim-colors-off'
-set rtp+=~/.vim/plugged/vim-colors-off
-set background=dark
-colorscheme off
+Plug 'rhysd/vim-color-spring-night'
+set rtp+=~/.vim/plugged/vim-color-spring-night
+set background=light
+colorscheme spring-night
 " plugin provides swift syntax highlight
 Plug 'keith/swift.vim'
 " plugin provides commands to convert between cases
@@ -304,5 +304,12 @@ let g:ale_sign_error = '✘'
 let g:ale_sign_warning = '⚠'
 highlight ALEErrorSign ctermbg=NONE ctermfg=red
 highlight ALEWarningSign ctermbg=NONE ctermfg=yellow
+Plug 'Yggdroot/indentLine'
+let g:indentLine_faster = 1
+let g:indentLine_leadingSpaceChar = '-' 
+let g:indentLine_char = '|'
+let g:indentLine_leadingSpaceEnabled = 1
+let g:indentLine_setColors = 1
+let g:indentLine_color_term = 60
 call plug#end()
 
