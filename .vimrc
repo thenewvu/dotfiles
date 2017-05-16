@@ -1,6 +1,7 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " BEHAVIOR SETTINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " set leader to ;
 let g:mapleader = ";"
 " set tmp dir
@@ -94,8 +95,8 @@ augroup END
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " set ruler colors
 highlight ColorColumn ctermbg=254
-" show line numbers
-set number
+" disable line numbers
+set nonumber
 " set number of visual spaces per TAB
 set tabstop=2
 " set number of spaces in tab when editing
@@ -119,7 +120,7 @@ set hlsearch
 " wrap long lines without breaking words
 set wrap linebreak
 set breakindent
-set showbreak=\ ↪
+set showbreak=↪\ 
 set textwidth=0
 set wrapmargin=0
 " visualize whitespace chars
@@ -186,7 +187,7 @@ Plug 'terryma/vim-multiple-cursors'
 " plugin previews hex/rgb/rgba colors
 Plug 'lilydjwg/colorizer'
 " plugin provides javascript syntax highlight
-Plug 'pangloss/vim-javascript'
+Plug 'thenewvu/vim-javascript', { 'branch': 'make-jsmodulegroup-be-foldable' }
 " plugin allows to comment out text depends on its syntax
 Plug 'tpope/vim-commentary'
 " plugin automatically adds close bracket/quote
