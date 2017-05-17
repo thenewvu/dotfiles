@@ -1,4 +1,4 @@
-export PATH=$PATH:/home/vu/.bin:/home/vu/.node_modules/bin
+export PATH=$PATH:/home/$USER/.bin:/home/$USER/.node_modules/bin:/Users/$USER/Library/Android/sdk/platform-tools
 export VISUAL="nvim"
 export EDITOR="nvim"
 export FZF_DEFAULT_OPTS="--color=bw"
@@ -9,11 +9,10 @@ export FREETYPE_PROPERTIES="truetype:interpreter-version=38"
 alias gs="git st"
 alias ga="git add"
 alias gl="git ls"
-alias gc="git ci"
+alias gc="git commit -v"
 alias gd="git diff"
 alias gp="git push"
 alias gdc="git diff --cached"
-alias gco="git checkout"
 
 alias yc='sudo pacman -Rns $(pacman -Qtdq)'
 alias ylt='expac --timefmt="%Y-%m-%d %T" "%l\t%n" | sort | less'
