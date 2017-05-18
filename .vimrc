@@ -119,11 +119,8 @@ set hlsearch
 " wrap long lines without breaking words
 set wrap linebreak
 set breakindent
-set showbreak=↪\ 
 set textwidth=0
 set wrapmargin=0
-" visualize whitespace chars
-set listchars=tab:→\ ,nbsp:␣,trail:•,extends:⟩,precedes:⟨
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " KEY SETTINGS
