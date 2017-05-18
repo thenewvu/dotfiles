@@ -1,7 +1,6 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " BEHAVIOR SETTINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 " set leader to ;
 let g:mapleader = ";"
 " set tmp dir
@@ -124,7 +123,7 @@ set showbreak=↪\
 set textwidth=0
 set wrapmargin=0
 " visualize whitespace chars
-set list listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
+set listchars=tab:→\ ,nbsp:␣,trail:•,extends:⟩,precedes:⟨
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " KEY SETTINGS
@@ -250,7 +249,6 @@ vnoremap <leader>v :EasyAlign<cr>
 " Plugin provides paramount color scheme
 Plug 'rhysd/vim-color-spring-night'
 set rtp+=~/.vim/plugged/vim-color-spring-night
-set background=light
 colorscheme spring-night
 " plugin provides swift syntax highlight
 Plug 'keith/swift.vim'
@@ -308,7 +306,7 @@ Plug 'Yggdroot/indentLine'
 let g:indentLine_faster = 1
 let g:indentLine_leadingSpaceChar = '-' 
 let g:indentLine_char = '|'
-let g:indentLine_leadingSpaceEnabled = 1
+let g:indentLine_leadingSpaceEnabled = 0
 let g:indentLine_setColors = 1
 let g:indentLine_color_term = 60
 call plug#end()
