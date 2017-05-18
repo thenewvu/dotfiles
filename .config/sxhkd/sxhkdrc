@@ -6,7 +6,7 @@
 
 # terminal emulator
 super + Return
-  urxvtc
+  urxvtc -e "tmux"
 
 # program launcher
 super + @space
