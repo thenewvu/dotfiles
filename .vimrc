@@ -83,6 +83,7 @@ augroup auto
   autocmd BufWritePost .vimrc source % | AirlineRefresh
   autocmd BufWritePost bspwmrc !%
   autocmd BufWritePost sxhkdrc !pkill -USR1 -x sxhkd
+  autocmd BufWritePost .Xresources !xrdb "%:p"
   autocmd TermOpen * setlocal bufhidden=hide
   autocmd BufWinEnter,WinEnter term://* startinsert
   autocmd BufLeave term://* stopinsert
@@ -216,7 +217,7 @@ nnoremap <leader>ff :Far
 " plugin provides powerline-liked status line and tab line
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-let g:airline_theme = 'spring_night'
+let g:airline_theme = 'base16'
 let g:airline_powerline_fonts = 1
 let g:airline_left_sep = '▓▒░'
 let g:airline_left_alt_sep = ' '
@@ -243,10 +244,15 @@ nnoremap <leader>w :InteractiveWindow<cr>
 " plugin provides text alignment feature
 Plug 'junegunn/vim-easy-align'
 vnoremap <leader>v :EasyAlign<cr>
-" Plugin provides paramount color scheme
-Plug 'rhysd/vim-color-spring-night'
-set rtp+=~/.vim/plugged/vim-color-spring-night
-colorscheme spring-night
+" Plugin provides color scheme
+Plug 'altercation/vim-colors-solarized'
+set rtp+=~/.vim/plugged/vim-colors-solarized
+set background=dark
+let g:solarized_termcolors = 256
+let g:solarized_underline = 0
+let g:solarized_contrast = 'low'
+let g:solarized_visibility = 'low'
+colorscheme solarized
 " plugin provides swift syntax highlight
 Plug 'keith/swift.vim'
 " plugin provides commands to convert between cases
@@ -299,12 +305,13 @@ let g:ale_sign_error = '✘'
 let g:ale_sign_warning = '⚠'
 highlight ALEErrorSign ctermbg=NONE ctermfg=red
 highlight ALEWarningSign ctermbg=NONE ctermfg=yellow
+" plugin provides indent guide
 Plug 'Yggdroot/indentLine'
 let g:indentLine_faster = 1
 let g:indentLine_leadingSpaceChar = '-' 
 let g:indentLine_char = '|'
 let g:indentLine_leadingSpaceEnabled = 0
 let g:indentLine_setColors = 1
-let g:indentLine_color_term = 60
+let g:indentLine_color_term = 0
 call plug#end()
 
