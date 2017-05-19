@@ -29,9 +29,10 @@ set backspace=indent,eol,start
 set ignorecase
 " search with smart case
 set smartcase
-" optimize rendering
-" set lazyredraw
-" set ttyfast
+" Don't redraw when we don't have to
+set lazyredraw
+" Send more characters at a given time
+set ttyfast
 " enable incremental searching
 set incsearch
 " redude <esc> delay
@@ -173,6 +174,8 @@ nnoremap <C-l> <C-w>l
 " disable noisy keys
 nnoremap J <nop>
 nnoremap K <nop>
+" key mapping to run a shell command
+nnoremap ! :! 
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -301,10 +304,11 @@ let g:ale_lint_on_text_changed = 0
 let g:airline_section_error = '%{ale#statusline#Status()}'
 let g:ale_lint_on_filetype_changed = 0
 let g:ale_warn_about_trailing_whitespace = 0
-let g:ale_sign_error = '✘'
-let g:ale_sign_warning = '⚠'
-highlight ALEErrorSign ctermbg=NONE ctermfg=red
-highlight ALEWarningSign ctermbg=NONE ctermfg=yellow
+let g:ale_sign_error = '>>'
+let g:ale_sign_warning = '>>'
+highlight ALEErrorSign ctermbg=none ctermfg=red
+highlight ALEWarningSign ctermbg=none ctermfg=yellow
+highlight SignColumn ctermbg=none
 " plugin provides indent guide
 Plug 'Yggdroot/indentLine'
 let g:indentLine_faster = 1
@@ -312,6 +316,6 @@ let g:indentLine_leadingSpaceChar = '-'
 let g:indentLine_char = '|'
 let g:indentLine_leadingSpaceEnabled = 0
 let g:indentLine_setColors = 1
-let g:indentLine_color_term = 0
+let g:indentLine_color_term = 237
 call plug#end()
 
