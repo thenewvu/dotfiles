@@ -6,10 +6,10 @@ Xft.hinting: 1
 Xft.antialias: 1
 Xft.rgba: rgb
 
-URxvt.font: xft:Hermit:style=bold:pixelsize=12
-URxvt.boldFont: xft:Hermit:style=bold:pixelsize=12
-URxvt.italicFont: xft:Hermit:style=bold:pixelsize=12
-URxvt.boldItalicFont: xft:Hermit:style=bold:pixelsize=12
+URxvt.font: xft:SF Mono:style=Bold:pixelsize=12,xft:Iosevka:style=Bold:pixelsize=12
+URxvt.boldFont: xft:SF Mono:style=Bold:pixelsize=12,xft:Iosevka:style=Bold:pixelsize=12
+URxvt.italicFont: xft:SF Mono:style=Bold:pixelsize=12,xft:Iosevka:style=Bold:pixelsize=12
+URxvt.boldItalicFont: xft:SF Mono:style=Bold:pixelsize=12,xft:Iosevka:style=Bold:pixelsize=12
 URxvt.letterSpace: -2
 URxvt.lineSpace: 0
 URxvt.buffered: true
