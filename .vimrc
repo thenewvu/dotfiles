@@ -222,11 +222,6 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 let g:airline_theme = 'base16'
 let g:airline_powerline_fonts = 1
-let g:airline_left_sep = '▓▒░'
-let g:airline_left_alt_sep = ' '
-let g:airline_right_sep = '░▒▓'
-let g:airline_right_alt_sep = ' '
-let g:airline_section_warning= ''
 " Show just the line and column number in section z
 let g:airline_section_z = '%l:%v'
 " enabled showing buffers on tabline
