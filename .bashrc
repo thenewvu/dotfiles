@@ -1,4 +1,4 @@
-export PATH=$PATH:/home/$USER/.bin:/home/$USER/.node_modules/bin:/Users/$USER/Library/Android/sdk/platform-tools
+export PATH=/home/$USER/.bin:/home/$USER/.node_modules/bin:/Users/$USER/Library/Android/sdk/platform-tools:/Applications/Android\ Studio.app/Contents/jre/jdk/Contents/Home/bin:$PATH
 export VISUAL="nvim"
 export EDITOR="nvim"
 export FZF_DEFAULT_OPTS="--color=bw"
