@@ -12,6 +12,12 @@ set noswapfile
 syntax enable
 " display a confirm dialog when closing an unsaved file
 set confirm
+" enable switching between buffers without saving
+set hidden
+" switch to existing tab then window when switching buffer
+set switchbuf=usetab
+" better completion
+set completeopt=longest,menuone,preview
 " default directions for creating split windows
 set splitbelow
 set splitright
@@ -45,38 +51,45 @@ set foldmethod=syntax
 set foldnestmax=100 foldlevel=0
 " enable folding for javascript syntax
 let javaScript_fold=1
-" function that returns a cleaner folding text title
-" ref: https://goo.gl/Ma7UWE
-function! GenFoldText()
-  "get first non-blank line
-  let foldstart = v:foldstart
-  while getline(foldstart) =~ '^\s*$' | let foldstart = nextnonblank(foldstart + 1)
-  endwhile
-  if foldstart > v:foldend
-    let line = getline(v:foldstart)
+set foldtext=FoldText()
+function! FoldText()
+  let l:lpadding = &fdc
+  redir => l:signs
+  execute 'silent sign place buffer='.bufnr('%')
+  redir End
+  let l:lpadding += l:signs =~ 'id=' ? 2 : 0
+
+  if exists("+relativenumber")
+    if (&number)
+      let l:lpadding += max([&numberwidth, strlen(line('$'))]) + 1
+    elseif (&relativenumber)
+      let l:lpadding += max([&numberwidth, strlen(v:foldstart) + strlen(v:foldstart - line('w0')), strlen(v:foldstart) + strlen(line('w$') - v:foldstart)]) + 1
+    endif
   else
-    let line = substitute(getline(foldstart), '\t', repeat(' ', &tabstop), 'g')
+    if (&number)
+      let l:lpadding += max([&numberwidth, strlen(line('$'))]) + 1
+    endif
   endif
 
-  let w = winwidth(0) - &foldcolumn - ((&number || &relativenumber) ? 8 : 0)
-  let foldSize = 1 + v:foldend - v:foldstart
-  let foldSizeStr = " " . foldSize . " lines "
-  let lineCount = line("$")
-  let foldPercentage = printf("[%4.1f", (foldSize*1.0)/lineCount*100) . "%] "
-  let expansionString = repeat(".", w - strwidth(foldSizeStr.line.foldPercentage))
-  return line . expansionString . foldSizeStr . foldPercentage
-endf
-" set a custom folding function
-set foldtext=GenFoldText()
+  " expand tabs
+  let l:start = substitute(getline(v:foldstart), '\t', repeat(' ', &tabstop), 'g')
+  let l:end = substitute(substitute(getline(v:foldend), '\t', repeat(' ', &tabstop), 'g'), '^\s*', '', 'g')
+
+  let l:info = ' (' . (v:foldend - v:foldstart) . ')'
+  let l:infolen = strlen(substitute(l:info, '.', 'x', 'g'))
+  let l:width = winwidth(0) - l:lpadding - l:infolen
+
+  let l:separator = ' … '
+  let l:separatorlen = strlen(substitute(l:separator, '.', 'x', 'g'))
+  let l:start = strpart(l:start , 0, l:width - strlen(substitute(l:end, '.', 'x', 'g')) - l:separatorlen)
+  let l:text = l:start . ' … ' . l:end
+
+  return l:text . repeat(' ', l:width - strlen(substitute(l:text, ".", "x", "g"))) . l:info
+endfunction
 " keep undo history across sessions, by storing in file.
 silent !mkdir ~/.config/nvim/backups > /dev/null 2>&1
 set undodir=~/.config/nvim/backups
 set undofile
-
-" function reloads file after reformatted it without changing view status
-function! ReloadFileAfterFormatted()
-  :mkview | edit | silent! loadview
-endf
 
 " autocmd for some types of file
 augroup auto
@@ -123,6 +136,10 @@ set wrap linebreak
 set breakindent
 set textwidth=0
 set wrapmargin=0
+" always show the current editing mode
+set showmode
+" make < and > match
+set matchpairs+=<:>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " KEY SETTINGS
@@ -144,10 +161,10 @@ nnoremap N Nzzzv
 nnoremap gt :bn<cr>
 nnoremap gT :bp<cr>
 " overwrite key mappings to make the caret always be middle
-nnoremap j jzz
-nnoremap k kzz
-vnoremap j jzz
-vnoremap k kzz
+nnoremap j gjzz
+nnoremap k gkzz
+vnoremap j gjzz
+vnoremap k gkzz
 " key mapping to unfold current block and close other blocks
 nnoremap <space> zMzvzz
 " key mapping to clear highlighing search marches
