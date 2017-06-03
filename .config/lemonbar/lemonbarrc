@@ -32,8 +32,12 @@ battery () {
     full=$(cat /sys/class/power_supply/$bat/energy_full)
     echo -n "$(($cur * 100 / $full))"
   else
-    echo -n "?"
+    echo -n ``
   fi
+}
+
+cpu_temp() {
+  echo -n `sensors|awk 'BEGIN{i=0;t=0;b=0}/id [0-9]/{b=$4};/Core/{++i;t+=$3}END{if(i>0){printf("%0.1f\n",t/i)}else{sub(/[^0-9.]/,"",b);print b}}'`
 }
 
 until_day_end () {
@@ -48,7 +52,8 @@ while true; do
     "- [$(until_day_end)]"\
     "- [$(usedmem)/$(totalmem)M]"\
     "- $(volume)"\
-    "- [$(battery)%]"
+    "- [$(battery)%]"\
+    "- [$(cpu_temp)]"
   sleep $interval
 done | lemonbar -p \
   -F $foreground \
