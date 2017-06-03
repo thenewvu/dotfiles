@@ -10,12 +10,16 @@ super + Return
 
 # program launcher
 super + @space
-  dmenu_run -fn 'SF Mono:pixelsize=10:style=Heavy' \
+  dmenu_run -fn 'Operator Mono:pixelsize=10:style=Italic' \
     -nb '#373b41' -nf '#c5c8c6' -sf '#fafafa'
 
 # make sxhkd reload its configuration files:
 super + Escape
   pkill -USR1 -x sxhkd
+
+# start a quake-like terminal
+super + grave
+  tdrop -a -x 5 -w 1428 -y 488 -s dropdown urxvtc
 
 ## media keys
 XF86AudioRaiseVolume
@@ -105,9 +109,9 @@ super + ctrl + shift + space
 super + {_,shift + }{h,j,k,l}
   bspc node -{f,s} {west,south,north,east}
 
-# focus the last node/desktop
-super + {grave,Tab}
-  bspc {node,desktop} -f last
+# focus the last node
+super + {Tab}
+  bspc {node} -f last
 
 # focus the older or newer node in the focus history
 super + {o,i}
