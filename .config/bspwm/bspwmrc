@@ -24,3 +24,5 @@ bspc config normal_border_color "#666666"
 
 # make Floating for Youtube floating
 bspc rule -a "crx_jjphmlaoffndcnecccgemfdaaoighkel" state=floating
+
+thunderbird&
