@@ -8,6 +8,8 @@ set dir=$HOME/.vim/tmp/
 " disable backup and swap files
 set nobackup
 set noswapfile
+" do replacing globally by default
+set gdefault
 " enable syntax processing
 syntax enable
 " display a confirm dialog when closing an unsaved file
@@ -92,16 +94,16 @@ set undodir=~/.config/nvim/backups
 set undofile
 
 " autocmd for some types of file
-augroup auto
-  autocmd!
-  autocmd BufWritePost .vimrc source % | AirlineRefresh
-  autocmd BufWritePost bspwmrc !%
-  autocmd BufWritePost sxhkdrc !pkill -USR1 -x sxhkd
-  autocmd BufWritePost .Xresources !xrdb "%:p"
-  autocmd TermOpen * setlocal bufhidden=hide
-  autocmd BufWinEnter,WinEnter term://* startinsert
-  autocmd BufLeave term://* stopinsert
-  autocmd FileType qf resize 3
+" augroup auto
+"   autocmd!
+"   autocmd BufWritePost .vimrc source % | AirlineRefresh
+"   autocmd BufWritePost bspwmrc !%
+"   autocmd BufWritePost sxhkdrc !pkill -USR1 -x sxhkd
+"   autocmd BufWritePost .Xresources !xrdb "%:p"
+"   autocmd TermOpen * setlocal bufhidden=hide
+"   autocmd BufWinEnter,WinEnter term://* startinsert
+"   autocmd BufLeave term://* stopinsert
+"   autocmd FileType qf resize 3
 augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -281,12 +283,10 @@ augroup neoformat
   autocmd FileType javascript.jsx setlocal formatprg=prettier_d
         \\ --stdin
         \\ --no-semi
-        \\ --print-width\ 56
         \\ --single-quote
   autocmd FileType javascript setlocal formatprg=prettier_d
         \\ --stdin
         \\ --no-semi
-        \\ --print-width\ 56
         \\ --single-quote
   autocmd BufWritePre *.js Neoformat
 augroup END
@@ -324,10 +324,10 @@ highlight SignColumn ctermbg=none
 " plugin provides indent guide
 Plug 'Yggdroot/indentLine'
 let g:indentLine_faster = 1
-let g:indentLine_leadingSpaceChar = '-' 
-let g:indentLine_char = '|'
-let g:indentLine_leadingSpaceEnabled = 0
+let g:indentLine_char = '¦'
 let g:indentLine_setColors = 1
 let g:indentLine_color_term = 237
+let g:indentLine_fileType = ['javascript.jsx', 'javascript']
+let g:indentLine_maxLines = 300
 call plug#end()
 
