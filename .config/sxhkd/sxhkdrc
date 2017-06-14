@@ -19,7 +19,7 @@ super + Escape
 
 # start a quake-like terminal
 super + grave
-  tdrop -a -x 5 -w 1428 -y 488 -s dropdown urxvtc
+  tdrop -a -x 5 -y 18 -w 1428 -h 875 -s dropdown urxvtc
 
 ## media keys
 XF86AudioRaiseVolume
