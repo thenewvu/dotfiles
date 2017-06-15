@@ -104,7 +104,7 @@ set undofile
 "   autocmd BufWinEnter,WinEnter term://* startinsert
 "   autocmd BufLeave term://* stopinsert
 "   autocmd FileType qf resize 3
-augroup END
+" augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " VISUAL SETTINGS
