@@ -46,6 +46,10 @@ XF86KbdBrightnessUp
 XF86KbdBrightnessDown
   xbacklight -dec 5
 
+# grab screenshot of current desktop
+super + shift + 3
+  import -window root "/tmp/screenshot-$(date '+%Y%m%d-%H%M%S').png"
+
 #
 # bspwm hotkeys
 #
