@@ -48,7 +48,7 @@ XF86KbdBrightnessDown
 
 # grab screenshot of current desktop
 super + shift + 3
-  import -window root "/tmp/screenshot-$(date '+%Y%m%d-%H%M%S').png"
+  import -window root "/tmp/screenshot-$(date '+%Y%m%d-%H%M%S').jpg"
 
 #
 # bspwm hotkeys
