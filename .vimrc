@@ -141,7 +141,7 @@ set wrapmargin=0
 " always show the current editing mode
 set showmode
 " make < and > match
-set matchpairs+=<:>
+" set matchpairs+=<:>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " KEY SETTINGS
