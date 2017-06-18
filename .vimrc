@@ -228,8 +228,7 @@ Plug 'othree/html5.vim'
 Plug 'alvan/vim-closetag'
 let g:closetag_filenames = "*.html,*.xml,*.js,*.jsx"
 " plugin provides jsx syntax highlight
-Plug 'mxw/vim-jsx'
-let g:jsx_ext_required = 0
+Plug 'chemzqm/vim-jsx-improve'
 " plugin allows to search/replace with preview and undoable
 Plug 'brooth/far.vim'
 let g:far#window_layout = "current"
