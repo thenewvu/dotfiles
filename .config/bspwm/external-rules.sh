@@ -10,4 +10,6 @@ if [ "$instance" = "crx_jjphmlaoffndcnecccgemfdaaoighkel" ] ; then
 # chrome app - google keep
 elif [ "$instance" = "crx_cppbapjpgdfdejdlabdnhkeocdjegifp" ]; then
   echo "state=floating sticky=on locked=on"
+elif [ "$class" = "mpv" ]; then
+  echo "state=floating sticky=on layer=above"
 fi
