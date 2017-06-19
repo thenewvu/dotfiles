@@ -21,4 +21,6 @@ alias ylt='expac --timefmt="%Y-%m-%d %T" "%l\t%n" | sort | less'
 alias ylh='expac -H M "%m\t%n" | sort -h | less'
 alias yli='comm -23 <(pacman -Qqt | sort) <(pacman -Qqg base base-devel | sort) | less'
 
-alias mpv='mpv --quiet --ytdl-format=93'
+alias mpv='mpv --quiet --geometry=384x216-6-6 --ytdl-format="bestvideo[height<720]+bestaudio/best"'
+alias ytdl='youtube-dl -f "bestvideo[height<=720]+bestaudio/best"'
+
