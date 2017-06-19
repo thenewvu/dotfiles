@@ -20,3 +20,5 @@ alias yc='sudo pacman -Rns $(pacman -Qtdq)'
 alias ylt='expac --timefmt="%Y-%m-%d %T" "%l\t%n" | sort | less'
 alias ylh='expac -H M "%m\t%n" | sort -h | less'
 alias yli='comm -23 <(pacman -Qqt | sort) <(pacman -Qqg base base-devel | sort) | less'
+
+alias mpv='mpv --msg-level=all=no --ytdl-format=93'
