@@ -232,7 +232,8 @@ Plug 'chemzqm/vim-jsx-improve'
 " plugin allows to search/replace with preview and undoable
 Plug 'brooth/far.vim'
 let g:far#window_layout = "current"
-let g:far#auto_preview = 0
+let g:far#auto_preview = 1
+set wildignore+=node_modules/**,build/**,Build/**
 nnoremap <leader>f :F
 nnoremap <leader>ff :Far
 " plugin provides powerline-liked status line and tab line
@@ -248,8 +249,8 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#fnamemod = ':.'
 let g:airline#extensions#tabline#fnamecollapse = 0
 " plugin provides asynchronous code completion
-Plug 'maralla/completor.vim'
-let g:completor_css_omni_trigger = '([\w-]+|@[\w-]*|[\w-]+:\s*[\w-]*)$'
+" Plug 'maralla/completor.vim'
+" let g:completor_css_omni_trigger = '([\w-]+|@[\w-]*|[\w-]+:\s*[\w-]*)$'
 " key mappings allow to use <tab> to select completion
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
