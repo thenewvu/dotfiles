@@ -41,6 +41,8 @@ set smartcase
 set lazyredraw
 " Send more characters at a given time
 set ttyfast
+" Set number of columns need to be syntax highlighted
+set synmaxcol=80
 " enable incremental searching
 set incsearch
 " redude <esc> delay
