@@ -94,17 +94,14 @@ set undodir=~/.config/nvim/backups
 set undofile
 
 " autocmd for some types of file
-" augroup auto
-"   autocmd!
-"   autocmd BufWritePost .vimrc source % | AirlineRefresh
-"   autocmd BufWritePost bspwmrc !%
-"   autocmd BufWritePost sxhkdrc !pkill -USR1 -x sxhkd
-"   autocmd BufWritePost .Xresources !xrdb "%:p"
-"   autocmd TermOpen * setlocal bufhidden=hide
-"   autocmd BufWinEnter,WinEnter term://* startinsert
-"   autocmd BufLeave term://* stopinsert
-"   autocmd FileType qf resize 3
-" augroup END
+augroup auto
+  autocmd!
+  autocmd BufWritePost .vimrc source % | AirlineRefresh
+  autocmd BufWritePost bspwmrc !%
+  autocmd BufWritePost sxhkdrc !pkill -USR1 -x sxhkd
+  autocmd BufWritePost .Xresources !xrdb "%:p"
+  autocmd FileType qf resize 3
+augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " VISUAL SETTINGS
