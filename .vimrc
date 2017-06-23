@@ -142,6 +142,9 @@ set wrapmargin=0
 set showmode
 " make < and > match
 " set matchpairs+=<:>
+" visualize whitespace chars
+set showbreak=↪\ 
+set listchars=tab:→\ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " KEY SETTINGS
@@ -268,7 +271,6 @@ set background=dark
 let g:solarized_termcolors = 256
 let g:solarized_underline = 0
 let g:solarized_contrast = 'low'
-let g:solarized_visibility = 'low'
 colorscheme solarized
 " plugin provides swift syntax highlight
 Plug 'keith/swift.vim'
