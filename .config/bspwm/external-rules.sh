@@ -6,10 +6,10 @@ instance=$3
 
 # chrome app - floating for youtube
 if [ "$instance" = "crx_jjphmlaoffndcnecccgemfdaaoighkel" ] ; then
-  echo "state=floating sticky=on"
+  echo "state=floating"
 # chrome app - google keep
 elif [ "$instance" = "crx_cppbapjpgdfdejdlabdnhkeocdjegifp" ]; then
-  echo "state=floating sticky=on locked=on"
+  echo "state=floating"
 elif [ "$class" = "mpv" ]; then
-  echo "state=floating sticky=on layer=above"
+  echo "state=floating layer=above"
 fi
