@@ -324,8 +324,8 @@ highlight SignColumn ctermbg=none
 Plug 'Yggdroot/indentLine'
 let g:indentLine_faster = 1
 let g:indentLine_char = '¦'
-" let g:indentLine_setColors = 1
-" let g:indentLine_color_term = 237
+let g:indentLine_setColors = 1
+let g:indentLine_color_term = 3
 let g:indentLine_fileType = ['javascript.jsx', 'javascript']
 " let g:indentLine_maxLines = 300
 call plug#end()
