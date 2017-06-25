@@ -266,7 +266,7 @@ Plug 'altercation/vim-colors-solarized'
 set rtp+=~/.vim/plugged/vim-colors-solarized
 set background=dark
 let g:solarized_termcolors = 256
-let g:solarized_underline = 1
+let g:solarized_underline = 0
 let g:solarized_contrast = 'hight'
 colorscheme solarized
 " plugin provides swift syntax highlight
@@ -325,7 +325,7 @@ Plug 'Yggdroot/indentLine'
 let g:indentLine_faster = 1
 let g:indentLine_char = '¦'
 let g:indentLine_setColors = 1
-let g:indentLine_color_term = 3
+let g:indentLine_color_term = 10
 let g:indentLine_fileType = ['javascript.jsx', 'javascript']
 " let g:indentLine_maxLines = 300
 call plug#end()
