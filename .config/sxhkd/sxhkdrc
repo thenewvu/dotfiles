@@ -6,7 +6,7 @@
 
 # terminal emulator
 super + Return
-  urxvtc -e "tmux"
+  urxvtc -e bash -c "tmux -q has-session -t dropdown && exec tmux attach-session -t dropdown || exec tmux new-session -s dropdown"
 
 # program launcher
 super + @space
