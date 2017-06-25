@@ -10,7 +10,7 @@ URxvt.font: xft:Operator Mono:style=Book:pixelsize=12,xft:Iosevka:style=Regular:
 URxvt.boldFont: xft:Operator Mono:style=Book:pixelsize=12,xft:Iosevka:style=Regular:pixelsize=12
 URxvt.italicFont: xft:Operator Mono:style=Book:pixelsize=12,xft:Iosevka:style=Regular:pixelsize=12
 URxvt.boldItalicFont: xft:Operator Mono:style=Book:pixelsize=12,xft:Iosevka:style=Regular:pixelsize=12
-URxvt.letterSpace: -2
+URxvt.letterSpace: -2.5
 URxvt.lineSpace: 0
 URxvt.buffered: true
 
