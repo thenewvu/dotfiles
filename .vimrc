@@ -206,7 +206,7 @@ Plug 'terryma/vim-multiple-cursors'
 " plugin previews hex/rgb/rgba colors
 Plug 'lilydjwg/colorizer'
 " plugin provides javascript syntax highlight
-Plug 'thenewvu/vim-javascript', { 'branch': 'make-jsmodulegroup-be-foldable' }
+Plug 'pangloss/vim-javascript'
 " plugin allows to comment out text depends on its syntax
 Plug 'tpope/vim-commentary'
 " plugin automatically adds close bracket/quote
@@ -233,7 +233,7 @@ Plug 'chemzqm/vim-jsx-improve'
 Plug 'brooth/far.vim'
 let g:far#window_layout = "current"
 let g:far#auto_preview = 1
-set wildignore+=node_modules/**,build/**,Build/**
+set wildignore+=**/node_modules/**,**/build/**,**/Build/**
 nnoremap <leader>f :F
 nnoremap <leader>ff :Far
 " plugin provides powerline-liked status line and tab line
