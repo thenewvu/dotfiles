@@ -232,7 +232,6 @@ Plug 'chemzqm/vim-jsx-improve'
 " plugin allows to search/replace with preview and undoable
 Plug 'brooth/far.vim'
 let g:far#window_layout = "current"
-let g:far#auto_preview = 1
 set wildignore+=**/node_modules/**,**/build/**,**/Build/**
 nnoremap <leader>f :F
 nnoremap <leader>ff :Far
@@ -249,18 +248,12 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#fnamemod = ':.'
 let g:airline#extensions#tabline#fnamecollapse = 0
 " plugin provides asynchronous code completion
-" Plug 'maralla/completor.vim'
-" let g:completor_css_omni_trigger = '([\w-]+|@[\w-]*|[\w-]+:\s*[\w-]*)$'
+Plug 'maralla/completor.vim'
+let g:completor_css_omni_trigger = '([\w-]+|@[\w-]*|[\w-]+:\s*[\w-]*)$'
 " key mappings allow to use <tab> to select completion
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
-" plugin provides interactive window mode
-Plug 'romgrk/winteract.vim'
-nnoremap <leader>w :InteractiveWindow<cr>
-" plugin provides text alignment feature
-Plug 'junegunn/vim-easy-align'
-vnoremap <leader>v :EasyAlign<cr>
 " Plugin provides color scheme
 Plug 'altercation/vim-colors-solarized'
 set rtp+=~/.vim/plugged/vim-colors-solarized
@@ -269,10 +262,6 @@ let g:solarized_termcolors = 256
 let g:solarized_underline = 0
 let g:solarized_contrast = 'hight'
 colorscheme solarized
-" plugin provides swift syntax highlight
-Plug 'keith/swift.vim'
-" plugin provides commands to convert between cases
-Plug 'chiedo/vim-case-convert'
 " plugin provides seamlessly key mappings working with tmux
 Plug 'christoomey/vim-tmux-navigator'
 " plugin provides async formatting
@@ -281,10 +270,12 @@ augroup neoformat
   autocmd!
   autocmd FileType javascript.jsx setlocal formatprg=prettier_d
         \\ --stdin
+        \\ --fix-to-stdout
         \\ --no-semi
         \\ --single-quote
   autocmd FileType javascript setlocal formatprg=prettier_d
         \\ --stdin
+        \\ --fix-to-stdout
         \\ --no-semi
         \\ --single-quote
   autocmd BufWritePre *.js Neoformat
@@ -327,6 +318,5 @@ let g:indentLine_char = '¦'
 let g:indentLine_setColors = 1
 let g:indentLine_color_term = 10
 let g:indentLine_fileType = ['javascript.jsx', 'javascript']
-" let g:indentLine_maxLines = 300
 call plug#end()
 
