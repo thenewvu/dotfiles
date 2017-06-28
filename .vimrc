@@ -195,6 +195,15 @@ nnoremap J <nop>
 nnoremap K <nop>
 " key mapping to run a shell command
 nnoremap ! :! 
+" key mapping to exit terminal mode
+tnoremap <esc> <c-\><c-n>
+" key mappings to navigate between splits in temrinal mode
+tnoremap <C-h> <C-\><C-n><C-w>h
+tnoremap <C-j> <C-\><C-n><C-w>j
+tnoremap <C-k> <C-\><C-n><C-w>k
+tnoremap <C-l> <C-\><C-n><C-w>l
+" key mapping to open a terminal in below split
+nnoremap <leader>t :below 10sp term://$SHELL<cr>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
