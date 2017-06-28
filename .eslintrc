@@ -1,7 +1,6 @@
 {
   "extends": [
-    "eslint-config-standard",
-    "plugin:react-perf/all"
+    "eslint-config-standard"
   ],
   "rules": {
     "indent": 0,
