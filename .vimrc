@@ -247,7 +247,7 @@ nnoremap <leader>ff :Far
 " plugin provides powerline-liked status line and tab line
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-let g:airline_theme = 'base16_ashes'
+let g:airline_theme = 'papercolor'
 let g:airline_powerline_fonts = 1
 " Show just the line and column number in section z
 let g:airline_section_z = '%l:%v'
@@ -260,19 +260,10 @@ let g:airline#extensions#tabline#fnamecollapse = 0
 Plug 'ervandew/supertab' 
 let g:SuperTabDefaultCompletionType = "context"
 " Plugin provides color scheme
-Plug 'altercation/vim-colors-solarized'
-set rtp+=~/.vim/plugged/vim-colors-solarized
-" Solarized light during the day, solarized dark during the night
-let hour = strftime("%H")
-if 6 <= hour && hour < 18
-  set background=light
-else
-  set background=dark
-endif
-let g:solarized_termcolors = 256
-let g:solarized_underline = 0
-let g:solarized_contrast = 'hight'
-colorscheme solarized
+Plug 'NLKNguyen/papercolor-theme'
+set rtp+=~/.vim/plugged/papercolor-theme
+set background=light
+colorscheme PaperColor
 " plugin provides seamlessly key mappings working with tmux
 Plug 'christoomey/vim-tmux-navigator'
 " plugin provides async formatting
