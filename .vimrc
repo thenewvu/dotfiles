@@ -238,7 +238,7 @@ nnoremap <leader>ff :Far
 " plugin provides powerline-liked status line and tab line
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-let g:airline_theme = 'base16'
+let g:airline_theme = 'base16_ashes'
 let g:airline_powerline_fonts = 1
 " Show just the line and column number in section z
 let g:airline_section_z = '%l:%v'
@@ -253,7 +253,13 @@ let g:SuperTabDefaultCompletionType = "context"
 " Plugin provides color scheme
 Plug 'altercation/vim-colors-solarized'
 set rtp+=~/.vim/plugged/vim-colors-solarized
-set background=dark
+" Solarized light during the day, solarized dark during the night
+let hour = strftime("%H")
+if 6 <= hour && hour < 18
+  set background=light
+else
+  set background=dark
+endif
 let g:solarized_termcolors = 256
 let g:solarized_underline = 0
 let g:solarized_contrast = 'hight'
