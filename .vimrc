@@ -247,13 +247,9 @@ let g:airline#extensions#tabline#enabled = 1
 " set filename mode to relative without being collapsed
 let g:airline#extensions#tabline#fnamemod = ':.'
 let g:airline#extensions#tabline#fnamecollapse = 0
-" plugin provides asynchronous code completion
-Plug 'maralla/completor.vim'
-let g:completor_css_omni_trigger = '([\w-]+|@[\w-]*|[\w-]+:\s*[\w-]*)$'
-" key mappings allow to use <tab> to select completion
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
+" plugin allows to select completion entries by tabbing
+Plug 'ervandew/supertab' 
+let g:SuperTabDefaultCompletionType = "context"
 " Plugin provides color scheme
 Plug 'altercation/vim-colors-solarized'
 set rtp+=~/.vim/plugged/vim-colors-solarized
