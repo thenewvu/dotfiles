@@ -2,6 +2,7 @@ alsa-utils
 breeze-icons
 broadcom-wl
 bspwm
+bucklespring-git
 dmenu
 firefox
 google-chrome
@@ -20,6 +21,7 @@ parallel
 ripgrep
 rsync
 rxvt-unicode
+scrot
 simple-mtpfs
 smartgit
 tdrop-git
