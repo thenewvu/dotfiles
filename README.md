@@ -1,10 +1,6 @@
-## Goals
+My dotfiles for daily work.
 
-This is not a *rice*, this is for my daily work, it should be:
-
-* Useful
-* Minimal
-* Lightweight
-* Inspirational and able to keep me calm
-
-![screenshot](./screenshots/screenshot-20170516-1538.png?raw=true)
+---
+![screenshot](./screenshots/screenshot-20170629-204144.png?raw=true)
+---
+![screenshot](./screenshots/screenshot-20170629-204150.png?raw=true)
