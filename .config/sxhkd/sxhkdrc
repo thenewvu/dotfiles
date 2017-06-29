@@ -11,7 +11,7 @@ super + Return
 # program launcher
 super + @space
   dmenu_run -fn 'Operator Mono:pixelsize=10:style=Book' \
-    -nb '#373b41' -nf '#c5c8c6' -sf '#fafafa'
+    -nb '#0087af' -nf '#eeeeee' -sf '#ffffff'
 
 # make sxhkd reload its configuration files:
 super + Escape
