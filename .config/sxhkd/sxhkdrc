@@ -6,7 +6,7 @@
 
 # terminal emulator
 super + Return
-  urxvtc -e bash -c "tmux -q has-session -t dropdown && exec tmux attach-session -t dropdown || exec tmux new-session -s dropdown"
+  urxvtc -e bash -c "tmux -q has-session -t tmux && exec tmux attach-session -t tmux || exec tmux new-session -s tmux"
 
 # program launcher
 super + @space
@@ -19,7 +19,7 @@ super + Escape
 
 # start a quake-like terminal
 super + grave
-  tdrop -a -x 0 -y 13 -w 1440 -h 900 -s dropdown urxvtc
+  tdrop -a -x 0 -y 13 -w 1440 -h 883 -s tmux urxvtc
 
 ## media keys
 XF86AudioRaiseVolume
