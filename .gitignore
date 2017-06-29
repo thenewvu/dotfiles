@@ -84,3 +84,4 @@ media
 .terminfo/
 .eslint_d
 .prettier_d
+.parallel/
