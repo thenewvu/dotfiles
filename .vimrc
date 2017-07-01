@@ -106,10 +106,12 @@ augroup END
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " VISUAL SETTINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" set ruler colors
-highlight ColorColumn ctermbg=254
-" disable line numbers
+" don't show line number column
 set nonumber
+" highlight current line
+set cursorline
+" highlight current column
+set cursorcolumn
 " set number of visual spaces per TAB
 set tabstop=2
 " set number of spaces in tab when editing
@@ -138,9 +140,9 @@ set wrapmargin=0
 " always show the current editing mode
 set showmode
 " make < and > match
-" set matchpairs+=<:>
+set matchpairs+=<:>
 " visualize whitespace chars
-set listchars=tab:→\ ,trail:•,extends:⟩,precedes:⟨
+set listchars=tab:→\ ,eol:¬,trail:•,extends:⟩,precedes:⟨
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " KEY SETTINGS
@@ -214,7 +216,7 @@ Plug 'junegunn/fzf.vim'
 " key mapping to fuzzy search file in the current working dir
 nnoremap <leader>p :FZF<CR>
 " key mapping to fuzzy search text in the current buffer
-nnoremap <leader>r :BLines<cr>
+nnoremap / :BLines<cr>
 " plugin allows to <w>/<b> over words
 Plug 'chaoren/vim-wordmotion'
 " plugin provides git functions, only required by airline so far
@@ -225,7 +227,8 @@ Plug 'othree/html5.vim'
 Plug 'alvan/vim-closetag'
 let g:closetag_filenames = "*.html,*.xml,*.js,*.jsx"
 " plugin provides jsx syntax highlight
-Plug 'chemzqm/vim-jsx-improve'
+Plug 'mxw/vim-jsx'
+let g:jsx_ext_required = 0
 " plugin allows to search/replace with preview and undoable
 Plug 'brooth/far.vim'
 let g:far#window_layout = "current"
@@ -235,7 +238,7 @@ nnoremap <leader>ff :Far
 " plugin provides powerline-liked status line and tab line
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-let g:airline_theme = 'papercolor'
+let g:airline_theme = 'base16'
 let g:airline_powerline_fonts = 1
 " Show just the line and column number in section z
 let g:airline_section_z = '%l:%v'
@@ -248,10 +251,12 @@ let g:airline#extensions#tabline#fnamecollapse = 0
 Plug 'ervandew/supertab' 
 let g:SuperTabDefaultCompletionType = "context"
 " Plugin provides color scheme
-Plug 'NLKNguyen/papercolor-theme'
-set rtp+=~/.vim/plugged/papercolor-theme
+Plug 'google/vim-colorscheme-primary'
+set rtp+=~/.vim/plugged/vim-colorscheme-primary
 set background=light
-colorscheme PaperColor
+colorscheme primary
+hi CursorLine     cterm=NONE  ctermbg=255  ctermfg=NONE
+hi CursorColumn   cterm=NONE  ctermbg=255 ctermfg=NONE
 " plugin provides seamlessly key mappings working with tmux
 Plug 'christoomey/vim-tmux-navigator'
 " plugin provides async formatting
@@ -308,7 +313,7 @@ Plug 'Yggdroot/indentLine'
 let g:indentLine_faster = 1
 let g:indentLine_char = '¦'
 let g:indentLine_setColors = 1
-let g:indentLine_color_term = 10
+let g:indentLine_color_term = 255
 let g:indentLine_fileType = ['javascript.jsx', 'javascript']
 " plugin generates tmux theme that bases on the current airline
 Plug 'edkolev/tmuxline.vim'
