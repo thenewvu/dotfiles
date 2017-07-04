@@ -139,10 +139,10 @@ set textwidth=0
 set wrapmargin=0
 " always show the current editing mode
 set showmode
-" make < and > match
-set matchpairs+=<:>
 " visualize whitespace chars
-set listchars=tab:→\ ,eol:¬,trail:•,extends:⟩,precedes:⟨
+set showbreak=↪\ 
+set listchars=tab:→\ ,trail:•
+set list
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " KEY SETTINGS
