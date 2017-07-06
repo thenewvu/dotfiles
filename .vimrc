@@ -206,8 +206,8 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'lilydjwg/colorizer'
 " plugin provides javascript syntax highlight
 Plug 'pangloss/vim-javascript'
-" plugin allows to comment out text depends on its syntax
-Plug 'tpope/vim-commentary'
+" plugin provides commenting
+Plug 'tomtom/tcomment_vim'
 " plugin automatically adds close bracket/quote
 Plug 'jiangmiao/auto-pairs'
 " plugin to fuzzy search files/texts
