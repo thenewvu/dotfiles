@@ -141,7 +141,7 @@ set wrapmargin=0
 set showmode
 " visualize whitespace chars
 set showbreak=↪\ 
-set listchars=tab:→\ ,trail:•
+set listchars=tab:»\ ,trail:•
 set list
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
