@@ -109,9 +109,9 @@ augroup END
 " don't show line number column
 set nonumber
 " highlight current line
-set cursorline
+" set cursorline
 " highlight current column
-set cursorcolumn
+" set cursorcolumn
 " set number of visual spaces per TAB
 set tabstop=2
 " set number of spaces in tab when editing
@@ -309,12 +309,12 @@ highlight ALEErrorSign ctermbg=none ctermfg=red
 highlight ALEWarningSign ctermbg=none ctermfg=yellow
 highlight SignColumn ctermbg=none
 " plugin provides indent guide
-Plug 'Yggdroot/indentLine'
-let g:indentLine_faster = 1
-let g:indentLine_char = '¦'
-let g:indentLine_setColors = 1
-let g:indentLine_color_term = 255
-let g:indentLine_fileType = ['javascript.jsx', 'javascript']
+" Plug 'Yggdroot/indentLine'
+" let g:indentLine_faster = 1
+" let g:indentLine_char = '¦'
+" let g:indentLine_setColors = 1
+" let g:indentLine_color_term = 255
+" let g:indentLine_fileType = ['javascript.jsx', 'javascript']
 " plugin generates tmux theme that bases on the current airline
 Plug 'edkolev/tmuxline.vim'
 call plug#end()

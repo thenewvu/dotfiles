@@ -58,7 +58,7 @@ logs/
 .linphone*
 .mozilla
 .yarnrc
-**.tmp
+/**/*.tmp
 .config/cmus
 .config/Flavio Tordini/
 .config/orion.application/
