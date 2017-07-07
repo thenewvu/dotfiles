@@ -108,10 +108,6 @@ augroup END
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " don't show line number column
 set nonumber
-" highlight current line
-" set cursorline
-" highlight current column
-" set cursorcolumn
 " set number of visual spaces per TAB
 set tabstop=2
 " set number of spaces in tab when editing
@@ -202,8 +198,6 @@ nnoremap ! :!
 call plug#begin('~/.vim/plugged')
 " plugin provides sublime-liked multiple cursors
 Plug 'terryma/vim-multiple-cursors'
-" plugin previews hex/rgb/rgba colors
-Plug 'lilydjwg/colorizer'
 " plugin provides javascript syntax highlight
 Plug 'pangloss/vim-javascript'
 " plugin provides commenting
@@ -232,6 +226,7 @@ let g:jsx_ext_required = 0
 " plugin allows to search/replace with preview and undoable
 Plug 'brooth/far.vim'
 let g:far#window_layout = "current"
+let g:far#auto_preview = 0
 set wildignore+=**/node_modules/**,**/build/**,**/Build/**
 nnoremap <leader>f :F
 nnoremap <leader>ff :Far
@@ -255,8 +250,6 @@ Plug 'google/vim-colorscheme-primary'
 set rtp+=~/.vim/plugged/vim-colorscheme-primary
 set background=light
 colorscheme primary
-hi CursorLine     cterm=NONE  ctermbg=255  ctermfg=NONE
-hi CursorColumn   cterm=NONE  ctermbg=255 ctermfg=NONE
 " plugin provides seamlessly key mappings working with tmux
 Plug 'christoomey/vim-tmux-navigator'
 " plugin provides async formatting
@@ -303,18 +296,11 @@ let g:ale_lint_on_text_changed = 0
 let g:airline_section_error = '%{ale#statusline#Status()}'
 let g:ale_lint_on_filetype_changed = 0
 let g:ale_warn_about_trailing_whitespace = 0
-let g:ale_sign_error = '>>'
-let g:ale_sign_warning = '>>'
+let g:ale_sign_error = '✗ '
+let g:ale_sign_warning = '⚠ '
 highlight ALEErrorSign ctermbg=none ctermfg=red
 highlight ALEWarningSign ctermbg=none ctermfg=yellow
 highlight SignColumn ctermbg=none
-" plugin provides indent guide
-" Plug 'Yggdroot/indentLine'
-" let g:indentLine_faster = 1
-" let g:indentLine_char = '¦'
-" let g:indentLine_setColors = 1
-" let g:indentLine_color_term = 255
-" let g:indentLine_fileType = ['javascript.jsx', 'javascript']
 " plugin generates tmux theme that bases on the current airline
 Plug 'edkolev/tmuxline.vim'
 call plug#end()
