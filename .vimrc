@@ -293,11 +293,12 @@ let g:ale_open_list = 1
 let g:ale_lint_on_save = 1
 let g:ale_lint_on_enter = 0
 let g:ale_lint_on_text_changed = 0
-let g:airline_section_error = '%{ale#statusline#Status()}'
 let g:ale_lint_on_filetype_changed = 0
 let g:ale_warn_about_trailing_whitespace = 0
 let g:ale_sign_error = '✗ '
 let g:ale_sign_warning = '⚠ '
+let g:airline_section_error = '%{ale#statusline#Status()}'
+let g:airline_skip_empty_sections = 1
 highlight ALEErrorSign ctermbg=none ctermfg=red
 highlight ALEWarningSign ctermbg=none ctermfg=yellow
 highlight SignColumn ctermbg=none
