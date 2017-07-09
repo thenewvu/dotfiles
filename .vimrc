@@ -200,6 +200,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'terryma/vim-multiple-cursors'
 " plugin provides javascript syntax highlight
 Plug 'pangloss/vim-javascript'
+Plug 'MaxMEllon/vim-jsx-pretty'
 " plugin provides commenting
 Plug 'tomtom/tcomment_vim'
 " plugin automatically adds close bracket/quote
@@ -220,9 +221,6 @@ Plug 'othree/html5.vim'
 " plugin automatically adds close tag
 Plug 'alvan/vim-closetag'
 let g:closetag_filenames = "*.html,*.xml,*.js,*.jsx"
-" plugin provides jsx syntax highlight
-Plug 'mxw/vim-jsx'
-let g:jsx_ext_required = 0
 " plugin allows to search/replace with preview and undoable
 Plug 'brooth/far.vim'
 let g:far#window_layout = "current"
