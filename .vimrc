@@ -268,6 +268,23 @@ Plug 'google/vim-colorscheme-primary'
 set rtp+=~/.vim/plugged/vim-colorscheme-primary
 set background=light
 colorscheme primary
+hi diffAdded ctermfg=28 ctermbg=none
+hi diffRemoved ctermfg=160 ctermbg=none
+hi diffFile ctermfg=69 ctermbg=none
+hi diffNewFile ctermfg=69 ctermbg=none
+hi diffLine ctermfg=0 ctermbg=none
+
+hi diffAdd ctermfg=28 ctermbg=none
+hi diffChange ctermfg=28 ctermbg=none
+hi diffText ctermfg=28 ctermbg=none
+hi link diffDelete diffRemoved
+
+hi gitcommitFirstLine ctermfg=0 ctermbg=none
+hi gitcommitSelectedType ctermfg=28 ctermbg=none
+hi link gitcommitSelectedFile gitcommitSelectedType
+hi gitcommitDiscardedType ctermfg=160 ctermbg=none
+hi link gitcommitDiscardedFile gitcommitDiscardedType
+hi gitcommitUntrackedFile ctermfg=69 ctermbg=none
 " plugin provides seamlessly key mappings working with tmux
 Plug 'christoomey/vim-tmux-navigator'
 " plugin provides async formatting
