@@ -343,7 +343,7 @@ Plug 'edkolev/tmuxline.vim'
 Plug 'jreybert/vimagit'
 nnoremap <leader>gm :MagitOnly<cr>
 " plugin provides git log browser
-Plug 'junegunn/gv.vim'
-nnoremap <leader>gl :GV<cr>
+Plug 'kablamo/vim-git-log'
+nnoremap <leader>gl :GitLog<cr>
 call plug#end()
 
