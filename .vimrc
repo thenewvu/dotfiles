@@ -322,5 +322,7 @@ highlight ALEWarningSign ctermbg=none ctermfg=yellow
 highlight SignColumn ctermbg=none
 " plugin generates tmux theme that bases on the current airline
 Plug 'edkolev/tmuxline.vim'
+" plugin provides some essential git functions
+Plug 'jreybert/vimagit'
 call plug#end()
 
