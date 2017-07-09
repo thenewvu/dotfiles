@@ -341,6 +341,9 @@ highlight SignColumn ctermbg=none
 Plug 'edkolev/tmuxline.vim'
 " plugin provides some essential git functions
 Plug 'jreybert/vimagit'
-nnoremap <leader>m :MagitOnly<cr>
+nnoremap <leader>gm :MagitOnly<cr>
+" plugin provides git log browser
+Plug 'junegunn/gv.vim'
+nnoremap <leader>gl :GV<cr>
 call plug#end()
 
