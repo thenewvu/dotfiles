@@ -157,7 +157,7 @@ set wrapmargin=0
 set showmode
 " visualize whitespace chars
 set showbreak=↪\ 
-set listchars=tab:»\ ,trail:•
+set listchars+=tab:»\ ,trail:•,space:·
 set list
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -268,23 +268,25 @@ Plug 'google/vim-colorscheme-primary'
 set rtp+=~/.vim/plugged/vim-colorscheme-primary
 set background=light
 colorscheme primary
+" highlight diff
 hi diffAdded ctermfg=28 ctermbg=none
 hi diffRemoved ctermfg=160 ctermbg=none
 hi diffFile ctermfg=69 ctermbg=none
 hi diffNewFile ctermfg=69 ctermbg=none
 hi diffLine ctermfg=0 ctermbg=none
-
 hi diffAdd ctermfg=28 ctermbg=none
 hi diffChange ctermfg=28 ctermbg=none
 hi diffText ctermfg=28 ctermbg=none
 hi link diffDelete diffRemoved
-
+" highlight gitcommit
 hi gitcommitFirstLine ctermfg=0 ctermbg=none
 hi gitcommitSelectedType ctermfg=28 ctermbg=none
 hi link gitcommitSelectedFile gitcommitSelectedType
 hi gitcommitDiscardedType ctermfg=160 ctermbg=none
 hi link gitcommitDiscardedFile gitcommitDiscardedType
 hi gitcommitUntrackedFile ctermfg=69 ctermbg=none
+" highlight listchars
+hi NonText ctermfg=254
 " plugin provides seamlessly key mappings working with tmux
 Plug 'christoomey/vim-tmux-navigator'
 " plugin provides async formatting
