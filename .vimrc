@@ -294,13 +294,11 @@ augroup neoformat
   autocmd FileType javascript.jsx setlocal formatprg=prettier_d
         \\ --stdin
         \\ --fix-to-stdout
-        \\ --print-width=64
         \\ --no-semi
         \\ --single-quote
   autocmd FileType javascript setlocal formatprg=prettier_d
         \\ --stdin
         \\ --fix-to-stdout
-        \\ --print-width=64
         \\ --no-semi
         \\ --single-quote
   autocmd BufWritePre *.js Neoformat
