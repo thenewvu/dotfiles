@@ -231,7 +231,7 @@ Plug 'junegunn/fzf.vim'
 " key mapping to fuzzy search file in the current working dir
 nnoremap <leader>p :FZF<CR>
 " key mapping to fuzzy search text in the current buffer
-nnoremap / :BLines<cr>
+nnoremap <leader>r :BLines<cr>
 " plugin allows to <w>/<b> over words
 Plug 'chaoren/vim-wordmotion'
 " plugin provides git functions, only required by airline so far
