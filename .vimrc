@@ -126,6 +126,8 @@ endfunction
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " VISUAL SETTINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" set default colorscheme
+colorscheme slate
 " don't show line number column
 set nonumber
 " set number of visual spaces per TAB
@@ -251,8 +253,8 @@ nnoremap <leader>ff :Far
 " plugin provides powerline-liked status line and tab line
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-let g:airline_theme = 'base16'
-let g:airline_powerline_fonts = 1
+let g:airline_theme = 'simple'
+let g:airline_powerline_fonts = 0
 " Show just the line and column number in section z
 let g:airline_section_z = '%l:%v'
 " enabled showing buffers on tabline
@@ -264,29 +266,29 @@ let g:airline#extensions#tabline#fnamecollapse = 0
 Plug 'ervandew/supertab' 
 let g:SuperTabDefaultCompletionType = "context"
 " Plugin provides color scheme
-Plug 'google/vim-colorscheme-primary'
-set rtp+=~/.vim/plugged/vim-colorscheme-primary
-set background=light
-colorscheme primary
+" Plug 'google/vim-colorscheme-primary'
+" set rtp+=~/.vim/plugged/vim-colorscheme-primary
+" set background=light
+" colorscheme primary
 " highlight diff
-hi diffAdded ctermfg=28 ctermbg=none
-hi diffRemoved ctermfg=160 ctermbg=none
-hi diffFile ctermfg=69 ctermbg=none
-hi diffNewFile ctermfg=69 ctermbg=none
-hi diffLine ctermfg=0 ctermbg=none
-hi diffAdd ctermfg=28 ctermbg=none
-hi diffChange ctermfg=28 ctermbg=none
-hi diffText ctermfg=28 ctermbg=none
-hi link diffDelete diffRemoved
+" hi diffAdded ctermfg=28 ctermbg=none
+" hi diffRemoved ctermfg=160 ctermbg=none
+" hi diffFile ctermfg=69 ctermbg=none
+" hi diffNewFile ctermfg=69 ctermbg=none
+" hi diffLine ctermfg=0 ctermbg=none
+" hi diffAdd ctermfg=28 ctermbg=none
+" hi diffChange ctermfg=28 ctermbg=none
+" hi diffText ctermfg=28 ctermbg=none
+" hi link diffDelete diffRemoved
 " highlight gitcommit
-hi gitcommitFirstLine ctermfg=0 ctermbg=none
-hi gitcommitSelectedType ctermfg=28 ctermbg=none
-hi link gitcommitSelectedFile gitcommitSelectedType
-hi gitcommitDiscardedType ctermfg=160 ctermbg=none
-hi link gitcommitDiscardedFile gitcommitDiscardedType
-hi gitcommitUntrackedFile ctermfg=69 ctermbg=none
+" hi gitcommitFirstLine ctermfg=0 ctermbg=none
+" hi gitcommitSelectedType ctermfg=28 ctermbg=none
+" hi link gitcommitSelectedFile gitcommitSelectedType
+" hi gitcommitDiscardedType ctermfg=160 ctermbg=none
+" hi link gitcommitDiscardedFile gitcommitDiscardedType
+" hi gitcommitUntrackedFile ctermfg=69 ctermbg=none
 " highlight listchars
-hi NonText ctermfg=254
+" hi NonText ctermfg=254
 " plugin provides seamlessly key mappings working with tmux
 Plug 'christoomey/vim-tmux-navigator'
 " plugin provides async formatting
@@ -298,11 +300,13 @@ augroup neoformat
         \\ --fix-to-stdout
         \\ --no-semi
         \\ --single-quote
+        \\ --print-width=60
   autocmd FileType javascript setlocal formatprg=prettier_d
         \\ --stdin
         \\ --fix-to-stdout
         \\ --no-semi
         \\ --single-quote
+        \\ --print-width=60
   autocmd BufWritePre *.js Neoformat
 augroup END
 " use formatprg when available
@@ -339,6 +343,7 @@ highlight ALEWarningSign ctermbg=none ctermfg=yellow
 highlight SignColumn ctermbg=none
 " plugin generates tmux theme that bases on the current airline
 Plug 'edkolev/tmuxline.vim'
+let g:tmuxline_powerline_separators = 0
 " plugin provides some essential git functions
 Plug 'jreybert/vimagit'
 nnoremap <leader>gm :MagitOnly<cr>
