@@ -253,10 +253,13 @@ nnoremap <leader>ff :Far
 " plugin provides powerline-liked status line and tab line
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-let g:airline_theme = 'simple'
+let g:airline_theme = 'base16'
 let g:airline_powerline_fonts = 0
 " Show just the line and column number in section z
 let g:airline_section_z = '%l:%v'
+let g:airline#extensions#whitespace#enabled = 0
+let g:airline#extensions#wordcount#enabled = 0
+let g:airline_skip_empty_sections = 1
 " enabled showing buffers on tabline
 let g:airline#extensions#tabline#enabled = 1
 " set filename mode to relative without being collapsed
@@ -266,29 +269,29 @@ let g:airline#extensions#tabline#fnamecollapse = 0
 Plug 'ervandew/supertab' 
 let g:SuperTabDefaultCompletionType = "context"
 " Plugin provides color scheme
-" Plug 'google/vim-colorscheme-primary'
-" set rtp+=~/.vim/plugged/vim-colorscheme-primary
-" set background=light
-" colorscheme primary
+Plug 'owickstrom/vim-colors-paramount'
+set rtp+=~/.vim/plugged/vim-colors-paramount
+set background=light
+colorscheme paramount
 " highlight diff
-" hi diffAdded ctermfg=28 ctermbg=none
-" hi diffRemoved ctermfg=160 ctermbg=none
-" hi diffFile ctermfg=69 ctermbg=none
-" hi diffNewFile ctermfg=69 ctermbg=none
-" hi diffLine ctermfg=0 ctermbg=none
-" hi diffAdd ctermfg=28 ctermbg=none
-" hi diffChange ctermfg=28 ctermbg=none
-" hi diffText ctermfg=28 ctermbg=none
-" hi link diffDelete diffRemoved
+hi diffAdded ctermfg=28 ctermbg=255
+hi diffRemoved ctermfg=160 ctermbg=255
+hi diffFile ctermfg=69 ctermbg=255
+hi diffNewFile ctermfg=69 ctermbg=255
+hi diffLine ctermfg=0 ctermbg=255
+hi diffAdd ctermfg=28 ctermbg=255
+hi diffChange ctermfg=28 ctermbg=255
+hi diffText ctermfg=28 ctermbg=255
+hi link diffDelete diffRemoved
 " highlight gitcommit
-" hi gitcommitFirstLine ctermfg=0 ctermbg=none
-" hi gitcommitSelectedType ctermfg=28 ctermbg=none
-" hi link gitcommitSelectedFile gitcommitSelectedType
-" hi gitcommitDiscardedType ctermfg=160 ctermbg=none
-" hi link gitcommitDiscardedFile gitcommitDiscardedType
-" hi gitcommitUntrackedFile ctermfg=69 ctermbg=none
+hi gitcommitFirstLine ctermfg=0 ctermbg=255
+hi gitcommitSelectedType ctermfg=28 ctermbg=255
+hi link gitcommitSelectedFile gitcommitSelectedType
+hi gitcommitDiscardedType ctermfg=160 ctermbg=255
+hi link gitcommitDiscardedFile gitcommitDiscardedType
+hi gitcommitUntrackedFile ctermfg=69 ctermbg=255
 " highlight listchars
-" hi NonText ctermfg=254
+hi NonText ctermfg=252
 " plugin provides seamlessly key mappings working with tmux
 Plug 'christoomey/vim-tmux-navigator'
 " plugin provides async formatting
@@ -300,13 +303,11 @@ augroup neoformat
         \\ --fix-to-stdout
         \\ --no-semi
         \\ --single-quote
-        \\ --print-width=60
   autocmd FileType javascript setlocal formatprg=prettier_d
         \\ --stdin
         \\ --fix-to-stdout
         \\ --no-semi
         \\ --single-quote
-        \\ --print-width=60
   autocmd BufWritePre *.js Neoformat
 augroup END
 " use formatprg when available
@@ -337,7 +338,6 @@ let g:ale_warn_about_trailing_whitespace = 0
 let g:ale_sign_error = '✗ '
 let g:ale_sign_warning = '⚠ '
 let g:airline_section_error = '%{ale#statusline#Status()}'
-let g:airline_skip_empty_sections = 1
 highlight ALEErrorSign ctermbg=none ctermfg=red
 highlight ALEWarningSign ctermbg=none ctermfg=yellow
 highlight SignColumn ctermbg=none
@@ -350,5 +350,7 @@ nnoremap <leader>gm :MagitOnly<cr>
 " plugin provides git log browser
 Plug 'kablamo/vim-git-log'
 nnoremap <leader>gl :GitLog<cr>
+" plugin previews hex, rgb, x11 colors
+Plug 'chrisbra/Colorizer'
 call plug#end()
 
