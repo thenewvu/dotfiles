@@ -294,40 +294,18 @@ hi gitcommitUntrackedFile ctermfg=69 ctermbg=255
 hi NonText ctermfg=252
 " plugin provides seamlessly key mappings working with tmux
 Plug 'christoomey/vim-tmux-navigator'
-" plugin provides async formatting
-Plug 'sbdchd/neoformat'
-augroup neoformat
-  autocmd!
-  autocmd FileType javascript.jsx setlocal formatprg=prettier_d
-        \\ --stdin
-        \\ --fix-to-stdout
-        \\ --no-semi
-        \\ --single-quote
-  autocmd FileType javascript setlocal formatprg=prettier_d
-        \\ --stdin
-        \\ --fix-to-stdout
-        \\ --no-semi
-        \\ --single-quote
-  autocmd BufWritePre *.js Neoformat
-augroup END
-" use formatprg when available
-let g:neoformat_try_formatprg = 1
-" https://github.com/sbdchd/neoformat/issues/25
-let g:neoformat_only_msg_on_error = 1
 " plugin provides async linting
 Plug 'w0rp/ale'
-let g:ale_linters = {
-      \ 'javascript': [
-      \   'eslint'
-      \ ],
-      \ 'jsx': [
-      \   'eslint'
-      \ ]
-      \ }
+let g:ale_linters = {}
+let g:ale_linters['javascript'] = ['eslint']
+let g:ale_fixers = {}
+let g:ale_fixers['javascript'] = ['prettier']
 let g:ale_javascript_eslint_executable = 'eslint_d'
 let g:ale_javascript_eslint_use_global = 1
-let g:ale_jsx_eslint_executable = 'eslint_d'
-let g:ale_jsx_eslint_use_global = 1
+let g:ale_javascript_prettier_executable = 'prettier_d'
+let g:ale_javascript_prettier_use_global = 1
+let g:ale_javascript_prettier_options = '--no-semi --single-quote'
+let g:ale_fix_on_save = 1
 let g:ale_set_quickfix = 1
 let g:ale_open_list = 1
 let g:ale_lint_on_save = 1
