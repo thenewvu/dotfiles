@@ -26,3 +26,4 @@ alias mpv-tw='mpv --quiet --vo=opengl --border=no --on-all-workspaces --ontop --
 alias mpv-music='mpv --quiet --no-video --loop-file=inf --ytdl-format="bestaudio/best"'
 alias ytdl='youtube-dl -f "bestvideo[height<=720]+bestaudio/best"'
 
+alias tmux='tmux attach -t tmux || tmux new -s tmux'
