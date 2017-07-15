@@ -158,7 +158,7 @@ set wrapmargin=0
 " always show the current editing mode
 set showmode
 " visualize whitespace chars
-set showbreak=↪\ 
+set showbreak=↪\ \ 
 set listchars+=tab:»\ ,trail:•
 set list
 
