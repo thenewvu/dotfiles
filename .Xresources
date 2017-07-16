@@ -6,11 +6,11 @@ Xft.hinting: 1
 Xft.antialias: 1
 Xft.rgba: rgb
 
-URxvt.font: xft:Operator Mono:style=Book:pixelsize=12,xft:Iosevka:style=Regular:pixelsize=12
-URxvt.boldFont: xft:Operator Mono:style=Book:pixelsize=12,xft:Iosevka:style=Regular:pixelsize=12
-URxvt.italicFont: xft:Operator Mono:style=Book Italic:pixelsize=12,xft:Iosevka:style=Italic:pixelsize=12
-URxvt.boldItalicFont: xft:Operator Mono:style=Book Italic:pixelsize=12,xft:Iosevka:style=Italic:pixelsize=12
-URxvt.letterSpace: -1
+URxvt.font: xft:Latin Modern Mono Light Cond:style=Italic:pixelsize=14,xft:Iosevka:style=Regular:pixelsize=14
+URxvt.boldFont: xft:Latin Modern Mono Light Cond:style=Italic:pixelsize=14,xft:Iosevka:style=Regular:pixelsize=14
+URxvt.italicFont: xft:Latin Modern Mono Light Cond:style=Italic Italic:pixelsize=14,xft:Iosevka:style=Italic:pixelsize=14
+URxvt.boldItalicFont: xft:Latin Modern Mono Light Cond:style=Italic Italic:pixelsize=14,xft:Iosevka:style=Italic:pixelsize=14
+URxvt.letterSpace: -2
 URxvt.lineSpace: 0
 URxvt.buffered: true
 
