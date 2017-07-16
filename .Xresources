@@ -6,33 +6,27 @@ Xft.hinting: 1
 Xft.antialias: 1
 Xft.rgba: rgb
 
-URxvt.font: xft:Latin Modern Mono Light Cond:style=Italic:pixelsize=14,xft:Iosevka:style=Regular:pixelsize=14
-URxvt.boldFont: xft:Latin Modern Mono Light Cond:style=Italic:pixelsize=14,xft:Iosevka:style=Regular:pixelsize=14
-URxvt.italicFont: xft:Latin Modern Mono Light Cond:style=Italic Italic:pixelsize=14,xft:Iosevka:style=Italic:pixelsize=14
-URxvt.boldItalicFont: xft:Latin Modern Mono Light Cond:style=Italic Italic:pixelsize=14,xft:Iosevka:style=Italic:pixelsize=14
+URxvt.font: xft:Latin Modern Mono Light Cond:style=Regular:size=12
+URxvt.boldFont: xft:Latin Modern Mono Light Cond:style=Regular:size=12
+URxvt.italicFont: xft:Latin Modern Mono Light Cond:style=Regular:size=12
+URxvt.boldItalicFont: xft:Latin Modern Mono Light Cond:style=Regular:size=12
 URxvt.letterSpace: -2
 URxvt.lineSpace: 0
 URxvt.buffered: true
 
-URxvt.geometry: 120x24
 URxvt.saveLines: 1000
 
 URxvt.scrollBar: false
-URxvt.scrollstyle: plain
-URxvt.scrollBar_right: true
-URxvt.scrollColor: #657B83
 
 URxvt.cursorUnderline: false
 URxvt.cursorBlink: false
-URxvt.cursorColor: #3971ED
+URxvt.cursorColor: #969896
 
 URxvt.scrollTtyOutput: false
 URxvt.scrollWithBuffer: true
 URxvt.scrollTtyKeypress: true
 
 URxvt.cutchars: ()*,<>[]{}|`""''
-
-URxvt.fading: 30
 
 ! Base16 Google Light
 ! Scheme: Seth Wright (http://sethawright.com)
