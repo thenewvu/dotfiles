@@ -6,11 +6,11 @@
 
 # terminal emulator
 super + Return
-  urxvtc -e bash -c "tmux -q has-session -t tmux && exec tmux attach-session -t tmux || exec tmux new-session -s tmux"
+  termite -e 'bash -c "tmux -q has-session -t tmux && exec tmux attach-session -t tmux || exec tmux new-session -s tmux"'
 
 # program launcher
 super + @space
-  dmenu_run -fn 'Operator Mono:pixelsize=10:style=Book' \
+  dmenu_run -fn 'Operator Ssm:pixelsize=10:style=Book' \
     -nb '#0087af' -nf '#eeeeee' -sf '#ffffff'
 
 # make sxhkd reload its configuration files:
@@ -19,7 +19,7 @@ super + Escape
 
 # start a quake-like terminal
 super + grave
-  tdrop -a -x 0 -y 13 -w 1440 -h 883 -s tmux urxvtc
+  tdrop -a -x 0 -y 13 -w 1440 -h 883 -s tmux termite
 
 ## media keys
 XF86AudioRaiseVolume
