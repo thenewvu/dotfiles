@@ -2,8 +2,6 @@ alsa-utils
 breeze-icons
 broadcom-wl-dkms
 bspwm
-bucklespring-git
-cool-retro-term
 dmenu
 docker-compose
 firefox
@@ -22,14 +20,13 @@ p7zip
 parallel
 ripgrep
 rsync
-rxvt-unicode
 scrot
 simple-mtpfs
 smartgit
 tdrop-git
+termite
 thunderbird
 tree
-ttf-iosevka
 vulkan-intel
 xcalib
 xf86-input-mtrack-git
@@ -55,7 +52,6 @@ xorg-xkbutils
 xorg-xkill
 xorg-xlsatoms
 xorg-xlsclients
-xorg-xlsfonts
 xorg-xpr
 xorg-xrefresh
 xorg-xsetroot
