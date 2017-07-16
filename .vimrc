@@ -273,25 +273,6 @@ Plug 'owickstrom/vim-colors-paramount'
 set rtp+=~/.vim/plugged/vim-colors-paramount
 set background=dark
 colorscheme paramount
-" highlight diff
-hi diffAdded ctermfg=28 ctermbg=255
-hi diffRemoved ctermfg=160 ctermbg=255
-hi diffFile ctermfg=69 ctermbg=255
-hi diffNewFile ctermfg=69 ctermbg=255
-hi diffLine ctermfg=0 ctermbg=255
-hi diffAdd ctermfg=28 ctermbg=255
-hi diffChange ctermfg=28 ctermbg=255
-hi diffText ctermfg=28 ctermbg=255
-hi link diffDelete diffRemoved
-" highlight gitcommit
-hi gitcommitFirstLine ctermfg=0 ctermbg=255
-hi gitcommitSelectedType ctermfg=28 ctermbg=255
-hi link gitcommitSelectedFile gitcommitSelectedType
-hi gitcommitDiscardedType ctermfg=160 ctermbg=255
-hi link gitcommitDiscardedFile gitcommitDiscardedType
-hi gitcommitUntrackedFile ctermfg=69 ctermbg=255
-" highlight listchars
-hi NonText ctermfg=252
 " plugin provides seamlessly key mappings working with tmux
 Plug 'christoomey/vim-tmux-navigator'
 " plugin provides async linting
