@@ -253,7 +253,7 @@ nnoremap <leader>ff :Far
 " plugin provides powerline-liked status line and tab line
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-let g:airline_theme = 'base16'
+let g:airline_theme = 'base16_grayscale'
 let g:airline_powerline_fonts = 0
 " Show just the line and column number in section z
 let g:airline_section_z = '%l:%v'
@@ -271,7 +271,7 @@ let g:SuperTabDefaultCompletionType = "context"
 " Plugin provides color scheme
 Plug 'owickstrom/vim-colors-paramount'
 set rtp+=~/.vim/plugged/vim-colors-paramount
-set background=light
+set background=dark
 colorscheme paramount
 " highlight diff
 hi diffAdded ctermfg=28 ctermbg=255
