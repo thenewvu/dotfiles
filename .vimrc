@@ -221,7 +221,7 @@ call plug#begin('~/.vim/plugged')
 " plugin provides sublime-liked multiple cursors
 Plug 'terryma/vim-multiple-cursors'
 " plugin provides javascript syntax highlight
-Plug 'pangloss/vim-javascript'
+Plug 'pangloss/vim-javascript', {'frozen': 1, 'commit': 'aba8630e2f42021c8859a1a99aa1b1c823fc5616'}
 Plug 'MaxMEllon/vim-jsx-pretty'
 " plugin provides commenting
 Plug 'tomtom/tcomment_vim'
