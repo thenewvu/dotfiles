@@ -4,10 +4,6 @@
 # wm independent hotkeys
 #
 
-# terminal emulator
-super + Return
-  termite -e 'bash -c "tmux -q has-session -t tmux && exec tmux attach-session -t tmux || exec tmux new-session -s tmux"'
-
 # program launcher
 super + @space
   dmenu_run -fn 'Operator Ssm:pixelsize=10:style=Book' \
