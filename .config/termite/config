@@ -9,11 +9,10 @@ allow_bold = false
 dynamic_title = false
 urgent_on_bell = true
 clickable_url = true
-font = Latin Modern Mono Light Cond 12
+font = Latin Modern Mono Light Cond 18
 scrollback_lines = 1000
 search_wrap = true
-#icon_name = terminal
-#geometry = 640x480
+mouse_autohide = true
 
 # "system", "on" or "off"
 cursor_blink = system
