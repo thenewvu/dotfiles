@@ -7,7 +7,8 @@
     "space-before-function-paren": 0,
     "react/jsx-uses-react": "error",
     "react/jsx-uses-vars": "error",
-    "standard/computed-property-even-spacing": 0
+    "standard/computed-property-even-spacing": 0,
+    "curly": 0
   },
   "parser": "babel-eslint",
   "parserOptions": {
