@@ -273,6 +273,7 @@ Plug 'owickstrom/vim-colors-paramount'
 set rtp+=~/.vim/plugged/vim-colors-paramount
 set background=dark
 colorscheme paramount
+hi Normal guibg=NONE ctermbg=NONE
 " plugin provides seamlessly key mappings working with tmux
 Plug 'christoomey/vim-tmux-navigator'
 " plugin provides async linting
