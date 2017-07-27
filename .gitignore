@@ -49,8 +49,6 @@ logs/
 .gksu.lock
 .docker/
 .standard-cache/
-.docker/
-.smartgit/
 .surf
 .gist
 .linphonerc
@@ -85,3 +83,5 @@ media
 .eslint_d
 .prettier_d
 .parallel/
+/.gimp-2.8/
+/.thumbnails/
