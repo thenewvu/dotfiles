@@ -254,7 +254,7 @@ nnoremap <leader>ff :Far
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 let g:airline_theme = 'base16_grayscale'
-let g:airline_powerline_fonts = 0
+let g:airline_powerline_fonts = 1
 " Show just the line and column number in section z
 let g:airline_section_z = '%l:%v'
 let g:airline#extensions#whitespace#enabled = 0
@@ -303,7 +303,7 @@ highlight ALEWarningSign ctermbg=none ctermfg=yellow
 highlight SignColumn ctermbg=none
 " plugin generates tmux theme that bases on the current airline
 Plug 'edkolev/tmuxline.vim'
-let g:tmuxline_powerline_separators = 0
+let g:tmuxline_powerline_separators = 1
 " plugin provides some essential git functions
 Plug 'jreybert/vimagit'
 nnoremap <leader>gm :MagitOnly<cr>
@@ -313,4 +313,3 @@ nnoremap <leader>gl :GitLog<cr>
 " plugin previews hex, rgb, x11 colors
 Plug 'chrisbra/Colorizer'
 call plug#end()
-
