@@ -8,7 +8,8 @@
     "react/jsx-uses-react": "error",
     "react/jsx-uses-vars": "error",
     "standard/computed-property-even-spacing": 0,
-    "curly": 0
+    "curly": 0,
+    "no-useless-call" :0
   },
   "parser": "babel-eslint",
   "parserOptions": {
