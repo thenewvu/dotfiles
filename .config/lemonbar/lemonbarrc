@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 
-foreground="#eeeeee"
-background="#8a8a8f"
+foreground="#888888"
+background="#000000"
 font="6x10"
 bat="BAT0"
 interval=15

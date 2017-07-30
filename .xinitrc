@@ -36,5 +36,5 @@ fi
 
 urxvtd&
 xcalib ~/.config/color-profiles/Color\ LCD-77E200AD-B0E6-0317-4BBF-F8B53DA3952C.icc
-xsetroot -solid "#999999"
+xsetroot -solid "#000000"
 exec bspwm
