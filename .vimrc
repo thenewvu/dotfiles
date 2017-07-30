@@ -269,11 +269,12 @@ let g:airline#extensions#tabline#fnamecollapse = 0
 Plug 'ervandew/supertab' 
 let g:SuperTabDefaultCompletionType = "context"
 " Plugin provides color scheme
-Plug 'owickstrom/vim-colors-paramount'
-set rtp+=~/.vim/plugged/vim-colors-paramount
+Plug 'chriskempson/base16-vim'
+set rtp+=~/.vim/plugged/base16-vim
 set background=dark
-colorscheme paramount
-hi Normal guibg=NONE ctermbg=NONE
+colorscheme base16-tomorrow
+hi Normal ctermbg=NONE
+hi Folded ctermbg=black ctermfg=darkgrey
 " plugin provides seamlessly key mappings working with tmux
 Plug 'christoomey/vim-tmux-navigator'
 " plugin provides async linting

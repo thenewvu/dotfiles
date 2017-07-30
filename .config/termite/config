@@ -5,11 +5,11 @@ scroll_on_output = false
 scroll_on_keystroke = true
 audible_bell = false
 mouse_autohide = false
-allow_bold = false
+allow_bold = true
 dynamic_title = false
 urgent_on_bell = true
 clickable_url = true
-font = Operator Mono Book 14
+font = Operator Mono Book Italic 12
 scrollback_lines = 1000
 search_wrap = true
 mouse_autohide = true
@@ -38,7 +38,7 @@ filter_unmatched_urls = true
 foreground      = #c5c8c6
 foreground_bold = #c5c8c6
 cursor          = #c5c8c6
-background      = rgba(38, 38, 38, 0.8)
+background      = #1d1f21
 
 # black
 color0  = #282a2e
