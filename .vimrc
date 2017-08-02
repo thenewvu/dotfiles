@@ -268,11 +268,6 @@ let g:airline#extensions#tabline#fnamecollapse = 0
 " plugin allows to select completion entries by tabbing
 Plug 'ervandew/supertab' 
 let g:SuperTabDefaultCompletionType = "context"
-" Plugin provides color scheme
-Plug 'pbrisbin/vim-colors-off'
-set rtp+=~/.vim/plugged/vim-colors-off
-set background=dark
-colorscheme off
 " plugin provides seamlessly key mappings working with tmux
 Plug 'christoomey/vim-tmux-navigator'
 " plugin provides async linting
@@ -311,4 +306,10 @@ Plug 'kablamo/vim-git-log'
 nnoremap <leader>gl :GitLog<cr>
 " plugin previews hex, rgb, x11 colors
 Plug 'chrisbra/Colorizer'
+" plugin provides ability to switch on-the-fle through color schemes
+Plug 'twe4ked/vim-colorscheme-switcher'
+" plugin provides a lot of color schemes
+Plug 'flazz/vim-colorschemes'
+set background=dark
+colorscheme 1989
 call plug#end()
