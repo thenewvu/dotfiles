@@ -1,3 +1,6 @@
+# set vi key mode
+set -o vi
+
 export PATH=/home/$USER/.bin:/home/$USER/.node_modules/bin:/Users/$USER/Library/Android/sdk/platform-tools:/Applications/Android\ Studio.app/Contents/jre/jdk/Contents/Home/bin:/usr/local/opt/coreutils/libexec/gnubin:$PATH
 export MANPATH=/usr/local/opt/coreutils/libexec/gnuman:$MANPATH
 
@@ -27,3 +30,13 @@ alias mpv-music='mpv --quiet --no-video --loop-file=inf --ytdl-format="bestaudio
 alias ytdl='youtube-dl -f "bestvideo[height<=720]+bestaudio/best"'
 
 alias tmux="$(which tmux) attach -t tmux || $(which tmux) new -s tmux"
+
+# add this configuration to ~/.bashrc
+export HH_CONFIG=hicolor         # get more colors
+shopt -s histappend              # append new history items to .bash_history
+export HISTCONTROL=ignorespace   # leading space hides commands from history
+export HISTFILESIZE=10000        # increase history file size (default is 500)
+export HISTSIZE=${HISTFILESIZE}  # increase history size (default is 500)
+export PROMPT_COMMAND="history -a; history -n; ${PROMPT_COMMAND}"   # mem/file sync
+# if this is interactive shell, then bind hh to Ctrl-r (for Vi mode check doc)
+bind '"\C-r": "\e^ihh \n"'
