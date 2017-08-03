@@ -6,7 +6,7 @@ pgrep sxhkd > /dev/null || sxhkd&
 # start lemonbar
 (killall lemonbar || true) && \
 while true; do
-  echo "%{l} $(date) %{r} $(status) "
+  echo "%{l} $(date +"%A %H:%M %Y-%m-%d") %{r} $(status) "
   sleep 15
 done | lemonbar -p \
   -F "#005faf" \
