@@ -6,8 +6,8 @@
 
 # program launcher
 super + @space
-  dmenu_run -fn 'Operator Ssm:pixelsize=12:style=Book Italic' \
-    -nb '#0087af' -nf '#e4e4e4' -sf '#e4e4e4'
+  dmenu_run -fn 'SF Mono:pixelsize=12:style=Semibold' \
+    -nb '#c6c6c6' -nf '#005faf' -sf '#c6c6c6' -sb '#005faf'
 
 # make sxhkd reload its configuration files:
 super + Escape
