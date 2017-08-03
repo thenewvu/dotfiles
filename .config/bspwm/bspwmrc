@@ -11,7 +11,7 @@ while true; do
 done | lemonbar -p \
   -F "#005faf" \
   -B "#c6c6c6" \
-  -f "Sf Mono:size=9"&
+  -f "Sf Mono:size=9:style=Semibold"&
 
 bspc monitor -d 1 2 3 4 5
 
