@@ -6,8 +6,8 @@
 
 # program launcher
 super + @space
-  dmenu_run -fn 'Operator Ssm:pixelsize=10:style=Book' \
-    -nb '#0087af' -nf '#eeeeee' -sf '#ffffff'
+  dmenu_run -fn 'Operator Ssm:pixelsize=12:style=Book Italic' \
+    -nb '#0087af' -nf '#e4e4e4' -sf '#e4e4e4'
 
 # make sxhkd reload its configuration files:
 super + Escape
@@ -15,7 +15,7 @@ super + Escape
 
 # start a quake-like terminal
 super + grave
-  tdrop -a -x 0 -y 14 -w 1436 -h 883 -s tmux termite
+  tdrop -a -x 0 -y 18 -w 1436 -h 878 -s tmux termite
 
 ## media keys
 XF86AudioRaiseVolume

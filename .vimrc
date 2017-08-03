@@ -253,9 +253,9 @@ nnoremap <leader>ff :Far
 " plugin provides powerline-liked status line and tab line
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-let g:airline_theme = 'base16_grayscale'
+let g:airline_theme = 'sol'
 let g:airline_powerline_fonts = 1
-" Show just the line and column number in section z
+" Show ust the line and column number in section z
 let g:airline_section_z = '%l:%v'
 let g:airline#extensions#whitespace#enabled = 0
 let g:airline#extensions#wordcount#enabled = 0
@@ -271,8 +271,10 @@ let g:SuperTabDefaultCompletionType = "context"
 " Plugin provides color scheme
 Plug 'pbrisbin/vim-colors-off'
 set rtp+=~/.vim/plugged/vim-colors-off
-set background=dark
+set background=light
 colorscheme off
+hi! Normal  ctermbg=251 ctermfg=25
+hi! Visual  ctermbg=255
 " plugin provides seamlessly key mappings working with tmux
 Plug 'christoomey/vim-tmux-navigator'
 " plugin provides async linting
