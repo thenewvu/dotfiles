@@ -273,8 +273,13 @@ Plug 'pbrisbin/vim-colors-off'
 set rtp+=~/.vim/plugged/vim-colors-off
 set background=light
 colorscheme off
-hi! Normal ctermbg=251 ctermfg=25
-hi! Visual ctermbg=25 ctermfg=251
+hi! Normal      ctermbg=251   ctermfg=25
+hi! Visual      ctermbg=25    ctermfg=251
+hi! DiffAdd     ctermfg=green ctermbg=254
+hi! DiffDelete  ctermfg=196   ctermbg=254
+hi! DiffChange  ctermfg=25    ctermbg=254
+hi! DiffText    ctermfg=196   ctermbg=254
+
 " plugin provides seamlessly key mappings working with tmux
 Plug 'christoomey/vim-tmux-navigator'
 " plugin provides async linting
