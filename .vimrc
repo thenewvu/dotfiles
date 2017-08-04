@@ -266,15 +266,15 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#fnamemod = ':.'
 let g:airline#extensions#tabline#fnamecollapse = 0
 " plugin allows to select completion entries by tabbing
-Plug 'ervandew/supertab' 
+Plug 'ervandew/supertab'
 let g:SuperTabDefaultCompletionType = "context"
 " Plugin provides color scheme
 Plug 'pbrisbin/vim-colors-off'
 set rtp+=~/.vim/plugged/vim-colors-off
 set background=light
 colorscheme off
-hi! Normal  ctermbg=251 ctermfg=25
-hi! Visual  ctermbg=255
+hi! Normal ctermbg=251 ctermfg=25
+hi! Visual ctermbg=25 ctermfg=251
 " plugin provides seamlessly key mappings working with tmux
 Plug 'christoomey/vim-tmux-navigator'
 " plugin provides async linting
