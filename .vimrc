@@ -273,7 +273,8 @@ Plug 'pbrisbin/vim-colors-off'
 set rtp+=~/.vim/plugged/vim-colors-off
 set background=light
 colorscheme off
-hi! Normal      ctermbg=251   ctermfg=25
+hi! Normal      ctermbg=NONE  ctermfg=25
+hi! Comment     ctermbg=NONE  ctermfg=darkgrey
 hi! Visual      ctermbg=25    ctermfg=251
 hi! DiffAdd     ctermfg=green ctermbg=254
 hi! DiffDelete  ctermfg=196   ctermbg=254
