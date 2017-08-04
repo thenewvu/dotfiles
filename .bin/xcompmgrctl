@@ -8,7 +8,7 @@ elif [ $1 == 'toggle' ]; then
   if pgrep -x "xcompmgr" > /dev/null; then
     pkill xcompmgr &
   else
-    xcompmgr -c -C -t-5 -l-5 -r4.2 -o.55 &
+    xcompmgr -c -C -t-48 -l-48 -r32 -o.2 &
   fi
 fi
 
