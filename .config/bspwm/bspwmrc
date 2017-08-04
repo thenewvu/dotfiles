@@ -15,12 +15,6 @@ done | lemonbar -p \
 
 bspc monitor -d 1 2 3 4 5
 
-bspc desktop 1 -l monocle
-bspc desktop 2 -l monocle
-bspc desktop 3 -l monocle
-bspc desktop 4 -l monocle
-bspc desktop 5 -l monocle
-
 bspc config border_width          0
 bspc config window_gap            5
 
