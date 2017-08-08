@@ -317,4 +317,33 @@ nnoremap <leader>gl :GitLog<cr>
 " plugin previews hex, rgb, x11 colors
 Plug 'chrisbra/Colorizer'
 Plug 'ron89/thesaurus_query.vim'
+" plugin provides distraction-free features
+Plug 'junegunn/goyo.vim'
+
+" start Goyo at vim startup
+augroup Goyo
+  autocmd!
+  autocmd VimEnter * Goyo
+augroup END
+
+" hook GoyoEnter
+function! s:goyo_enter()
+  set noshowmode
+  set noshowcmd
+  set scrolloff=999
+  Limelight
+endfunction
+
+" hook GoyoLeave
+function! s:goyo_leave()
+  quit
+endfunction
+
+autocmd! User GoyoEnter nested call <SID>goyo_enter()
+autocmd! User GoyoLeave nested call <SID>goyo_leave()
+" plugin provides hyper focus
+Plug 'junegunn/limelight.vim'
+" Color name (:help cterm-colors) or ANSI code
+let g:limelight_conceal_ctermfg = 'darkgray'
 call plug#end()
+
