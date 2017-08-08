@@ -316,4 +316,5 @@ Plug 'kablamo/vim-git-log'
 nnoremap <leader>gl :GitLog<cr>
 " plugin previews hex, rgb, x11 colors
 Plug 'chrisbra/Colorizer'
+Plug 'ron89/thesaurus_query.vim'
 call plug#end()
