@@ -170,22 +170,27 @@ set pastetoggle=<F2>
 " key mappings to jump to begin/end of lines
 nnoremap B ^
 nnoremap E $
+" overwrite to centerize vertically cursor
+nnoremap G Gzz
+vnoremap G Gzz
+nnoremap n nzzzv
+nnoremap N Nzzzv
+nnoremap j gjzz
+nnoremap k gkzz
+vnoremap j gjzz
+vnoremap k gkzz
+nnoremap w wzz
+nnoremap b bzz
+vnoremap w wzz
+vnoremap b bzz
 " key mapping to insert new line without entering insert mode
 nnoremap o o<esc>
 nnoremap O O<esc>
 " key mapping to redo
 nnoremap U <c-r>zz
-" overwrite key mappings to centerize highlighted search
-nnoremap n nzzzv
-nnoremap N Nzzzv
 " key mappings to navigate buffers
 nnoremap gt :bn<cr>
 nnoremap gT :bp<cr>
-" overwrite key mappings to make the caret always be middle
-nnoremap j gjzz
-nnoremap k gkzz
-vnoremap j gjzz
-vnoremap k gkzz
 " key mapping to unfold current block and close other blocks
 nnoremap <space> zMzvzz
 " key mapping to clear highlighing search marches
@@ -321,8 +326,7 @@ Plug 'ron89/thesaurus_query.vim'
 Plug 'junegunn/goyo.vim'
 
 " start Goyo at vim startup
-augroup Goyo
-  autocmd!
+augroup Goyo autocmd!
   autocmd VimEnter * Goyo
 augroup END
 
@@ -330,7 +334,6 @@ augroup END
 function! s:goyo_enter()
   set noshowmode
   set noshowcmd
-  set scrolloff=999
   Limelight
 endfunction
 
