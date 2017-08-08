@@ -330,6 +330,7 @@ Plug 'junegunn/goyo.vim'
 " start Goyo at vim startup
 augroup Goyo autocmd!
   autocmd VimEnter * Goyo
+  autocmd VimLeave * call s:goyo_leave()
 augroup END
 
 " hook GoyoEnter
