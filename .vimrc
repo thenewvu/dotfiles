@@ -207,9 +207,6 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
-" disable noisy keys
-nnoremap J <nop>
-nnoremap K <nop>
 " key mapping to run a shell command
 nnoremap ! :! 
 
