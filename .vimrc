@@ -203,8 +203,9 @@ nnoremap <leader>mH yypVr=
 nnoremap <f5> :edit<cr>:redraw<cr>
 " key mapping to write current file with sudo
 cmap w!! w !sudo tee > /dev/null %
-" key mapping to close the current buffer
-nnoremap <leader>x :bd<cr>
+" key mapping to close the current buffer if there's aleast one other buffer
+" in the current window
+nnoremap <leader>x :b#\|bd #<cr>
 " key mapping to edit a file
 nnoremap <leader>e :e 
 " key mappings to navigate between splits in normal mode
@@ -232,6 +233,7 @@ Plug 'jiangmiao/auto-pairs'
 " plugin to fuzzy search files/texts
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
+let g:fzf_buffers_jump = 1
 " key mapping to fuzzy search file in the current working dir
 nnoremap <leader>p :FZF<CR>
 " key mapping to fuzzy search text in the current buffer
