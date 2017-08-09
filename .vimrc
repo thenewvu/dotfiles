@@ -1,57 +1,39 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " BEHAVIOR SETTINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" set leader to ;
 let g:mapleader = ";"
-" set tmp dir
 set dir=$HOME/.vim/tmp/
-" disable backup and swap files
 set nobackup
 set noswapfile
 " do replacing globally by default
 set gdefault
-" enable syntax processing
 syntax enable
-" display a confirm dialog when closing an unsaved file
+" ask to confirm closing an unsaved file
 set confirm
-" enable switching between buffers without saving
+" switch between buffers without saving
 set hidden
-" switch to existing tab then window when switching buffer
-set switchbuf=usetab
-" better completion
+" more powerful completion
 set completeopt=longest,menuone,preview
-" default directions for creating split windows
-set splitbelow
-set splitright
-" set default encoding to utf-8
+" default encoding to utf-8
 set encoding=utf-8
 " use the system clipboard when yank something
 set clipboard^=unnamedplus,unnamed
-" autoreload when files are changed outside of vim
+" autoreload files on change
 set autoread
 " make backspace work like most other apps
 set backspace=indent,eol,start
-" enable mouse interactive
-" set mouse=a
 " ignore case in searching
 set ignorecase
 " search with smart case
 set smartcase
-" Don't redraw when we don't have to
 set lazyredraw
-" Send more characters at a given time
 set ttyfast
-" enable incremental searching
 set incsearch
-" redude <esc> delay
+" <esc> delay
 set timeoutlen=1000 ttimeoutlen=0
-" enable folding
 set foldenable
-" set folding method to `syntax`
 set foldmethod=syntax
-" only fold the first level
 set foldnestmax=100 foldlevel=0
-" enable folding for javascript syntax
 let javaScript_fold=1
 set foldtext=FoldText()
 function! FoldText()
@@ -88,12 +70,12 @@ function! FoldText()
 
   return l:text . repeat(' ', l:width - strlen(substitute(l:text, ".", "x", "g"))) . l:info
 endfunction
-" keep undo history across sessions, by storing in file.
+
+" keep undo history across sessions by storing in file.
 silent !mkdir ~/.config/nvim/backups > /dev/null 2>&1
 set undodir=~/.config/nvim/backups
 set undofile
 
-" autocmd for some types of file
 augroup auto
   autocmd!
   autocmd BufWritePost .vimrc source % | AirlineRefresh
@@ -126,36 +108,31 @@ endfunction
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " VISUAL SETTINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" set default colorscheme
 colorscheme slate
-" don't show line number column
+" hide line number column
 set nonumber
-" set number of visual spaces per TAB
 set tabstop=2
-" set number of spaces in tab when editing
 set softtabstop=2
-" set indent size
 set shiftwidth=2
-" convert tabs are spaces automatically
+" tabs as spaces
 set expandtab
-" show command in bottom bar
 set showcmd
 " show status bar
 set laststatus=2
-" always show tab bar
+" show tab bar
 set showtabline=2
-" show autocomplete for command menu
+" autocomplete for command menu
 set wildmenu
-" show color for matching brackets
+" show paird brackets
 set showmatch
-" show color for search matches
+" show matched results in searching
 set hlsearch
-" wrap long lines without breaking words
+" wrap lines without breaking words
 set wrap linebreak
 set breakindent
 set textwidth=0
 set wrapmargin=0
-" always show the current editing mode
+" show the current editing mode
 set showmode
 " visualize whitespace chars
 set showbreak=↪\ \ 
@@ -165,12 +142,10 @@ set list
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " KEY SETTINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" key mapping to toggle paste mode
-set pastetoggle=<F2>
-" key mappings to jump to begin/end of lines
+" jump to begin/end of lines
 nnoremap B ^
 nnoremap E $
-" overwrite to centerize vertically cursor
+" keep the cursor always be vertical center
 nnoremap G Gzz
 vnoremap G Gzz
 nnoremap n nzzzv
@@ -183,37 +158,37 @@ nnoremap w wzz
 nnoremap b bzz
 vnoremap w wzz
 vnoremap b bzz
-" key mapping to insert new line without entering insert mode
+" insert new line without entering insert mode
 nnoremap o o<esc>
 nnoremap O O<esc>
-" key mapping to redo
+" break/join lines
+nnoremap J i<enter>
+nnoremap K J
+" redo
 nnoremap U <c-r>zz
-" key mappings to navigate buffers
+" navigate between buffers
 nnoremap gt :bn<cr>
 nnoremap gT :bp<cr>
-" key mapping to unfold current block and close other blocks
+" unfold current block and close others
 nnoremap <space> zMzvzz
-" key mapping to clear highlighing search marches
+" clear matching
 nnoremap <leader><space> :nohlsearch<CR>
-" key mapping to underline markdown headers
+" underline markdown headers
 " ref: https://goo.gl/6zf93B
 nnoremap <leader>mh yypVr-
-nnoremap <leader>mH yypVr=
-" key mapping to reload current file then force to redraw
+nnoremap <leader>mhh yypVr=
+" reload current file and redraw
 nnoremap <f5> :edit<cr>:redraw<cr>
-" key mapping to write current file with sudo
+" write current file with sudo
 cmap w!! w !sudo tee > /dev/null %
-" key mapping to close the current buffer if there's aleast one other buffer
-" in the current window
+" close the current buffer if not the last
 nnoremap <leader>x :b#\|bd #<cr>
-" key mapping to edit a file
-nnoremap <leader>e :e 
-" key mappings to navigate between splits in normal mode
+" navigate between splits
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
-" key mapping to run a shell command
+" run a shell command
 nnoremap ! :! 
 
 
@@ -221,58 +196,58 @@ nnoremap ! :!
 " PLUGIN SETTINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.vim/plugged')
-" plugin provides sublime-liked multiple cursors
+" sublime-liked multiple cursors
 Plug 'terryma/vim-multiple-cursors'
-" plugin provides javascript syntax highlight
+" improved javascript syntax
 Plug 'pangloss/vim-javascript', {'frozen': 1, 'commit': 'aba8630e2f42021c8859a1a99aa1b1c823fc5616'}
+" jsx syntax
 Plug 'MaxMEllon/vim-jsx-pretty'
-" plugin provides commenting
+" commenting
 Plug 'tomtom/tcomment_vim'
-" plugin automatically adds close bracket/quote
+" automatically add end bracket/quote
 Plug 'jiangmiao/auto-pairs'
-" plugin to fuzzy search files/texts
+" fuzzy search files
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 let g:fzf_buffers_jump = 1
-" key mapping to fuzzy search file in the current working dir
+" fuzzy search file in the pwd
 nnoremap <leader>p :FZF<CR>
-" key mapping to fuzzy search text in the current buffer
-nnoremap <leader>r :BLines<cr>
-" plugin allows to <w>/<b> over words
+" fuzzy search text in the current buffer
+nnoremap / :BLines<cr>
+nnoremap <leader>/ /
+" wb word by word
 Plug 'chaoren/vim-wordmotion'
-" plugin provides git functions, only required by airline so far
+" git functions
 Plug 'tpope/vim-fugitive'
-" plugin provides html5 syntax highlight
+" html5 syntax
 Plug 'othree/html5.vim'
-" plugin automatically adds close tag
+" automatically add end tag
 Plug 'alvan/vim-closetag'
 let g:closetag_filenames = "*.html,*.xml,*.js,*.jsx"
-" plugin allows to search/replace with preview and undoable
+" search/replace with preview and undoable
 Plug 'brooth/far.vim'
 let g:far#window_layout = "current"
 let g:far#auto_preview = 0
 set wildignore+=**/node_modules/**,**/build/**,**/Build/**
-nnoremap <leader>f :F
-nnoremap <leader>ff :Far
-" plugin provides powerline-liked status line and tab line
+" search
+nnoremap <leader>f :F 
+" replace
+nnoremap <leader>r :Far 
+" powerline-liked status/tab bar
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 let g:airline_theme = 'sol'
 let g:airline_powerline_fonts = 1
-" Show ust the line and column number in section z
 let g:airline_section_z = '%l:%v'
 let g:airline#extensions#whitespace#enabled = 0
 let g:airline#extensions#wordcount#enabled = 0
 let g:airline_skip_empty_sections = 1
-" enabled showing buffers on tabline
 let g:airline#extensions#tabline#enabled = 1
-" set filename mode to relative without being collapsed
 let g:airline#extensions#tabline#fnamemod = ':.'
 let g:airline#extensions#tabline#fnamecollapse = 0
-" plugin allows to select completion entries by tabbing
 Plug 'ervandew/supertab'
 let g:SuperTabDefaultCompletionType = "context"
-" Plugin provides color scheme
+" color scheme
 Plug 'pbrisbin/vim-colors-off'
 set rtp+=~/.vim/plugged/vim-colors-off
 set background=light
@@ -293,9 +268,9 @@ hi! link htmlH4 Normal
 hi! link htmlH5 Normal
 hi! link htmlH6 Normal
 
-" plugin provides seamlessly key mappings working with tmux
+" seamlessly working with tmux
 Plug 'christoomey/vim-tmux-navigator'
-" plugin provides async linting
+" async linting
 Plug 'w0rp/ale'
 let g:ale_linters = {}
 let g:ale_linters['javascript'] = ['eslint']
@@ -320,48 +295,38 @@ let g:airline_section_error = '%{ale#statusline#Status()}'
 highlight ALEErrorSign ctermbg=none ctermfg=red
 highlight ALEWarningSign ctermbg=none ctermfg=yellow
 highlight SignColumn ctermbg=none
-" plugin generates tmux theme that bases on the current airline
+" generates tmux theme that matches then current airline theme
 Plug 'edkolev/tmuxline.vim'
 let g:tmuxline_powerline_separators = 1
-" plugin provides some essential git functions
+" enhanced git commit
 Plug 'jreybert/vimagit'
 nnoremap <leader>gm :MagitOnly<cr>
-" plugin provides git log browser
+" git log browser
 Plug 'kablamo/vim-git-log'
 nnoremap <leader>gl :GitLog<cr>
-" plugin previews hex, rgb, x11 colors
+" previews hex, rgb
 Plug 'chrisbra/Colorizer'
 Plug 'ron89/thesaurus_query.vim'
-" plugin provides distraction-free features
+" remove distraction
 Plug 'junegunn/goyo.vim'
-
 " start Goyo at vim startup
 augroup Goyo autocmd!
   autocmd VimEnter * Goyo
   autocmd VimLeave * call s:goyo_leave()
 augroup END
-
-" hook GoyoEnter
 function! s:goyo_enter()
-  silent !tmux set status off
-  silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
+  silent !tmux set status on
   set noshowmode
   set noshowcmd
   Limelight
 endfunction
-
-" hook GoyoLeave
 function! s:goyo_leave()
-  silent !tmux set status on
-  silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
   quit
 endfunction
-
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
-" plugin provides hyper focus
+" highlight the current paragraph
 Plug 'junegunn/limelight.vim'
-" Color name (:help cterm-colors) or ANSI code
 let g:limelight_conceal_ctermfg = 'darkgray'
 call plug#end()
 
