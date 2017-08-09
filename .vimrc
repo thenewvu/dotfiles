@@ -1,6 +1,6 @@
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " BEHAVIOR SETTINGS
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" -----------------
+
 let g:mapleader = ";"
 set dir=$HOME/.vim/tmp/
 set nobackup
@@ -78,7 +78,7 @@ set undofile
 
 augroup auto
   autocmd!
-  autocmd BufWritePost .vimrc source % | AirlineRefresh
+  autocmd BufWritePost .vimrc source %
   autocmd BufWritePost bspwmrc !%
   autocmd BufWritePost sxhkdrc !pkill -USR1 -x sxhkd
   autocmd BufWritePost .Xresources !xrdb "%:p"
@@ -105,10 +105,9 @@ function! LargeFile()
  autocmd VimEnter *  echo "The file is larger than " . (g:LargeFile / 1024 ) . " KB, so some options are changed (see .vimrc for details)."
 endfunction
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " VISUAL SETTINGS
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-colorscheme slate
+" ---------------
+
 " hide line number column
 set nonumber
 set tabstop=2
@@ -119,8 +118,6 @@ set expandtab
 set showcmd
 " show status bar
 set laststatus=2
-" show tab bar
-set showtabline=2
 " autocomplete for command menu
 set wildmenu
 " show paird brackets
@@ -139,9 +136,10 @@ set showbreak=↪\ \
 set listchars+=tab:»\ ,trail:•
 set list
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " KEY SETTINGS
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ------------
+
 " jump to begin/end of lines
 nnoremap B ^
 nnoremap E $
@@ -192,9 +190,9 @@ nnoremap <C-l> <C-w>l
 nnoremap ! :! 
 
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PLUGIN SETTINGS
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ---------------
+
 call plug#begin('~/.vim/plugged')
 " sublime-liked multiple cursors
 Plug 'terryma/vim-multiple-cursors'
@@ -233,18 +231,6 @@ set wildignore+=**/node_modules/**,**/build/**,**/Build/**
 nnoremap <leader>f :F 
 " replace
 nnoremap <leader>r :Far 
-" powerline-liked status/tab bar
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-let g:airline_theme = 'sol'
-let g:airline_powerline_fonts = 1
-let g:airline_section_z = '%l:%v'
-let g:airline#extensions#whitespace#enabled = 0
-let g:airline#extensions#wordcount#enabled = 0
-let g:airline_skip_empty_sections = 1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#fnamemod = ':.'
-let g:airline#extensions#tabline#fnamecollapse = 0
 Plug 'ervandew/supertab'
 let g:SuperTabDefaultCompletionType = "context"
 " color scheme
@@ -252,21 +238,21 @@ Plug 'pbrisbin/vim-colors-off'
 set rtp+=~/.vim/plugged/vim-colors-off
 set background=light
 colorscheme off
-hi! Normal      ctermbg=251  ctermfg=25
-hi! Comment     ctermbg=251  ctermfg=darkgrey
-hi! Visual      ctermbg=25    ctermfg=251
-hi! DiffAdd     ctermfg=green ctermbg=254
-hi! DiffDelete  ctermfg=196   ctermbg=254
-hi! DiffChange  ctermfg=25    ctermbg=254
-hi! DiffText    ctermfg=196   ctermbg=254
-hi! link Pmenu Visual
-hi! link WildMenu Visual
-hi! link htmlH1 Normal
-hi! link htmlH2 Normal
-hi! link htmlH3 Normal
-hi! link htmlH4 Normal
-hi! link htmlH5 Normal
-hi! link htmlH6 Normal
+hi! Normal      ctermbg=none ctermfg=black
+hi! Comment     ctermbg=none ctermfg=darkgrey
+hi! Visual      ctermbg=none ctermfg=none cterm=underline 
+hi! DiffAdd     ctermbg=none ctermfg=none cterm=underline 
+hi! DiffDelete  ctermbg=none ctermfg=none cterm=underline 
+hi! DiffText    ctermbg=none  cterm=underline
+hi! link DiffChange Normal
+hi! link Pmenu      Visual
+hi! link WildMenu   Visual
+hi! link htmlH1     Normal
+hi! link htmlH2     Normal
+hi! link htmlH3     Normal
+hi! link htmlH4     Normal
+hi! link htmlH5     Normal
+hi! link htmlH6     Normal
 
 " seamlessly working with tmux
 Plug 'christoomey/vim-tmux-navigator'
@@ -295,9 +281,6 @@ let g:airline_section_error = '%{ale#statusline#Status()}'
 highlight ALEErrorSign ctermbg=none ctermfg=red
 highlight ALEWarningSign ctermbg=none ctermfg=yellow
 highlight SignColumn ctermbg=none
-" generates tmux theme that matches then current airline theme
-Plug 'edkolev/tmuxline.vim'
-let g:tmuxline_powerline_separators = 1
 " enhanced git commit
 Plug 'jreybert/vimagit'
 nnoremap <leader>gm :MagitOnly<cr>
@@ -311,22 +294,17 @@ Plug 'ron89/thesaurus_query.vim'
 Plug 'junegunn/goyo.vim'
 " start Goyo at vim startup
 augroup Goyo autocmd!
-  autocmd VimEnter * Goyo
+  autocmd VimEnter * Goyo 65
   autocmd VimLeave * call s:goyo_leave()
 augroup END
 function! s:goyo_enter()
   silent !tmux set status on
   set noshowmode
   set noshowcmd
-  Limelight
 endfunction
 function! s:goyo_leave()
   quit
 endfunction
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
-" highlight the current paragraph
-Plug 'junegunn/limelight.vim'
-let g:limelight_conceal_ctermfg = 'darkgray'
 call plug#end()
-
