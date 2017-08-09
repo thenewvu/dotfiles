@@ -1,1 +1,1 @@
-![screenshot](./screenshots/linux.png?raw=true)
+![screenshot](./screenshot.png?raw=true)
