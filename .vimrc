@@ -284,6 +284,14 @@ hi! DiffAdd     ctermfg=green ctermbg=254
 hi! DiffDelete  ctermfg=196   ctermbg=254
 hi! DiffChange  ctermfg=25    ctermbg=254
 hi! DiffText    ctermfg=196   ctermbg=254
+hi! link Pmenu Visual
+hi! link WildMenu Visual
+hi! link htmlH1 Normal
+hi! link htmlH2 Normal
+hi! link htmlH3 Normal
+hi! link htmlH4 Normal
+hi! link htmlH5 Normal
+hi! link htmlH6 Normal
 
 " plugin provides seamlessly key mappings working with tmux
 Plug 'christoomey/vim-tmux-navigator'
