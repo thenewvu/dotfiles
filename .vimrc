@@ -266,7 +266,7 @@ let g:ale_javascript_eslint_executable = 'eslint_d'
 let g:ale_javascript_eslint_use_global = 1
 let g:ale_javascript_prettier_executable = 'prettier'
 let g:ale_javascript_prettier_use_global = 1
-let g:ale_javascript_prettier_options = '--no-semi --single-quote --print-width=65'
+let g:ale_javascript_prettier_options = '--no-semi --single-quote --print-width=999'
 let g:ale_fix_on_save = 1
 let g:ale_set_quickfix = 1
 let g:ale_open_list = 1
@@ -289,22 +289,6 @@ Plug 'kablamo/vim-git-log'
 nnoremap <leader>gl :GitLog<cr>
 " previews hex, rgb
 Plug 'chrisbra/Colorizer'
+" search thesaurus
 Plug 'ron89/thesaurus_query.vim'
-" remove distraction
-Plug 'junegunn/goyo.vim'
-" start Goyo at vim startup
-augroup Goyo autocmd!
-  autocmd VimEnter * Goyo 65
-  autocmd VimLeave * call s:goyo_leave()
-augroup END
-function! s:goyo_enter()
-  silent !tmux set status on
-  set noshowmode
-  set noshowcmd
-endfunction
-function! s:goyo_leave()
-  quit
-endfunction
-autocmd! User GoyoEnter nested call <SID>goyo_enter()
-autocmd! User GoyoLeave nested call <SID>goyo_leave()
 call plug#end()
