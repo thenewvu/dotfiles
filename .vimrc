@@ -167,18 +167,30 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 " run a shell command
 nnoremap ! :! 
+" identify the syntax highlighting group used at the cursor
+" http://vim.wikia.com/wiki/VimTip99
+map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
 
 " PLUGIN SETTINGS
 " ---------------
 
 call plug#begin('~/.vim/plugged')
+" color scheme
+Plug 'dikiaap/minimalist'
+set rtp+=~/.vim/plugged/minimalist
+set background=dark
+colorscheme minimalist
 " sublime-liked multiple cursors
 Plug 'terryma/vim-multiple-cursors'
 " improved javascript syntax
 Plug 'pangloss/vim-javascript'
 " jsx syntax
 Plug 'MaxMEllon/vim-jsx-pretty'
+hi! link jsxCloseTag jsxTag
+hi! link jsxCloseString jsxTag
 " commenting
 Plug 'tomtom/tcomment_vim'
 " automatically add end bracket/quote
@@ -236,9 +248,9 @@ let g:ale_warn_about_trailing_whitespace = 0
 let g:ale_sign_error = '✗ '
 let g:ale_sign_warning = '⚠ '
 let g:airline_section_error = '%{ale#statusline#Status()}'
-highlight ALEErrorSign ctermbg=none ctermfg=red
-highlight ALEWarningSign ctermbg=none ctermfg=yellow
-highlight SignColumn ctermbg=none
+hi! ALEErrorSign ctermbg=none ctermfg=red
+hi! ALEWarningSign ctermbg=none ctermfg=yellow
+hi! SignColumn ctermbg=none
 " enhanced git commit
 Plug 'jreybert/vimagit'
 nnoremap <leader>gm :MagitOnly<cr>
@@ -264,11 +276,6 @@ let g:airline#extensions#tabline#fnamecollapse = 0
 Plug 'edkolev/tmuxline.vim'
 let g:tmuxline_powerline_separators = 0
 let g:tmuxline_preset = 'tmux'
-" color scheme
-Plug 'dikiaap/minimalist'
-set rtp+=~/.vim/plugged/minimalist
-set background=dark
-colorscheme minimalist
 " speed up opening huge files which by default bigger than 2MB
 Plug 'mhinz/vim-hugefile'
 call plug#end()
