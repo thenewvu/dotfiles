@@ -131,10 +131,7 @@ nnoremap j gjzz
 nnoremap k gkzz
 vnoremap j gjzz
 vnoremap k gkzz
-nnoremap w wzz
-nnoremap b bzz
-vnoremap w wzz
-vnoremap b bzz
+
 " insert new line without entering insert mode
 nnoremap o o<esc>
 nnoremap O O<esc>
