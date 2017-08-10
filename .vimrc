@@ -30,7 +30,7 @@ set lazyredraw
 set ttyfast
 set incsearch
 " <esc> delay
-set timeoutlen=1000 ttimeoutlen=0
+set timeoutlen=400 ttimeoutlen=0
 set foldenable
 set foldmethod=syntax
 set foldnestmax=100 foldlevel=0
@@ -76,7 +76,7 @@ silent !mkdir ~/.config/nvim/backups > /dev/null 2>&1
 set undodir=~/.config/nvim/backups
 set undofile
 
-augroup auto
+augroup AutoResource
   autocmd!
   autocmd BufWritePost .vimrc source %
   autocmd BufWritePost bspwmrc !%
@@ -85,29 +85,8 @@ augroup auto
   autocmd FileType qf resize 3
 augroup END
 
-" http://vim.wikia.com/wiki/Faster_loading_of_large_files
-" file is large from 500 kb
-let g:LargeFile = 1024 * 500
-augroup LargeFile
- autocmd BufReadPre * let f=getfsize(expand("<afile>")) | if f > g:LargeFile || f == -2 | call LargeFile() | endif
-augroup END
-
-function! LargeFile()
- " no syntax highlighting etc
- set eventignore+=FileType
- " save memory when other file is viewed
- setlocal bufhidden=unload
- " is read-only (write with :w new_filename)
- setlocal buftype=nowrite
- " no undo possible
- setlocal undolevels=-1
- " display message
- autocmd VimEnter *  echo "The file is larger than " . (g:LargeFile / 1024 ) . " KB, so some options are changed (see .vimrc for details)."
-endfunction
-
 " VISUAL SETTINGS
 " ---------------
-
 " hide line number column
 set nonumber
 set tabstop=2
@@ -132,7 +111,7 @@ set wrapmargin=0
 " show the current editing mode
 set showmode
 " visualize whitespace chars
-set showbreak=↪\ \ 
+set showbreak=»\ 
 set listchars+=tab:»\ ,trail:•
 set list
 
@@ -160,7 +139,7 @@ vnoremap b bzz
 nnoremap o o<esc>
 nnoremap O O<esc>
 " break/join lines
-nnoremap J i<enter>
+nnoremap J i<enter><esc>
 nnoremap K J
 " redo
 nnoremap U <c-r>zz
@@ -178,9 +157,9 @@ nnoremap <leader>mhh yypVr=
 " reload current file and redraw
 nnoremap <f5> :edit<cr>:redraw<cr>
 " write current file with sudo
-cmap w!! w !sudo tee > /dev/null %
+cmap w! w !sudo tee > /dev/null %
 " close the current buffer if not the last
-nnoremap <leader>x :b#\|bd #<cr>
+nnoremap <leader>x :bd<cr>
 " navigate between splits
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
@@ -197,7 +176,7 @@ call plug#begin('~/.vim/plugged')
 " sublime-liked multiple cursors
 Plug 'terryma/vim-multiple-cursors'
 " improved javascript syntax
-Plug 'pangloss/vim-javascript', {'frozen': 1, 'commit': 'aba8630e2f42021c8859a1a99aa1b1c823fc5616'}
+Plug 'pangloss/vim-javascript'
 " jsx syntax
 Plug 'MaxMEllon/vim-jsx-pretty'
 " commenting
@@ -233,27 +212,6 @@ nnoremap <leader>f :F
 nnoremap <leader>r :Far 
 Plug 'ervandew/supertab'
 let g:SuperTabDefaultCompletionType = "context"
-" color scheme
-Plug 'pbrisbin/vim-colors-off'
-set rtp+=~/.vim/plugged/vim-colors-off
-set background=light
-colorscheme off
-hi! Normal      ctermbg=none ctermfg=black
-hi! Comment     ctermbg=none ctermfg=darkgrey
-hi! Visual      ctermbg=none ctermfg=none cterm=underline 
-hi! DiffAdd     ctermbg=none ctermfg=none cterm=underline 
-hi! DiffDelete  ctermbg=none ctermfg=none cterm=underline 
-hi! DiffText    ctermbg=none  cterm=underline
-hi! link DiffChange Normal
-hi! link Pmenu      Visual
-hi! link WildMenu   Visual
-hi! link htmlH1     Normal
-hi! link htmlH2     Normal
-hi! link htmlH3     Normal
-hi! link htmlH4     Normal
-hi! link htmlH5     Normal
-hi! link htmlH6     Normal
-
 " seamlessly working with tmux
 Plug 'christoomey/vim-tmux-navigator'
 " async linting
@@ -291,4 +249,26 @@ nnoremap <leader>gl :GitLog<cr>
 Plug 'chrisbra/Colorizer'
 " search thesaurus
 Plug 'ron89/thesaurus_query.vim'
+" powerline-liked status/tab bar
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+let g:airline_theme = 'minimalist'
+let g:airline_section_z = '%l:%v'
+let g:airline#extensions#whitespace#enabled = 0
+let g:airline#extensions#wordcount#enabled = 0
+let g:airline_skip_empty_sections = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#fnamemod = ':.'
+let g:airline#extensions#tabline#fnamecollapse = 0
+" generates tmux theme that matches then current airline theme
+Plug 'edkolev/tmuxline.vim'
+let g:tmuxline_powerline_separators = 0
+let g:tmuxline_preset = 'tmux'
+" color scheme
+Plug 'dikiaap/minimalist'
+set rtp+=~/.vim/plugged/minimalist
+set background=dark
+colorscheme minimalist
+" speed up opening huge files which by default bigger than 2MB
+Plug 'mhinz/vim-hugefile'
 call plug#end()
