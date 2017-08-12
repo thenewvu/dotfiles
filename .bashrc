@@ -24,7 +24,7 @@ alias ylt='expac --timefmt="%Y-%m-%d %T" "%l\t%n" | sort | less'
 alias ylh='expac -H M "%m\t%n" | sort -h | less'
 alias yli='comm -23 <(pacman -Qqt | sort) <(pacman -Qqg base base-devel | sort) | less'
 
-alias mpv-video='mpv --ontop --geometry=384x216-7-7 --ytdl-format="bestvideo[height<720]+bestaudio/480p"'
+alias mpv-video='mpv --ontop --no-border --geometry=384x216-7-7 --ytdl-format="bestvideo[height<720]+bestaudio/480p"'
 alias mpv-audio='mpv --no-video --loop-file=inf --ytdl-format="bestaudio"'
 
 alias tmux="$(which tmux) attach -t tmux || $(which tmux) new -s tmux"
