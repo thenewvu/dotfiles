@@ -179,10 +179,11 @@ nnoremap < <<
 
 call plug#begin('~/.vim/plugged')
 " color scheme
-Plug 'dikiaap/minimalist'
-set rtp+=~/.vim/plugged/minimalist
+Plug 'morhetz/gruvbox'
+set rtp+=~/.vim/plugged/gruvbox
 set background=dark
-colorscheme minimalist
+colorscheme gruvbox
+let g:gruvbox_contrast_dark = 'hard'
 " sublime-liked multiple cursors
 Plug 'terryma/vim-multiple-cursors'
 " improved javascript syntax
@@ -264,7 +265,7 @@ Plug 'ron89/thesaurus_query.vim'
 " powerline-liked status/tab bar
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-let g:airline_theme = 'minimalist'
+let g:airline_theme = 'gruvbox'
 let g:airline_section_z = '%l:%v'
 let g:airline#extensions#whitespace#enabled = 0
 let g:airline#extensions#wordcount#enabled = 0
