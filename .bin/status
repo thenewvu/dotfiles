@@ -7,8 +7,8 @@
 # Thank to xero's script sysinfo!  http://git.io/sysinfo
 
 battery=/sys/class/power_supply/BAT0
-FULL=${FULL-█}
-EMPTY=${EMPTY-░}
+FULL=${FULL-•}
+EMPTY=${EMPTY-⁃}
 SIZE=${SIZE-15}
 
 draw()
