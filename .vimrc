@@ -118,7 +118,8 @@ set list
 
 " KEY SETTINGS
 " ------------
-
+" edit vimrc
+nnoremap <F2> :e ~/.vimrc<CR>
 " jump to begin/end of lines
 nnoremap B ^
 nnoremap E $
