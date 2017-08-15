@@ -3,13 +3,17 @@
     "eslint-config-standard"
   ],
   "rules": {
-    "indent": 0,
-    "space-before-function-paren": 0,
-    "react/jsx-uses-react": "error",
-    "react/jsx-uses-vars": "error",
-    "standard/computed-property-even-spacing": 0,
-    "curly": 0,
-    "no-useless-call" :0
+    "curly": ["error", "all"],
+    "brace-style": ["error", "stroustrup"],
+    "object-curly-spacing": ["error", "always"],
+    "object-curly-newline": ["error", { "minProperties": 2 }],
+    "object-property-newline": "error",
+    "array-bracket-spacing": ["error", "always", { "objectsInArrays": false, "arraysInArrays": false } ],
+    "array-bracket-newline": ["error", {"minItems": 3}],
+    "array-element-newline": ["error", {"minItems": 3}],
+    "newline-per-chained-call": ["error", { "ignoreChainWithDepth": 2 }],
+    "arrow-parens": ["error", "always"],
+    "arrow-body-style": ["error", "always"]
   },
   "parser": "babel-eslint",
   "parserOptions": {
@@ -18,8 +22,7 @@
     }
   },
   "plugins": [
-    "react",
-    "react-perf"
+    "react"
   ],
   "env": {
     "node": true,
