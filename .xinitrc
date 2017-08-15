@@ -38,4 +38,5 @@ xcalib ~/.config/color-profiles/Color\ LCD-77E200AD-B0E6-0317-4BBF-F8B53DA3952C.
 xsetroot -solid darkgrey
 xsetroot -cursor_name left_ptr
 xbacklight -set 50
+xcompmgr -c -C -t-30 -l-30 -r20 -o.2 &
 exec bspwm
