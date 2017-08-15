@@ -185,6 +185,7 @@ set rtp+=~/.vim/plugged/gruvbox
 set background=dark
 colorscheme gruvbox
 let g:gruvbox_contrast_dark = 'hard'
+let g:gruvbox_invert_selection = 0
 " sublime-liked multiple cursors
 Plug 'terryma/vim-multiple-cursors'
 " improved javascript syntax
