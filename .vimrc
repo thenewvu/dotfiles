@@ -36,6 +36,7 @@ set foldmethod=syntax
 set foldnestmax=100 foldlevel=0
 let javaScript_fold=1
 set foldtext=FoldText()
+" https://coderwall.com/p/usd_cw/a-pretty-vim-foldtext-function
 function! FoldText()
   let l:lpadding = &fdc
   redir => l:signs
@@ -184,6 +185,7 @@ Plug 'morhetz/gruvbox'
 set rtp+=~/.vim/plugged/gruvbox
 set background=dark
 colorscheme gruvbox
+hi! link Folded Normal
 let g:gruvbox_contrast_dark = 'hard'
 let g:gruvbox_invert_selection = 0
 " sublime-liked multiple cursors
