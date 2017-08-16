@@ -119,6 +119,8 @@ set list
 
 " KEY SETTINGS
 " ------------
+" quictly exit vim
+nnoremap <leader>q :q<cr>
 " edit vimrc
 nnoremap <F2> :e ~/.vimrc<CR>
 " jump to begin/end of lines
