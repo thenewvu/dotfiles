@@ -121,6 +121,8 @@ set list
 " ------------
 " quictly exit vim
 nnoremap <leader>q :q<cr>
+" open new file
+nnoremap <leader>e :e 
 " edit vimrc
 nnoremap <F2> :e ~/.vimrc<CR>
 " jump to begin/end of lines
