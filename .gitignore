@@ -25,7 +25,7 @@
 .viminfo
 .wicd/
 .node_modules/
-Downloads/
+downloads/
 logs/
 /.node_repl_history
 /.kde4/
@@ -74,8 +74,8 @@ logs/
 .config/inkscape/
 .bash_logout
 .vim/autoload/plug.vim.old
-docs
-projects
+mhtml
+work
 media
 .babel.json
 .config/yarn
