@@ -85,3 +85,4 @@ media
 .parallel/
 /.gimp-2.8/
 /.thumbnails/
+.config/gtk-3.0/bookmarks
