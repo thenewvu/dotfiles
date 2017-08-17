@@ -112,13 +112,16 @@ set wrapmargin=0
 " show the current editing mode
 set showmode
 " visualize whitespace chars
-set showbreak=»\ 
+set showbreak=↳\ 
 set listchars+=tab:»\ ,trail:•
 set list
 
 
 " KEY SETTINGS
 " ------------
+" prefer visual block mode
+nnoremap v <c-v>
+nnoremap <c-v> v
 " quictly exit vim
 nnoremap <leader>q :q<cr>
 " open new file
@@ -282,7 +285,7 @@ let g:airline_powerline_fonts = 1
 " generates tmux theme that matches then current airline theme
 Plug 'edkolev/tmuxline.vim'
 let g:tmuxline_powerline_separators = 1
-let g:tmuxline_preset = 'tmux'
+let g:tmuxline_preset = 'full'
 " speed up opening huge files which by default bigger than 2MB
 Plug 'mhinz/vim-hugefile'
 call plug#end()
