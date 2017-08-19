@@ -24,7 +24,7 @@ transset-df -n bar -x 0.6
 
 while true; do
   feh --bg-fill https://source.unsplash.com/random/1440x900
-  sleep 1800
+  sleep 900
 done&
 
 bspc monitor -d 1 2 3 4 5
