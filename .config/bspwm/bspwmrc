@@ -5,7 +5,6 @@ xcalib ~/.config/color-profiles/Color\ LCD-77E200AD-B0E6-0317-4BBF-F8B53DA3952C.
 
 xsetroot -cursor_name left_ptr
 xbacklight -set 50
-feh --bg-fill ~/wallpaper.jpg
 
 pgrep xcompmgr > /dev/null || xcompmgr -c -C -t-21 -l-21 -r14 -o.2 &
 pgrep sxhkd > /dev/null || sxhkd&
@@ -25,7 +24,7 @@ transset-df -n bar -x 0.6
 
 while true; do
   feh --bg-fill https://source.unsplash.com/random/1440x900
-  sleep 3600
+  sleep 1800
 done&
 
 bspc monitor -d 1 2 3 4 5
