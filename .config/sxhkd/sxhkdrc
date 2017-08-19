@@ -43,10 +43,10 @@ XF86KbdBrightnessDown
   xbacklight -dec 5
 
 # grab screenshot of current desktop
-super + shift + 3
+super + control + shift + 3
   scrot -q 100 "/tmp/screenshot-$(date '+%Y%m%d-%H%M%S').png"
 
-super + shift + 4
+super + control + shift + 4
   scrot -q 100 -s "/tmp/screenshot-$(date '+%Y%m%d-%H%M%S').png"
 
 #
