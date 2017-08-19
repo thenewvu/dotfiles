@@ -1,12 +1,19 @@
 #! /bin/sh
 
-# start sxhkd
-pgrep sxhkd > /dev/null || sxhkd&
+# color correction
+xcalib ~/.config/color-profiles/Color\ LCD-77E200AD-B0E6-0317-4BBF-F8B53DA3952C.icc
 
-# start lemonbar
+xsetroot -solid darkgrey
+xsetroot -cursor_name left_ptr
+xbacklight -set 50
+
+pgrep xcompmgr > /dev/null || xcompmgr -c -C -t-21 -l-21 -r14 -o.2 &
+pgrep sxhkd > /dev/null || sxhkd&
+pgrep sxhkd > /dev/null || thunderbird&
+
 (killall lemonbar || true) && \
 while true; do
-  echo "%{l} $(date +"%Y-%m-%d %A %H:%M ") %{r} $(status) "
+  echo "%{l} $(date +"%Y-%m-%d - %a - %H:%M ") %{r} $(status) "
   sleep 15
 done | lemonbar -p \
   -F "#005faf" \
@@ -15,8 +22,8 @@ done | lemonbar -p \
 
 bspc monitor -d 1 2 3 4 5
 
-bspc config border_width          0
-bspc config window_gap            5
+bspc config border_width          1
+bspc config window_gap            3
 
 bspc config split_ratio           0.52
 bspc config borderless_monocle    false
@@ -32,4 +39,3 @@ bspc rule -a Google-chrome desktop=^1
 bspc rule -a Thunderbird desktop=^3
 bspc config external_rules_command ~/.config/bspwm/external-rules.sh
 
-thunderbird&
