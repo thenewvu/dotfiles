@@ -119,9 +119,6 @@ set list
 
 " KEY SETTINGS
 " ------------
-" prefer visual block mode
-nnoremap v <c-v>
-nnoremap <c-v> v
 " quictly exit vim
 nnoremap <leader>q :q<cr>
 " open new file
@@ -190,11 +187,10 @@ call plug#begin('~/.vim/plugged')
 " color scheme
 Plug 'morhetz/gruvbox'
 set rtp+=~/.vim/plugged/gruvbox
-set background=dark
-colorscheme gruvbox
-hi! link Folded Normal
 let g:gruvbox_contrast_dark = 'hard'
 let g:gruvbox_invert_selection = 0
+set background=dark
+colorscheme gruvbox
 " sublime-liked multiple cursors
 Plug 'terryma/vim-multiple-cursors'
 " improved javascript syntax
