@@ -4,6 +4,11 @@ wid=$1
 class=$2
 instance=$3
 
+# make windows transparent
+if [ `cat /tmp/boring` = "true" || $class = "Bar" ] ; then
+  exec transset-df -i $wid -x 0.5
+fi
+
 # chrome app - floating for youtube
 if [ "$instance" = "crx_jjphmlaoffndcnecccgemfdaaoighkel" ] ; then
   echo "state=floating"
