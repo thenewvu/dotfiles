@@ -23,6 +23,11 @@ done | lemonbar -p \
 sleep 2
 transset-df -n bar -x 0.6
 
+while true; do
+  feh --bg-fill https://source.unsplash.com/random/1440x900
+  sleep 3600
+done&
+
 bspc monitor -d 1 2 3 4 5
 
 bspc config border_width          1
