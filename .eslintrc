@@ -4,6 +4,7 @@
     "plugin:react/recommended"
   ],
   "rules": {
+    "quotes": ["error", "single"],
     "curly": ["error", "all"],
     "brace-style": ["error", "stroustrup"],
     "object-curly-spacing": ["error", "always"],
