@@ -5,7 +5,7 @@ class=$2
 instance=$3
 
 # make windows transparent
-if [ `cat /tmp/boring` = "true" || $class = "Bar" ] ; then
+if [ `cat /tmp/boring` = "true" || "$class" = "Bar" ] ; then
   exec transset-df -i $wid -x 0.5
 fi
 

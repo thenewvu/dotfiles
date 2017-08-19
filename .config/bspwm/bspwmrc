@@ -16,9 +16,12 @@ while true; do
   echo "%{l} $(date +"%Y-%m-%d - %a - %H:%M ") %{r} $(status) "
   sleep 15
 done | lemonbar -p \
-  -F "#005faf" \
+  -F "#222222" \
   -B "#c6c6c6" \
   -f "San Francisco Text:size=9:style=Light"&
+
+sleep 2
+transset-df -n bar -x 0.6
 
 bspc monitor -d 1 2 3 4 5
 
