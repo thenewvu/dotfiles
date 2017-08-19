@@ -3,9 +3,9 @@
 # color correction
 xcalib ~/.config/color-profiles/Color\ LCD-77E200AD-B0E6-0317-4BBF-F8B53DA3952C.icc
 
-xsetroot -solid darkgrey
 xsetroot -cursor_name left_ptr
 xbacklight -set 50
+feh --bg-fill ~/wallpaper.jpg
 
 pgrep xcompmgr > /dev/null || xcompmgr -c -C -t-21 -l-21 -r14 -o.2 &
 pgrep sxhkd > /dev/null || sxhkd&
