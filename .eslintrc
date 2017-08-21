@@ -9,7 +9,6 @@
     "brace-style": ["error", "stroustrup"],
     "object-curly-spacing": ["error", "always"],
     "array-bracket-spacing": ["error", "always", { "objectsInArrays": false, "arraysInArrays": false } ],
-    "newline-per-chained-call": ["error", { "ignoreChainWithDepth": 2 }],
     "arrow-parens": ["error", "always"],
     "react/prop-types": "off",
     "react/jsx-wrap-multilines": "error",
