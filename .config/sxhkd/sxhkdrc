@@ -49,6 +49,9 @@ super + control + shift + 3
 super + control + shift + 4
   scrot -q 100 -s "/tmp/screenshot-$(date '+%Y%m%d-%H%M%S').png"
 
+super + control + shift + r
+  feh --bg-fill https://source.unsplash.com/random/1440x900
+
 #
 # bspwm hotkeys
 #
@@ -61,10 +64,7 @@ super + alt + Escape
 super + {_,shift + }q
   bspc node -{c,k}
 
-# alternate between the tiled and monocle layout
-super + m
-  bspc desktop -l next
-
+# place the current node to the preselect node
 super + y
   bspc query -N -n focused.automatic && bspc node -n last.!automatic || bspc node last.leaf -n focused
 
