@@ -29,6 +29,8 @@ alias mpv-audio='mpv --no-video --loop-file=inf --ytdl-format="bestaudio"'
 
 alias tmux="$(which tmux) attach -t tmux || $(which tmux) new -s tmux"
 
+alias ls="ls -lthr"
+
 export HH_CONFIG=hicolor         # get more colors
 shopt -s histappend              # append new history items to .bash_history
 export HISTCONTROL=ignorespace   # leading space hides commands from history
