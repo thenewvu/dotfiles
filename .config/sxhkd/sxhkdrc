@@ -49,8 +49,13 @@ super + control + shift + 3
 super + control + shift + 4
   scrot -q 100 -s "/tmp/screenshot-$(date '+%Y%m%d-%H%M%S').png"
 
+# refresh wallpaper
 super + control + shift + r
   feh --bg-fill https://source.unsplash.com/random/1440x900
+
+# toggle transparent
+super + control + shift + t
+  transset-df -t 0.7
 
 #
 # bspwm hotkeys
