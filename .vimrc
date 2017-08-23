@@ -80,6 +80,7 @@ set undofile
 augroup AutoResource
   autocmd!
   autocmd BufWritePost .vimrc source %
+  autocmd BufWritePost .vimrc AirlineRefresh
   autocmd BufWritePost bspwmrc !%
   autocmd BufWritePost sxhkdrc !pkill -USR1 -x sxhkd
   autocmd BufWritePost .Xresources !xrdb "%:p"
@@ -191,12 +192,10 @@ nnoremap < <<
 
 call plug#begin('~/.vim/plugged')
 " color scheme
-Plug 'morhetz/gruvbox'
-set rtp+=~/.vim/plugged/gruvbox
-let g:gruvbox_contrast_dark = 'hard'
-let g:gruvbox_invert_selection = 0
+Plug 'rafi/awesome-vim-colorschemes'
+set rtp+=~/.vim/plugged/awesome-vim-colorschemes
 set background=dark
-colorscheme gruvbox
+colorscheme OceanicNext
 " sublime-liked multiple cursors
 Plug 'terryma/vim-multiple-cursors'
 " improved javascript syntax
@@ -275,7 +274,7 @@ Plug 'ron89/thesaurus_query.vim'
 " powerline-liked status/tab bar
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-let g:airline_theme = 'gruvbox'
+let g:airline_theme = 'minimalist'
 let g:airline_section_z = '%l:%v'
 let g:airline#extensions#whitespace#enabled = 0
 let g:airline#extensions#wordcount#enabled = 0
