@@ -55,7 +55,7 @@ super + control + shift + r
 
 # toggle transparent
 super + control + shift + t
-  transset-df -t
+  transset-df -t 0.9
 
 #
 # bspwm hotkeys
