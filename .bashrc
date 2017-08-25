@@ -29,6 +29,7 @@ alias mpv-audio='mpv --no-video --loop-file=inf --ytdl-format="bestaudio"'
 
 alias tmux="$(which tmux) attach -t tmux || $(which tmux) new -s tmux"
 
+alias l="ls -lcthr"
 alias ls="ls -lcthr"
 
 export HH_CONFIG=hicolor         # get more colors
