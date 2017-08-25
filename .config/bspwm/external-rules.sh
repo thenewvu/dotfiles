@@ -17,6 +17,4 @@ elif [[ "$instance" = "crx_cppbapjpgdfdejdlabdnhkeocdjegifp" ]] ; then
   echo "state=floating"
 elif [[ "$class" = "mpv" ]] ; then
   echo "state=floating layer=above"
-elif [[ "$class" = "Termite" ]] ; then
-  echo "border=off"
 fi
