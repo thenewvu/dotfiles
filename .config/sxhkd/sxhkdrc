@@ -13,10 +13,6 @@
 super + Escape
   pkill -USR1 -x sxhkd
 
-# start a quake-like terminal
-{super, alt, ctrl} + grave
-  tdrop -a -x 0 -y 550 -w 1440 -h 350 -s tmux termite
-
 ## media keys
 XF86AudioRaiseVolume
   amixer -q sset Master,0 5+ unmute
