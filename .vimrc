@@ -72,53 +72,31 @@ function! FoldText()
   return l:text . repeat(' ', l:width - strlen(substitute(l:text, ".", "x", "g"))) . l:info
 endfunction
 
-" keep undo history across sessions by storing in file.
-silent !mkdir ~/.config/nvim/backups > /dev/null 2>&1
-set undodir=~/.config/nvim/backups
-set undofile
-
-augroup AutoResource
+augroup AutoMisc
   autocmd!
   autocmd BufWritePost .vimrc source %
-  autocmd BufWritePost .vimrc AirlineRefresh
   autocmd BufWritePost bspwmrc !%
   autocmd BufWritePost sxhkdrc !pkill -USR1 -x sxhkd
   autocmd BufWritePost .Xresources !xrdb "%:p"
   autocmd FileType qf resize 3
 augroup END
 
-let g:netrw_liststyle = 1 " Detail View
-let g:netrw_sizestyle = "H" " Human-readable file sizes
-let g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+' " hide dotfiles
-let g:netrw_hide = 1 " hide dotfiles by default
-let g:netrw_banner = 0 " Turn off banner
-
 " VISUAL SETTINGS
 " ---------------
-" hide line number column
 set nonumber
+set noshowcmd
+set noshowmode
+set laststatus=1
 set tabstop=2
 set softtabstop=2
 set shiftwidth=2
-" tabs as spaces
 set expandtab
-set showcmd
-" show status bar
-set laststatus=2
-" autocomplete for command menu
 set wildmenu
-" show paird brackets
 set showmatch
-" show matched results in searching
 set hlsearch
-" wrap lines without breaking words
 set wrap linebreak
 set breakindent
 set textwidth=0
-set wrapmargin=0
-" show the current editing mode
-set showmode
-" visualize whitespace chars
 set showbreak=↳\ 
 set listchars+=tab:»\ ,trail:•
 set list
@@ -136,12 +114,12 @@ nnoremap <F2> :e ~/.vimrc<CR>
 nnoremap B ^
 nnoremap E $
 " keep the cursor always be vertical center
-nnoremap G Gzz
-vnoremap G Gzz
+nnoremap G GzMzvzz
+vnoremap G GzMzvzz
 nnoremap n nzzzv
 nnoremap N Nzzzv
-nnoremap j gjzz
-nnoremap k gkzz
+nnoremap j gjzMzvzz
+nnoremap k gkzMzvzz
 vnoremap j gjzz
 vnoremap k gkzz
 
@@ -153,9 +131,6 @@ nnoremap J i<enter><esc>
 nnoremap K J
 " redo
 nnoremap U <c-r>zz
-" navigate between buffers
-nnoremap gt :bn<cr>
-nnoremap gT :bp<cr>
 " unfold current block and close others
 nnoremap <space> zMzvzz
 " clear matching
@@ -179,12 +154,24 @@ nnoremap <C-l> <C-w>l
 nnoremap ! :! 
 " identify the syntax highlighting group used at the cursor
 " http://vim.wikia.com/wiki/VimTip99
-map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+map <leader>ie :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 " move left/right one indent
 nnoremap > >>
 nnoremap < <<
+
+" split window
+nnoremap <leader>swh :topleft  vnew<CR>
+nnoremap <leader>swl :botright vnew<CR>
+nnoremap <leader>swk :topleft  new<CR>
+nnoremap <leader>swj :botright new<CR>
+" split buffer
+nnoremap <leader>sh  :leftabove  vnew<CR>
+nnoremap <leader>sl  :rightbelow vnew<CR>
+nnoremap <leader>sk  :leftabove  new<CR>
+nnoremap <leader>sj  :rightbelow new<CR>
+
 
 
 " PLUGIN SETTINGS
@@ -211,18 +198,15 @@ Plug 'jiangmiao/auto-pairs'
 " fuzzy search files
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
-let g:fzf_buffers_jump = 1
 " fuzzy search file in the pwd
 nnoremap <leader>p :FZF<CR>
 " fuzzy search text in the current buffer
 nnoremap / :BLines<cr>
 nnoremap <leader>/ /
+let g:fzf_action = {
+  \ 'enter': 'tabedit' }
 " wb word by word
 Plug 'chaoren/vim-wordmotion'
-" git functions
-Plug 'tpope/vim-fugitive'
-" html5 syntax
-Plug 'othree/html5.vim'
 " automatically add end tag
 Plug 'alvan/vim-closetag'
 let g:closetag_filenames = "*.html,*.xml,*.js,*.jsx"
@@ -257,36 +241,9 @@ let g:ale_lint_on_filetype_changed = 0
 let g:ale_warn_about_trailing_whitespace = 0
 let g:ale_sign_error = '✗ '
 let g:ale_sign_warning = '⚠ '
-let g:airline_section_error = '%{ale#statusline#Status()}'
 hi! ALEErrorSign ctermbg=none ctermfg=red
 hi! ALEWarningSign ctermbg=none ctermfg=yellow
 hi! SignColumn ctermbg=none
-" enhanced git commit
-Plug 'jreybert/vimagit'
-nnoremap <leader>gm :MagitOnly<cr>
-" git log browser
-Plug 'kablamo/vim-git-log'
-nnoremap <leader>gl :GitLog<cr>
 " previews hex, rgb
 Plug 'chrisbra/Colorizer'
-" search thesaurus
-Plug 'ron89/thesaurus_query.vim'
-" powerline-liked status/tab bar
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-let g:airline_theme = 'minimalist'
-let g:airline_section_z = '%l:%v'
-let g:airline#extensions#whitespace#enabled = 0
-let g:airline#extensions#wordcount#enabled = 0
-let g:airline_skip_empty_sections = 1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#fnamemod = ':.'
-let g:airline#extensions#tabline#fnamecollapse = 0
-let g:airline_powerline_fonts = 1
-" generates tmux theme that matches then current airline theme
-Plug 'edkolev/tmuxline.vim'
-let g:tmuxline_powerline_separators = 1
-let g:tmuxline_preset = 'full'
-" speed up opening huge files which by default bigger than 2MB
-Plug 'mhinz/vim-hugefile'
 call plug#end()
