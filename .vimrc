@@ -31,62 +31,12 @@ set ttyfast
 set incsearch
 " <esc> delay
 set timeoutlen=400 ttimeoutlen=0
-set foldenable
-set foldmethod=syntax
-set foldnestmax=100 foldlevel=0
-let javaScript_fold=1
-set foldtext=FoldText()
-" https://coderwall.com/p/usd_cw/a-pretty-vim-foldtext-function
-function! FoldText()
-  let l:lpadding = &fdc
-  redir => l:signs
-  execute 'silent sign place buffer='.bufnr('%')
-  redir End
-  let l:lpadding += l:signs =~ 'id=' ? 2 : 0
-
-  if exists("+relativenumber")
-    if (&number)
-      let l:lpadding += max([&numberwidth, strlen(line('$'))]) + 1
-    elseif (&relativenumber)
-      let l:lpadding += max([&numberwidth, strlen(v:foldstart) + strlen(v:foldstart - line('w0')), strlen(v:foldstart) + strlen(line('w$') - v:foldstart)]) + 1
-    endif
-  else
-    if (&number)
-      let l:lpadding += max([&numberwidth, strlen(line('$'))]) + 1
-    endif
-  endif
-
-  " expand tabs
-  let l:start = substitute(getline(v:foldstart), '\t', repeat(' ', &tabstop), 'g')
-  let l:end = substitute(substitute(getline(v:foldend), '\t', repeat(' ', &tabstop), 'g'), '^\s*', '', 'g')
-
-  let l:info = ' (' . (v:foldend - v:foldstart) . ')'
-  let l:infolen = strlen(substitute(l:info, '.', 'x', 'g'))
-  let l:width = winwidth(0) - l:lpadding - l:infolen
-
-  let l:separator = ' … '
-  let l:separatorlen = strlen(substitute(l:separator, '.', 'x', 'g'))
-  let l:start = strpart(l:start , 0, l:width - strlen(substitute(l:end, '.', 'x', 'g')) - l:separatorlen)
-  let l:text = l:start . ' … ' . l:end
-
-  return l:text . repeat(' ', l:width - strlen(substitute(l:text, ".", "x", "g"))) . l:info
-endfunction
-
-augroup AutoMisc
-  autocmd!
-  autocmd BufWritePost .vimrc source %
-  autocmd BufWritePost bspwmrc !%
-  autocmd BufWritePost sxhkdrc !pkill -USR1 -x sxhkd
-  autocmd BufWritePost .Xresources !xrdb "%:p"
-  autocmd FileType qf resize 3
-augroup END
-
-" VISUAL SETTINGS
-" ---------------
+" don't show line number
 set nonumber
 set noshowcmd
 set noshowmode
 set laststatus=1
+set showtabline=2
 set tabstop=2
 set softtabstop=2
 set shiftwidth=2
@@ -101,28 +51,35 @@ set showbreak=↳\
 set listchars+=tab:»\ ,trail:•
 set list
 
+augroup AutoMisc
+  au!
+  au BufWritePost .vimrc source %
+  au BufWritePost bspwmrc !%
+  au BufWritePost sxhkdrc !pkill -USR1 -x sxhkd
+  au BufWritePost .Xresources !xrdb "%:p"
+  au FileType qf resize 3
+  au BufAdd,BufNewFile * nested tab sball
+augroup END
+
+
 
 " KEY SETTINGS
 " ------------
-" quictly exit vim
-nnoremap <leader>q :q<cr>
-" open new file
-nnoremap <leader>e :e 
-" edit vimrc
-nnoremap <F2> :e ~/.vimrc<CR>
+nnoremap <leader>e :tabedit 
+nnoremap <F2> :tabedit ~/.vimrc<CR>
+nnoremap <F3> :so ~/.vimrc<CR>
 " jump to begin/end of lines
 nnoremap B ^
 nnoremap E $
 " keep the cursor always be vertical center
-nnoremap G GzMzvzz
-vnoremap G GzMzvzz
-nnoremap n nzzzv
-nnoremap N Nzzzv
-nnoremap j gjzMzvzz
-nnoremap k gkzMzvzz
+nnoremap G Gzz
+vnoremap G Gzz
+nnoremap n nzz
+nnoremap N Nzz
+nnoremap j gjzz
+nnoremap k gkzz
 vnoremap j gjzz
 vnoremap k gkzz
-
 " insert new line without entering insert mode
 nnoremap o o<esc>
 nnoremap O O<esc>
@@ -131,8 +88,6 @@ nnoremap J i<enter><esc>
 nnoremap K J
 " redo
 nnoremap U <c-r>zz
-" unfold current block and close others
-nnoremap <space> zMzvzz
 " clear matching
 nnoremap <leader><space> :nohlsearch<CR>
 " underline markdown headers
@@ -143,8 +98,7 @@ nnoremap <leader>mhh yypVr=
 nnoremap <f5> :edit<cr>:redraw<cr>
 " write current file with sudo
 cmap w! w !sudo tee > /dev/null %
-" close the current buffer if not the last
-nnoremap <leader>x :bd<cr>
+nnoremap <leader>x :q<cr>
 " navigate between splits
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
@@ -161,19 +115,6 @@ map <leader>ie :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> 
 nnoremap > >>
 nnoremap < <<
 
-" split window
-nnoremap <leader>swh :topleft  vnew<CR>
-nnoremap <leader>swl :botright vnew<CR>
-nnoremap <leader>swk :topleft  new<CR>
-nnoremap <leader>swj :botright new<CR>
-" split buffer
-nnoremap <leader>sh  :leftabove  vnew<CR>
-nnoremap <leader>sl  :rightbelow vnew<CR>
-nnoremap <leader>sk  :leftabove  new<CR>
-nnoremap <leader>sj  :rightbelow new<CR>
-
-
-
 " PLUGIN SETTINGS
 " ---------------
 
@@ -186,7 +127,14 @@ colorscheme OceanicNext
 " sublime-liked multiple cursors
 Plug 'terryma/vim-multiple-cursors'
 " improved javascript syntax
-Plug 'pangloss/vim-javascript'
+Plug 'thenewvu/vim-javascript'
+set conceallevel=2
+set concealcursor=nvic
+let g:javascript_conceal_function             = ""
+let g:javascript_conceal_this                 = ""
+let g:javascript_conceal_return               = ""
+let g:javascript_conceal_super                = ""
+let g:javascript_conceal_arrow_function       = ""
 " jsx syntax
 Plug 'MaxMEllon/vim-jsx-pretty'
 hi! link jsxCloseTag jsxTag
@@ -198,13 +146,12 @@ Plug 'jiangmiao/auto-pairs'
 " fuzzy search files
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
+let g:fzf_layout = { 'down': '~100%' }
 " fuzzy search file in the pwd
 nnoremap <leader>p :FZF<CR>
 " fuzzy search text in the current buffer
 nnoremap / :BLines<cr>
 nnoremap <leader>/ /
-let g:fzf_action = {
-  \ 'enter': 'tabedit' }
 " wb word by word
 Plug 'chaoren/vim-wordmotion'
 " automatically add end tag
@@ -215,9 +162,7 @@ Plug 'brooth/far.vim'
 let g:far#window_layout = "current"
 let g:far#auto_preview = 0
 set wildignore+=**/node_modules/**,**/build/**,**/Build/**
-" search
 nnoremap <leader>f :F 
-" replace
 nnoremap <leader>r :Far 
 Plug 'ervandew/supertab'
 let g:SuperTabDefaultCompletionType = "context"
@@ -246,4 +191,5 @@ hi! ALEWarningSign ctermbg=none ctermfg=yellow
 hi! SignColumn ctermbg=none
 " previews hex, rgb
 Plug 'chrisbra/Colorizer'
+Plug 'elzr/vim-json'
 call plug#end()
