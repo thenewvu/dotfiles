@@ -36,7 +36,6 @@ set nonumber
 set noshowcmd
 set noshowmode
 set laststatus=1
-set showtabline=2
 set tabstop=2
 set softtabstop=2
 set shiftwidth=2
@@ -58,15 +57,12 @@ augroup AutoMisc
   au BufWritePost sxhkdrc !pkill -USR1 -x sxhkd
   au BufWritePost .Xresources !xrdb "%:p"
   au FileType qf resize 3
-  au BufAdd,BufNewFile * nested tab sball
 augroup END
-
-
 
 " KEY SETTINGS
 " ------------
-nnoremap <leader>e :tabedit 
-nnoremap <F2> :tabedit ~/.vimrc<CR>
+nnoremap <leader>e :e 
+nnoremap <F2> :e ~/.vimrc<CR>
 nnoremap <F3> :so ~/.vimrc<CR>
 " jump to begin/end of lines
 nnoremap B ^
@@ -90,6 +86,8 @@ nnoremap K J
 nnoremap U <c-r>zz
 " clear matching
 nnoremap <leader><space> :nohlsearch<CR>
+" close current buffer
+nnoremap <leader>x :bd<CR>
 " underline markdown headers
 " ref: https://goo.gl/6zf93B
 nnoremap <leader>mh yypVr-
@@ -98,7 +96,6 @@ nnoremap <leader>mhh yypVr=
 nnoremap <f5> :edit<cr>:redraw<cr>
 " write current file with sudo
 cmap w! w !sudo tee > /dev/null %
-nnoremap <leader>x :q<cr>
 " navigate between splits
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
@@ -114,6 +111,9 @@ map <leader>ie :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> 
 " move left/right one indent
 nnoremap > >>
 nnoremap < <<
+" navigate between buffers
+nnoremap gt :bnext<CR>
+nnoremap gT :bprev<CR>
 
 " PLUGIN SETTINGS
 " ---------------
@@ -127,14 +127,9 @@ colorscheme OceanicNext
 " sublime-liked multiple cursors
 Plug 'terryma/vim-multiple-cursors'
 " improved javascript syntax
-Plug 'thenewvu/vim-javascript'
+Plug 'pangloss/vim-javascript'
 set conceallevel=2
 set concealcursor=nvic
-let g:javascript_conceal_function             = ""
-let g:javascript_conceal_this                 = ""
-let g:javascript_conceal_return               = ""
-let g:javascript_conceal_super                = ""
-let g:javascript_conceal_arrow_function       = ""
 " jsx syntax
 Plug 'MaxMEllon/vim-jsx-pretty'
 hi! link jsxCloseTag jsxTag
@@ -146,7 +141,6 @@ Plug 'jiangmiao/auto-pairs'
 " fuzzy search files
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
-let g:fzf_layout = { 'down': '~100%' }
 " fuzzy search file in the pwd
 nnoremap <leader>p :FZF<CR>
 " fuzzy search text in the current buffer
@@ -177,8 +171,8 @@ let g:ale_fixers['javascript'] = ['eslint']
 let g:ale_javascript_eslint_executable = 'eslint_d'
 let g:ale_javascript_eslint_use_global = 1
 let g:ale_fix_on_save = 1
-let g:ale_set_quickfix = 1
-let g:ale_open_list = 1
+let g:ale_set_quickfix = 0
+let g:ale_open_list = 0
 let g:ale_lint_on_save = 1
 let g:ale_lint_on_enter = 0
 let g:ale_lint_on_text_changed = 0
@@ -192,4 +186,7 @@ hi! SignColumn ctermbg=none
 " previews hex, rgb
 Plug 'chrisbra/Colorizer'
 Plug 'elzr/vim-json'
+Plug 'ap/vim-buftabline'
+let g:buftabline_show=2
+let g:buftabline_indicators=1
 call plug#end()
