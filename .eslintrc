@@ -1,18 +1,4 @@
 {
-  "extends": [
-    "eslint-config-standard",
-    "plugin:react/recommended"
-  ],
-  "rules": {
-    "quotes": ["error", "single"],
-    "brace-style": ["error", "stroustrup"],
-    "object-curly-spacing": ["error", "always"],
-    "array-bracket-spacing": ["error", "always", { "objectsInArrays": false, "arraysInArrays": false } ],
-    "arrow-parens": ["error", "always"],
-    "react/prop-types": "off",
-    "react/jsx-wrap-multilines": "error",
-    "react/no-unescaped-entities": "off"
-  },
   "parser": "babel-eslint",
   "parserOptions": {
     "ecmaFeatures": {
@@ -20,8 +6,23 @@
     }
   },
   "plugins": [
-    "react"
+    "react",
+    "react-native"
   ],
+  "extends": [
+    "eslint-config-standard",
+    "plugin:react/recommended",
+    "plugin:react-native/all"
+  ],
+  "rules": {
+    "quotes": ["error", "single"],
+    "brace-style": ["error", "stroustrup"],
+    "object-curly-spacing": ["error", "always"],
+    "array-bracket-spacing": ["error", "always", { "objectsInArrays": false, "arraysInArrays": false } ],
+    "react/prop-types": "off",
+    "react/jsx-wrap-multilines": "error",
+    "react/no-unescaped-entities": "off"
+  },
   "env": {
     "node": true,
     "browser": true,
