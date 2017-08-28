@@ -30,6 +30,8 @@ syntax match    jsxAttrib        /\<keyboardType=/ conceal cchar=
 syntax match    jsxAttrib        /\<update=/ conceal cchar=
 syntax match    jsxAttrib        /\<remove=/ conceal cchar=
 syntax match    jsxAttrib        /\<select=/ conceal cchar=
+syntax match    jsxAttrib        /\<active=/ conceal cchar=⁕
+syntax match    jsxAttrib        /\<editing=/ conceal cchar=⁕
 
 let g:javascript_conceal_function             = ""
 let g:javascript_conceal_this                 = ""
