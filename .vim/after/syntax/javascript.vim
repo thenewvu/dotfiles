@@ -17,12 +17,14 @@ syntax match    jsOperator       "<=" conceal cchar=≤
 syntax match    jsOperator       ">=" conceal cchar=≥
 syntax match    jsOperator       "!!" conceal cchar=‼
 syntax match    jsOperator       "= () =>" conceal cchar=
+syntax match    jsOperator       "() =>" conceal cchar=
 
 
 syntax match    jsxAttrib        /\<style=/ conceal cchar=
 syntax match    jsxAttrib        /\<onPress=/ conceal cchar=
 syntax match    jsxAttrib        /\<key=/ conceal cchar=
 syntax match    jsxAttrib        /\<id=/ conceal cchar=
+syntax match    jsxAttrib        /\<ids=/ conceal cchar=
 syntax match    jsxAttrib        /\<value=/ conceal cchar=
 syntax match    jsxAttrib        /\<data=/ conceal cchar=
 syntax match    jsxAttrib        /\<placeholder=/ conceal cchar=▧
