@@ -85,7 +85,7 @@ nnoremap K J
 " redo
 nnoremap U <c-r>zz
 " clear matching
-nnoremap <leader><space> :nohlsearch<CR>
+nnoremap <leader><space> :let @/ = ""<CR>
 " close current buffer
 nnoremap <leader>x :bd<CR>
 " underline markdown headers
