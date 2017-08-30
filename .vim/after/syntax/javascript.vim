@@ -19,6 +19,7 @@ syntax match    jsOperator       "= () =>" conceal cchar=
 syntax match    jsOperator       "() =>" conceal cchar=
 
 syntax match    jsFuncCall       /dispatch/ conceal cchar=
+syntax match    jsFuncCall       /connect/ conceal cchar=
 
 syntax match    jsxAttrib        /\<style=/ conceal cchar=
 syntax match    jsxAttrib        /\<onPress=/ conceal cchar=
