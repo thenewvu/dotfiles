@@ -16,7 +16,6 @@
   ],
   "rules": {
     "quotes": ["error", "single"],
-    "brace-style": ["error", "stroustrup"],
     "object-curly-spacing": ["error", "always"],
     "array-bracket-spacing": ["error", "always", { "objectsInArrays": false, "arraysInArrays": false } ],
     "react/prop-types": "off",
