@@ -16,8 +16,6 @@
   ],
   "rules": {
     "quotes": ["error", "single"],
-    "object-curly-spacing": ["error", "always"],
-    "array-bracket-spacing": ["error", "always", { "objectsInArrays": false, "arraysInArrays": false } ],
     "react/prop-types": "off",
     "react/jsx-wrap-multilines": "error",
     "react/no-unescaped-entities": "off"
