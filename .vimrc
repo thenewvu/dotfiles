@@ -189,4 +189,7 @@ Plug 'elzr/vim-json'
 Plug 'ap/vim-buftabline'
 let g:buftabline_show=2
 let g:buftabline_indicators=1
+hi! TabLineSel    ctermbg=236   ctermfg=156   cterm=none
+hi! TabLine       ctermbg=236   ctermfg=grey  cterm=none
+hi! TabLineFill   ctermfg=236   ctermbg=none  cterm=none
 call plug#end()
