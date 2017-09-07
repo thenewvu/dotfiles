@@ -32,7 +32,7 @@ set incsearch
 " <esc> delay
 set timeoutlen=400 ttimeoutlen=0
 " don't show line number
-set nonumber
+set number
 set noshowcmd
 set noshowmode
 set laststatus=1
@@ -49,6 +49,8 @@ set textwidth=0
 set showbreak=↳\ 
 set listchars+=tab:»\ ,trail:•
 set list
+" disable netrw
+let loaded_netrwPlugin = 1
 
 augroup AutoMisc
   au!
@@ -191,5 +193,5 @@ let g:buftabline_show=2
 let g:buftabline_indicators=1
 hi! TabLineSel    ctermbg=236   ctermfg=156   cterm=none
 hi! TabLine       ctermbg=236   ctermfg=grey  cterm=none
-hi! TabLineFill   ctermfg=236   ctermbg=none  cterm=none
+hi! TabLineFill   ctermfg=236   ctermbg=236   cterm=none
 call plug#end()
