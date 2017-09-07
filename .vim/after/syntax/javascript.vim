@@ -12,14 +12,11 @@ syntax match    jsOperator       /===/ skipwhite skipempty nextgroup=@jsExpressi
 syntax match    jsOperator       /!==/ skipwhite skipempty nextgroup=@jsExpression conceal cchar=≢
 syntax match    jsOperator       /&&/ skipwhite skipempty nextgroup=@jsExpression conceal cchar=∧
 syntax match    jsOperator       /||/ skipwhite skipempty nextgroup=@jsExpression conceal cchar=∨
-syntax match    jsOperator       "<=" conceal cchar=≤
-syntax match    jsOperator       ">=" conceal cchar=≥
-syntax match    jsOperator       "!!" conceal cchar=‼
-syntax match    jsOperator       "= () =>" conceal cchar=
-syntax match    jsOperator       "() =>" conceal cchar=
+syntax match    jsOperator       "<=" skipwhite skipempty nextgroup=@jsExpression conceal cchar=≤
+syntax match    jsOperator       ">=" skipwhite skipempty nextgroup=@jsExpression conceal cchar=≥
+syntax match    jsOperator       "!!" skipwhite skipempty nextgroup=@jsExpression conceal cchar=‼
 
 syntax match    jsFuncCall       /dispatch/ conceal cchar=
-syntax match    jsFuncCall       /connect/ conceal cchar=
 
 syntax match    jsxAttrib        /\<style=/ conceal cchar=
 syntax match    jsxAttrib        /\<onPress=/ conceal cchar=
