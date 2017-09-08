@@ -61,8 +61,12 @@ temperature()
 }
 
 volume () {
-  vol=`amixer get Master | awk '$0~/%/{print $4}' | tr -d '[]%'`
-
+  stt=`amixer get Master | awk '$0~/%/{print $6}' | tr -d '[]'`
+  if [[ "$stt" == "on" ]]; then
+    vol=`amixer get Master | awk '$0~/%/{print $4}' | tr -d '[]%'`
+  else
+    vol=0
+  fi
   printf "vol %-2s %s" "$vol%" "$(draw $vol $SIZE)"
 }
 
