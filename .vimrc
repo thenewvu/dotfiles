@@ -55,8 +55,9 @@ let loaded_netrwPlugin = 1
 augroup AutoMisc
   au!
   au BufWritePost .vimrc source %
+  au BufWritePost bspwmrc !pkill -TERM -x bspwmrc
   au BufWritePost bspwmrc !%
-  au BufWritePost sxhkdrc !pkill -USR1 -x sxhkd
+  au BufWritePost sxhkdrc !pkill -TERM -x sxhkd
   au BufWritePost .Xresources !xrdb "%:p"
   au FileType qf resize 3
 augroup END
@@ -65,7 +66,7 @@ augroup END
 " ------------
 nnoremap <leader>e :e 
 nnoremap <F2> :e ~/.vimrc<CR>
-nnoremap <F3> :so ~/.vimrc<CR>
+nnoremap <F10> :so ~/.vimrc<CR>
 " jump to begin/end of lines
 nnoremap B ^
 nnoremap E $
