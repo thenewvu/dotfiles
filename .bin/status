@@ -8,8 +8,8 @@
 
 battery=/sys/class/power_supply/BAT0
 FULL=${FULL-•}
-EMPTY=${EMPTY-⁃}
-SIZE=${SIZE-15}
+EMPTY=${EMPTY-·}
+SIZE=${SIZE-5}
 
 draw()
 {
@@ -55,9 +55,9 @@ battery()
 
 temperature()
 {
-  temp=`sensors | awk '/Core\ 0/ {gsub(/\+/,"",$3); gsub(/\..+/,"",$3)    ; print $3}'`
+  cpu0=`sensors | awk '/Core\ 0/ {gsub(/\+/,"",$3); gsub(/\..+/,"",$3)    ; print $3}'`
 
-  printf "%-2s°C%s" "$temp" " $(draw $temp $SIZE)"
+  printf "%-2s°C%s" "$cpu0" " $(draw $cpu0 $SIZE)"
 }
 
 volume () {
