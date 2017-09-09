@@ -6,7 +6,6 @@
 
 # Thank to xero's script sysinfo!  http://git.io/sysinfo
 
-battery=/sys/class/power_supply/BAT0
 FULL=${FULL-•}
 EMPTY=${EMPTY-·}
 SIZE=${SIZE-5}
@@ -28,6 +27,11 @@ draw()
   printf '%s' "$out"
 }
 
+now () {
+  now=`date +"%Y-%m-%d - %a - %H:%M"`
+  printf "$now"
+}
+
 cpu()
 {
   cpu="$(grep 'cpu ' /proc/stat |\
@@ -44,10 +48,11 @@ ram()
   printf "ram %-2s %s" "$ram%" "$(draw $ram $SIZE)"
 }
 
+BAT=/sys/class/power_supply/BAT0
 battery()
 {
-  b_full=$(sed 1q $battery/*_full)
-  b_now=$(sed 1q $battery/*_now)
+  b_full=$(sed 1q $BAT/*_full)
+  b_now=$(sed 1q $BAT/*_now)
   charge=$(printf '%s' "$(( 100 * $b_now / $b_full ))")
 
   printf "bat %-2s %s" "$charge%" "$(draw $charge $SIZE)"
@@ -80,4 +85,4 @@ src_ip()
 }
 
 printf ' %s  %s  %s  %s  %s %s\n' \
-  "$(temperature)" "$(cpu)" "$(ram)" "$(battery)" "$(volume)" "$(src_ip)"
+  "%{l} $(now) %{r} $(temperature)" "$(cpu)" "$(ram)" "$(battery)" "$(volume)" "$(src_ip) "

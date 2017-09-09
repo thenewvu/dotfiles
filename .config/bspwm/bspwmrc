@@ -16,7 +16,7 @@ pgrep sxhkd > /dev/null || thunderbird&
 
 (killall lemonbar || true) && \
 while true; do
-  echo "%{l} $(date +"%Y-%m-%d - %a - %H:%M ") %{r} $(status) "
+  echo "$(status)"
   sleep 15
 done | lemonbar -p \
   -F "#222222" \
