@@ -6,7 +6,7 @@ export MANPATH=/usr/local/opt/coreutils/libexec/gnuman:$MANPATH
 
 export VISUAL="nvim"
 export EDITOR="nvim"
-export FZF_DEFAULT_OPTS="--color=bw"
+export FZF_DEFAULT_OPTS="--height=40% --color=bw --reverse"
 export FZF_DEFAULT_COMMAND="rg --files --hidden --glob='!.git/*'"
 export FZF_CTRL_T_COMMAND="rg --files --hidden --glob='!.git/*'"
 export FREETYPE_PROPERTIES="truetype:interpreter-version=38"
@@ -32,13 +32,6 @@ alias tmux="$(which tmux) attach -t tmux || $(which tmux) new -s tmux"
 alias l="ls -lcthr"
 alias ls="ls -lcthr"
 
-export HH_CONFIG=hicolor         # get more colors
-shopt -s histappend              # append new history items to .bash_history
-export HISTCONTROL=ignorespace   # leading space hides commands from history
-export HISTFILESIZE=10000        # increase history file size (default is 500)
-export HISTSIZE=${HISTFILESIZE}  # increase history size (default is 500)
-export PROMPT_COMMAND='history -a && history -n && ${PROMPT_COMMAND}'   # mem/file sync
-# if this is interactive shell, then bind hh to Ctrl-r (for Vi mode check doc)
-bind '"\C-r": "\e^ihh \n"'
-# auto complete when tabbing
-bind '"\t":menu-complete'
+source /usr/share/fzf/completion.bash
+source /usr/share/fzf/key-bindings.bash
+source /etc/bash_completion.d/owlman
