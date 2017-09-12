@@ -138,8 +138,6 @@ colorscheme PaperColor
 Plug 'terryma/vim-multiple-cursors'
 " improved javascript syntax
 Plug 'pangloss/vim-javascript'
-set conceallevel=2
-set concealcursor=nvic
 " jsx syntax
 Plug 'MaxMEllon/vim-jsx-pretty'
 hi! link jsxCloseTag jsxTag
