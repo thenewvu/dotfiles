@@ -123,10 +123,17 @@ nnoremap gT :bprev<CR>
 
 call plug#begin('~/.vim/plugged')
 " color scheme
-Plug 'rafi/awesome-vim-colorschemes'
-set rtp+=~/.vim/plugged/awesome-vim-colorschemes
-set background=dark
-colorscheme OceanicNext
+Plug 'NLKNguyen/papercolor-theme'
+set rtp+=~/.vim/plugged/papercolor-theme
+set background=light
+let g:PaperColor_Theme_Options = {
+  \   'theme': {
+  \     'default.light': {
+  \       'transparent_background': 1
+  \     }
+  \   }
+  \ }
+colorscheme PaperColor
 " sublime-liked multiple cursors
 Plug 'terryma/vim-multiple-cursors'
 " improved javascript syntax
@@ -192,7 +199,7 @@ Plug 'elzr/vim-json'
 Plug 'ap/vim-buftabline'
 let g:buftabline_show=2
 let g:buftabline_indicators=1
-hi! TabLineSel    ctermbg=236   ctermfg=156   cterm=none
-hi! TabLine       ctermbg=236   ctermfg=grey  cterm=none
-hi! TabLineFill   ctermfg=236   ctermbg=236   cterm=none
+hi! link TabLineSel  Normal
+hi! link TabLine     LineNr
+hi! link TabLineFill LineNr
 call plug#end()
