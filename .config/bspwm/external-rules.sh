@@ -4,9 +4,11 @@ wid=$1
 class=$2
 instance=$3
 
-# make windows transparent
-if [[ `cat /tmp/boring` = "true" || "$class" = "Bar" ]] ; then
-  transset-df -i $wid -x 0.5
+# make bar transparent
+if [[ "$class" = "Bar" ]] ; then
+  transset-df -i $wid -x 0.8
+elif [[ "$class" = "Termite" ]] ; then
+  transset-df -i $wid -x 0.9
 fi
 
 # chrome app - floating for youtube
