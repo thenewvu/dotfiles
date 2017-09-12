@@ -9,7 +9,7 @@ allow_bold = true
 dynamic_title = false
 urgent_on_bell = true
 clickable_url = true
-font = Hermit Nerd Font 7
+font = Hermit Nerd Font Bold 8
 scrollback_lines = 1000
 search_wrap = true
 mouse_autohide = true
@@ -33,42 +33,44 @@ filter_unmatched_urls = true
 #modify_other_keys = false
 
 [colors]
-# hard contrast: background = #1d2021
-background = #282828
-# soft contrast: background = #32302f
-foreground = #ebdbb2
-foreground_bold = #ebdbb2
+# http://terminal.sexy/
+# base16/3024 Light
 
-# dark0 + gray
-color0 = #282828
-color8 = #928374
+# special
+foreground      = #4a4543
+foreground_bold = #4a4543
+cursor          = #4a4543
+; background      = #f7f7f7
+background      = #c6c6c6
 
-# neutral_red + bright_red
-color1 = #cc241d
-color9 = #fb4934
+# black
+color0  = #090300
+color8  = #5c5855
 
-# neutral_green + bright_green
-color2 = #98971a
-color10 = #b8bb26
+# red
+color1  = #db2d20
+color9  = #db2d20
 
-# neutral_yellow + bright_yellow
-color3 = #d79921
-color11 = #fabd2f
+# green
+color2  = #01a252
+color10 = #01a252
 
-# neutral_blue + bright_blue
-color4 = #458588
-color12 = #83a598
+# yellow
+color3  = #fded02
+color11 = #fded02
 
-# neutral_purple + bright_purple
-color5 = #b16286
-color13 = #d3869b
+# blue
+color4  = #01a0e4
+color12 = #01a0e4
 
-# neutral_aqua + faded_aqua
-color6 = #689d6a
-color14 = #8ec07c
+# magenta
+color5  = #a16a94
+color13 = #a16a94
 
-# light4 + light1
-color7 = #a89984
-color15 = #ebdbb2
+# cyan
+color6  = #b5e4f4
+color14 = #b5e4f4
 
-# vim: ft=dosini cms=#%s
+# white
+color7  = #a5a2a2
+color15 = #f7f7f7
