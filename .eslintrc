@@ -19,7 +19,13 @@
     "react/prop-types": "off",
     "react/jsx-wrap-multilines": "error",
     "react/no-unescaped-entities": "off",
-    "promise/param-names": "off"
+    "react/display-name": "off",
+    "promise/param-names": "off",
+    "space-in-parens": "off",
+    "key-spacing": "off",
+    "object-property-newline": "off",
+    "arrow-spacing": "off",
+    "no-multi-spaces": "off"
   },
   "env": {
     "node": true,
