@@ -12,7 +12,12 @@ xcompmgr -c -C -t-21 -l-21 -r14 -o.2 &
 pkill -TERM sxhkd|| true
 sxhkd&
 
-pgrep sxhkd > /dev/null || thunderbird&
+thunderbird&
+
+while true; do
+  feh --bg-fill https://source.unsplash.com/random/1440x900
+  sleep $(( 15 * 60 ))
+done&
 
 (killall lemonbar || true) && \
 while true; do
