@@ -50,7 +50,8 @@ set showbreak=↳\
 set listchars+=tab:»\ ,trail:•
 set list
 " disable netrw
-let loaded_netrwPlugin = 1
+let g:loaded_netrwPlugin = 1
+let g:loaded_matchparen=1
 
 augroup AutoMisc
   au!
@@ -85,6 +86,10 @@ nnoremap O O<esc>
 " break/join lines
 nnoremap J i<enter><esc>
 nnoremap K J
+" nevigate between buffers
+nnoremap gn <C-^>
+nnoremap gt :bnext<cr>
+nnoremap gT :bprev<cr>
 " redo
 nnoremap U <c-r>zz
 " clear matching
@@ -114,9 +119,6 @@ map <leader>ie :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> 
 " move left/right one indent
 nnoremap > >>
 nnoremap < <<
-" navigate between buffers
-nnoremap gt :bnext<CR>
-nnoremap gT :bprev<CR>
 
 " PLUGIN SETTINGS
 " ---------------
@@ -197,6 +199,7 @@ Plug 'elzr/vim-json'
 Plug 'ap/vim-buftabline'
 let g:buftabline_show=2
 let g:buftabline_indicators=1
+let g:buftabline_numbers = 1
 hi! link TabLineSel  Normal
 hi! link TabLine     LineNr
 hi! link TabLineFill LineNr
