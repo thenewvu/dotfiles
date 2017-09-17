@@ -9,15 +9,10 @@ xbacklight -set 30
 pkill -TERM xcompmgr || true
 xcompmgr -c -C -t-21 -l-21 -r14 -o.2 &
 
-pkill -TERM sxhkd|| true
+pkill -TERM sxhkd || true
 sxhkd&
 
 thunderbird&
-
-while true; do
-  feh --bg-fill https://source.unsplash.com/random/1440x900
-  sleep $(( 15 * 60 ))
-done&
 
 (killall lemonbar || true) && \
 while true; do
