@@ -1,0 +1,19 @@
+---
+parser: babel-eslint
+parserOptions:
+  ecmaFeatures:
+    jsx: true
+plugins:
+- react
+- react-native
+extends:
+- eslint-config-standard
+- plugin:react/recommended
+- plugin:react-native/all
+rules:
+  react/prop-types: 'off'
+  promise/param-names: 'off'
+env:
+  node: true
+  browser: true
+  es6: true
