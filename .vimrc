@@ -31,7 +31,6 @@ set ttyfast
 set incsearch
 " <esc> delay
 set timeoutlen=400 ttimeoutlen=0
-" don't show line number
 set number
 set noshowcmd
 set noshowmode
@@ -59,6 +58,7 @@ augroup AutoMisc
   au BufWritePost bspwmrc !pkill -TERM -x bspwmrc
   au BufWritePost bspwmrc !%
   au BufWritePost sxhkdrc !pkill -TERM -x sxhkd
+  au BufWritePost sxhkdrc !sxhkd&
   au BufWritePost .Xresources !xrdb "%:p"
   au FileType qf resize 3
 augroup END
@@ -196,11 +196,14 @@ hi! SignColumn ctermbg=none
 " previews hex, rgb
 Plug 'chrisbra/Colorizer'
 Plug 'elzr/vim-json'
-Plug 'ap/vim-buftabline'
-let g:buftabline_show=2
-let g:buftabline_indicators=1
-let g:buftabline_numbers = 1
-hi! link TabLineSel  Normal
-hi! link TabLine     LineNr
-hi! link TabLineFill LineNr
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts = 1
+let g:airline_theme='sol'
+Plug 'edkolev/tmuxline.vim'
+Plug 'Yggdroot/indentLine'
+let g:indentLine_char = '¦'
+let g:indentLine_first_char = '¦'
+let g:indentLine_showFirstIndentLevel = 1
 call plug#end()
