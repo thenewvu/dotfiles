@@ -1,3 +1,8 @@
+source /usr/share/fzf/completion.bash
+source /usr/share/fzf/key-bindings.bash
+source /etc/bash_completion.d/owlman
+source ~/.bash_prompt
+
 # set vi key mode
 set -o vi
 
@@ -10,6 +15,14 @@ export FZF_DEFAULT_OPTS="--height=40% --color=bw --reverse"
 export FZF_DEFAULT_COMMAND="rg --files --hidden --glob='!.git/*'"
 export FZF_CTRL_T_COMMAND="rg --files --hidden --glob='!.git/*'"
 export FREETYPE_PROPERTIES="truetype:interpreter-version=38"
+# Increase the size of history maintained by BASH
+export HISTFILESIZE=10000
+export HISTSIZE=${HISTFILESIZE}
+# Use leading space to hide commands from history:
+export HISTCONTROL=ignorespace
+# Ensure syncing (flushing and reloading) of .bash_history with in-memory history:
+export PROMPT_COMMAND="history -a; history -n; ${PROMPT_COMMAND}"
+
 
 alias gs="git st"
 alias ga="git add"
@@ -32,6 +45,4 @@ alias tmux="$(which tmux) attach -t tmux || $(which tmux) new -s tmux"
 alias l="ls -lcthr"
 alias ls="ls -lcthr"
 
-source /usr/share/fzf/completion.bash
-source /usr/share/fzf/key-bindings.bash
-source /etc/bash_completion.d/owlman
+alias ..="cd .."
