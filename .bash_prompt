@@ -50,5 +50,5 @@ function bash_prompt {
     PS1="$REPLY"
 }
 
-export PROMPT_COMMAND="bash_prompt; ${PROMPT_COMMAND}"
+export PROMPT_COMMAND="bash_prompt"
 export PS1=$'\001\r''${|prompt_build}'
