@@ -1,6 +1,3 @@
-source /usr/share/fzf/completion.bash
-source /usr/share/fzf/key-bindings.bash
-source /etc/bash_completion.d/owlman
 source ~/.bash_prompt
 
 # set vi key mode
@@ -46,3 +43,8 @@ alias l="ls -lcthr"
 alias ls="ls -lcthr"
 
 alias ..="cd .."
+
+
+source /usr/share/fzf/completion.bash
+source /usr/share/fzf/key-bindings.bash
+source /etc/bash_completion.d/owlman
