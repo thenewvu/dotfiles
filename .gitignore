@@ -87,3 +87,4 @@ media
 /.thumbnails/
 .config/gtk-3.0/bookmarks
 .fehbg
+.vim/undodir

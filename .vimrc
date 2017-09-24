@@ -5,6 +5,8 @@ let g:mapleader = ";"
 set dir=$HOME/.vim/tmp/
 set nobackup
 set noswapfile
+set undofile
+set undodir=~/.vim/undodir
 " do replacing globally by default
 set gdefault
 syntax enable
@@ -198,10 +200,39 @@ Plug 'chrisbra/Colorizer'
 Plug 'elzr/vim-json'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-let g:airline#extensions#tabline#enabled = 1
-let g:airline_powerline_fonts = 1
 let g:airline_theme='sol'
+let w:airline_skip_empty_sections = 1
+let g:airline_powerline_fonts = 1
+let g:airline_section_y = ''
+let g:airline_section_z = ''
+let g:airline_skip_empty_sections = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#wordcount#enabled = 0
+let g:airline#extensions#whitespace#enabled = 0
+let g:airline_mode_map = {
+    \ '__' : '-',
+    \ 'n'  : 'N',
+    \ 'i'  : 'I',
+    \ 'R'  : 'R',
+    \ 'c'  : 'C',
+    \ 'v'  : 'V',
+    \ 'V'  : 'V',
+    \ '' : 'V',
+    \ 's'  : 'S',
+    \ 'S'  : 'S',
+    \ '' : 'S',
+    \ }
 Plug 'edkolev/tmuxline.vim'
+let g:tmuxline_preset = {
+    \'a'       : '',
+    \'b'       : '',
+    \'c'       : '',
+    \'win'     : '#W',
+    \'cwin'    : '#W',
+    \'x'       : '',
+    \'y'       : '',
+    \'z'       : '',
+    \'options' : {'status-justify' : 'left'}}
 Plug 'Yggdroot/indentLine'
 let g:indentLine_char = '¦'
 let g:indentLine_first_char = '¦'
