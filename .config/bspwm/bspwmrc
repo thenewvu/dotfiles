@@ -20,7 +20,7 @@ done | lemonbar -p \
   -F "#222222" \
   -B "#c6c6c6" \
   -o 1 \
-  -f "San Francisco:size=8:style=Regular"&
+  -f "San Francisco:size=7:style=Regular"&
 
 bspc monitor -d 1 2 3 4 5
 
