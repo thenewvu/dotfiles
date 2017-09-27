@@ -7,7 +7,7 @@
 # program launcher
 {super, alt, ctrl} + @space
   dmenu_run -fn 'San Francisco:pixelsize=10:style=Regular' \
-    -nb '#c6c6c6' -nf '#222222' -sf '#000000' -sb '#c6c6c6'
+    -nb '#c6c6c6' -nf '#808080' -sf '#000000' -sb '#c6c6c6'
 
 # make sxhkd reload its configuration files:
 super + Escape
