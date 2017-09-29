@@ -18,6 +18,7 @@ rules:
   promise/param-names: 0
   react/no-children-prop: 0
   react/display-name: 0
+  react-native/no-color-literals: 0
 env:
   node: true
   browser: true
