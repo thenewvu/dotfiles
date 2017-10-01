@@ -1,7 +1,8 @@
+#!/usr/bin/env bash
 # https://www.reddit.com/r/archlinux/comments/5vusvx/here_is_my_bash_prompt_whats_your_favorite/de58buf/
 
 function prompt_build {
-    [[ -v COLUMNS ]] || return
+    [[ -n "$COLUMNS" ]] || return
 
     local ret=$?
     local maxwidth=$(( COLUMNS / 3 ))
