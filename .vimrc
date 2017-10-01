@@ -202,7 +202,6 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 let g:airline_theme='sol'
 let w:airline_skip_empty_sections = 1
-let g:airline_powerline_fonts = 1
 let g:airline_section_y = ''
 let g:airline_section_z = ''
 let g:airline_skip_empty_sections = 1
@@ -212,6 +211,7 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#wordcount#enabled = 0
 let g:airline#extensions#whitespace#enabled = 0
 Plug 'edkolev/tmuxline.vim'
+let g:tmuxline_powerline_separators = 0
 let g:tmuxline_preset = {
     \'a'       : '',
     \'b'       : '',
@@ -223,6 +223,7 @@ let g:tmuxline_preset = {
     \'z'       : '',
     \'options' : {'status-justify' : 'left'}}
 Plug 'Yggdroot/indentLine'
+let g:indentLine_loaded = 0
 let g:indentLine_char = '¦'
 let g:indentLine_first_char = '¦'
 let g:indentLine_showFirstIndentLevel = 1
