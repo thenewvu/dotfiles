@@ -65,6 +65,50 @@ augroup AutoMisc
   au FileType qf resize 3
 augroup END
 
+" enable folding
+set foldenable
+" set folding method to `syntax`
+set foldmethod=syntax
+" only fold the first level
+set foldnestmax=100 foldlevel=0
+" enable folding for javascript syntax
+let javaScript_fold=1
+set foldtext=FoldText()
+function! FoldText()
+  let l:lpadding = &fdc
+  redir => l:signs
+  execute 'silent sign place buffer='.bufnr('%')
+  redir End
+  let l:lpadding += l:signs =~ 'id=' ? 2 : 0
+
+  if exists("+relativenumber")
+    if (&number)
+      let l:lpadding += max([&numberwidth, strlen(line('$'))]) + 1
+    elseif (&relativenumber)
+      let l:lpadding += max([&numberwidth, strlen(v:foldstart) + strlen(v:foldstart - line('w0')), strlen(v:foldstart) + strlen(line('w$') - v:foldstart)]) + 1
+    endif
+  else
+    if (&number)
+      let l:lpadding += max([&numberwidth, strlen(line('$'))]) + 1
+    endif
+  endif
+
+  " expand tabs
+  let l:start = substitute(getline(v:foldstart), '\t', repeat(' ', &tabstop), 'g')
+  let l:end = substitute(substitute(getline(v:foldend), '\t', repeat(' ', &tabstop), 'g'), '^\s*', '', 'g')
+
+  let l:info = ' (' . (v:foldend - v:foldstart) . ')'
+  let l:infolen = strlen(substitute(l:info, '.', 'x', 'g'))
+  let l:width = winwidth(0) - l:lpadding - l:infolen
+
+  let l:separator = ' … '
+  let l:separatorlen = strlen(substitute(l:separator, '.', 'x', 'g'))
+  let l:start = strpart(l:start , 0, l:width - strlen(substitute(l:end, '.', 'x', 'g')) - l:separatorlen)
+  let l:text = l:start . ' … ' . l:end
+
+  return l:text . repeat(' ', l:width - strlen(substitute(l:text, ".", "x", "g"))) . l:info
+endfunction
+
 " KEY SETTINGS
 " ------------
 nnoremap <leader>e :e 
@@ -73,11 +117,13 @@ nnoremap <F10> :so ~/.vimrc<CR>
 " jump to begin/end of lines
 nnoremap B ^
 nnoremap E $
+" key mapping to unfold current block and close other blocks
+nnoremap <space> zMzAzz
 " keep the cursor always be vertical center
 nnoremap G Gzz
 vnoremap G Gzz
-nnoremap n nzz
-nnoremap N Nzz
+nnoremap n nzzzv
+nnoremap N Nzzzv
 nnoremap j gjzz
 nnoremap k gkzz
 vnoremap j gjzz
@@ -127,17 +173,11 @@ nnoremap < <<
 
 call plug#begin('~/.vim/plugged')
 " color scheme
-Plug 'NLKNguyen/papercolor-theme'
-set rtp+=~/.vim/plugged/papercolor-theme
+Plug 'pbrisbin/vim-colors-off'
+set rtp+=~/.vim/plugged/vim-colors-off
 set background=light
-let g:PaperColor_Theme_Options = {
-  \   'theme': {
-  \     'default.light': {
-  \       'transparent_background': 1
-  \     }
-  \   }
-  \ }
-colorscheme PaperColor
+colorscheme off
+hi! Normal ctermbg=none ctermfg=blue
 " sublime-liked multiple cursors
 Plug 'terryma/vim-multiple-cursors'
 " improved javascript syntax
@@ -205,6 +245,7 @@ let w:airline_skip_empty_sections = 1
 let g:airline_section_y = ''
 let g:airline_section_z = ''
 let g:airline_skip_empty_sections = 1
+let g:airline_powerline_fonts = 0
 let g:airline#extensions#tabline#fnamemod = ':.'
 let g:airline#extensions#tabline#fnamecollapse = 0
 let g:airline#extensions#tabline#enabled = 1
