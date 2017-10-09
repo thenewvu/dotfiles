@@ -73,41 +73,8 @@ set foldmethod=syntax
 set foldnestmax=100 foldlevel=0
 " enable folding for javascript syntax
 let javaScript_fold=1
-set foldtext=FoldText()
-function! FoldText()
-  let l:lpadding = &fdc
-  redir => l:signs
-  execute 'silent sign place buffer='.bufnr('%')
-  redir End
-  let l:lpadding += l:signs =~ 'id=' ? 2 : 0
-
-  if exists("+relativenumber")
-    if (&number)
-      let l:lpadding += max([&numberwidth, strlen(line('$'))]) + 1
-    elseif (&relativenumber)
-      let l:lpadding += max([&numberwidth, strlen(v:foldstart) + strlen(v:foldstart - line('w0')), strlen(v:foldstart) + strlen(line('w$') - v:foldstart)]) + 1
-    endif
-  else
-    if (&number)
-      let l:lpadding += max([&numberwidth, strlen(line('$'))]) + 1
-    endif
-  endif
-
-  " expand tabs
-  let l:start = substitute(getline(v:foldstart), '\t', repeat(' ', &tabstop), 'g')
-  let l:end = substitute(substitute(getline(v:foldend), '\t', repeat(' ', &tabstop), 'g'), '^\s*', '', 'g')
-
-  let l:info = ' (' . (v:foldend - v:foldstart) . ')'
-  let l:infolen = strlen(substitute(l:info, '.', 'x', 'g'))
-  let l:width = winwidth(0) - l:lpadding - l:infolen
-
-  let l:separator = ' … '
-  let l:separatorlen = strlen(substitute(l:separator, '.', 'x', 'g'))
-  let l:start = strpart(l:start , 0, l:width - strlen(substitute(l:end, '.', 'x', 'g')) - l:separatorlen)
-  let l:text = l:start . ' … ' . l:end
-
-  return l:text . repeat(' ', l:width - strlen(substitute(l:text, ".", "x", "g"))) . l:info
-endfunction
+set foldtext=getline(v:foldstart).'...'
+set fillchars=stl:\ ,stlnc:\ ,vert:\|,fold:\ ,diff:-
 
 " KEY SETTINGS
 " ------------
@@ -177,7 +144,7 @@ Plug 'pbrisbin/vim-colors-off'
 set rtp+=~/.vim/plugged/vim-colors-off
 set background=light
 colorscheme off
-hi! Normal ctermbg=none ctermfg=blue
+hi! Normal ctermbg=none ctermfg=31
 " sublime-liked multiple cursors
 Plug 'terryma/vim-multiple-cursors'
 " improved javascript syntax
@@ -223,8 +190,8 @@ let g:ale_fixers['javascript'] = ['eslint']
 let g:ale_javascript_eslint_executable = 'eslint_d'
 let g:ale_javascript_eslint_use_global = 1
 let g:ale_fix_on_save = 1
-let g:ale_set_quickfix = 0
-let g:ale_open_list = 0
+let g:ale_set_quickfix = 1
+let g:ale_open_list = 1
 let g:ale_lint_on_save = 1
 let g:ale_lint_on_enter = 0
 let g:ale_lint_on_text_changed = 0
@@ -263,11 +230,4 @@ let g:tmuxline_preset = {
     \'y'       : '',
     \'z'       : '',
     \'options' : {'status-justify' : 'left'}}
-Plug 'Yggdroot/indentLine'
-let g:indentLine_loaded = 0
-let g:indentLine_char = '¦'
-let g:indentLine_first_char = '¦'
-let g:indentLine_showFirstIndentLevel = 1
-let g:indentLine_leadingSpaceEnabled = 1
-let g:indentLine_leadingSpaceChar = '-'
 call plug#end()
