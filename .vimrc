@@ -50,31 +50,14 @@ set textwidth=0
 set showbreak=↳\ 
 set listchars+=tab:»\ ,trail:•
 set list
-" disable netrw
-let g:loaded_netrwPlugin = 1
-let g:loaded_matchparen=1
-
-augroup AutoMisc
-  au!
-  au BufWritePost .vimrc source %
-  au BufWritePost bspwmrc !pkill -TERM -x bspwmrc
-  au BufWritePost bspwmrc !%
-  au BufWritePost sxhkdrc !pkill -TERM -x sxhkd
-  au BufWritePost sxhkdrc !sxhkd&
-  au BufWritePost .Xresources !xrdb "%:p"
-  au FileType qf resize 3
-augroup END
-
 " enable folding
 set foldenable
-" set folding method to `syntax`
-set foldmethod=syntax
-" only fold the first level
-set foldnestmax=100 foldlevel=0
-" enable folding for javascript syntax
-let javaScript_fold=1
-set foldtext=getline(v:foldstart).'...'
-set fillchars=stl:\ ,stlnc:\ ,vert:\|,fold:\ ,diff:-
+set foldtext=getline(v:foldstart)
+set fillchars=stl:\ ,stlnc:\ ,vert:\|,fold:\-,diff:-
+" disable netrw
+let g:loaded_netrwPlugin = 1
+" disable matching parens
+let g:loaded_matchparen=1
 
 " KEY SETTINGS
 " ------------
@@ -85,7 +68,7 @@ nnoremap <F10> :so ~/.vimrc<CR>
 nnoremap B ^
 nnoremap E $
 " key mapping to unfold current block and close other blocks
-nnoremap <space> zMzAzz
+nnoremap <silent> <space> zMzvzz
 " keep the cursor always be vertical center
 nnoremap G Gzz
 vnoremap G Gzz
@@ -149,6 +132,11 @@ hi! Normal ctermbg=none ctermfg=31
 Plug 'terryma/vim-multiple-cursors'
 " improved javascript syntax
 Plug 'pangloss/vim-javascript'
+augroup javascript_folding
+    au!
+    au FileType javascript setlocal foldmethod=syntax
+    au FileType javascript setlocal foldnestmax=100 foldlevel=0
+augroup END
 " jsx syntax
 Plug 'MaxMEllon/vim-jsx-pretty'
 hi! link jsxCloseTag jsxTag
@@ -190,8 +178,8 @@ let g:ale_fixers['javascript'] = ['eslint']
 let g:ale_javascript_eslint_executable = 'eslint_d'
 let g:ale_javascript_eslint_use_global = 1
 let g:ale_fix_on_save = 1
-let g:ale_set_quickfix = 1
-let g:ale_open_list = 1
+let g:ale_set_quickfix = 0
+let g:ale_open_list = 0
 let g:ale_lint_on_save = 1
 let g:ale_lint_on_enter = 0
 let g:ale_lint_on_text_changed = 0
@@ -212,14 +200,14 @@ let w:airline_skip_empty_sections = 1
 let g:airline_section_y = ''
 let g:airline_section_z = ''
 let g:airline_skip_empty_sections = 1
-let g:airline_powerline_fonts = 0
+let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#fnamemod = ':.'
 let g:airline#extensions#tabline#fnamecollapse = 0
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#wordcount#enabled = 0
 let g:airline#extensions#whitespace#enabled = 0
 Plug 'edkolev/tmuxline.vim'
-let g:tmuxline_powerline_separators = 0
+let g:tmuxline_powerline_separators = 1
 let g:tmuxline_preset = {
     \'a'       : '',
     \'b'       : '',
@@ -230,4 +218,12 @@ let g:tmuxline_preset = {
     \'y'       : '',
     \'z'       : '',
     \'options' : {'status-justify' : 'left'}}
+Plug 'plasticboy/vim-markdown'
+let g:vim_markdown_no_extensions_in_markdown = 1
+augroup vim_markdown
+  au!
+  au FileType markdown setlocal conceallevel=2
+  au FileType markdown setlocal colorcolumn=80
+  au FileType markdown setlocal textwidth=80
+augroup END
 call plug#end()
