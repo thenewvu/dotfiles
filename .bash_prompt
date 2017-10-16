@@ -46,7 +46,7 @@ function prompt_build {
 }
 
 function bash_prompt {
-    printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' '/'
+    printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' '-'
     prompt_build
     PS1="$REPLY"
 }

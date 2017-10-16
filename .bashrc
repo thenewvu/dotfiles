@@ -3,9 +3,13 @@ source ~/.bash_prompt
 # set vi key mode
 set -o vi
 
-export PATH=/home/$USER/.bin:/home/$USER/.node_modules/bin:/Users/$USER/Library/Android/sdk/platform-tools:/Applications/Android\ Studio.app/Contents/jre/jdk/Contents/Home/bin:/usr/local/opt/coreutils/libexec/gnubin:$PATH
+export PATH=/home/$USER/.bin:$PATH
+export PATH=/home/$USER/.node_modules/bin:$PATH
+export PATH=/Users/$USER/Library/Android/sdk/platform-tools:$PATH
+export PATH=/Users/$USER/Library/Android/sdk/emulator:$PATH
+export PATH=/Applications/Android\ Studio.app/Contents/jre/jdk/Contents/Home/bin:$PATH
+export PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
 export MANPATH=/usr/local/opt/coreutils/libexec/gnuman:$MANPATH
-
 export VISUAL="nvim"
 export EDITOR="nvim"
 export FZF_DEFAULT_OPTS="--height=40% --color=bw --reverse"
@@ -16,9 +20,11 @@ export FREETYPE_PROPERTIES="truetype:interpreter-version=38"
 export HISTFILESIZE=10000
 export HISTSIZE=${HISTFILESIZE}
 # Use leading space to hide commands from history:
-export HISTCONTROL=ignorespace
+export HISTCONTROL=ignorespace:ignoredups:erasedups
+# When the shell exits, append to the history file instead of overwriting it
+shopt -s histappend
 # Ensure syncing (flushing and reloading) of .bash_history with in-memory history:
-export PROMPT_COMMAND="history -a; history -n; ${PROMPT_COMMAND}"
+export PROMPT_COMMAND="history -a; history -c; history -r;${PROMPT_COMMAND}"
 
 
 alias gs="git st"
