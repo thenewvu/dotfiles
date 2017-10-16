@@ -14,6 +14,7 @@ rules:
   no-multi-spaces: 0
   object-property-newline: 0
   standard/object-curly-even-spacing: 0
+  standard/computed-property-even-spacing: 0
   react/prop-types: 0
   promise/param-names: 0
   react/no-children-prop: 0
