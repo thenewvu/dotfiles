@@ -11,6 +11,7 @@ extends:
 - plugin:react/recommended
 - plugin:react-native/all
 rules:
+  camelcase: 0
   no-multi-spaces: 0
   object-property-newline: 0
   standard/object-curly-even-spacing: 0
