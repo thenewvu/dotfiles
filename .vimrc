@@ -48,8 +48,9 @@ set wrap linebreak
 set breakindent
 set textwidth=0
 set showbreak=↳\ 
-set listchars+=tab:»\ ,trail:•
+set listchars=tab:»\ ,trail:•
 set list
+set conceallevel=0
 " enable folding
 set foldenable
 set foldtext=getline(v:foldstart)
@@ -58,6 +59,10 @@ set fillchars=stl:\ ,stlnc:\ ,vert:\|,fold:\-,diff:-
 let g:loaded_netrwPlugin = 1
 " disable matching parens
 let g:loaded_matchparen=1
+augroup vim_groovy
+  au!
+  au FileType groovy setlocal tabstop=4 softtabstop=4 shiftwidth=4
+augroup END
 
 " KEY SETTINGS
 " ------------
@@ -122,20 +127,17 @@ nnoremap < <<
 " ---------------
 
 call plug#begin('~/.vim/plugged')
-" color scheme
-Plug 'pbrisbin/vim-colors-off'
-set rtp+=~/.vim/plugged/vim-colors-off
+Plug 'NLKNguyen/papercolor-theme'
+set rtp+=~/.vim/plugged/papercolor-theme
 set background=light
-colorscheme off
-hi! Normal ctermbg=none ctermfg=31
+colorscheme PaperColor
 " sublime-liked multiple cursors
 Plug 'terryma/vim-multiple-cursors'
 " improved javascript syntax
 Plug 'pangloss/vim-javascript'
-augroup javascript_folding
+augroup vim_javascript
     au!
-    au FileType javascript setlocal foldmethod=syntax
-    au FileType javascript setlocal foldnestmax=100 foldlevel=0
+    au FileType javascript setlocal foldmethod=syntax foldnestmax=100 foldlevel=0 colorcolumn=80
 augroup END
 " jsx syntax
 Plug 'MaxMEllon/vim-jsx-pretty'
@@ -190,40 +192,17 @@ let g:ale_sign_warning = '⚠ '
 hi! ALEErrorSign ctermbg=none ctermfg=red
 hi! ALEWarningSign ctermbg=none ctermfg=yellow
 hi! SignColumn ctermbg=none
-" previews hex, rgb
-Plug 'chrisbra/Colorizer'
-Plug 'elzr/vim-json'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-let g:airline_theme='sol'
-let w:airline_skip_empty_sections = 1
-let g:airline_section_y = ''
-let g:airline_section_z = ''
-let g:airline_skip_empty_sections = 1
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#fnamemod = ':.'
-let g:airline#extensions#tabline#fnamecollapse = 0
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#wordcount#enabled = 0
-let g:airline#extensions#whitespace#enabled = 0
-Plug 'edkolev/tmuxline.vim'
-let g:tmuxline_powerline_separators = 1
-let g:tmuxline_preset = {
-    \'a'       : '',
-    \'b'       : '',
-    \'c'       : '',
-    \'win'     : '#W',
-    \'cwin'    : '#W',
-    \'x'       : '',
-    \'y'       : '',
-    \'z'       : '',
-    \'options' : {'status-justify' : 'left'}}
-Plug 'plasticboy/vim-markdown'
-let g:vim_markdown_no_extensions_in_markdown = 1
+Plug 'gabrielelana/vim-markdown'
+let g:markdown_enable_spell_checking = 0
 augroup vim_markdown
   au!
-  au FileType markdown setlocal conceallevel=2
-  au FileType markdown setlocal colorcolumn=80
-  au FileType markdown setlocal textwidth=80
+  au FileType markdown setlocal textwidth=79 colorcolumn=80
 augroup END
+Plug 'ap/vim-buftabline'
+let g:buftabline_indicators = 1
+hi! link BufTabLineCurrent Normal
+hi! link BufTabLineActive Comment
+hi! link BufTabLineHidden Comment
+hi! link BufTabLineFill Comment
+Plug 'Yggdroot/indentLine'
 call plug#end()
