@@ -205,4 +205,5 @@ hi! link BufTabLineActive Comment
 hi! link BufTabLineHidden Comment
 hi! link BufTabLineFill Comment
 Plug 'Yggdroot/indentLine'
+let g:indentLine_faster = 1
 call plug#end()
