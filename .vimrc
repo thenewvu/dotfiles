@@ -194,6 +194,7 @@ hi! ALEWarningSign ctermbg=none ctermfg=yellow
 hi! SignColumn ctermbg=none
 Plug 'gabrielelana/vim-markdown'
 let g:markdown_enable_spell_checking = 0
+let g:markdown_enable_insert_mode_mappings = 0
 augroup vim_markdown
   au!
   au FileType markdown setlocal textwidth=79 colorcolumn=80
