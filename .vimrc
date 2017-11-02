@@ -53,8 +53,12 @@ set list
 set conceallevel=0
 " enable folding
 set foldenable
+set foldmethod=syntax
+set foldnestmax=100 
+set foldlevel=0 
 set foldtext=getline(v:foldstart)
 set fillchars=stl:\ ,stlnc:\ ,vert:\|,fold:\-,diff:-
+set colorcolumn=80
 " disable netrw
 let g:loaded_netrwPlugin = 1
 " disable matching parens
@@ -135,10 +139,6 @@ colorscheme PaperColor
 Plug 'terryma/vim-multiple-cursors'
 " improved javascript syntax
 Plug 'pangloss/vim-javascript'
-augroup vim_javascript
-    au!
-    au FileType javascript setlocal foldmethod=syntax foldnestmax=100 foldlevel=0 colorcolumn=80
-augroup END
 " jsx syntax
 Plug 'MaxMEllon/vim-jsx-pretty'
 hi! link jsxCloseTag jsxTag
@@ -207,4 +207,5 @@ hi! link BufTabLineHidden Comment
 hi! link BufTabLineFill Comment
 Plug 'Yggdroot/indentLine'
 let g:indentLine_faster = 1
+Plug 'fatih/vim-go'
 call plug#end()
