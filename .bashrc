@@ -25,7 +25,9 @@ export HISTCONTROL=ignorespace:ignoredups:erasedups
 shopt -s histappend
 # Ensure syncing (flushing and reloading) of .bash_history with in-memory history:
 export PROMPT_COMMAND="history -a; history -c; history -r;${PROMPT_COMMAND}"
-
+# Golang workspace
+export GOPATH=$HOME/Works/projects/go
+export PATH=$HOME/Works/projects/go/bin:$PATH
 
 alias gs="git st"
 alias ga="git add"
