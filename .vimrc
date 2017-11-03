@@ -33,7 +33,7 @@ set ttyfast
 set incsearch
 " <esc> delay
 set timeoutlen=400 ttimeoutlen=0
-set number
+set nonumber
 set noshowcmd
 set noshowmode
 set laststatus=1
@@ -49,16 +49,8 @@ set breakindent
 set textwidth=0
 set showbreak=↳\ 
 set listchars=tab:»\ ,trail:•
-set list
+set nolist
 set conceallevel=0
-" enable folding
-set foldenable
-set foldmethod=syntax
-set foldnestmax=100 
-set foldlevel=0 
-set foldtext=getline(v:foldstart)
-set fillchars=stl:\ ,stlnc:\ ,vert:\|,fold:\-,diff:-
-set colorcolumn=80
 " disable netrw
 let g:loaded_netrwPlugin = 1
 " disable matching parens
@@ -205,7 +197,11 @@ hi! link BufTabLineCurrent Normal
 hi! link BufTabLineActive Comment
 hi! link BufTabLineHidden Comment
 hi! link BufTabLineFill Comment
-Plug 'Yggdroot/indentLine'
-let g:indentLine_faster = 1
 Plug 'fatih/vim-go'
+Plug 'Konfekt/FoldText'
+set foldenable
+set foldmethod=syntax
+set foldnestmax=100 
+set foldlevel=0 
+set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
 call plug#end()
