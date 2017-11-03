@@ -51,11 +51,28 @@ set showbreak=↳\
 set listchars=tab:»\ ,trail:•
 set nolist
 set conceallevel=0
+set foldenable
+set foldmethod=syntax
+set foldnestmax=100 
+set foldlevel=0 
+set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
+set fillchars+=fold:\ 
+set textwidth=79
+set colorcolumn=80
+" http://vim.wikia.com/wiki/Folding_for_plain_text_files_based_on_indentation
+setlocal foldtext=MyFoldText()
+function! MyFoldText()
+	let line = getline(v:foldstart)
+	" Foldtext ignores tabstop and shows tabs as one space,
+	" so convert tabs to 'tabstop' spaces so text lines up
+	let ts = repeat(' ',&tabstop)
+	return substitute(line, '\t', ts, 'g')
+endfunction
 " disable netrw
 let g:loaded_netrwPlugin = 1
 " disable matching parens
 let g:loaded_matchparen=1
-augroup vim_groovy
+augroup auto_cmds
   au!
   au FileType groovy setlocal tabstop=4 softtabstop=4 shiftwidth=4
 augroup END
@@ -85,7 +102,7 @@ nnoremap O O<esc>
 " break/join lines
 nnoremap J i<enter><esc>
 nnoremap K J
-" nevigate between buffers
+" navigate between buffers
 nnoremap gn <C-^>
 nnoremap gt :bnext<cr>
 nnoremap gT :bprev<cr>
@@ -187,10 +204,6 @@ hi! SignColumn ctermbg=none
 Plug 'gabrielelana/vim-markdown'
 let g:markdown_enable_spell_checking = 0
 let g:markdown_enable_insert_mode_mappings = 0
-augroup vim_markdown
-  au!
-  au FileType markdown setlocal textwidth=79 colorcolumn=80
-augroup END
 Plug 'ap/vim-buftabline'
 let g:buftabline_indicators = 1
 hi! link BufTabLineCurrent Normal
@@ -198,10 +211,4 @@ hi! link BufTabLineActive Comment
 hi! link BufTabLineHidden Comment
 hi! link BufTabLineFill Comment
 Plug 'fatih/vim-go'
-Plug 'Konfekt/FoldText'
-set foldenable
-set foldmethod=syntax
-set foldnestmax=100 
-set foldlevel=0 
-set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
 call plug#end()
