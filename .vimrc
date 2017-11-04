@@ -6,7 +6,7 @@ set dir=$HOME/.vim/tmp/
 set nobackup
 set noswapfile
 set undofile
-set undodir=~/.vim/undodir
+set undodir=$HOME/.vim/undodir
 " do replacing globally by default
 set gdefault
 syntax enable
@@ -46,7 +46,6 @@ set showmatch
 set hlsearch
 set wrap linebreak
 set breakindent
-set textwidth=0
 set showbreak=↳\ 
 set listchars=tab:»\ ,trail:•
 set nolist
@@ -127,11 +126,6 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 " run a shell command
 nnoremap ! :! 
-" identify the syntax highlighting group used at the cursor
-" http://vim.wikia.com/wiki/VimTip99
-map <leader>ie :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 " move left/right one indent
 nnoremap > >>
 nnoremap < <<
