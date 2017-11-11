@@ -13,8 +13,8 @@ export MANPATH=/usr/local/opt/coreutils/libexec/gnuman:$MANPATH
 export VISUAL="nvim"
 export EDITOR="nvim"
 export FZF_DEFAULT_OPTS="--height=40% --color=bw --reverse"
-export FZF_DEFAULT_COMMAND="rg --files --hidden --glob='!.git/*'"
-export FZF_CTRL_T_COMMAND="rg --files --hidden --glob='!.git/*'"
+export FZF_DEFAULT_COMMAND="rg --files --hidden --glob='!.git/*' --glob='!node_modules/*'"
+export FZF_CTRL_T_COMMAND="rg --files --hidden --glob='!.git/*' --glob='!node_modules/*'"
 export FREETYPE_PROPERTIES="truetype:interpreter-version=38"
 # Increase the size of history maintained by BASH
 export HISTFILESIZE=10000
@@ -44,8 +44,6 @@ alias yli='comm -23 <(pacman -Qqt | sort) <(pacman -Qqg base base-devel | sort) 
 
 alias mpv='mpv --no-border --ontop --really-quiet --geometry=384x216-7-7 --loop-file=inf --ytdl-format="94/95/480p"'
 alias mpa='mpv --no-video --loop-file=inf --really-quiet --ytdl-format="bestaudio"'
-
-alias tmux="$(which tmux) attach -t tmux || $(which tmux) new -s tmux"
 
 alias l="ls -lcthr"
 alias ls="ls -lcthr"
