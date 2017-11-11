@@ -44,18 +44,17 @@ set expandtab
 set wildmenu
 set showmatch
 set hlsearch
-set wrap linebreak
 set breakindent
 set showbreak=↳\ 
 set listchars=tab:»\ ,trail:•
 set nolist
+set nowrap
 set foldenable
 set foldmethod=syntax
-set foldnestmax=100 
+set foldnestmax=100
 set foldlevel=0 
 set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
 set fillchars+=fold:\ 
-set textwidth=79
 " http://vim.wikia.com/wiki/Folding_for_plain_text_files_based_on_indentation
 set foldtext=MyFoldText()
 function! MyFoldText()
@@ -72,7 +71,7 @@ let g:loaded_matchparen=1
 augroup auto_cmds
   au!
   au FileType groovy setlocal tabstop=4 softtabstop=4 shiftwidth=4
-  au FileType markdown setlocal formatoptions+=a
+  au FileType markdown setlocal textwidth=79 linebreak
 augroup END
 
 " KEY SETTINGS
@@ -84,7 +83,7 @@ nnoremap <F10> :so ~/.vimrc<CR>
 nnoremap B ^
 nnoremap E $
 " key mapping to unfold current block and close other blocks
-nnoremap <silent> <space> zMzvzz
+nnoremap <space> zMzvzz
 " keep the cursor always be vertical center
 nnoremap G Gzz
 vnoremap G Gzz
@@ -101,6 +100,7 @@ nnoremap O O<esc>
 nnoremap J i<enter><esc>
 nnoremap K J
 " navigate between buffers
+nnoremap <silent> <C-w><C-w> <C-w><C-w>:if &buftype ==# 'quickfix'<Bar>wincmd w<Bar>endif<CR>
 nnoremap gn <C-^>
 nnoremap gt :bnext<cr>
 nnoremap gT :bprev<cr>
@@ -165,7 +165,7 @@ let g:closetag_filenames = "*.html,*.xml,*.js,*.jsx"
 " search/replace with preview and undoable
 Plug 'brooth/far.vim'
 let g:far#window_layout = "current"
-let g:far#auto_preview = 0
+let g:far#auto_preview = 1
 set wildignore+=**/node_modules/**,**/build/**,**/Build/**
 nnoremap <leader>f :F 
 nnoremap <leader>r :Far 
@@ -182,8 +182,9 @@ let g:ale_fixers['javascript'] = ['eslint']
 let g:ale_javascript_eslint_executable = 'eslint_d'
 let g:ale_javascript_eslint_use_global = 1
 let g:ale_fix_on_save = 1
-let g:ale_set_quickfix = 0
-let g:ale_open_list = 0
+let g:ale_set_quickfix = 1
+let g:ale_open_list = 1
+let g:ale_list_window_size = 3
 let g:ale_lint_on_save = 1
 let g:ale_lint_on_enter = 0
 let g:ale_lint_on_text_changed = 0
