@@ -72,6 +72,8 @@ augroup auto_cmds
   au!
   au FileType groovy setlocal tabstop=4 softtabstop=4 shiftwidth=4
   au FileType markdown setlocal textwidth=79 linebreak
+  au FileType qf set nobuflisted
+  au BufWritePost .vimrc source %
 augroup END
 
 " KEY SETTINGS
@@ -100,7 +102,6 @@ nnoremap O O<esc>
 nnoremap J i<enter><esc>
 nnoremap K J
 " navigate between buffers
-nnoremap <silent> <C-w><C-w> <C-w><C-w>:if &buftype ==# 'quickfix'<Bar>wincmd w<Bar>endif<CR>
 nnoremap gn <C-^>
 nnoremap gt :bnext<cr>
 nnoremap gT :bprev<cr>
@@ -165,7 +166,7 @@ let g:closetag_filenames = "*.html,*.xml,*.js,*.jsx"
 " search/replace with preview and undoable
 Plug 'brooth/far.vim'
 let g:far#window_layout = "current"
-let g:far#auto_preview = 1
+let g:far#auto_preview = 0
 set wildignore+=**/node_modules/**,**/build/**,**/Build/**
 nnoremap <leader>f :F 
 nnoremap <leader>r :Far 
