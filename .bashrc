@@ -42,8 +42,9 @@ alias ylt='expac --timefmt="%Y-%m-%d %T" "%l\t%n" | sort | less'
 alias ylh='expac -H M "%m\t%n" | sort -h | less'
 alias yli='comm -23 <(pacman -Qqt | sort) <(pacman -Qqg base base-devel | sort) | less'
 
-alias mpv='mpv --no-border --ontop --really-quiet --geometry=384x216-7-7 --loop-file=inf --ytdl-format="94/95/480p"'
-alias mpa='mpv --no-video --loop-file=inf --really-quiet --ytdl-format="bestaudio"'
+alias ytv='mpv --ytdl-format="94/95/480p"'
+alias yta='mpv --no-video --ytdl-format=bestaudio'
+alias mpa='mpv --no-video'
 
 alias l="ls -lcthr"
 alias ls="ls -lcthr"
