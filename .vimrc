@@ -134,10 +134,12 @@ nnoremap < <<
 " ---------------
 
 call plug#begin('~/.vim/plugged')
-Plug 'chriskempson/vim-tomorrow-theme'
-set rtp+=~/.vim/plugged/vim-tomorrow-theme
+Plug 'noahfrederick/vim-hemisu'
+set rtp+=~/.vim/plugged/vim-hemisu
 set background=light
-colorscheme tomorrow
+colorscheme hemisu
+hi! Normal ctermbg=none
+hi! Folded ctermbg=none
 " sublime-liked multiple cursors
 Plug 'terryma/vim-multiple-cursors'
 " improved javascript syntax
@@ -149,7 +151,7 @@ hi! link jsxCloseString jsxTag
 " commenting
 Plug 'tomtom/tcomment_vim'
 " automatically add end bracket/quote
-Plug 'jiangmiao/auto-pairs'
+Plug 'Raimondi/delimitMate'
 " fuzzy search files
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
