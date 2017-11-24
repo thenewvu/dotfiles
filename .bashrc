@@ -51,6 +51,11 @@ alias ls="ls -lcthr"
 
 alias ..="cd .."
 
+# open a logbook for today
+function logbook() {
+  nvim ~/Works/logs/$(date '+%Y-%m-%d').md
+}
+
 if [[ -e  /usr/share/fzf/completion.bash ]]; then
   source /usr/share/fzf/completion.bash
 fi
