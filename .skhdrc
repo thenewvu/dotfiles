@@ -1,0 +1,72 @@
+## NOTE(koekeishiya): A list of all built-in modifier and literal keywords can
+#                     be found at https://github.com/koekeishiya/skhd/issues/1
+#
+#                     A hotkey is written according to the following rules:
+#
+#                       hotkey   = <keysym> ':' <command> |
+#                                  <keysym> '->' ':' <command>
+#
+#                       keysym   = <mod> '-' <key> | <key>
+#
+#                       mod      = 'built-in mod keyword' | <mod> '+' <mod>
+#
+#                       key      = <literal> | <keycode>
+#
+#                       literal  = 'single letter or built-in keyword'
+#
+#                       keycode  = 'apple keyboard kVK_<Key> values (0x3C)'
+#
+#                       ->       = keypress is not consumed by skhd
+#
+#                       command  = command is executed through '$SHELL -c' and
+#                                  follows valid shell syntax. if the $SHELL environment
+#                                  variable is not set, it will default to '/bin/bash'.
+#                                  when bash is used, the ';' delimeter can be specified
+#                                  to chain commands.
+#
+#                                  to allow a command to extend into multiple lines,
+#                                  prepend '\' at the end of the previous line.
+#
+#                                  an EOL character signifies the end of the bind.
+
+# focus window
+cmd - h : chunkc tiling::window --focus west
+cmd - j : chunkc tiling::window --focus south
+cmd - k : chunkc tiling::window --focus north
+cmd - l : chunkc tiling::window --focus east
+
+# move window
+shift + cmd - h : chunkc tiling::window --warp west
+shift + cmd - j : chunkc tiling::window --warp south
+shift + cmd - k : chunkc tiling::window --warp north
+shift + cmd - l : chunkc tiling::window --warp east
+
+# send window to desktop
+shift + cmd - 1 : chunkc tiling::window --send-to-desktop 1
+shift + cmd - 2 : chunkc tiling::window --send-to-desktop 2
+shift + cmd - 3 : chunkc tiling::window --send-to-desktop 3
+shift + cmd - 4 : chunkc tiling::window --send-to-desktop 4
+shift + cmd - 5 : chunkc tiling::window --send-to-desktop 5
+shift + cmd - 6 : chunkc tiling::window --send-to-desktop 6
+
+# increase region size
+alt - h : chunkc tiling::window --use-temporary-ratio 0.1 --adjust-window-edge west
+alt - j : chunkc tiling::window --use-temporary-ratio 0.1 --adjust-window-edge south
+alt - k : chunkc tiling::window --use-temporary-ratio 0.1 --adjust-window-edge north
+alt - l : chunkc tiling::window --use-temporary-ratio 0.1 --adjust-window-edge east
+
+# decrease region size
+shift + alt - h : chunkc tiling::window --use-temporary-ratio -0.1 --adjust-window-edge west
+shift + alt - j : chunkc tiling::window --use-temporary-ratio -0.1 --adjust-window-edge south
+shift + alt - k : chunkc tiling::window --use-temporary-ratio -0.1 --adjust-window-edge north
+shift + alt - l : chunkc tiling::window --use-temporary-ratio -0.1 --adjust-window-edge east
+
+# toggle window fullscreen
+cmd - f : chunkc tiling::window --toggle fullscreen
+
+# float / unfloat window
+cmd - t : chunkc tiling::window --toggle float
+
+# toggle sticky, float and resize to picture-in-picture size
+cmd - s : chunkc tiling::window --toggle sticky;\
+          chunkc tiling::window --warp-floating pip-right

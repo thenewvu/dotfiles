@@ -1,0 +1,34 @@
+#!/bin/bash
+
+######################################################
+# CORE
+######################################################
+chunkc core::plugin_dir /usr/local/opt/chunkwm/share/chunkwm/plugins
+# chunkc core::load border.so
+chunkc core::load tiling.so
+chunkc core::load ffm.so
+
+######################################################
+# TILING
+######################################################
+chunkc set global_desktop_mode           bsp
+
+chunkc set global_desktop_offset_top     10
+chunkc set global_desktop_offset_bottom  10
+chunkc set global_desktop_offset_left    10
+chunkc set global_desktop_offset_right   10
+chunkc set global_desktop_offset_gap     5
+
+chunkc set bsp_spawn_left                1
+chunkc set bsp_optimal_ratio             1.618
+chunkc set bsp_split_mode                optimal
+chunkc set bsp_split_ratio               0.5
+
+chunkc set window_focus_cycle            monitor
+chunkc set mouse_follows_focus           0
+chunkc set window_float_next             0
+chunkc set window_float_center           1
+chunkc set window_region_locked          1
+
+chunkc tiling::rule --owner Finder --name Copy --state float
+chunkc tiling::rule --owner \"App Store\" --state float

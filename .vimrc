@@ -1,15 +1,22 @@
 " BEHAVIOR SETTINGS
 " -----------------
 
-let g:mapleader = ";"
-set dir=$HOME/.vim/tmp/
+" set working dir
+set directory=$HOME/.vim/tmp/
+" no junk files
 set nobackup
+set nowritebackup
 set noswapfile
+" persist undo history
+set undodir=~/.vim/undo
 set undofile
-set undodir=$HOME/.vim/undodir
+set undolevels=1000
+set undoreload=10000
+" more natural split opening
+set splitbelow
+set splitright
 " do replacing globally by default
 set gdefault
-syntax enable
 " ask to confirm closing an unsaved file
 set confirm
 " switch between buffers without saving
@@ -31,8 +38,9 @@ set smartcase
 set lazyredraw
 set ttyfast
 set incsearch
-" <esc> delay
-set timeoutlen=400 ttimeoutlen=0
+" smaller <esc> delay
+set timeoutlen=400 
+set ttimeoutlen=0
 set nonumber
 set noshowcmd
 set noshowmode
@@ -42,6 +50,7 @@ set softtabstop=2
 set shiftwidth=2
 set expandtab
 set wildmenu
+set wildmode=longest,list
 set showmatch
 set hlsearch
 set breakindent
@@ -66,7 +75,7 @@ function! MyFoldText()
 endfunction
 " disable netrw
 let g:loaded_netrwPlugin = 1
-" disable matching parens
+" disable auto matching parens
 let g:loaded_matchparen=1
 augroup auto_cmds
   au!
@@ -74,13 +83,19 @@ augroup auto_cmds
   au FileType markdown setlocal textwidth=79 linebreak
   au FileType qf set nobuflisted
   au BufWritePost .vimrc source %
+  au BufWritePost .chunkwmrc !brew services restart chunkwm
+  au BufWritePost .skhdrc !brew services restart skhd
 augroup END
 
 " KEY SETTINGS
 " ------------
+
+let g:mapleader = ";"
 nnoremap <leader>e :e 
 nnoremap <F2> :e ~/.vimrc<CR>
 nnoremap <F10> :so ~/.vimrc<CR>
+" no more Ex mode
+nnoremap Q <nop>
 " jump to begin/end of lines
 nnoremap B ^
 nnoremap E $
@@ -135,6 +150,7 @@ nnoremap < <<
 
 call plug#begin('~/.vim/plugged')
 Plug 'noahfrederick/vim-hemisu'
+syntax enable
 set rtp+=~/.vim/plugged/vim-hemisu
 set background=light
 colorscheme hemisu
@@ -143,9 +159,9 @@ hi! Folded ctermbg=none
 " sublime-liked multiple cursors
 Plug 'terryma/vim-multiple-cursors'
 " improved javascript syntax
-Plug 'pangloss/vim-javascript'
+Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 " jsx syntax
-Plug 'MaxMEllon/vim-jsx-pretty'
+Plug 'MaxMEllon/vim-jsx-pretty', { 'for': 'javascript' }
 hi! link jsxCloseTag jsxTag
 hi! link jsxCloseString jsxTag
 " commenting
@@ -198,7 +214,7 @@ let g:ale_sign_warning = '⚠ '
 hi! ALEErrorSign ctermbg=none ctermfg=red
 hi! ALEWarningSign ctermbg=none ctermfg=yellow
 hi! SignColumn ctermbg=none
-Plug 'gabrielelana/vim-markdown'
+Plug 'gabrielelana/vim-markdown', { 'for': 'markdown' }
 let g:markdown_enable_spell_checking = 0
 let g:markdown_enable_insert_mode_mappings = 0
 let g:markdown_enable_conceal = 1
@@ -208,5 +224,6 @@ hi! link BufTabLineCurrent Normal
 hi! link BufTabLineActive Comment
 hi! link BufTabLineHidden Comment
 hi! link BufTabLineFill Comment
-Plug 'fatih/vim-go'
+Plug 'fatih/vim-go', { 'for': 'go' }
+Plug 'Yggdroot/indentLine'
 call plug#end()
