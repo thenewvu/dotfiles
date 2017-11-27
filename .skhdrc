@@ -66,7 +66,3 @@ cmd - f : chunkc tiling::window --toggle fullscreen
 
 # float / unfloat window
 cmd - t : chunkc tiling::window --toggle float
-
-# toggle sticky, float and resize to picture-in-picture size
-cmd - s : chunkc tiling::window --toggle sticky;\
-          chunkc tiling::window --warp-floating pip-right
