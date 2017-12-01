@@ -29,6 +29,12 @@
 #
 #                                  an EOL character signifies the end of the bind.
 
+# toggle window fullscreen
+shift + cmd - f : chunkc tiling::window --toggle fullscreen
+
+# toggle window floating
+shift + cmd - t : chunkc tiling::window --toggle float
+
 # focus window
 cmd - h : chunkc tiling::window --focus west
 cmd - j : chunkc tiling::window --focus south
@@ -50,19 +56,8 @@ shift + cmd - 5 : chunkc tiling::window --send-to-desktop 5
 shift + cmd - 6 : chunkc tiling::window --send-to-desktop 6
 
 # increase region size
-alt - h : chunkc tiling::window --use-temporary-ratio 0.1 --adjust-window-edge west
-alt - j : chunkc tiling::window --use-temporary-ratio 0.1 --adjust-window-edge south
-alt - k : chunkc tiling::window --use-temporary-ratio 0.1 --adjust-window-edge north
-alt - l : chunkc tiling::window --use-temporary-ratio 0.1 --adjust-window-edge east
+shift + cmd  - left : chunkc tiling::window --use-temporary-ratio 0.1 --adjust-window-edge west
+shift + cmd  - down : chunkc tiling::window --use-temporary-ratio 0.1 --adjust-window-edge south
+shift + cmd  - up : chunkc tiling::window --use-temporary-ratio 0.1 --adjust-window-edge north
+shift + cmd  - right : chunkc tiling::window --use-temporary-ratio 0.1 --adjust-window-edge east
 
-# decrease region size
-shift + alt - h : chunkc tiling::window --use-temporary-ratio -0.1 --adjust-window-edge west
-shift + alt - j : chunkc tiling::window --use-temporary-ratio -0.1 --adjust-window-edge south
-shift + alt - k : chunkc tiling::window --use-temporary-ratio -0.1 --adjust-window-edge north
-shift + alt - l : chunkc tiling::window --use-temporary-ratio -0.1 --adjust-window-edge east
-
-# toggle window fullscreen
-cmd - f : chunkc tiling::window --toggle fullscreen
-
-# float / unfloat window
-cmd - t : chunkc tiling::window --toggle float

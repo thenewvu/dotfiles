@@ -60,7 +60,7 @@ set nolist
 set nowrap
 set foldenable
 set foldmethod=syntax
-set foldnestmax=100
+set foldnestmax=1
 set foldlevel=0 
 set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
 set fillchars+=fold:\ 
