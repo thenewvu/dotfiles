@@ -12,6 +12,10 @@ set undodir=~/.vim/undo
 set undofile
 set undolevels=1000
 set undoreload=10000
+" Disable the startup message
+set shortmess=I                
+" Keep cursor in the same place after saves
+set nostartofline              
 " more natural split opening
 set splitbelow
 set splitright
@@ -77,6 +81,8 @@ endfunction
 let g:loaded_netrwPlugin = 1
 " disable auto matching parens
 let g:loaded_matchparen=1
+" The max number of columns to try and highlight
+set synmaxcol=120
 augroup auto_cmds
   au!
   au FileType groovy setlocal tabstop=4 softtabstop=4 shiftwidth=4
@@ -150,12 +156,20 @@ nnoremap < <<
 
 call plug#begin('~/.vim/plugged')
 Plug 'noahfrederick/vim-hemisu'
+Plug 'owickstrom/vim-colors-paramount'
+Plug 'xero/blaquemagick.vim'
+Plug 'reedes/vim-colors-pencil'
+Plug 'jacoborus/tender.vim'
 syntax enable
 set rtp+=~/.vim/plugged/vim-hemisu
-set background=light
-colorscheme hemisu
-hi! Normal ctermbg=none
-hi! Folded ctermbg=none
+set rtp+=~/.vim/plugged/vim-colors-paramount
+set rtp+=~/.vim/plugged/blaquemagick.vim
+set rtp+=~/.vim/plugged/vim-colors-pencil
+set rtp+=~/.vim/plugged/tender.vim
+set background=dark
+colorscheme tender
+" hi! Normal ctermbg=none
+" hi! Folded ctermbg=none
 " sublime-liked multiple cursors
 Plug 'terryma/vim-multiple-cursors'
 " improved javascript syntax
