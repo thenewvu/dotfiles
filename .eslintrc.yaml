@@ -14,6 +14,7 @@ rules:
   camelcase: 0
   object-curly-spacing: [2, "never"]
   array-bracket-spacing: [2, "never"]
+  standard/no-callback-literal: 0
   react/prop-types: 0
   react/display-name: 0
   promise/param-names: 0

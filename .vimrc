@@ -14,6 +14,7 @@ set undolevels=1000
 set undoreload=10000
 " Disable the startup message
 set shortmess=I                
+set shortmess+=a
 " Keep cursor in the same place after saves
 set nostartofline              
 " more natural split opening
@@ -45,7 +46,7 @@ set incsearch
 " smaller <esc> delay
 set timeoutlen=400 
 set ttimeoutlen=0
-set nonumber
+set number
 set noshowcmd
 set noshowmode
 set laststatus=1
@@ -59,12 +60,11 @@ set showmatch
 set hlsearch
 set breakindent
 set showbreak=↳\ 
-set listchars=tab:»\ ,trail:•
 set nolist
 set nowrap
 set foldenable
 set foldmethod=syntax
-set foldnestmax=1
+set foldnestmax=5
 set foldlevel=0 
 set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
 set fillchars+=fold:\ 
@@ -86,7 +86,7 @@ set synmaxcol=120
 augroup auto_cmds
   au!
   au FileType groovy setlocal tabstop=4 softtabstop=4 shiftwidth=4
-  au FileType markdown setlocal textwidth=79 linebreak
+  au FileType markdown setlocal textwidth=79 linebreak wrap
   au FileType qf set nobuflisted
   au BufWritePost .vimrc source %
   au BufWritePost .chunkwmrc !brew services restart chunkwm
@@ -145,31 +145,34 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
+tnoremap <C-h> <C-w>h
+tnoremap <C-j> <C-w>j
+tnoremap <C-k> <C-w>k
+tnoremap <C-l> <C-w>l
+inoremap <C-h> <C-w>h
+inoremap <C-j> <C-w>j
+inoremap <C-k> <C-w>k
+inoremap <C-l> <C-w>l
 " run a shell command
 nnoremap ! :! 
 " move left/right one indent
 nnoremap > >>
 nnoremap < <<
+" <ecs> to escape temrinal mode
+tnoremap <Esc> <C-\><C-n>
+
+
 
 " PLUGIN SETTINGS
 " ---------------
 
 call plug#begin('~/.vim/plugged')
-Plug 'noahfrederick/vim-hemisu'
-Plug 'owickstrom/vim-colors-paramount'
-Plug 'xero/blaquemagick.vim'
-Plug 'reedes/vim-colors-pencil'
-Plug 'jacoborus/tender.vim'
+Plug 'ajmwagar/vim-dues'
 syntax enable
-set rtp+=~/.vim/plugged/vim-hemisu
-set rtp+=~/.vim/plugged/vim-colors-paramount
-set rtp+=~/.vim/plugged/blaquemagick.vim
-set rtp+=~/.vim/plugged/vim-colors-pencil
-set rtp+=~/.vim/plugged/tender.vim
+set rtp+=~/.vim/plugged/vim-dues
 set background=dark
-colorscheme tender
-" hi! Normal ctermbg=none
-" hi! Folded ctermbg=none
+colorscheme deus
+hi! Visual cterm=none ctermbg=darkgray
 " sublime-liked multiple cursors
 Plug 'terryma/vim-multiple-cursors'
 " improved javascript syntax
@@ -236,8 +239,7 @@ Plug 'ap/vim-buftabline'
 let g:buftabline_indicators = 1
 hi! link BufTabLineCurrent Normal
 hi! link BufTabLineActive Comment
-hi! link BufTabLineHidden Comment
-hi! link BufTabLineFill Comment
+hi! link BufTabLineHidden Folded
+hi! link BufTabLineFill Folded
 Plug 'fatih/vim-go', { 'for': 'go' }
-Plug 'Yggdroot/indentLine'
 call plug#end()
