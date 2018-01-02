@@ -1,6 +1,9 @@
 " BEHAVIOR SETTINGS
 " -----------------
-
+" point %% to the current the full page of the directory that containts the
+" current editing file
+" Ref: http://vim.wikia.com/wiki/Easy_edit_of_files_in_the_same_directory
+cabbr <expr> %% expand('%:p:h')
 " set working dir
 set directory=$HOME/.vim/tmp/
 " no junk files

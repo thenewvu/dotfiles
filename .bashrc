@@ -3,8 +3,6 @@ source ~/.bash_prompt
 # set vi key mode
 set -o vi
 
-export PATH=/home/$USER/.bin:$PATH
-export PATH=/home/$USER/.node_modules/bin:$PATH
 export PATH=/Users/$USER/Library/Android/sdk/platform-tools:$PATH
 export PATH=/Users/$USER/Library/Android/sdk/emulator:$PATH
 export PATH=/Applications/Android\ Studio.app/Contents/jre/jdk/Contents/Home/bin:$PATH
@@ -15,7 +13,6 @@ export EDITOR="nvim"
 export FZF_DEFAULT_OPTS="--height=40% --color=bw --reverse"
 export FZF_DEFAULT_COMMAND="rg --files --hidden --glob='!.git/*' --glob='!node_modules/*'"
 export FZF_CTRL_T_COMMAND="rg --files --hidden --glob='!.git/*' --glob='!node_modules/*'"
-export FREETYPE_PROPERTIES="truetype:interpreter-version=38"
 # Increase the size of history maintained by BASH
 export HISTFILESIZE=10000
 export HISTSIZE=${HISTFILESIZE}
@@ -37,25 +34,15 @@ alias gd="git diff"
 alias gdc="git diff --cached"
 alias gp="git push"
 
-alias yc='sudo pacman -Rns $(pacman -Qtdq)'
-alias ylt='expac --timefmt="%Y-%m-%d %T" "%l\t%n" | sort | less'
-alias ylh='expac -H M "%m\t%n" | sort -h | less'
-alias yli='comm -23 <(pacman -Qqt | sort) <(pacman -Qqg base base-devel | sort) | less'
-
 alias yta='youtube-dl -f bestaudio'
+alias ytv='youtube-dl -f "bestvideo[height<=720]+bestaudio"'
 alias mpa='mpv --no-video'
 alias mpv='mpv --ytdl-format="94/95/480p"'
 
 alias ll="ls -lcthr"
 alias ls="ls -cthr"
 alias l="ls -cthr"
-
 alias ..="cd .."
-
-# open a logbook for today
-function logbook() {
-  nvim ~/Works/logs/$(date '+%Y-%m-%d').md
-}
 
 if [[ -e  /usr/share/fzf/completion.bash ]]; then
   source /usr/share/fzf/completion.bash
