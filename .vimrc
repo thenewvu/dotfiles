@@ -1,5 +1,7 @@
 " BEHAVIOR SETTINGS
 " -----------------
+set termguicolors
+syntax enable
 " point %% to the current the full page of the directory that containts the
 " current editing file
 " Ref: http://vim.wikia.com/wiki/Easy_edit_of_files_in_the_same_directory
@@ -52,7 +54,7 @@ set ttimeoutlen=0
 set number
 set noshowcmd
 set noshowmode
-set laststatus=1
+set laststatus=2
 set tabstop=2
 set softtabstop=2
 set shiftwidth=2
@@ -84,7 +86,7 @@ endfunction
 let g:loaded_netrwPlugin = 1
 " disable auto matching parens
 let g:loaded_matchparen=1
-" The max number of columns to try and highlight
+" syntax highlight only 120 columns
 set synmaxcol=120
 augroup auto_cmds
   au!
@@ -98,7 +100,6 @@ augroup END
 
 " KEY SETTINGS
 " ------------
-
 let g:mapleader = ";"
 nnoremap <leader>e :e 
 nnoremap <F2> :e ~/.vimrc<CR>
@@ -168,14 +169,10 @@ tnoremap <Esc> <C-\><C-n>
 
 " PLUGIN SETTINGS
 " ---------------
-
 call plug#begin('~/.vim/plugged')
-Plug 'ajmwagar/vim-dues'
-syntax enable
-set rtp+=~/.vim/plugged/vim-dues
-set background=dark
-colorscheme deus
-hi! Visual cterm=none ctermbg=darkgray
+Plug 'thenewvu/vim-colors-blueprint'
+set rtp+=~/.vim/plugged/vim-colors-blueprint
+colorscheme blueprint
 " sublime-liked multiple cursors
 Plug 'terryma/vim-multiple-cursors'
 " improved javascript syntax
@@ -203,9 +200,9 @@ Plug 'alvan/vim-closetag'
 let g:closetag_filenames = "*.html,*.xml,*.js,*.jsx"
 " search/replace with preview and undoable
 Plug 'brooth/far.vim'
+let g:far#source = "agnvim"
 let g:far#window_layout = "current"
-let g:far#auto_preview = 0
-set wildignore+=**/node_modules/**,**/build/**,**/Build/**
+let g:far#file_mask_favorites = ["%", ".js", ".go", ".css", ".html"]
 nnoremap <leader>f :F 
 nnoremap <leader>r :Far 
 Plug 'ervandew/supertab'
@@ -240,9 +237,14 @@ let g:markdown_enable_insert_mode_mappings = 0
 let g:markdown_enable_conceal = 1
 Plug 'ap/vim-buftabline'
 let g:buftabline_indicators = 1
-hi! link BufTabLineCurrent Normal
-hi! link BufTabLineActive Comment
-hi! link BufTabLineHidden Folded
-hi! link BufTabLineFill Folded
 Plug 'fatih/vim-go', { 'for': 'go' }
+Plug 'edkolev/tmuxline.vim'
+let g:tmuxline_powerline_separators = 0
+let g:tmuxline_theme = 'vim_statusline_1'
+let g:tmuxline_preset = {
+  \ 'win': '#W',
+  \ 'cwin': '#W',
+  \ 'options': {
+  \   'status-justify': 'left'}
+  \}
 call plug#end()

@@ -11,6 +11,7 @@ extends:
 - plugin:react/recommended
 - plugin:react-native/all
 rules:
+  arrow-parens: [2, "always"]
   camelcase: 0
   object-curly-spacing: [2, "never"]
   array-bracket-spacing: [2, "never"]
