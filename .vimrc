@@ -41,10 +41,6 @@ set clipboard^=unnamedplus,unnamed
 set autoread
 " make backspace work like most other apps
 set backspace=indent,eol,start
-" ignore case in searching
-set ignorecase
-" search with smart case
-set smartcase
 set lazyredraw
 set ttyfast
 set incsearch
