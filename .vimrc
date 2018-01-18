@@ -104,6 +104,8 @@ let g:mapleader = ";"
 nnoremap <leader>e :e 
 nnoremap <F2> :e ~/.vimrc<CR>
 nnoremap <F10> :so ~/.vimrc<CR>
+" correct indent after paste
+nnoremap p p=`]
 " no more Ex mode
 nnoremap Q <nop>
 " jump to begin/end of lines
