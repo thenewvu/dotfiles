@@ -73,6 +73,7 @@ alias ll="ls -lcthr"
 alias ls="ls -cthr"
 alias l="ls -cthr"
 alias ..="cd .."
+alias diff="diff --unified --color"
 
 if [[ -e  /usr/share/fzf/completion.bash ]]; then
   source /usr/share/fzf/completion.bash
