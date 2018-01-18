@@ -41,8 +41,6 @@ set clipboard^=unnamedplus,unnamed
 set autoread
 " make backspace work like most other apps
 set backspace=indent,eol,start
-set lazyredraw
-set ttyfast
 set incsearch
 " smaller <esc> delay
 set timeoutlen=400 
@@ -63,13 +61,25 @@ set breakindent
 set showbreak=↳\ 
 set nolist
 set nowrap
+set smartcase
+set ignorecase
+
+" syntax highlight only first 120 columns
+set synmaxcol=120
+" disable netrw by faking it was loaded
+let g:loaded_netrwPlugin = 1
+" disable auto matching parens by faking it was loaded
+let g:loaded_matchparen=1
+set lazyredraw
+set ttyfast
+
 set foldenable
 set foldmethod=syntax
 set foldnestmax=5
 set foldlevel=0 
 set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
 set fillchars+=fold:\ 
-" http://vim.wikia.com/wiki/Folding_for_plain_text_files_based_on_indentation
+" Ref: http://vim.wikia.com/wiki/Folding_for_plain_text_files_based_on_indentation
 set foldtext=MyFoldText()
 function! MyFoldText()
 	let line = getline(v:foldstart)
@@ -78,12 +88,6 @@ function! MyFoldText()
 	let ts = repeat(' ',&tabstop)
 	return substitute(line, '\t', ts, 'g')
 endfunction
-" disable netrw
-let g:loaded_netrwPlugin = 1
-" disable auto matching parens
-let g:loaded_matchparen=1
-" syntax highlight only 120 columns
-set synmaxcol=120
 augroup auto_cmds
   au!
   au FileType groovy setlocal tabstop=4 softtabstop=4 shiftwidth=4
@@ -133,7 +137,7 @@ nnoremap <leader><space> :let @/ = ""<CR>
 " close current buffer
 nnoremap <leader>x :bd<CR>
 " underline markdown headers
-" ref: https://goo.gl/6zf93B
+" Ref: https://goo.gl/6zf93B
 nnoremap <leader>mh yypVr-
 nnoremap <leader>mhh yypVr=
 " reload current file and redraw
@@ -172,9 +176,9 @@ colorscheme blueprint
 " sublime-liked multiple cursors
 Plug 'terryma/vim-multiple-cursors'
 " improved javascript syntax
-Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+Plug 'pangloss/vim-javascript'
 " jsx syntax
-Plug 'MaxMEllon/vim-jsx-pretty', { 'for': 'javascript' }
+Plug 'MaxMEllon/vim-jsx-pretty'
 hi! link jsxCloseTag jsxTag
 hi! link jsxCloseString jsxTag
 " commenting
@@ -239,7 +243,7 @@ let g:tmuxline_powerline_separators = 0
 let g:tmuxline_theme = 'vim_statusline_1'
 let g:tmuxline_preset = {
   \ 'win': '#W',
-  \ 'cwin': '#W',
+  \ 'cwin': '#W#F',
   \ 'options': {
   \   'status-justify': 'left'}
   \}
