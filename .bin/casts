@@ -1,9 +1,0 @@
-#!/bin/bash
-
-DUR=${1:-10}
-NOW=$(date +"%Y%m%d-%H%M%S")
-MOV="/tmp/$NOW.mov"
-GIF="/tmp/$NOW.gif"
-
-ffcast -vv -s ffmpeg -f x11grab -show_region 1 -r 15 -s "%wx%h" -t $DUR -i ":0.0+%x,%y" $MOV \
-  && ffmpeg-gif $MOV $GIF
