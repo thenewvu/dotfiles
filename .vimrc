@@ -200,13 +200,6 @@ Plug 'chaoren/vim-wordmotion'
 " automatically add end tag
 Plug 'alvan/vim-closetag'
 let g:closetag_filenames = "*.html,*.xml,*.js,*.jsx"
-" search/replace with preview and undoable
-Plug 'brooth/far.vim'
-let g:far#source = "agnvim"
-let g:far#window_layout = "current"
-let g:far#file_mask_favorites = ["%", ".js", ".go", ".css", ".html"]
-nnoremap <leader>f :F 
-nnoremap <leader>r :Far 
 Plug 'ervandew/supertab'
 let g:SuperTabDefaultCompletionType = "context"
 " seamlessly working with tmux
