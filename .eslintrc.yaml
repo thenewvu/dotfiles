@@ -19,6 +19,7 @@ rules:
   react/prop-types: 0
   react/display-name: 0
   promise/param-names: 0
+  standard/computed-property-even-spacing: 0
 env:
   node: true
   browser: true
