@@ -8,11 +8,37 @@ export PATH=/Users/$USER/Library/Android/sdk/emulator:$PATH
 export PATH=/Applications/Android\ Studio.app/Contents/jre/jdk/Contents/Home/bin:$PATH
 export PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
 export MANPATH=/usr/local/opt/coreutils/libexec/gnuman:$MANPATH
+export FZF_DEFAULT_OPTS="--height=40% --color=bw --reverse"
+export FZF_DEFAULT_COMMAND="\
+find . \
+  -not -path \"**/node_modules/**\" \
+  -not -path \"**/builds/**\" \
+  -not -path \"**/build/**\" \
+  -not -path \"**/Build/**\" \
+  -not -path \"**/.git/**\" \
+  -not -path \"**/.idea/**\" \
+  -not -path \"**/.gradle/**\" \
+  -not -path \"**/*~\" \
+  -type f \
+  -exec grep -Iq . {} \; -and -print
+"
+export FZF_CTRL_T_COMMAND="\
+find . \
+  -not -path \"**/node_modules/**\" \
+  -not -path \"**/builds/**\" \
+  -not -path \"**/build/**\" \
+  -not -path \"**/Build/**\" \
+  -not -path \"**/.git/**\" \
+  -not -path \"**/.idea/**\" \
+  -not -path \"**/.gradle/**\" \
+  -not -path \"**/*~\" \
+  -type f \
+  -exec grep -Iq . {} \; -and -print
+"
+
 export VISUAL="nvim"
 export EDITOR="nvim"
-export FZF_DEFAULT_OPTS="--height=40% --color=bw --reverse"
-export FZF_DEFAULT_COMMAND="rg --files --hidden --glob='!.git/*' --glob='!node_modules/*'"
-export FZF_CTRL_T_COMMAND="rg --files --hidden --glob='!.git/*' --glob='!node_modules/*'"
+
 # Increase the size of history maintained by BASH
 export HISTFILESIZE=10000
 export HISTSIZE=${HISTFILESIZE}
