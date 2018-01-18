@@ -50,16 +50,18 @@ export HISTCONTROL=ignorespace:ignoredups:erasedups
 shopt -s histappend
 # Ensure syncing (flushing and reloading) of .bash_history with in-memory history:
 export PROMPT_COMMAND="history -a; history -c; history -r;${PROMPT_COMMAND}"
+
 # Golang workspace
 export GOPATH=$HOME/Works/projects/go
 export PATH=$HOME/Works/projects/go/bin:$PATH
 
-alias gs="git st"
+alias gs="git status -s"
 alias ga="git add"
-alias gl="git ls"
+alias gl="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %Cblue<%an>%Creset' --abbrev-commit --date=relative"
 alias gc="git commit -v"
-alias gd="git diff"
-alias gdc="git diff --cached"
+alias gd="git diff -w"
+alias gdt="git difftool"
+alias gdc="git diff --cached -w"
 alias gp="git push"
 
 alias yta='youtube-dl -f bestaudio'
