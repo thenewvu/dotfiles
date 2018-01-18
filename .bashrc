@@ -87,6 +87,3 @@ fi
 if [[ -e  /usr/local/opt/fzf/shell/key-bindings.bash ]]; then
   source /usr/local/opt/fzf/shell/key-bindings.bash
 fi
-if [[ -e  /etc/bash_completion.d/owlman ]]; then
-  source /etc/bash_completion.d/owlman
-fi
