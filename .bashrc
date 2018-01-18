@@ -57,6 +57,7 @@ export PATH=$HOME/Works/projects/go/bin:$PATH
 
 alias gs="git status -s"
 alias ga="git add"
+alias gai="git add -i -p"
 alias gl="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %Cblue<%an>%Creset' --abbrev-commit --date=relative"
 alias gc="git commit -v"
 alias gd="git diff -w"
