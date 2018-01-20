@@ -7,6 +7,7 @@ export PATH=/Users/$USER/Library/Android/sdk/platform-tools:$PATH
 export PATH=/Users/$USER/Library/Android/sdk/emulator:$PATH
 export PATH=/Applications/Android\ Studio.app/Contents/jre/jdk/Contents/Home/bin:$PATH
 export PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
+export PATH=~/.bin/:$PATH
 export MANPATH=/usr/local/opt/coreutils/libexec/gnuman:$MANPATH
 export GREP_OPTIONS='--color=auto'
 
