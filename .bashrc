@@ -15,28 +15,16 @@ export FZF_DEFAULT_OPTS="--height=40% --color=bw --reverse"
 export FZF_DEFAULT_COMMAND="\
 find . \
   -not -path \"**/node_modules/**\" \
-  -not -path \"**/builds/**\" \
-  -not -path \"**/build/**\" \
-  -not -path \"**/Build/**\" \
   -not -path \"**/.git/**\" \
-  -not -path \"**/.idea/**\" \
-  -not -path \"**/.gradle/**\" \
   -not -path \"**/*~\" \
   -type f \
-  -exec grep -Iq . {} \; -and -print
 "
 export FZF_CTRL_T_COMMAND="\
 find . \
   -not -path \"**/node_modules/**\" \
-  -not -path \"**/builds/**\" \
-  -not -path \"**/build/**\" \
-  -not -path \"**/Build/**\" \
   -not -path \"**/.git/**\" \
-  -not -path \"**/.idea/**\" \
-  -not -path \"**/.gradle/**\" \
   -not -path \"**/*~\" \
   -type f \
-  -exec grep -Iq . {} \; -and -print
 "
 
 export VISUAL="nvim"
