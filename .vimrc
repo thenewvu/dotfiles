@@ -100,7 +100,9 @@ augroup auto_cmds
   au!
   au FileType groovy setlocal tabstop=4 softtabstop=4 shiftwidth=4
   au FileType markdown setlocal textwidth=79 linebreak wrap
+  " avoid quickfix buffer when navigating between buffers
   au FileType qf set nobuflisted
+  " auto source some rc files
   au BufWritePost .vimrc source %
   au BufWritePost .chunkwmrc !brew services restart chunkwm
   au BufWritePost .skhdrc !brew services restart skhd
