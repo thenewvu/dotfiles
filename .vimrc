@@ -31,7 +31,14 @@ set gdefault
 set confirm
 " switch between buffers without saving
 set hidden
-" more powerful completion
+" better completion
+" .: Scan the current buffer
+" w: Scan buffers from other windows
+" b: Scan buffers from the buffer list
+" u: Scan buffers that have been unloaded from the buffer list
+" t: Tag completion
+" i: Scan the current and included files
+set complete=.,w,b,u,t
 set completeopt=longest,menuone,preview
 " default encoding to utf-8
 set encoding=utf-8
