@@ -194,6 +194,9 @@ nnoremap > >>
 nnoremap < <<
 " <ecs> to escape temrinal mode
 tnoremap <Esc> <C-\><C-n>
+" fuck you, help key.
+noremap  <F1> <esc>
+inoremap <F1> <esc>
 
 
 
