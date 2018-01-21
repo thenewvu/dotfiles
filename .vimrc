@@ -276,4 +276,7 @@ let g:tmuxline_preset = {
   \ 'options': {
   \   'status-justify': 'left'}
   \}
+Plug 'sjl/clam.vim'
+nnoremap ! :Clam<space>
+vnoremap ! :ClamVisual<space>
 call plug#end()
