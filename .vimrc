@@ -62,6 +62,7 @@ set shiftwidth=2
 set expandtab
 set wildmenu
 set wildmode=longest,list
+set wildignore+=.hg,.git,.svn
 set showmatch
 set hlsearch
 set breakindent
