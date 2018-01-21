@@ -226,6 +226,9 @@ nnoremap <leader>p :FZF<CR>
 " fuzzy search text in the current buffer
 nnoremap / :BLines<cr>
 nnoremap <leader>/ /
+autocmd! FileType fzf
+autocmd  FileType fzf set laststatus=0 noshowmode noruler
+      \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 " wb word by word
 Plug 'chaoren/vim-wordmotion'
 " automatically add end tag
