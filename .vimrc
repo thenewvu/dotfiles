@@ -129,6 +129,7 @@ end
 " KEY SETTINGS
 " ------------
 let g:mapleader = ";"
+nnoremap <leader>; :
 nnoremap <leader>e :e 
 nnoremap <F2> :e ~/.vimrc<CR>
 nnoremap <F10> :so ~/.vimrc<CR>
