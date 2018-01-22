@@ -12,20 +12,25 @@ export MANPATH=/usr/local/opt/coreutils/libexec/gnuman:$MANPATH
 export GREP_OPTIONS='--color=auto'
 
 export FZF_DEFAULT_OPTS="--height=40% --color=bw --reverse"
-export FZF_DEFAULT_COMMAND="\
-find . \
-  -not -path \"**/node_modules/**\" \
-  -not -path \"**/.git/**\" \
-  -not -path \"**/*~\" \
-  -type f \
-"
-export FZF_CTRL_T_COMMAND="\
-find . \
-  -not -path \"**/node_modules/**\" \
-  -not -path \"**/.git/**\" \
-  -not -path \"**/*~\" \
-  -type f \
-"
+if which rg >/dev/null; then
+  export FZF_DEFAULT_COMMAND="rg --files --hidden --follow  --glob '!.git/*'"
+  export FZF_CTRL_T_COMMAND="rg --files --hidden --follow  --glob '!.git/*'"
+else
+  export FZF_DEFAULT_COMMAND="\
+  find . \
+    -not -path \"**/node_modules/**\" \
+    -not -path \"**/.git/**\" \
+    -not -path \"**/*~\" \
+    -type f \
+  "
+  export FZF_CTRL_T_COMMAND="\
+  find . \
+    -not -path \"**/node_modules/**\" \
+    -not -path \"**/.git/**\" \
+    -not -path \"**/*~\" \
+    -type f \
+  "
+fi
 
 export VISUAL="nvim"
 export EDITOR="nvim"
