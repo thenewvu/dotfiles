@@ -198,6 +198,8 @@ tnoremap <Esc> <C-\><C-n>
 " fuck you, help key.
 noremap  <F1> <esc>
 inoremap <F1> <esc>
+" close terminal bufffer
+tnoremap <silent> <Esc><Esc> <C-\><C-n>:q<CR>
 
 
 
