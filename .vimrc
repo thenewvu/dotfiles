@@ -203,9 +203,9 @@ inoremap <F1> <esc>
 " PLUGIN SETTINGS
 " ---------------
 call plug#begin('~/.vim/plugged')
-Plug 'thenewvu/vim-colors-blueprint'
-set rtp+=~/.vim/plugged/vim-colors-blueprint
-colorscheme blueprint
+Plug 'thenewvu/vim-colors-arthur'
+set rtp+=~/.vim/plugged/vim-colors-arthur
+colorscheme arthur
 " sublime-liked multiple cursors
 Plug 'terryma/vim-multiple-cursors'
 " improved javascript syntax
