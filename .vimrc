@@ -166,7 +166,7 @@ nnoremap U <c-r>zz
 " clear matching
 nnoremap <leader><space> :let @/ = ""<CR>
 " close current buffer
-nnoremap <leader>x :bd<CR>
+nnoremap <leader>q :bd<CR>
 " underline markdown headers
 " Ref: https://goo.gl/6zf93B
 nnoremap <leader>mh yypVr-
