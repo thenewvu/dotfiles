@@ -279,5 +279,4 @@ let g:tmuxline_preset = {
 Plug 'sjl/clam.vim'
 nnoremap ! :Clam<space>
 vnoremap ! :ClamVisual<space>
-Plug 'vim-scripts/AnsiEsc.vim'
 call plug#end()
