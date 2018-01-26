@@ -198,17 +198,15 @@ tnoremap <Esc> <C-\><C-n>
 " fuck you, help key.
 noremap  <F1> <esc>
 inoremap <F1> <esc>
-" close terminal bufffer
-tnoremap <silent> <Esc><Esc> <C-\><C-n>:q<CR>
 
 
 
 " PLUGIN SETTINGS
 " ---------------
 call plug#begin('~/.vim/plugged')
-Plug 'thenewvu/vim-colors-arthur'
-set rtp+=~/.vim/plugged/vim-colors-arthur
-colorscheme arthur
+Plug 'thenewvu/vim-colors-sketching'
+set rtp+=~/.vim/plugged/vim-colors-sketching
+colorscheme sketching
 " sublime-liked multiple cursors
 Plug 'terryma/vim-multiple-cursors'
 " improved javascript syntax
