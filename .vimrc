@@ -129,7 +129,7 @@ end
 " KEY SETTINGS
 " ------------
 let g:mapleader = ";"
-nnoremap <leader>; :
+nnoremap <leader>; : 
 nnoremap <leader>e :e 
 nnoremap <F2> :e ~/.vimrc<CR>
 nnoremap <F10> :so ~/.vimrc<CR>
@@ -229,9 +229,10 @@ nnoremap <leader>p :FZF<CR>
 " fuzzy search text in the current buffer
 nnoremap / :BLines<cr>
 nnoremap <leader>/ /
-autocmd! FileType fzf
-autocmd  FileType fzf set laststatus=0 noshowmode noruler
-      \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+augroup fzf
+  au!
+  au TermOpen term://*FZF tnoremap <silent> <buffer><nowait> <esc> <c-c>
+augroup end
 " wb word by word
 Plug 'chaoren/vim-wordmotion'
 " automatically add end tag
