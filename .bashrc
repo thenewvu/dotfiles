@@ -1,7 +1,9 @@
-source ~/.bash_prompt
-
 # set vi key mode
 set -o vi
+
+
+export PROMPT_COMMAND="printf '%*s' "${COLUMNS:-$(tput cols)}" '' | tr ' ' '-'"
+export PS1="\u@\h:\w\\n"
 
 export PATH=/Users/$USER/Library/Android/sdk/platform-tools:$PATH
 export PATH=/Users/$USER/Library/Android/sdk/emulator:$PATH
