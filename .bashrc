@@ -4,8 +4,21 @@ set -o vi
 bind 'TAB: menu-complete'
 bind 'set completion-ignore-case on'
 
-export PROMPT_COMMAND="printf '%*s' "${COLUMNS:-$(tput cols)}" '' | tr ' ' '-'"
-export PS1="\u@\h:\w\\n"
+function prompt_right() {
+  echo -e "\033[0;00m\\\t\033[0m"
+}
+
+function prompt_left() {
+  echo -e "\033[0;00m\u@\h:\w\033[0m"
+}
+
+function prompt() {
+  printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
+  compensate=5
+  PS1=$(printf "%*s\r%s\n\$ " "$(($(tput cols)+${compensate}))" "$(prompt_right)" "$(prompt_left)")
+}
+
+PROMPT_COMMAND=prompt
 
 export PATH=/Users/$USER/Library/Android/sdk/platform-tools:$PATH
 export PATH=/Users/$USER/Library/Android/sdk/emulator:$PATH
