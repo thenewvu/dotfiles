@@ -1,6 +1,8 @@
 # set vi key mode
 set -o vi
 
+bind 'TAB: menu-complete'
+bind 'set completion-ignore-case on'
 
 export PROMPT_COMMAND="printf '%*s' "${COLUMNS:-$(tput cols)}" '' | tr ' ' '-'"
 export PS1="\u@\h:\w\\n"
