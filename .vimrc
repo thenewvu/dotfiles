@@ -156,6 +156,7 @@ endfunction
 " KEY SETTINGS
 " ------------
 let g:mapleader = ";"
+let g:maplocalleader = "\\"
 nnoremap <leader>; : 
 nnoremap <leader>e :e 
 nnoremap <F2> :e ~/.vimrc<CR>
