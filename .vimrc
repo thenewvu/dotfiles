@@ -309,4 +309,10 @@ let g:tmuxline_preset = {
 Plug 'sjl/clam.vim'
 nnoremap ! :Clam<space>
 vnoremap ! :ClamVisual<space>
+Plug 'airblade/vim-gitgutter'
+let g:gitgutter_highlight_lines = 1
+hi link GitGutterAdd DiffAdd
+hi link GitGutterChange DiffChange
+hi link GitGutterDelete DiffDelete
+hi link GitGutterChangeDelete DiffChange
 call plug#end()
