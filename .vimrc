@@ -126,6 +126,33 @@ if exists('$ITERM_PROFILE')
   endif
 end
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" treat huge files differently
+" ref: http://vim.wikia.com/wiki/Faster_loading_of_large_files
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" file is large from 100kb
+let g:LargeFile = 1024 * 100
+augroup LargeFile
+  autocmd BufReadPre * call CheckIfLargeFile("<afile>")
+augroup END
+
+function! CheckIfLargeFile(file)
+  let f=getfsize(expand(a:file))
+  if f > g:LargeFile || f == - 2
+    " no syntax highlighting etc
+    set eventignore+=FileType
+    " save memory when other file is viewed
+    setlocal bufhidden=unload
+    " is read-only (write with :w new_filename)
+    setlocal buftype=nowrite
+    " no undo possible
+    setlocal undolevels=-1
+  else
+    set eventignore-=FileType
+  endif
+endfunction
+
 " KEY SETTINGS
 " ------------
 let g:mapleader = ";"
