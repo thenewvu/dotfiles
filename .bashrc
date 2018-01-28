@@ -72,7 +72,6 @@ alias gai="git add -i -p"
 alias gl="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %Cblue<%an>%Creset' --abbrev-commit --date=relative"
 alias gc="git commit -v"
 alias gd="git diff -w"
-alias gdt="git difftool"
 alias gdc="git diff --cached -w"
 alias gp="git push"
 
