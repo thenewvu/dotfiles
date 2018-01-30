@@ -96,17 +96,6 @@ function! MyFoldText()
 	let ts = repeat(' ',&tabstop)
 	return substitute(line, '\t', ts, 'g')
 endfunction
-augroup auto_cmds
-  au!
-  au FileType groovy setlocal tabstop=4 softtabstop=4 shiftwidth=4
-  au FileType markdown setlocal textwidth=79 linebreak wrap
-  " avoid quickfix buffer when navigating between buffers
-  au FileType qf set nobuflisted
-  " auto source some rc files
-  au BufWritePost .vimrc source %
-  au BufWritePost .chunkwmrc !brew services restart chunkwm
-  au BufWritePost .skhdrc !brew services restart skhd
-augroup END
 
 " switch cursor from block in insert mode
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -139,7 +128,7 @@ augroup END
 
 function! CheckIfLargeFile(file)
   let f=getfsize(expand(a:file))
-  if f > g:LargeFile || f == - 2
+  if f > g:LargeFile || f == -2
     " no syntax highlighting etc
     set eventignore+=FileType
     " save memory when other file is viewed
@@ -152,6 +141,44 @@ function! CheckIfLargeFile(file)
     set eventignore-=FileType
   endif
 endfunction
+
+" use ripgrep as grepprg if available
+if executable('rg')
+  set grepprg=rg\ --vimgrep
+endif
+
+function! ClampWinHeight(min, max)
+  exe max([min([line("$"), a:max]), a:min]) . "wincmd _"
+endfunction
+
+augroup QuickFix
+  autocmd!
+  autocmd QuickFixCmdPost [^l]* cwindow
+  autocmd QuickFixCmdPost l*    lwindow
+  autocmd FileType qf set nobuflisted
+  autocmd FileType qf call ClampWinHeight(3, 10)
+augroup END
+
+augroup Groovy
+  autocmd!
+  autocmd FileType groovy setlocal tabstop=4 softtabstop=4 shiftwidth=4
+augroup END
+
+augroup Markdown
+  autocmd!
+  autocmd FileType markdown setlocal textwidth=79 linebreak wrap
+augroup END
+
+augroup Vim
+  autocmd!
+  au BufWritePost .vimrc source %
+augroup END
+
+augroup Chunkwm
+  autocmd!
+  au BufWritePost .chunkwmrc !brew services restart chunkwm
+  au BufWritePost .skhdrc !brew services restart skhd
+augroup END
 
 " KEY SETTINGS
 " ------------
@@ -255,9 +282,9 @@ nnoremap <leader>p :FZF<CR>
 " fuzzy search text in the current buffer
 nnoremap / :BLines<cr>
 nnoremap <leader>/ /
-augroup fzf
-  au!
-  au TermOpen term://*FZF tnoremap <silent> <buffer><nowait> <esc> <c-c>
+augroup FZF
+  autocmd!
+  autocmd TermOpen term://*FZF tnoremap <silent> <buffer><nowait> <esc> <c-c>
 augroup end
 " wb word by word
 Plug 'chaoren/vim-wordmotion'
