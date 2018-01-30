@@ -338,8 +338,15 @@ nnoremap ! :Clam<space>
 vnoremap ! :ClamVisual<space>
 Plug 'airblade/vim-gitgutter'
 let g:gitgutter_highlight_lines = 1
+let g:gitgutter_diff_args = '-w'
+let g:gitgutter_map_keys = 0
+let g:gitgutter_realtime = 0
+let g:gitgutter_eager = 0
 hi link GitGutterAdd DiffAdd
 hi link GitGutterChange DiffChange
 hi link GitGutterDelete DiffDelete
-hi link GitGutterChangeDelete DiffChange
+hi link GitGutterAddLine DiffAdd
+hi link GitGutterChangeLine DiffChange
+hi link GitGutterDeleteLine Normal
+hi link GitGutterChangeDeleteLine DiffChange
 call plug#end()
