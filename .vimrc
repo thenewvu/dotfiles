@@ -305,19 +305,14 @@ let g:ale_fixers['javascript'] = ['eslint']
 let g:ale_javascript_eslint_executable = 'eslint_d'
 let g:ale_javascript_eslint_use_global = 1
 let g:ale_fix_on_save = 1
-let g:ale_set_quickfix = 1
+let g:ale_set_signs = 0
+" automatically open quickfix
 let g:ale_open_list = 1
-let g:ale_list_window_size = 3
 let g:ale_lint_on_save = 1
 let g:ale_lint_on_enter = 0
 let g:ale_lint_on_text_changed = 0
 let g:ale_lint_on_filetype_changed = 0
 let g:ale_warn_about_trailing_whitespace = 0
-let g:ale_sign_error = '✗ '
-let g:ale_sign_warning = '⚠ '
-hi! ALEErrorSign ctermbg=none ctermfg=red
-hi! ALEWarningSign ctermbg=none ctermfg=yellow
-hi! SignColumn ctermbg=none
 Plug 'gabrielelana/vim-markdown', { 'for': 'markdown' }
 let g:markdown_enable_spell_checking = 0
 let g:markdown_enable_insert_mode_mappings = 0
@@ -338,13 +333,19 @@ Plug 'sjl/clam.vim'
 nnoremap ! :Clam<space>
 vnoremap ! :ClamVisual<space>
 Plug 'airblade/vim-gitgutter'
+let g:gitgutter_signs = 1
 let g:gitgutter_highlight_lines = 1
 let g:gitgutter_diff_args = '-w'
 let g:gitgutter_map_keys = 0
-let g:gitgutter_realtime = 0
-let g:gitgutter_eager = 0
+let g:gitgutter_realtime = 1
+let g:gitgutter_eager = 1
+let g:gitgutter_sign_added = '+'
+let g:gitgutter_sign_modified = '#'
+let g:gitgutter_sign_removed = '_'
+let g:gitgutter_sign_modified_removed = '#'
 hi link GitGutterAdd DiffAdd
 hi link GitGutterChange DiffChange
+hi link GitGutterChangeDelete DiffChange
 hi link GitGutterDelete DiffDelete
 hi link GitGutterAddLine DiffAdd
 hi link GitGutterChangeLine DiffChange
