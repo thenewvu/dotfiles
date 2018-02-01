@@ -250,10 +250,11 @@ nnoremap > >>
 nnoremap < <<
 " <ecs> to escape temrinal mode
 tnoremap <Esc> <C-\><C-n>
-" fuck you, help key.
+" <f1> won't no longer open vim help
 noremap  <F1> <esc>
 inoremap <F1> <esc>
-
+" search text in root directory
+noremap <leader>f :grep 
 
 
 " PLUGIN SETTINGS
