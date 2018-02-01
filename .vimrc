@@ -123,6 +123,7 @@ end
 " file is large from 100kb
 let g:LargeFile = 1024 * 100
 augroup LargeFile
+  autocmd!
   autocmd BufReadPre * call CheckIfLargeFile("<afile>")
 augroup END
 
@@ -187,7 +188,6 @@ let g:maplocalleader = "\\"
 nnoremap <leader>; : 
 nnoremap <leader>e :e 
 nnoremap <F2> :e ~/.vimrc<CR>
-nnoremap <F10> :so ~/.vimrc<CR>
 " correct indent after paste
 nnoremap p p=`]
 " no more Ex mode
