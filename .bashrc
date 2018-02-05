@@ -86,15 +86,14 @@ alias l="ls -cthr"
 alias ..="cd .."
 alias diff="diff --unified --color"
 
-if [[ -e  /usr/share/fzf/completion.bash ]]; then
-  source /usr/share/fzf/completion.bash
-fi
+# source fzf bash completion
 if [[ -e  /usr/local/opt/fzf/shell/completion.bash ]]; then
   source /usr/local/opt/fzf/shell/completion.bash
-fi
-if [[ -e  /usr/share/fzf/key-bindings.bash ]]; then
-  source /usr/share/fzf/key-bindings.bash
 fi
 if [[ -e  /usr/local/opt/fzf/shell/key-bindings.bash ]]; then
   source /usr/local/opt/fzf/shell/key-bindings.bash
 fi
+# source bash completions from brew packages
+for completion in /usr/local/etc/bash_completion.d/*; do
+  source $completion
+done
