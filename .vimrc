@@ -71,6 +71,8 @@ set nolist
 set nowrap
 set smartcase
 set ignorecase
+" show results while typing a :substitute command
+set inccommand=nosplit 
 
 " syntax highlight only first 120 columns
 set synmaxcol=120
