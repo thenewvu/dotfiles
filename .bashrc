@@ -1,4 +1,4 @@
-# set vi key mode
+# enable vi-liked key bindings
 set -o vi
 
 bind 'TAB: menu-complete'
@@ -84,7 +84,6 @@ alias ll="ls -lcthr"
 alias ls="ls -cthr"
 alias l="ls -cthr"
 alias ..="cd .."
-alias diff="diff --unified --color"
 
 # source fzf bash completion
 if [[ -e  /usr/local/opt/fzf/shell/completion.bash ]]; then
