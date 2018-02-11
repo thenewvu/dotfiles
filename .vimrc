@@ -154,8 +154,8 @@ endfunction
 
 augroup QuickFix
   autocmd!
-  autocmd QuickFixCmdPost [^l]* cwindow
-  autocmd QuickFixCmdPost l*    lwindow
+  autocmd QuickFixCmdPost [^l]* nested copen
+  autocmd QuickFixCmdPost l*    nested lopen
   autocmd FileType qf set nobuflisted
   autocmd FileType qf call ClampWinHeight(3, 10)
 augroup END
@@ -351,4 +351,5 @@ hi link GitGutterAddLine DiffAdd
 hi link GitGutterChangeLine DiffChange
 hi link GitGutterDeleteLine Normal
 hi link GitGutterChangeDeleteLine DiffChange
+Plug 'stefandtw/quickfix-reflector.vim'
 call plug#end()
