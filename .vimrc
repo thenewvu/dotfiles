@@ -177,12 +177,6 @@ augroup Vim
   au BufWritePost .vimrc source %
 augroup END
 
-augroup Chunkwm
-  autocmd!
-  au BufWritePost .chunkwmrc !brew services restart chunkwm
-  au BufWritePost .skhdrc !brew services restart skhd
-augroup END
-
 " KEY SETTINGS
 " ------------
 let g:mapleader = ";"
