@@ -1,8 +1,32 @@
+######################################################
+# Imports
+######################################################
+
+# source fzf bash completion
+if [[ -e  /usr/local/opt/fzf/shell/completion.bash ]]; then
+  source /usr/local/opt/fzf/shell/completion.bash
+fi
+if [[ -e  /usr/local/opt/fzf/shell/key-bindings.bash ]]; then
+  source /usr/local/opt/fzf/shell/key-bindings.bash
+fi
+# source bash completions from brew packages
+for completion in /usr/local/etc/bash_completion.d/*; do
+  source $completion
+done
+
+######################################################
+# Key bindings
+######################################################
+
 # enable vi-liked key bindings
 set -o vi
 
 bind 'TAB: menu-complete'
 bind 'set completion-ignore-case on'
+
+######################################################
+# Prompt
+######################################################
 
 function prompt_right() {
   echo -e "\033[0;00m\\\t\033[0m"
@@ -20,15 +44,31 @@ function prompt() {
 
 PROMPT_COMMAND=prompt
 
-export PATH=/Users/$USER/Library/Android/sdk/platform-tools:$PATH
-export PATH=/Users/$USER/Library/Android/sdk/emulator:$PATH
-export PATH=/Applications/Android\ Studio.app/Contents/jre/jdk/Contents/Home/bin:$PATH
-export PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
-export PATH=~/.bin/:$PATH
-export MANPATH=/usr/local/opt/coreutils/libexec/gnuman:$MANPATH
-export GREP_OPTIONS='--color=auto'
+######################################################
+# PATHs
+######################################################
 
+export PATH=$GEM_HOME/bin:$PATH
+export PATH=$HOME/.gem/ruby/2.3.0/bin:$PATH
+export PATH=$HOME/.bin/:$PATH
+export PATH=$HOME/Works/projects/go/bin:$PATH
+
+if "$OSTYPE" == "darwin"*; then
+  export PATH=$HOME/Library/Android/sdk/platform-tools:$PATH
+  export PATH=$HOME/Library/Android/sdk/emulator:$PATH
+fi
+
+######################################################
+# EXPORTs
+######################################################
+
+export GOPATH=$HOME/Works/projects/go
+export VISUAL="nvim"
+export EDITOR="nvim"
+export GEM_HOME=$HOME/.gem
+export GREP_OPTIONS='--color=auto'
 export FZF_DEFAULT_OPTS="--height=40% --color=bw --reverse"
+
 if which rg >/dev/null; then
   export FZF_DEFAULT_COMMAND="rg --files --hidden --follow  --glob '!.git/*'"
   export FZF_CTRL_T_COMMAND="rg --files --hidden --follow  --glob '!.git/*'"
@@ -49,8 +89,10 @@ else
   "
 fi
 
-export VISUAL="nvim"
-export EDITOR="nvim"
+
+######################################################
+# History configuration
+######################################################
 
 # Increase the size of history maintained by BASH
 export HISTFILESIZE=10000
@@ -62,18 +104,18 @@ shopt -s histappend
 # Ensure syncing (flushing and reloading) of .bash_history with in-memory history:
 export PROMPT_COMMAND="history -a; history -c; history -r;${PROMPT_COMMAND}"
 
-# Golang workspace
-export GOPATH=$HOME/Works/projects/go
-export PATH=$HOME/Works/projects/go/bin:$PATH
+######################################################
+# Aliases
+######################################################
 
-alias gs="git status -s"
-alias ga="git add"
-alias gai="git add -i -p"
-alias gl="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %Cblue<%an>%Creset' --abbrev-commit --date=relative"
-alias gc="git commit -v"
-alias gd="git diff -w"
-alias gdc="git diff --cached -w"
-alias gp="git push"
+alias gs="git s"
+alias ga="git a"
+alias gai="git ai"
+alias gl="git l"
+alias gc="git c"
+alias gd="git d"
+alias gdc="git dc"
+alias gp="git p"
 
 alias yta='youtube-dl -f bestaudio'
 alias ytv='youtube-dl -f "bestvideo[height<=720]+bestaudio"'
@@ -84,15 +126,3 @@ alias ll="ls -lcthr"
 alias ls="ls -cthr"
 alias l="ls -cthr"
 alias ..="cd .."
-
-# source fzf bash completion
-if [[ -e  /usr/local/opt/fzf/shell/completion.bash ]]; then
-  source /usr/local/opt/fzf/shell/completion.bash
-fi
-if [[ -e  /usr/local/opt/fzf/shell/key-bindings.bash ]]; then
-  source /usr/local/opt/fzf/shell/key-bindings.bash
-fi
-# source bash completions from brew packages
-for completion in /usr/local/etc/bash_completion.d/*; do
-  source $completion
-done
