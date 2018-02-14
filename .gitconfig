@@ -22,5 +22,11 @@
 [mergetool "vimdiff"]
   cmd = nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
 [alias]
-  s = status -s
-  l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %Cblue<%an>%Creset' --abbrev-commit --date=relative
+  s  = status -s
+  l  = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %Cblue<%an>%Creset' --abbrev-commit --date=relative
+  a  = add
+  ai = add -i -p
+  c  = commit -v
+  d  = diff -w
+  dc = diff --cached -w
+  p  = push
