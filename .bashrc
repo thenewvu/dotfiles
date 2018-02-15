@@ -53,7 +53,7 @@ export PATH=$HOME/.gem/ruby/2.3.0/bin:$PATH
 export PATH=$HOME/.bin/:$PATH
 export PATH=$HOME/Works/projects/go/bin:$PATH
 
-if "$OSTYPE" == "darwin"*; then
+if [[ "$OSTYPE" == "darwin"* ]]; then
   export PATH=$HOME/Library/Android/sdk/platform-tools:$PATH
   export PATH=$HOME/Library/Android/sdk/emulator:$PATH
 fi
