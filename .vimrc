@@ -315,6 +315,7 @@ let g:markdown_enable_insert_mode_mappings = 0
 let g:markdown_enable_conceal = 1
 Plug 'ap/vim-buftabline'
 let g:buftabline_indicators = 1
+let g:buftabline_plug_map = 0
 Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'edkolev/tmuxline.vim'
 let g:tmuxline_powerline_separators = 0
