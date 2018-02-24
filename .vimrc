@@ -327,6 +327,7 @@ let g:tmuxline_preset = {
   \   'status-justify': 'left'}
   \}
 Plug 'sjl/clam.vim'
+nnoremap !! :!<space>
 nnoremap ! :Clam<space>
 vnoremap ! :ClamVisual<space>
 Plug 'airblade/vim-gitgutter'
