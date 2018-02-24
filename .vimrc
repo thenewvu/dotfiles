@@ -350,4 +350,6 @@ hi link GitGutterChangeLine DiffChange
 hi link GitGutterDeleteLine Normal
 hi link GitGutterChangeDeleteLine DiffChange
 Plug 'stefandtw/quickfix-reflector.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'junegunn/gv.vim'
 call plug#end()
