@@ -1,4 +1,14 @@
 ######################################################
+# Key bindings
+######################################################
+
+# enable vi-liked key bindings
+set -o vi
+
+bind 'TAB: menu-complete'
+bind 'set completion-ignore-case on'
+
+######################################################
 # Imports
 ######################################################
 
@@ -13,16 +23,6 @@ fi
 for completion in /usr/local/etc/bash_completion.d/*; do
   source $completion
 done
-
-######################################################
-# Key bindings
-######################################################
-
-# enable vi-liked key bindings
-set -o vi
-
-bind 'TAB: menu-complete'
-bind 'set completion-ignore-case on'
 
 ######################################################
 # Prompt
