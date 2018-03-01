@@ -1,6 +1,7 @@
 " BEHAVIOR SETTINGS
 " -----------------
 set termguicolors
+
 syntax enable
 " point %% to the current the full page of the directory that containts the
 " current editing file
@@ -184,8 +185,6 @@ let g:maplocalleader = "\\"
 nnoremap <leader>; : 
 nnoremap <leader>e :e 
 nnoremap <F2> :e ~/.vimrc<CR>
-" correct indent after paste
-nnoremap p p=`]
 " no more Ex mode
 nnoremap Q <nop>
 " jump to begin/end of lines
