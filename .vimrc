@@ -255,9 +255,9 @@ noremap <leader>f :grep
 " PLUGIN SETTINGS
 " ---------------
 call plug#begin('~/.vim/plugged')
-Plug 'thenewvu/vim-colors-sketching'
-set rtp+=~/.vim/plugged/vim-colors-sketching
-colorscheme sketching
+Plug 'thenewvu/vim-colors-chocozy'
+set rtp+=~/.vim/plugged/vim-colors-chocozy
+colorscheme chocozy
 " sublime-liked multiple cursors
 Plug 'terryma/vim-multiple-cursors'
 " improved javascript syntax
