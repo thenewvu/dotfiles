@@ -45,63 +45,38 @@ function prompt() {
 PROMPT_COMMAND=prompt
 
 ######################################################
-# PATHs
-######################################################
-
-export PATH=$GEM_HOME/bin:$PATH
-export PATH=$HOME/.gem/ruby/2.3.0/bin:$PATH
-export PATH=$HOME/.bin/:$PATH
-export PATH=$HOME/Works/projects/go/bin:$PATH
-
-if [[ "$OSTYPE" == "darwin"* ]]; then
-  export PATH=$HOME/Library/Android/sdk/platform-tools:$PATH
-  export PATH=$HOME/Library/Android/sdk/emulator:$PATH
-fi
-
-######################################################
 # EXPORTs
 ######################################################
 
-export GOPATH=$HOME/Works/projects/go
 export VISUAL="nvim"
 export EDITOR="nvim"
-export GEM_HOME=$HOME/.gem
+
+export PATH="$HOME/.bin/:$PATH"
+
+export GOPATH="$HOME/Works/projects/go"
+
+export GEM_HOME="$HOME/.gem"
+export PATH="$GEM_HOME/bin:$PATH"
+export PATH="$GEM_HOME/ruby/2.3.0/bin:$PATH"
+
 export GREP_OPTIONS='--color=auto'
+
 export FZF_DEFAULT_OPTS="--height=40% --color=bw --reverse"
+export FZF_DEFAULT_COMMAND="rg --files --hidden --follow  --glob '!.git/*'"
+export FZF_CTRL_T_COMMAND="rg --files --hidden --follow  --glob '!.git/*'"
 
-if which rg >/dev/null; then
-  export FZF_DEFAULT_COMMAND="rg --files --hidden --follow  --glob '!.git/*'"
-  export FZF_CTRL_T_COMMAND="rg --files --hidden --follow  --glob '!.git/*'"
-else
-  export FZF_DEFAULT_COMMAND="\
-  find . \
-    -not -path \"**/node_modules/**\" \
-    -not -path \"**/.git/**\" \
-    -not -path \"**/*~\" \
-    -type f \
-  "
-  export FZF_CTRL_T_COMMAND="\
-  find . \
-    -not -path \"**/node_modules/**\" \
-    -not -path \"**/.git/**\" \
-    -not -path \"**/*~\" \
-    -type f \
-  "
-fi
+export ANDROID_HOME="$HOME/Library/Android/sdk"
+export ANDROID_SDK_ROOT="$ANDROID_HOME"
+export ANDROID_NDK_HOME="$HOME/Library/Android/ndk/r13b"
+export ANDROID_NDK_ROOT="$ANDROID_NDK_HOME"
+export ANDROID_NDK_CLANG="$ANDROID_NDK_ROOT/toolchains/llvm/prebuilt/darwin-x86_64"
+export ANDROID_NDK_ARM="$ANDROID_NDK_ROOT/toolchains/arm-linux-androideabi-4.9/prebuilt/darwin-x86_64"
+export ANDROID_NDK_X86="$ANDROID_NDK_ROOT/toolchains/x86-4.9/prebuilt/darwin-x86_64"
+export PATH="$ANDROID_SDK_ROOT/tools:$PATH"
+export PATH="$ANDROID_SDK_ROOT/platform-tools:$PATH"
 
-# enable man colors
-# https://russellparker.me/2018/02/23/adding-colors-to-man/
-export MANROFFOPT='-c'
-export LESS_TERMCAP_mb=$(tput bold; tput setaf 2)
-export LESS_TERMCAP_md=$(tput bold; tput setaf 6)
-export LESS_TERMCAP_me=$(tput sgr0)
-export LESS_TERMCAP_so=$(tput bold; tput setaf 3; tput setab 4)
-export LESS_TERMCAP_se=$(tput rmso; tput sgr0)
-export LESS_TERMCAP_us=$(tput smul; tput bold; tput setaf 7)
-export LESS_TERMCAP_ue=$(tput rmul; tput sgr0)
-export LESS_TERMCAP_mr=$(tput rev)
-export LESS_TERMCAP_mh=$(tput dim)
-
+export JAVA_HOME="/Applications/Android Studio.app/Contents/jre/jdk/Contents/Home"
+export PATH="$JAVA_HOME/bin:$PATH"
 
 ######################################################
 # History configuration
@@ -131,9 +106,9 @@ alias gdc="git dc"
 alias gp="git p"
 
 alias yta='youtube-dl -f bestaudio'
-alias ytv='youtube-dl -f "bestvideo[height<=720]+bestaudio"'
+alias ytv='youtube-dl -f "bestvideo[height<=1080]+bestaudio"'
 alias mpa='mpv --no-video'
-alias mpv='mpv --ytdl-format="94/95/480p"'
+alias mpv='mpv --ontop --geometry="384x216-7-7" --ytdl-format="bestvideo[height<=480]+bestaudio"'
 
 alias ll="ls -lcthr"
 alias ls="ls -cthr"
