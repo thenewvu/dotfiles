@@ -5,8 +5,8 @@
 " https://gist.github.com/XVilka/8346728
 set termguicolors
 
-" disable syntax highlight 
-syntax off
+" enable syntax highlight 
+syntax on
 
 " point %% to the current the full page of the directory that containts the
 " current editing file
@@ -328,6 +328,10 @@ nmap <silent> ]l <Plug>(ale_next_wrap)
 Plug 'ap/vim-buftabline'
 let g:buftabline_indicators = 1
 let g:buftabline_plug_map = 0
+hi! link BufTabLineCurrent   TabLineSel   " Buffer shown in current window
+hi! link BufTabLineActive    TablineSel   " Buffer shown in other window
+hi! link BufTabLineHidden    TabLine      " Buffer not currently visible
+hi! link BufTabLineFill      TabLineFill  " Empty area
 
 " toolkit for develop golang
 Plug 'fatih/vim-go', { 'for': 'go' }
