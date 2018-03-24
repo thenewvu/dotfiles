@@ -1,37 +1,42 @@
 " BEHAVIOR SETTINGS
 " -----------------
+
+" enable term-true-color, requires terminal support
+" https://gist.github.com/XVilka/8346728
 set termguicolors
 
-syntax enable
+" disable syntax highlight 
+syntax off
+
 " point %% to the current the full page of the directory that containts the
 " current editing file
 " Ref: http://vim.wikia.com/wiki/Easy_edit_of_files_in_the_same_directory
 cabbr <expr> %% expand('%:p:h')
+
 " set working dir
 set directory=$HOME/.vim/tmp/
+
 " no junk files
 set nobackup
 set nowritebackup
 set noswapfile
+
 " persist undo history
 set undodir=~/.vim/undo
 set undofile
 set undolevels=1000
 set undoreload=10000
-" Disable the startup message
-set shortmess=I                
-set shortmess+=a
-" Keep cursor in the same place after saves
-set nostartofline              
-" more natural split opening
+
+" split by default below and right
 set splitbelow
 set splitright
-" do replacing globally by default
-set gdefault
+
 " ask to confirm closing an unsaved file
 set confirm
+
 " switch between buffers without saving
 set hidden
+
 " better completion
 " .: Scan the current buffer
 " w: Scan buffers from other windows
@@ -41,61 +46,76 @@ set hidden
 " i: Scan the current and included files
 set complete=.,w,b,u,t
 set completeopt=longest,menuone,preview
+
 " default encoding to utf-8
 set encoding=utf-8
+
 " use the system clipboard when yank something
 set clipboard^=unnamedplus,unnamed
+
 " autoreload files on change
 set autoread
+
 " make backspace work like most other apps
 set backspace=indent,eol,start
+
+" highlight search matching interactively
 set incsearch
+set hlsearch
+set smartcase
+set ignorecase
+
+" show preview when replacing with :s
+set inccommand=nosplit 
+
 " smaller <esc> delay
-set timeoutlen=400 
+set timeoutlen=400
 set ttimeoutlen=0
+
+" show line number
 set number
-set noshowcmd
-set noshowmode
+
+" always show status line
 set laststatus=2
+
+" tab-related
 set tabstop=2
 set softtabstop=2
 set shiftwidth=2
 set expandtab
+
+" show auto-complete when typing in command line
 set wildmenu
 set wildmode=longest,list
 set wildignore+=.hg,.git,.svn
-set showmatch
-set hlsearch
-set breakindent
+
 set wrap 
+set breakindent
 set showbreak=↳\ 
 set nolist
-set smartcase
-set ignorecase
-" show results while typing a :substitute command
-set inccommand=nosplit 
 
-
-set foldenable
-set foldmethod=syntax
-set foldnestmax=5
-set foldlevel=0
-set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
-set fillchars+=fold:\
-" Ref: http://vim.wikia.com/wiki/Folding_for_plain_text_files_based_on_indentation
-set foldtext=MyFoldText()
-function! MyFoldText()
-       let line = getline(v:foldstart)
-       " Foldtext ignores tabstop and shows tabs as one space,
-       " so convert tabs to 'tabstop' spaces so text lines up
-       let ts = repeat(' ',&tabstop)
-       return substitute(line, '\t', ts, 'g')
-endfunction
+" set foldenable
+" set foldmethod=syntax
+" set foldnestmax=5
+" set foldlevel=0
+" set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
+" set fillchars+=fold:\
+" " Ref: http://vim.wikia.com/wiki/Folding_for_plain_text_files_based_on_indentation
+" set foldtext=MyFoldText()
+" function! MyFoldText()
+"        let line = getline(v:foldstart)
+"        " Foldtext ignores tabstop and shows tabs as one space,
+"        " so convert tabs to 'tabstop' spaces so text lines up
+"        let ts = repeat(' ',&tabstop)
+"        return substitute(line, '\t', ts, 'g')
+" endfunction
 
 " disable netrw by faking it was loaded
 let g:loaded_netrwPlugin = 1
+
 " disable auto matching parens by faking it was loaded
 let g:loaded_matchparen=1
+
 set lazyredraw
 set ttyfast
 
@@ -153,12 +173,6 @@ augroup END
 augroup Vim
   autocmd!
   au BufWritePost .vimrc source %
-augroup END
-
-" auto change working dir to the dir contains the current file
-augroup Autochdir
-  autocmd!
-  autocmd BufEnter * silent! lcd %:p:h
 augroup END
 
 " KEY SETTINGS
@@ -245,12 +259,12 @@ set rtp+=~/.vim/plugged/vim-colors-google
 colorscheme google
 
 " improved javascript syntax
-Plug 'pangloss/vim-javascript'
+" Plug 'pangloss/vim-javascript'
 
 " jsx syntax
-Plug 'MaxMEllon/vim-jsx-pretty'
-hi! link jsxCloseTag jsxTag
-hi! link jsxCloseString jsxTag
+" Plug 'MaxMEllon/vim-jsx-pretty'
+" hi! link jsxCloseTag jsxTag
+" hi! link jsxCloseString jsxTag
 
 " commenting
 Plug 'tomtom/tcomment_vim'
