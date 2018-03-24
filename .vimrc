@@ -260,12 +260,12 @@ set background=dark
 colorscheme hackerrank
 
 " improved javascript syntax
-" Plug 'pangloss/vim-javascript'
+Plug 'pangloss/vim-javascript'
 
 " jsx syntax
-" Plug 'MaxMEllon/vim-jsx-pretty'
-" hi! link jsxCloseTag jsxTag
-" hi! link jsxCloseString jsxTag
+Plug 'MaxMEllon/vim-jsx-pretty'
+hi! link jsxCloseTag jsxTag
+hi! link jsxCloseString jsxTag
 
 " commenting
 Plug 'tomtom/tcomment_vim'
