@@ -254,9 +254,10 @@ noremap <leader>f :grep
 " ---------------
 call plug#begin('~/.vim/plugged')
 
-Plug 'thenewvu/vim-colors-google'
-set rtp+=~/.vim/plugged/vim-colors-google
-colorscheme google
+Plug 'thenewvu/vim-colors-hackerrank'
+set rtp+=~/.vim/plugged/vim-colors-hackerrank
+set background=dark
+colorscheme hackerrank
 
 " improved javascript syntax
 " Plug 'pangloss/vim-javascript'
