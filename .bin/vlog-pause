@@ -1,0 +1,4 @@
+#!/bin/bash
+
+ffmpeg_pid=`pgrep ffmpeg`
+kill -TSTP $ffmpeg_pid
