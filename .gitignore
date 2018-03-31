@@ -89,3 +89,4 @@ media
 .fehbg
 .vim/undodir
 .vim/colors
+.tmux.theme.conf
