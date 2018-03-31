@@ -72,8 +72,8 @@ set inccommand=nosplit
 set timeoutlen=400
 set ttimeoutlen=0
 
-" show line number
-set number
+" no line number
+set nonumber
 
 " always show status line
 set laststatus=2
@@ -89,32 +89,33 @@ set wildmenu
 set wildmode=longest,list
 set wildignore+=.hg,.git,.svn
 
-set wrap 
-set breakindent
-set showbreak=↳\ 
+set nowrap 
 set nolist
 
-" set foldenable
-" set foldmethod=syntax
-" set foldnestmax=5
-" set foldlevel=0
-" set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
-" set fillchars+=fold:\
-" " Ref: http://vim.wikia.com/wiki/Folding_for_plain_text_files_based_on_indentation
-" set foldtext=MyFoldText()
-" function! MyFoldText()
-"        let line = getline(v:foldstart)
-"        " Foldtext ignores tabstop and shows tabs as one space,
-"        " so convert tabs to 'tabstop' spaces so text lines up
-"        let ts = repeat(' ',&tabstop)
-"        return substitute(line, '\t', ts, 'g')
-" endfunction
+set foldenable
+set foldmethod=syntax
+set foldnestmax=5
+set foldlevel=0
+set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
+set fillchars+=fold:\ 
+" Ref: http://vim.wikia.com/wiki/Folding_for_plain_text_files_based_on_indentation
+set foldtext=MyFoldText()
+function! MyFoldText()
+       let line = getline(v:foldstart)
+       " Foldtext ignores tabstop and shows tabs as one space,
+       " so convert tabs to 'tabstop' spaces so text lines up
+       let ts = repeat(' ',&tabstop)
+       return substitute(line, '\t', ts, 'g')
+endfunction
 
 " disable netrw by faking it was loaded
 let g:loaded_netrwPlugin = 1
 
 " disable auto matching parens by faking it was loaded
 let g:loaded_matchparen=1
+
+set noshowcmd
+set noshowmode
 
 set lazyredraw
 set ttyfast
@@ -167,7 +168,7 @@ augroup END
 
 augroup Markdown
   autocmd!
-  autocmd FileType markdown setlocal textwidth=79 linebreak wrap
+  autocmd FileType markdown setlocal textwidth=79 wrap linebreak showbreak=↳\ 
 augroup END
 
 augroup Vim
@@ -254,10 +255,10 @@ noremap <leader>f :grep
 " ---------------
 call plug#begin('~/.vim/plugged')
 
-Plug 'thenewvu/vim-colors-hackerrank'
-set rtp+=~/.vim/plugged/vim-colors-hackerrank
-set background=dark
-colorscheme hackerrank
+Plug 'thenewvu/vim-colors-atelierforest'
+set rtp+=~/.vim/plugged/vim-colors-atelierforest
+set background=light
+colorscheme atelierforest
 
 " improved javascript syntax
 Plug 'pangloss/vim-javascript'
@@ -308,9 +309,9 @@ let g:ale_fixers['javascript'] = ['eslint']
 let g:ale_javascript_eslint_executable = 'eslint_d'
 let g:ale_javascript_eslint_use_global = 1
 let g:ale_linters['c'] = ['clang']
-let g:ale_fixers['c'] = ['clang-format']
+" let g:ale_fixers['c'] = ['clang-format']
 let g:ale_linters['cpp'] = ['clang']
-let g:ale_fixers['cpp'] = ['clang-format']
+" let g:ale_fixers['cpp'] = ['clang-format']
 let g:ale_fix_on_save = 1
 let g:ale_set_signs = 1
 let g:ale_sign_error = '✘'
@@ -377,11 +378,11 @@ let g:gitgutter_sign_modified = '#'
 let g:gitgutter_sign_removed = '_'
 let g:gitgutter_sign_modified_removed = '#'
 hi link GitGutterAdd DiffAdd
-hi link GitGutterChange DiffText
-hi link GitGutterChangeDelete DiffText
+hi link GitGutterChange DiffChange
+hi link GitGutterChangeDelete DiffChange
 hi link GitGutterDelete DiffDelete
 hi link GitGutterAddLine DiffAdd
-hi link GitGutterChangeLine DiffText
+hi link GitGutterChangeLine DiffChange
 hi link GitGutterDeleteLine Normal
 hi link GitGutterChangeDeleteLine DiffChange
 nmap ]d <Plug>GitGutterNextHunk
