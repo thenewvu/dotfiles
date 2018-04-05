@@ -3,7 +3,9 @@
 
 " enable term-true-color, requires terminal support
 " https://gist.github.com/XVilka/8346728
-set termguicolors
+if has("termguicolors")
+  set termguicolors
+endif
 
 " enable syntax highlight 
 syntax on
@@ -24,8 +26,8 @@ set noswapfile
 " persist undo history
 set undodir=~/.vim/undo
 set undofile
-set undolevels=1000
-set undoreload=10000
+set undolevels=100
+set undoreload=100
 
 " split by default below and right
 set splitbelow
@@ -44,8 +46,9 @@ set hidden
 " u: Scan buffers that have been unloaded from the buffer list
 " t: Tag completion
 " i: Scan the current and included files
-set complete=.,w,b,u,t
-set completeopt=longest,menuone,preview
+set complete-=i
+set complete-=t
+set completeopt=menuone,preview
 
 " default encoding to utf-8
 set encoding=utf-8
@@ -83,14 +86,17 @@ set tabstop=2
 set softtabstop=2
 set shiftwidth=2
 set expandtab
+set nolist
 
 " show auto-complete when typing in command line
 set wildmenu
 set wildmode=longest,list
 set wildignore+=.hg,.git,.svn
 
-set nowrap 
-set nolist
+set textwidth=80
+set wrap 
+set linebreak 
+set showbreak=↳\ 
 
 set foldenable
 set foldmethod=syntax
@@ -113,12 +119,16 @@ let g:loaded_netrwPlugin = 1
 
 " disable auto matching parens by faking it was loaded
 let g:loaded_matchparen=1
+let g:matchparen_timeout = 2
+let g:matchparen_insert_timeout = 2
 
 set noshowcmd
 set noshowmode
 
 set lazyredraw
 set ttyfast
+
+set synmaxcol=80
 
 " file is large from 500kb
 let g:LargeFile = 1024 * 500
@@ -166,11 +176,6 @@ augroup Groovy
   autocmd FileType groovy setlocal tabstop=4 softtabstop=4 shiftwidth=4
 augroup END
 
-augroup Markdown
-  autocmd!
-  autocmd FileType markdown setlocal textwidth=79 wrap linebreak showbreak=↳\ 
-augroup END
-
 augroup Vim
   autocmd!
   au BufWritePost .vimrc source %
@@ -197,10 +202,10 @@ nnoremap G Gzz
 vnoremap G Gzz
 nnoremap n nzzzv
 nnoremap N Nzzzv
-nnoremap j gjzz
-nnoremap k gkzz
-vnoremap j gjzz
-vnoremap k gkzz
+nnoremap j jzz
+nnoremap k kzz
+vnoremap j jzz
+vnoremap k kzz
 " insert new line without entering insert mode
 nnoremap o o<esc>
 nnoremap O O<esc>
@@ -246,19 +251,23 @@ nnoremap < <<
 " <ecs> to escape temrinal mode
 tnoremap <Esc> <C-\><C-n>
 " <f1> won't no longer open vim help
-noremap  <F1> <esc>
+nnoremap <F1> <esc>
 inoremap <F1> <esc>
+vnoremap <F1> <esc>
 " search text in root directory
-noremap <leader>f :grep 
+nnoremap <leader>f :grep 
 
 " PLUGIN SETTINGS
 " ---------------
 call plug#begin('~/.vim/plugged')
 
-Plug 'thenewvu/vim-colors-atelierforest'
-set rtp+=~/.vim/plugged/vim-colors-atelierforest
-set background=light
-colorscheme atelierforest
+Plug 'lifepillar/vim-wwdc17-theme'
+set rtp+=~/.vim/plugged/vim-wwdc17-theme
+let g:wwdc17_frame_color = 7
+colorscheme wwdc17
+hi! Comment guibg=white ctermbg=white
+hi! SignColumn guibg=white ctermbg=white
+hi! ALEErrorSign guibg=white ctermbg=white
 
 " improved javascript syntax
 Plug 'pangloss/vim-javascript'
@@ -284,6 +293,8 @@ nnoremap / :BLines<cr>
 nnoremap <leader>/ /
 augroup FZF
   autocmd!
+  " <ecs> doesn't close fzf window because it's in terminal mode,
+  " this trick remaps <ecs> in terminal mode
   autocmd TermOpen term://*FZF tnoremap <silent> <buffer><nowait> <esc> <c-c>
 augroup end
 
@@ -309,13 +320,11 @@ let g:ale_fixers['javascript'] = ['eslint']
 let g:ale_javascript_eslint_executable = 'eslint_d'
 let g:ale_javascript_eslint_use_global = 1
 let g:ale_linters['c'] = ['clang']
-" let g:ale_fixers['c'] = ['clang-format']
 let g:ale_linters['cpp'] = ['clang']
-" let g:ale_fixers['cpp'] = ['clang-format']
 let g:ale_fix_on_save = 1
 let g:ale_set_signs = 1
-let g:ale_sign_error = '✘'
-let g:ale_sign_warning = '⚠'
+let g:ale_sign_error = '⚑'
+let g:ale_sign_warning = '⚐'
 let g:ale_open_list = 0
 let g:ale_lint_on_save = 1
 let g:ale_lint_on_enter = 0
@@ -368,23 +377,17 @@ Plug 'dhruvasagar/vim-table-mode'
 
 Plug 'airblade/vim-gitgutter'
 let g:gitgutter_signs = 1
-let g:gitgutter_highlight_lines = 1
+let g:gitgutter_override_sign_column_highlight = 0
 let g:gitgutter_diff_args = '-w'
 let g:gitgutter_map_keys = 0
-let g:gitgutter_realtime = 1
-let g:gitgutter_eager = 1
 let g:gitgutter_sign_added = '+'
-let g:gitgutter_sign_modified = '#'
+let g:gitgutter_sign_modified = '≢'
 let g:gitgutter_sign_removed = '_'
-let g:gitgutter_sign_modified_removed = '#'
-hi link GitGutterAdd DiffAdd
-hi link GitGutterChange DiffChange
-hi link GitGutterChangeDelete DiffChange
-hi link GitGutterDelete DiffDelete
-hi link GitGutterAddLine DiffAdd
-hi link GitGutterChangeLine DiffChange
-hi link GitGutterDeleteLine Normal
-hi link GitGutterChangeDeleteLine DiffChange
+let g:gitgutter_sign_modified_removed = '≠'
+" hi link GitGutterAdd DiffAdd
+" hi link GitGutterChange DiffChange
+" hi link GitGutterChangeDelete DiffChange
+" hi link GitGutterDelete DiffDelete
 nmap ]d <Plug>GitGutterNextHunk
 nmap [d <Plug>GitGutterPrevHunk
 
