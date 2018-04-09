@@ -96,7 +96,15 @@ set wildignore+=.hg,.git,.svn
 set textwidth=80
 set wrap 
 set linebreak 
+set breakindent
 set showbreak=↳\ 
+set wrapmargin=2
+set columns=80
+augroup SetColumns
+  autocmd!
+  autocmd VimEnter * if (&columns > 80) | set columns=80 | endif
+  autocmd VimResized * if (&columns > 80) | set columns=80 | endif
+augroup END
 
 set foldenable
 set foldmethod=syntax
@@ -128,7 +136,7 @@ set noshowmode
 set lazyredraw
 set ttyfast
 
-set synmaxcol=80
+" set synmaxcol=80
 
 " file is large from 500kb
 let g:LargeFile = 1024 * 500
@@ -381,7 +389,7 @@ let g:gitgutter_override_sign_column_highlight = 0
 let g:gitgutter_diff_args = '-w'
 let g:gitgutter_map_keys = 0
 let g:gitgutter_sign_added = '+'
-let g:gitgutter_sign_modified = '≢'
+let g:gitgutter_sign_modified = '≠'
 let g:gitgutter_sign_removed = '_'
 let g:gitgutter_sign_modified_removed = '≠'
 " hi link GitGutterAdd DiffAdd
