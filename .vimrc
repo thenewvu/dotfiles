@@ -94,6 +94,10 @@ set wildmode=longest,list
 set wildignore+=.hg,.git,.svn
 
 set textwidth=80
+" auto wrap
+set formatoptions+=t
+" auto wrap on long lines
+set formatoptions-=l
 set wrap 
 set linebreak 
 set breakindent
@@ -210,10 +214,10 @@ nnoremap G Gzz
 vnoremap G Gzz
 nnoremap n nzzzv
 nnoremap N Nzzzv
-nnoremap j jzz
-nnoremap k kzz
-vnoremap j jzz
-vnoremap k kzz
+nnoremap j gjzz
+nnoremap k gkzz
+vnoremap j gjzz
+vnoremap k gkzz
 " insert new line without entering insert mode
 nnoremap o o<esc>
 nnoremap O O<esc>
