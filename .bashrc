@@ -106,7 +106,7 @@ alias gdc="git dc"
 alias gp="git p"
 
 alias yta='youtube-dl -f bestaudio'
-alias ytv='youtube-dl -f "bestvideo[height<=1080]+bestaudio" --embed-subs --sub-lang=en'
+alias ytv='youtube-dl -f "bestvideo[height<=1080]+bestaudio" --embed-subs --sub-lang=en --write-auto-sub'
 alias mpa='mpv --no-video'
 alias mpv='mpv --ytdl-format="bestvideo[height<=480]+bestaudio,720p60,720p,480p"'
 
