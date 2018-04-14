@@ -1,12 +1,6 @@
 " BEHAVIOR SETTINGS
 " -----------------
 
-" enable term-true-color, requires terminal support
-" https://gist.github.com/XVilka/8346728
-if has("termguicolors")
-  set termguicolors
-endif
-
 " enable syntax highlight 
 syntax on
 
@@ -78,9 +72,6 @@ set ttimeoutlen=0
 " no line number
 set nonumber
 
-" always show status line
-set laststatus=2
-
 " tab-related
 set tabstop=2
 set softtabstop=2
@@ -117,14 +108,41 @@ set foldlevel=0
 set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
 set fillchars+=fold:\ 
 " Ref: http://vim.wikia.com/wiki/Folding_for_plain_text_files_based_on_indentation
-set foldtext=MyFoldText()
-function! MyFoldText()
-       let line = getline(v:foldstart)
-       " Foldtext ignores tabstop and shows tabs as one space,
-       " so convert tabs to 'tabstop' spaces so text lines up
-       let ts = repeat(' ',&tabstop)
-       return substitute(line, '\t', ts, 'g')
-endfunction
+set foldtext=FoldText()
+function! FoldText()
+    let l:lpadding = &fdc
+    redir => l:signs
+      execute 'silent sign place buffer='.bufnr('%')
+    redir End
+    let l:lpadding += l:signs =~ 'id=' ? 2 : 0
+
+    if exists("+relativenumber")
+      if (&number)
+        let l:lpadding += max([&numberwidth, strlen(line('$'))]) + 1
+      elseif (&relativenumber)
+        let l:lpadding += max([&numberwidth, strlen(v:foldstart - line('w0')), strlen(line('w$') - v:foldstart), strlen(v:foldstart)]) + 1
+      endif
+    else
+      if (&number)
+        let l:lpadding += max([&numberwidth, strlen(line('$'))]) + 1
+      endif
+    endif
+
+    " expand tabs
+    let l:start = substitute(getline(v:foldstart), '\t', repeat(' ', &tabstop), 'g')
+    let l:end = substitute(substitute(getline(v:foldend), '\t', repeat(' ', &tabstop), 'g'), '^\s*', '', 'g')
+
+    let l:info = ' (' . (v:foldend - v:foldstart) . ')'
+    let l:infolen = strlen(substitute(l:info, '.', 'x', 'g'))
+    let l:width = winwidth(0) - l:lpadding - l:infolen
+
+    let l:separator = ' … '
+    let l:separatorlen = strlen(substitute(l:separator, '.', 'x', 'g'))
+    let l:start = strpart(l:start , 0, l:width - strlen(substitute(l:end, '.', 'x', 'g')) - l:separatorlen)
+    let l:text = l:start . ' … ' . l:end
+
+    return l:text . repeat(' ', l:width - strlen(substitute(l:text, ".", "x", "g"))) . l:info
+  endfunction
 
 " disable netrw by faking it was loaded
 let g:loaded_netrwPlugin = 1
@@ -134,8 +152,12 @@ let g:loaded_matchparen=1
 let g:matchparen_timeout = 2
 let g:matchparen_insert_timeout = 2
 
+" hide status bar at bottom
+set laststatus=0
 set noshowcmd
 set noshowmode
+set noruler
+
 
 set lazyredraw
 set ttyfast
@@ -273,13 +295,10 @@ nnoremap <leader>f :grep
 " ---------------
 call plug#begin('~/.vim/plugged')
 
-Plug 'lifepillar/vim-wwdc17-theme'
-set rtp+=~/.vim/plugged/vim-wwdc17-theme
-let g:wwdc17_frame_color = 7
-colorscheme wwdc17
-hi! Comment guibg=white ctermbg=white
-hi! SignColumn guibg=white ctermbg=white
-hi! ALEErrorSign guibg=white ctermbg=white
+" Plug 'joshdick/onedark.vim'
+" set rtp+=~/.vim/plugged/onedark.vim
+" let g:onedark_termcolors = 16
+colorscheme pro
 
 " improved javascript syntax
 Plug 'pangloss/vim-javascript'
@@ -350,10 +369,10 @@ nmap <silent> ]l <Plug>(ale_next_wrap)
 Plug 'ap/vim-buftabline'
 let g:buftabline_indicators = 1
 let g:buftabline_plug_map = 0
-hi! link BufTabLineCurrent   TabLineSel   " Buffer shown in current window
-hi! link BufTabLineActive    TablineSel   " Buffer shown in other window
-hi! link BufTabLineHidden    TabLine      " Buffer not currently visible
-hi! link BufTabLineFill      TabLineFill  " Empty area
+hi! link BufTabLineCurrent   TablineSel
+hi! link BufTabLineActive    TablineSel
+hi! link BufTabLineHidden    Tabline
+hi! link BufTabLineFill      TablineFill
 
 " toolkit for develop golang
 Plug 'fatih/vim-go', { 'for': 'go' }
@@ -396,10 +415,10 @@ let g:gitgutter_sign_added = '+'
 let g:gitgutter_sign_modified = '≠'
 let g:gitgutter_sign_removed = '_'
 let g:gitgutter_sign_modified_removed = '≠'
-" hi link GitGutterAdd DiffAdd
-" hi link GitGutterChange DiffChange
-" hi link GitGutterChangeDelete DiffChange
-" hi link GitGutterDelete DiffDelete
+hi link GitGutterAdd DiffAdd
+hi link GitGutterChange DiffChange
+hi link GitGutterChangeDelete DiffChange
+hi link GitGutterDelete DiffDelete
 nmap ]d <Plug>GitGutterNextHunk
 nmap [d <Plug>GitGutterPrevHunk
 
