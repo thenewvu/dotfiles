@@ -67,7 +67,7 @@ export FZF_CTRL_T_COMMAND="rg --files --hidden --follow  --glob '!.git/*'"
 
 export ANDROID_HOME="$HOME/Library/Android/sdk"
 export ANDROID_SDK_ROOT="$ANDROID_HOME"
-export ANDROID_NDK_HOME="$HOME/Library/Android/ndk/r13b"
+export ANDROID_NDK_HOME="$HOME/Library/Android/ndk/r14b"
 export ANDROID_NDK_ROOT="$ANDROID_NDK_HOME"
 export ANDROID_NDK_CLANG="$ANDROID_NDK_ROOT/toolchains/llvm/prebuilt/darwin-x86_64"
 export ANDROID_NDK_ARM="$ANDROID_NDK_ROOT/toolchains/arm-linux-androideabi-4.9/prebuilt/darwin-x86_64"
