@@ -4,6 +4,13 @@
 " enable syntax highlight 
 syntax on
 
+colorscheme pro
+
+augroup HiParens
+  autocmd!
+  autocmd Syntax * syn match CustomDelimiters /[(){}]/ containedin=ALL | hi link CustomDelimiters Delimiter
+augroup END
+
 " point %% to the current the full page of the directory that containts the
 " current editing file
 " Ref: http://vim.wikia.com/wiki/Easy_edit_of_files_in_the_same_directory
@@ -84,18 +91,22 @@ set wildmenu
 set wildmode=longest,list
 set wildignore+=.hg,.git,.svn
 
-set textwidth=80
-" auto wrap
-set formatoptions+=t
-" auto wrap on long lines
-set formatoptions-=l
-set wrap 
-set linebreak 
-set breakindent
-set showbreak=↳\ 
-set wrapmargin=2
+" whatever don't wrap
+set nowrap
+
+" set wrap 
+" set wrapmargin=2
+" set textwidth=80
+" " auto wrap when editting
+" set formatoptions+=t
+" " auto wrap for long lines
+" set formatoptions-=l
+" set linebreak 
+" set breakindent
+" set showbreak=↳\ 
+
 set columns=80
-augroup SetColumns
+augroup FixedVimWidth
   autocmd!
   autocmd VimEnter * if (&columns > 80) | set columns=80 | endif
   autocmd VimResized * if (&columns > 80) | set columns=80 | endif
@@ -110,39 +121,39 @@ set fillchars+=fold:\
 " Ref: http://vim.wikia.com/wiki/Folding_for_plain_text_files_based_on_indentation
 set foldtext=FoldText()
 function! FoldText()
-    let l:lpadding = &fdc
-    redir => l:signs
-      execute 'silent sign place buffer='.bufnr('%')
-    redir End
-    let l:lpadding += l:signs =~ 'id=' ? 2 : 0
+  let l:lpadding = &fdc
+  redir => l:signs
+    execute 'silent sign place buffer='.bufnr('%')
+  redir End
+  let l:lpadding += l:signs =~ 'id=' ? 2 : 0
 
-    if exists("+relativenumber")
-      if (&number)
-        let l:lpadding += max([&numberwidth, strlen(line('$'))]) + 1
-      elseif (&relativenumber)
-        let l:lpadding += max([&numberwidth, strlen(v:foldstart - line('w0')), strlen(line('w$') - v:foldstart), strlen(v:foldstart)]) + 1
-      endif
-    else
-      if (&number)
-        let l:lpadding += max([&numberwidth, strlen(line('$'))]) + 1
-      endif
+  if exists("+relativenumber")
+    if (&number)
+      let l:lpadding += max([&numberwidth, strlen(line('$'))]) + 1
+    elseif (&relativenumber)
+      let l:lpadding += max([&numberwidth, strlen(v:foldstart - line('w0')), strlen(line('w$') - v:foldstart), strlen(v:foldstart)]) + 1
     endif
+  else
+    if (&number)
+      let l:lpadding += max([&numberwidth, strlen(line('$'))]) + 1
+    endif
+  endif
 
-    " expand tabs
-    let l:start = substitute(getline(v:foldstart), '\t', repeat(' ', &tabstop), 'g')
-    let l:end = substitute(substitute(getline(v:foldend), '\t', repeat(' ', &tabstop), 'g'), '^\s*', '', 'g')
+  " expand tabs
+  let l:start = substitute(getline(v:foldstart), '\t', repeat(' ', &tabstop), 'g')
+  let l:end = substitute(substitute(getline(v:foldend), '\t', repeat(' ', &tabstop), 'g'), '^\s*', '', 'g')
 
-    let l:info = ' (' . (v:foldend - v:foldstart) . ')'
-    let l:infolen = strlen(substitute(l:info, '.', 'x', 'g'))
-    let l:width = winwidth(0) - l:lpadding - l:infolen
+  let l:info = ' (' . (v:foldend - v:foldstart) . ')'
+  let l:infolen = strlen(substitute(l:info, '.', 'x', 'g'))
+  let l:width = winwidth(0) - l:lpadding - l:infolen
 
-    let l:separator = ' … '
-    let l:separatorlen = strlen(substitute(l:separator, '.', 'x', 'g'))
-    let l:start = strpart(l:start , 0, l:width - strlen(substitute(l:end, '.', 'x', 'g')) - l:separatorlen)
-    let l:text = l:start . ' … ' . l:end
+  let l:separator = ' … '
+  let l:separatorlen = strlen(substitute(l:separator, '.', 'x', 'g'))
+  let l:start = strpart(l:start , 0, l:width - strlen(substitute(l:end, '.', 'x', 'g')) - l:separatorlen)
+  let l:text = l:start . ' … ' . l:end
 
-    return l:text . repeat(' ', l:width - strlen(substitute(l:text, ".", "x", "g"))) . l:info
-  endfunction
+  return l:text . repeat(' ', l:width - strlen(substitute(l:text, ".", "x", "g"))) . l:info
+endfunction
 
 " disable netrw by faking it was loaded
 let g:loaded_netrwPlugin = 1
@@ -236,10 +247,10 @@ nnoremap G Gzz
 vnoremap G Gzz
 nnoremap n nzzzv
 nnoremap N Nzzzv
-nnoremap j gjzz
-nnoremap k gkzz
-vnoremap j gjzz
-vnoremap k gkzz
+nnoremap j jzz
+nnoremap k kzz
+vnoremap j jzz
+vnoremap k kzz
 " insert new line without entering insert mode
 nnoremap o o<esc>
 nnoremap O O<esc>
@@ -295,11 +306,6 @@ nnoremap <leader>f :grep
 " ---------------
 call plug#begin('~/.vim/plugged')
 
-" Plug 'joshdick/onedark.vim'
-" set rtp+=~/.vim/plugged/onedark.vim
-" let g:onedark_termcolors = 16
-colorscheme pro
-
 " improved javascript syntax
 Plug 'pangloss/vim-javascript'
 
@@ -351,7 +357,11 @@ let g:ale_fixers['javascript'] = ['eslint']
 let g:ale_javascript_eslint_executable = 'eslint_d'
 let g:ale_javascript_eslint_use_global = 1
 let g:ale_linters['c'] = ['clang']
+let g:ale_fixers['c'] = ['clang-format']
+let g:ale_c_clangformat_options = "-style=webkit"
 let g:ale_linters['cpp'] = ['clang']
+let g:ale_fixers['cpp'] = ['clang-format']
+let g:ale_cpp_clangformat_options = "-style=webkit"
 let g:ale_fix_on_save = 1
 let g:ale_set_signs = 1
 let g:ale_sign_error = '⚑'
@@ -421,5 +431,9 @@ hi link GitGutterChangeDelete DiffChange
 hi link GitGutterDelete DiffDelete
 nmap ]d <Plug>GitGutterNextHunk
 nmap [d <Plug>GitGutterPrevHunk
+
+Plug 'gabrielelana/vim-markdown'
+let g:markdown_enable_mappings = 0
+let g:markdown_enable_conceal = 1
 
 call plug#end()
