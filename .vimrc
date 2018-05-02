@@ -315,7 +315,7 @@ hi! link jsxCloseTag jsxTag
 hi! link jsxCloseString jsxTag
 
 " commenting
-Plug 'tomtom/tcomment_vim'
+Plug 'tpope/vim-commentary'
 
 " automatically add end bracket/quote
 Plug 'Raimondi/delimitMate'
@@ -432,8 +432,12 @@ hi link GitGutterDelete DiffDelete
 nmap ]d <Plug>GitGutterNextHunk
 nmap [d <Plug>GitGutterPrevHunk
 
-Plug 'gabrielelana/vim-markdown'
-let g:markdown_enable_mappings = 0
-let g:markdown_enable_conceal = 1
+Plug 'tpope/vim-markdown'
+
+augroup Markdown
+  au!
+  au FileType markdown setlocal wrap linebreak conceallevel=2
+  au BufNewFile,BufReadPost *.md set filetype=markdown
+augroup END
 
 call plug#end()
