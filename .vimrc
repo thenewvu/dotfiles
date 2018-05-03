@@ -8,7 +8,7 @@ colorscheme pro
 
 augroup HiParens
   autocmd!
-  autocmd Syntax * syn match CustomDelimiters /[(){}]/ containedin=ALL | hi link CustomDelimiters Delimiter
+  autocmd Syntax * syn match CustomDelimiters /[(){}]/ display | hi link CustomDelimiters Delimiter
 augroup END
 
 " point %% to the current the full page of the directory that containts the
