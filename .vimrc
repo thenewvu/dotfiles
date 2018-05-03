@@ -226,6 +226,11 @@ augroup Vim
   au BufWritePost .vimrc source %
 augroup END
 
+augroup C11
+  au!
+  au FileType c setlocal tabstop=4 softtabstop=4 shiftwidth=4
+augroup END
+
 " KEY SETTINGS
 " ------------
 let g:mapleader = ";"
