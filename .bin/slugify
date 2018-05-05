@@ -9,13 +9,13 @@
 ## Initialize defaults
 script_name=${0##*/}
 dashes_omit_adjacent_spaces=0
-consolidate_spaces=0
-space_replace_char='_'
+consolidate_spaces=1
+space_replace_char='-'
 ignore_case=0
 dry_run=0
-dashes_to_spaces=0
-underscores_to_spaces=0
-verbose=0
+dashes_to_spaces=1
+underscores_to_spaces=1
+verbose=1
 
 ## Initialize valid options
 opt_string=acdhintuv
@@ -90,21 +90,33 @@ for source in "$@"; do
   ## Optionally convert to lowercase
   if [ $ignore_case -eq 0 ]; then
     target=$(echo "$target" | tr A-Z a-z )
+    if [ $verbose -eq 1 ]; then
+      echo "converted to lowercase: $target"
+    fi
   fi
 
   ## Optionally convert existing underscores to spaces
   if [ $underscores_to_spaces -eq 1 ]; then
     target=$(echo "$target" | tr _ ' ')
+    if [ $verbose -eq 1 ]; then
+      echo "converted existing understores to spaces: $target"
+    fi
   fi
 
   ## Optionally convert existing dashes to spaces
   if [ $dashes_to_spaces -eq 1 ]; then
     target=$(echo "$target" | tr - ' ')
+    if [ $verbose -eq 1 ]; then
+      echo "converted existing dashes to spaces: $target"
+    fi
   fi
 
   ## Optionaly consolidate spaces
   if [ $consolidate_spaces -eq 1 ]; then
     target=$(echo "$target" | tr -s ' ')
+    if [ $verbose -eq 1 ]; then
+      echo "consolidated spaces: $target"
+    fi
   fi
 
   ## Optionally remove spaces immediately adjacent to dashes
@@ -115,6 +127,9 @@ for source in "$@"; do
 
   ## Replace spaces with underscores or dashes
   target=$(echo "$target" | tr ' ' "$space_replace_char")
+  if [ $verbose -eq 1 ]; then
+    echo "replaced spaces with underscores or dashes: $target"
+  fi
 
   ## Handle moving the source to target
   if [ "$target" == "$source" ]; then
