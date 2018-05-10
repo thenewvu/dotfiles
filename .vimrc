@@ -4,6 +4,9 @@
 " enable syntax highlight 
 syntax on
 
+" auto detect indentation
+filetype plugin indent on
+
 colorscheme pro
 
 augroup HiParens
@@ -76,15 +79,19 @@ set inccommand=nosplit
 set timeoutlen=400
 set ttimeoutlen=0
 
-" no line number
-set nonumber
+" show line number column
+set number
+set nocursorline
+set norelativenumber
 
 " tab-related
-set tabstop=2
-set softtabstop=2
-set shiftwidth=2
-set expandtab
+set noexpandtab
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
 set nolist
+set cindent
+
 
 " show auto-complete when typing in command line
 set wildmenu
@@ -94,65 +101,15 @@ set wildignore+=.hg,.git,.svn
 " whatever don't wrap
 set nowrap
 
-" set wrap 
-" set wrapmargin=2
-" set textwidth=80
-" " auto wrap when editting
-" set formatoptions+=t
-" " auto wrap for long lines
-" set formatoptions-=l
-" set linebreak 
-" set breakindent
-" set showbreak=↳\ 
-
-set columns=80
-augroup FixedVimWidth
-  autocmd!
-  autocmd VimEnter * if (&columns > 80) | set columns=80 | endif
-  autocmd VimResized * if (&columns > 80) | set columns=80 | endif
-augroup END
-
 set foldenable
-set foldmethod=syntax
+set foldmethod=indent
 set foldnestmax=5
 set foldlevel=0
 set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
 set fillchars+=fold:\ 
-" Ref: http://vim.wikia.com/wiki/Folding_for_plain_text_files_based_on_indentation
 set foldtext=FoldText()
 function! FoldText()
-  let l:lpadding = &fdc
-  redir => l:signs
-    execute 'silent sign place buffer='.bufnr('%')
-  redir End
-  let l:lpadding += l:signs =~ 'id=' ? 2 : 0
-
-  if exists("+relativenumber")
-    if (&number)
-      let l:lpadding += max([&numberwidth, strlen(line('$'))]) + 1
-    elseif (&relativenumber)
-      let l:lpadding += max([&numberwidth, strlen(v:foldstart - line('w0')), strlen(line('w$') - v:foldstart), strlen(v:foldstart)]) + 1
-    endif
-  else
-    if (&number)
-      let l:lpadding += max([&numberwidth, strlen(line('$'))]) + 1
-    endif
-  endif
-
-  " expand tabs
-  let l:start = substitute(getline(v:foldstart), '\t', repeat(' ', &tabstop), 'g')
-  let l:end = substitute(substitute(getline(v:foldend), '\t', repeat(' ', &tabstop), 'g'), '^\s*', '', 'g')
-
-  let l:info = ' (' . (v:foldend - v:foldstart) . ')'
-  let l:infolen = strlen(substitute(l:info, '.', 'x', 'g'))
-  let l:width = winwidth(0) - l:lpadding - l:infolen
-
-  let l:separator = ' … '
-  let l:separatorlen = strlen(substitute(l:separator, '.', 'x', 'g'))
-  let l:start = strpart(l:start , 0, l:width - strlen(substitute(l:end, '.', 'x', 'g')) - l:separatorlen)
-  let l:text = l:start . ' … ' . l:end
-
-  return l:text . repeat(' ', l:width - strlen(substitute(l:text, ".", "x", "g"))) . l:info
+  return repeat(' ', strlen(matchstr(substitute(getline(v:foldstart), '\t', repeat(' ', &tabstop), 'g'),'\v^\s+'))) . '...'
 endfunction
 
 " disable netrw by faking it was loaded
@@ -168,7 +125,6 @@ set laststatus=0
 set noshowcmd
 set noshowmode
 set noruler
-
 
 set lazyredraw
 set ttyfast
@@ -224,11 +180,6 @@ augroup END
 augroup Vim
   autocmd!
   au BufWritePost .vimrc source %
-augroup END
-
-augroup C11
-  au!
-  au FileType c setlocal tabstop=4 softtabstop=4 shiftwidth=4
 augroup END
 
 " KEY SETTINGS
@@ -362,11 +313,7 @@ let g:ale_fixers['javascript'] = ['eslint']
 let g:ale_javascript_eslint_executable = 'eslint_d'
 let g:ale_javascript_eslint_use_global = 1
 let g:ale_linters['c'] = ['clang']
-let g:ale_fixers['c'] = ['clang-format']
-let g:ale_c_clangformat_options = "-style=webkit"
 let g:ale_linters['cpp'] = ['clang']
-let g:ale_fixers['cpp'] = ['clang-format']
-let g:ale_cpp_clangformat_options = "-style=webkit"
 let g:ale_fix_on_save = 1
 let g:ale_set_signs = 1
 let g:ale_sign_error = '⚑'
@@ -444,5 +391,8 @@ augroup Markdown
   au FileType markdown setlocal wrap linebreak conceallevel=2
   au BufNewFile,BufReadPost *.md set filetype=markdown
 augroup END
+
+Plug 'junegunn/vim-easy-align'
+xmap ga <Plug>(EasyAlign)
 
 call plug#end()
