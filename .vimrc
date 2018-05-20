@@ -1,13 +1,15 @@
 " BEHAVIOR SETTINGS
 " -----------------
 
+set termguicolors
+
 " enable syntax highlight 
 syntax on
 
 " auto detect indentation
 filetype plugin indent on
 
-colorscheme pro
+colorscheme blueprint
 
 augroup HiParens
   autocmd!
@@ -79,8 +81,7 @@ set inccommand=nosplit
 set timeoutlen=400
 set ttimeoutlen=0
 
-" show line number column
-set number
+set nonumber
 set nocursorline
 set norelativenumber
 
@@ -126,6 +127,7 @@ set noshowcmd
 set noshowmode
 set noruler
 
+set nospell
 set lazyredraw
 set ttyfast
 
@@ -342,7 +344,7 @@ Plug 'fatih/vim-go', { 'for': 'go' }
 " generate tmux theme that matches the current color scheme
 Plug 'edkolev/tmuxline.vim'
 let g:tmuxline_powerline_separators = 0
-let g:tmuxline_theme = 'vim_statusline_1'
+let g:tmuxline_theme = 'vim_statusline_2'
 let g:tmuxline_preset = {
   \ 'win': '#W',
   \ 'cwin': '#W#F',
