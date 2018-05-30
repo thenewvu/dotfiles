@@ -52,8 +52,6 @@ set hidden
 " u: Scan buffers that have been unloaded from the buffer list
 " t: Tag completion
 " i: Scan the current and included files
-set complete-=i
-set complete-=t
 set completeopt=menuone,preview
 
 " default encoding to utf-8
@@ -103,14 +101,44 @@ set wildignore+=.hg,.git,.svn
 set nowrap
 
 set foldenable
-set foldmethod=indent
+set foldmethod=syntax
 set foldnestmax=5
 set foldlevel=0
 set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
 set fillchars+=fold:\ 
 set foldtext=FoldText()
+let g:c_no_comment_fold = 1
+" http://vim.wikia.com/wiki/Customize_text_for_closed_folds
 function! FoldText()
-  return repeat(' ', strlen(matchstr(substitute(getline(v:foldstart), '\t', repeat(' ', &tabstop), 'g'),'\v^\s+'))) . '...'
+  let line = getline(v:foldstart)
+  
+  if match(line, '^\s*\/\*.*$') == 0
+    let initial = matchstr(line, '^\s*\/\*')
+    let linenum = v:foldstart
+    while linenum < v:foldend
+      let line = getline(linenum)
+      let comment = substitute( line, '^\([ \t\/\*]*\)\(.*\)$', '\2', 'g' )
+      if comment != ''
+        break
+      endif
+      let linenum = linenum + 1
+    endwhile
+    let tmp = initial . ' ' . comment . '… */'
+  else
+    let tmp = line
+    let left = matchstr(line, '^.*{')
+    if match(left,  '.*{$') == 0
+      let line = getline(v:foldend)
+      let right = matchstr(line, '}.*$')
+      if match(right, '^}.*') == 0
+          let tmp = left . '…' . right
+      endif
+    endif
+  endif
+  let num_w = getwinvar( 0, '&number' ) * getwinvar( 0, '&numberwidth' )
+  let fold_w = getwinvar( 0, '&foldcolumn' )
+  let tmp = strpart( tmp, 0, winwidth(0) - num_w - fold_w - 1 )
+  return tmp
 endfunction
 
 " disable netrw by faking it was loaded
@@ -300,8 +328,8 @@ Plug 'chaoren/vim-wordmotion'
 Plug 'alvan/vim-closetag'
 let g:closetag_filenames = "*.html,*.xml,*.js,*.jsx"
 
-Plug 'ervandew/supertab'
-let g:SuperTabDefaultCompletionType = "context"
+" Plug 'ervandew/supertab'
+" let g:SuperTabDefaultCompletionType = "context"
 
 " seamlessly working with tmux
 Plug 'christoomey/vim-tmux-navigator'
@@ -319,7 +347,7 @@ let g:ale_linters['cpp'] = ['clang']
 let g:ale_fix_on_save = 1
 let g:ale_set_signs = 1
 let g:ale_sign_error = '⚑'
-let g:ale_sign_warning = '⚐'
+let g:ale_sign_warning = '⚑'
 let g:ale_open_list = 0
 let g:ale_lint_on_save = 1
 let g:ale_lint_on_enter = 0
@@ -396,5 +424,17 @@ augroup END
 
 Plug 'junegunn/vim-easy-align'
 xmap ga <Plug>(EasyAlign)
+
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#file#enable_buffer_path = 1
+inoremap <silent><expr> <TAB>
+		\ pumvisible() ? "\<C-n>" :
+		\ <SID>check_back_space() ? "\<TAB>" :
+		\ deoplete#mappings#manual_complete()
+		function! s:check_back_space() abort "{{{
+		let col = col('.') - 1
+		return !col || getline('.')[col - 1]  =~ '\s'
+		endfunction"}}}
 
 call plug#end()
