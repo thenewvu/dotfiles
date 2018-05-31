@@ -9,8 +9,6 @@ syntax on
 " auto detect indentation
 filetype plugin indent on
 
-colorscheme blueprint
-
 augroup HiParens
   autocmd!
   autocmd Syntax * syn match CustomDelimiters /[(){}]/ display | hi link CustomDelimiters Delimiter
@@ -436,5 +434,9 @@ inoremap <silent><expr> <TAB>
 		let col = col('.') - 1
 		return !col || getline('.')[col - 1]  =~ '\s'
 		endfunction"}}}
+
+Plug 'thenewvu/vim-colors-blueprint'
+set rtp+=~/.vim/plugged/vim-colors-blueprint
+colorscheme blueprint
 
 call plug#end()
