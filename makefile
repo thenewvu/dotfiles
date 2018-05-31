@@ -1,16 +1,16 @@
-dotfiles := .config/mpv/mpv.conf .config/kitty/kitty.conf .tmux.conf .bashrc .npmrc .vimrc .eslintrc.yaml .bash_profile .gitconfig .vim .config/nvim
+SRC := .config/mpv/mpv.conf .config/kitty/kitty.conf .tmux.conf .bashrc .npmrc .vimrc .eslintrc.yaml .bash_profile .gitconfig .vim .config/nvim
+DST := $(addprefix ~/, $(SRC))
 
 .PHONY: deploy
-deploy: $(dotfiles)
-	@for f in $(dotfiles); do \
-		mkdir -p $(dir ~/$$f); \
-		echo "Linking $(addprefix ${CURDIR}/, $$f) -> ~/$$f"; \
-		ln -sf $(addprefix ${CURDIR}/, $$f) ~/$$f; \
-	done
+deploy: $(DST)
+
+~/%: ${CURDIR}/% makefile
+	mkdir -p $(dir $@); \
+	ln -sf $< $@; \
 
 .PHONY: clean
 clean:
-	@for f in $(dotfiles); do \
-		echo "Removing ~/$$f"; \
-		rm -fr ~/$$f; \
+	@for f in $(DST); do \
+		echo "Removing $$f"; \
+		rm -rf $$f; \
 	done
