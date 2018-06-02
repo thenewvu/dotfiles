@@ -116,8 +116,10 @@ alias l="ls -cthr"
 alias ..="cd .."
 
 mv2trash () {
-    echo "Moving $@ to ~/.Trash/";
-    mv "$@" ~/.Trash/;
+    for f in $@; do
+        echo "Moving $f to ~/.Trash/$f.$(date +%s)";
+        mv $f ~/.Trash/$f.$(date +%s)
+    done
 }
 
 alias rm="mv2trash"

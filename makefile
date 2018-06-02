@@ -10,7 +10,7 @@ list:
 .PHONY: deploy
 deploy: $(DST)
 
-~/%: ${CURDIR}/% makefile
+~/%: ${CURDIR}/%
 	mkdir -p $(dir $@); \
 	ln -sf $< $@; \
 
