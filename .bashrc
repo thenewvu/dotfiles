@@ -114,3 +114,10 @@ alias ll="ls -lcthr"
 alias ls="ls -cthr"
 alias l="ls -cthr"
 alias ..="cd .."
+
+mv2trash () {
+    echo "Moving $@ to ~/.Trash/";
+    mv "$@" ~/.Trash/;
+}
+
+alias rm="mv2trash"
