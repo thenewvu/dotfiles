@@ -114,12 +114,3 @@ alias ll="ls -lcthr"
 alias ls="ls -cthr"
 alias l="ls -cthr"
 alias ..="cd .."
-
-mv2trash () {
-    for f in $@; do
-        echo "Moving $f to ~/.Trash/$f.$(date +%s)";
-        mv $f ~/.Trash/$f.$(date +%s)
-    done
-}
-
-alias rm="mv2trash"
