@@ -1,5 +1,11 @@
-SRC := .config/mpv/mpv.conf .config/kitty/kitty.conf .tmux.conf .bashrc .npmrc .vimrc .eslintrc.yaml .bash_profile .gitconfig .vim .config/nvim
+SRC := $(shell find -L . -type fl -not -path "**/.git*" -not -path "**/undo/**" -not -path "**/plugged/**" -not -path "./makefile" | sed "s|^\./||")
 DST := $(addprefix ~/, $(SRC))
+
+.PHONY: list
+list:
+	@for f in $(SRC); do \
+		echo "$$f -> $(addprefix ~/, $$f)"; \
+	done
 
 .PHONY: deploy
 deploy: $(DST)
