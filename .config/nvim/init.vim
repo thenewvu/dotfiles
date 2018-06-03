@@ -3,10 +3,6 @@
 
 set termguicolors
 
-" point %% to the current the full page of the directory that containts the
-" current editing file
-" Ref: http://vim.wikia.com/wiki/Easy_edit_of_files_in_the_same_directory
-cabbr <expr> %% expand('%:p:h')
 
 " set working dir
 set directory=~/.config/nvim/tmp/
@@ -84,8 +80,9 @@ set wildmenu
 set wildmode=longest,list
 set wildignore+=.hg,.git,.svn
 
-" whatever don't wrap
+" no wrapping by default
 set nowrap
+set showbreak=↳\ 
 
 set foldenable
 set foldmethod=syntax
@@ -172,11 +169,6 @@ function! CheckIfLargeFile(file)
   endif
 endfunction
 
-" use ripgrep as grepprg if available
-if executable('rg')
-  set grepprg=rg\ --vimgrep
-endif
-
 function! ClampWinHeight(min, max)
   exe max([min([line("$"), a:max]), a:min]) . "wincmd _"
 endfunction
@@ -189,20 +181,21 @@ augroup QuickFix
   autocmd FileType qf call ClampWinHeight(3, 10)
 augroup END
 
-augroup Groovy
-  autocmd!
-  autocmd FileType groovy setlocal tabstop=4 softtabstop=4 shiftwidth=4
-augroup END
-
 augroup Vim
   autocmd!
-  au BufWritePost .vimrc source %
+  au BufWritePost init.vim source %
 augroup END
 
 " KEY SETTINGS
 " ------------
 let g:mapleader = ";"
 let g:maplocalleader = "\\"
+
+" point %% to the current the full page of the directory that containts the
+" current editing file
+" Ref: http://vim.wikia.com/wiki/Easy_edit_of_files_in_the_same_directory
+cabbr <expr> %% expand('%:p:h')
+
 nnoremap <leader>; : 
 nnoremap <leader>e :e 
 nnoremap <F2> :e ~/.config/nvim/init.vim<CR>
@@ -240,10 +233,6 @@ nnoremap U <c-r>zz
 nnoremap <leader><space> :let @/ = ""<CR>
 " close current buffer
 nnoremap <silent> <leader>q :bp\|bd #<CR>
-" underline markdown headers
-" Ref: https://goo.gl/6zf93B
-nnoremap <leader>mh yypVr-
-nnoremap <leader>mhh yypVr=
 " reload current file and redraw
 nnoremap <f5> :edit<cr>:redraw<cr>
 " write current file with sudo
@@ -272,8 +261,13 @@ tnoremap <Esc> <C-\><C-n>
 nnoremap <F1> <esc>
 inoremap <F1> <esc>
 vnoremap <F1> <esc>
+
 " search text in root directory
 nnoremap <leader>f :grep 
+" use ripgrep as grepprg if available
+if executable('rg')
+  set grepprg=rg\ --vimgrep
+endif
 
 " PLUGIN SETTINGS
 " ---------------
@@ -403,18 +397,13 @@ nmap [d <Plug>GitGutterPrevHunk
 
 Plug 'tpope/vim-markdown'
 
-augroup Markdown
-  au!
-  au FileType markdown setlocal wrap linebreak conceallevel=2
-  au BufNewFile,BufReadPost *.md set filetype=markdown
-augroup END
-
 Plug 'junegunn/vim-easy-align'
 xmap ga <Plug>(EasyAlign)
 
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#file#enable_buffer_path = 1
+" select completion items by <tab>-ing
 inoremap <silent><expr> <TAB>
 		\ pumvisible() ? "\<C-n>" :
 		\ <SID>check_back_space() ? "\<TAB>" :
@@ -427,12 +416,5 @@ inoremap <silent><expr> <TAB>
 Plug 'thenewvu/vim-colors-blueprint'
 set rtp+=~/.config/nvim/plugged/vim-colors-blueprint
 colorscheme blueprint
-
-augroup HiParens
-  autocmd!
-  autocmd Syntax * syn match CustomDelimiters /[(){}]/ display |
-              \ hi link CustomDelimiters Delimiter
-augroup END
-
 
 call plug#end()
