@@ -42,8 +42,8 @@ set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
 set fillchars+=fold:\ 
 set foldtext=FoldText()
 let g:loaded_netrwPlugin = 1
-let g:matchparen_timeout = 2 " timeout to abort searching
-let g:matchparen_insert_timeout = 2
+let g:matchparen_timeout = 5 " timeout to abort searching
+let g:matchparen_insert_timeout = 5
 set laststatus=0 " hide status bar at bottom
 set noshowcmd
 set noshowmode
