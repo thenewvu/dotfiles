@@ -1,89 +1,39 @@
 " BEHAVIOR SETTINGS
 " -----------------
-
-set termguicolors
-
-
-" set working dir
-set directory=~/.config/nvim/tmp/
-
-" no junk files
 set nobackup
 set nowritebackup
 set noswapfile
-
-" persist undo history
-set undodir=~/.config/nvim/undo
 set undofile
 set undolevels=100
 set undoreload=100
-
-" split by default below and right
 set splitbelow
 set splitright
-
-" ask to confirm closing an unsaved file
-set confirm
-
-" switch between buffers without saving
-set hidden
-
-" better completion
-" .: Scan the current buffer
-" w: Scan buffers from other windows
-" b: Scan buffers from the buffer list
-" u: Scan buffers that have been unloaded from the buffer list
-" t: Tag completion
-" i: Scan the current and included files
+set confirm " ask to confirm closing an unsaved file
+set hidden " switch between buffers without saving
 set completeopt=menuone,preview
-
-" default encoding to utf-8
 set encoding=utf-8
-
-" use the system clipboard when yank something
 set clipboard^=unnamedplus,unnamed
-
-" autoreload files on change
-set autoread
-
-" make backspace work like most other apps
-set backspace=indent,eol,start
-
-" highlight search matching interactively
-set incsearch
+set autoread " autoreload files on change
+set backspace=indent,eol,start " make backspace work like most other apps
+set incsearch " highlight search matching interactively
 set hlsearch
 set smartcase
 set ignorecase
-
-" show preview when replacing with :s
-set inccommand=nosplit 
-
-" smaller <esc> delay
-set timeoutlen=400
-set ttimeoutlen=0
-
-set nonumber
+set inccommand=nosplit " show preview when replacing with :s
+set nonumber " no line numbers
 set nocursorline
 set norelativenumber
-
-" tab-related
 set expandtab
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 set nolist
 set cindent
-
-
-" show auto-complete when typing in command line
-set wildmenu
+set wildmenu " show auto-complete when typing in command line
 set wildmode=longest,list
 set wildignore+=.hg,.git,.svn
-
-" no wrapping by default
 set nowrap
 set showbreak=↳\ 
-
 set foldenable
 set foldmethod=syntax
 set foldnestmax=5
@@ -91,8 +41,19 @@ set foldlevel=0
 set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
 set fillchars+=fold:\ 
 set foldtext=FoldText()
-let g:c_no_comment_fold = 1
-" http://vim.wikia.com/wiki/Customize_text_for_closed_folds
+let g:loaded_netrwPlugin = 1
+let g:matchparen_timeout = 2 " timeout to abort searching
+let g:matchparen_insert_timeout = 2
+set laststatus=0 " hide status bar at bottom
+set noshowcmd
+set noshowmode
+set noruler
+set nospell
+set lazyredraw
+set ttyfast
+
+" A customized version of a function in below link:
+" Ref: http://vim.wikia.com/wiki/Customize_text_for_closed_folds
 function! FoldText()
   let line = getline(v:foldstart)
   
@@ -125,35 +86,15 @@ function! FoldText()
   return tmp
 endfunction
 
-" disable netrw by faking it was loaded
-let g:loaded_netrwPlugin = 1
-
-" disable auto matching parens by faking it was loaded
-let g:loaded_matchparen=1
-let g:matchparen_timeout = 2
-let g:matchparen_insert_timeout = 2
-
-" hide status bar at bottom
-set laststatus=0
-set noshowcmd
-set noshowmode
-set noruler
-
-set nospell
-set lazyredraw
-set ttyfast
-
-" set synmaxcol=80
-
 " file is large from 500kb
 let g:LargeFile = 1024 * 500
-augroup LargeFile
-  autocmd!
-  autocmd BufReadPre * call CheckIfLargeFile("<afile>")
+augroup OptimizeLargeFiles
+  au!
+  au BufReadPre * call OptimizeLargeFile("<afile>")
 augroup END
 
 " ref: http://vim.wikia.com/wiki/Faster_loading_of_large_files
-function! CheckIfLargeFile(file)
+function! OptimizeLargeFile(file)
   let f=getfsize(expand(a:file))
   if f > g:LargeFile || f == -2
     " no syntax highlighting etc
@@ -174,15 +115,15 @@ function! ClampWinHeight(min, max)
 endfunction
 
 augroup QuickFix
-  autocmd!
-  autocmd QuickFixCmdPost [^l]* nested copen
-  autocmd QuickFixCmdPost l*    nested lopen
-  autocmd FileType qf set nobuflisted
-  autocmd FileType qf call ClampWinHeight(3, 10)
+  au!
+  au QuickFixCmdPost [^l]* nested copen
+  au QuickFixCmdPost l*    nested lopen
+  au FileType qf set nobuflisted
+  au FileType qf call ClampWinHeight(3, 10)
 augroup END
 
 augroup Vim
-  autocmd!
+  au!
   au BufWritePost init.vim source %
 augroup END
 
@@ -191,8 +132,7 @@ augroup END
 let g:mapleader = ";"
 let g:maplocalleader = "\\"
 
-" point %% to the current the full page of the directory that containts the
-" current editing file
+" point %% to the dir that contains the current file
 " Ref: http://vim.wikia.com/wiki/Easy_edit_of_files_in_the_same_directory
 cabbr <expr> %% expand('%:p:h')
 
@@ -207,7 +147,7 @@ nnoremap E $
 vnoremap B ^
 vnoremap E $
 " <space> to unfold under caret block and fold others
-nnoremap <space> zMzvzz
+nnoremap <space> zMzvzz 
 " keep the cursor always be vertical center
 nnoremap G Gzz
 vnoremap G Gzz
@@ -296,10 +236,10 @@ nnoremap <leader>p :FZF<CR>
 nnoremap / :BLines<cr>
 nnoremap <leader>/ /
 augroup FZF
-  autocmd!
+  au!
   " <ecs> doesn't close fzf window because it's in terminal mode,
   " this trick remaps <ecs> in terminal mode
-  autocmd TermOpen term://*FZF tnoremap <silent> <buffer><nowait> <esc> <c-c>
+  au TermOpen term://*FZF tnoremap <silent> <buffer><nowait> <esc> <c-c>
 augroup end
 
 " wb word by word
@@ -405,16 +345,16 @@ let g:deoplete#enable_at_startup = 1
 let g:deoplete#file#enable_buffer_path = 1
 " select completion items by <tab>-ing
 inoremap <silent><expr> <TAB>
-		\ pumvisible() ? "\<C-n>" :
-		\ <SID>check_back_space() ? "\<TAB>" :
-		\ deoplete#mappings#manual_complete()
-		function! s:check_back_space() abort "{{{
-		let col = col('.') - 1
-		return !col || getline('.')[col - 1]  =~ '\s'
-		endfunction"}}}
+    \ pumvisible() ? "\<C-n>" :
+    \ <SID>check_back_space() ? "\<TAB>" :
+    \ deoplete#mappings#manual_complete()
 
-Plug 'thenewvu/vim-colors-blueprint'
-set rtp+=~/.config/nvim/plugged/vim-colors-blueprint
-colorscheme blueprint
+function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+set termguicolors
+colorscheme whiteprint
 
 call plug#end()
