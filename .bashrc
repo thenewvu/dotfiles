@@ -60,6 +60,7 @@ export PATH="$GEM_HOME/bin:$PATH"
 export PATH="$GEM_HOME/ruby/2.3.0/bin:$PATH"
 
 export GREP_OPTIONS='--color=auto'
+export CLICOLOR=1
 
 export FZF_DEFAULT_OPTS="--height=40% --color=bw --reverse"
 export FZF_DEFAULT_COMMAND="rg --files --hidden --follow  --glob '!.git/*'"
