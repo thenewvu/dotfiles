@@ -1,12 +1,10 @@
 ffmpeg \
   -f avfoundation \
-  -framerate 4 \
+  -framerate 1 \
   -pixel_format bgr0 \
   -i 1 \
   -c:v libvpx-vp9 \
-  -preset ultrafast \
   -cpu-used 8 \
   -deadline realtime \
-  -minrate 128k \
-  -maxrate 128k \
+  -crf 50 -b:v 256K \
   `date +%Y-%m-%d-%H-%M.webm`
