@@ -10,10 +10,12 @@ task=/usr/local/bin/task
 started=$($task +ACTIVE _id | head -n 1)
 stopped=$($task -ACTIVE _id)
 
+styles="font='Script12 BT' color=#af5fff"
+
 if [ "$started" != "" ]; then
     proj=$($task _get $started.project)
     if [ "$proj" != "" ]; then
-        proj="$proj: "
+        proj="$proj ▹ "
     fi
 
     desc=$($task _get $started.description)
@@ -22,31 +24,30 @@ if [ "$started" != "" ]; then
     opts="terminal=false refresh=true \
         bash=/bin/bash param1=-c \
         param2='$task stop $started'"
-    echo "$proj$desc ▿ | $style $opts"
+    echo "$proj$desc ▿ | $opts $styles"
 else
-    echo "$(echo "$stopped" | wc -l) todos ▿"
+    echo "$(echo "$stopped" | wc -l) todos ▿ | $styles"
 fi
 
 echo "---"
 
+styles="font='Script12 BT' color=#af5fff"
+
 for id in $stopped; do
     proj=$($task _get $id.project)
-    if [ "$proj" != "" ]; then
-        proj="$proj: "
-    fi
 
     desc=$($task _get $id.description)
     desc=$(echo $desc | sed -e 's!http\(s\)\{0,1\}://[^[:space:]]*!!g')
 
-    opts="terminal=false refresh=true \
+    opts="trim=false terminal=false refresh=true \
         bash=/bin/bash param1=-c \
         param2='$task start $id'"
 
-    echo "▹ $proj$desc | $opts"
+    printf "◉ %16.16s ▹ %s | %s %s\n" "$proj" "$desc" "$opts" "$styles"
 
-    opts="alternate=true terminal=false \
+    opts="trim=false alternate=true terminal=false \
         refresh=true bash=/bin/bash param1=-c \
         param2='$task done $id'"
 
-    echo "☐ $proj$desc | $opts"
+    printf "✔ %16.16s ▹ %s | %s %s\n" "$proj" "$desc" "$opts" "$styles"
 done
