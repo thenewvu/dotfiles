@@ -31,7 +31,7 @@ if [ "$cmd" == "status" ]; then
         if [ "$stat" == "T" ]; then
             echo "◉ $(ps -p $pid -o etime=) ▿ | font='Script12 BT' color=#F2B13C"
             echo "---"
-            echo "◉ Resume | terminal=false refresh=true bash=$0 param1=resume"
+            echo "Resume | terminal=false refresh=true bash=$0 param1=resume"
         else
             echo "◉ $(ps -p $pid -o etime=) ▿ | font='Script12 BT' color=#D94D40"
             echo "---"
@@ -40,7 +40,7 @@ if [ "$cmd" == "status" ]; then
         echo "---"
         echo "Stop | terminal=false refresh=true bash=$0 param1=stop"
     else
-        echo "◉ "
+        echo "◉  ▿ "
         echo "---"
         echo "Start | terminal=false refresh=true bash=$0 param1=start"
     fi
