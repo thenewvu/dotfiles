@@ -19,13 +19,14 @@ if [ "$started" != "" ]; then
     fi
 
     desc=$(task _get $started.description)
+    desc=$(echo $desc | sed -e 's!http\(s\)\{0,1\}://[^[:space:]]*!!g')
 
     opts="terminal=false refresh=true \
         bash=/bin/bash param1=-c \
         param2='task stop $started'"
     echo "$proj$desc | $style $opts"
 else
-    echo "$(echo "$stopped" | wc -l) tasks | $style"
+    echo "$(echo "$stopped" | wc -l) todos | $style"
 fi
 
 echo "---"
@@ -37,6 +38,7 @@ for id in $stopped; do
     fi
 
     desc=$(task _get $id.description)
+    desc=$(echo $desc | sed -e 's!http\(s\)\{0,1\}://[^[:space:]]*!!g')
 
     opts="terminal=false refresh=true \
         bash=/bin/bash param1=-c \
