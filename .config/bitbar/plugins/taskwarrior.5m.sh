@@ -5,7 +5,6 @@
 # <bitbar.version>v1.0</bitbar.version>
 #
 
-style="color=#af51ff font='Script12 BT' size=12"
 task=/usr/local/bin/task
 
 started=$($task +ACTIVE _id | head -n 1)
@@ -23,9 +22,9 @@ if [ "$started" != "" ]; then
     opts="terminal=false refresh=true \
         bash=/bin/bash param1=-c \
         param2='$task stop $started'"
-    echo "$proj$desc | $style $opts"
+    echo "$proj$desc ▿ | $style $opts"
 else
-    echo "$(echo "$stopped" | wc -l) todos | $style"
+    echo "$(echo "$stopped" | wc -l) todos ▿"
 fi
 
 echo "---"
@@ -43,11 +42,11 @@ for id in $stopped; do
         bash=/bin/bash param1=-c \
         param2='$task start $id'"
 
-    echo "$proj$desc | $opts $style"
+    echo "▹ $proj$desc | $opts"
 
     opts="alternate=true terminal=false \
         refresh=true bash=/bin/bash param1=-c \
         param2='$task done $id'"
 
-    echo "$proj$desc | $opts $style"
+    echo "☐ $proj$desc | $opts"
 done
