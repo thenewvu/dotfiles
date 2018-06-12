@@ -1,0 +1,5 @@
+data.location=~/.task
+
+include /usr/local/Cellar/task/2.5.1/share/doc/task/rc/dark-16.theme
+
+default.command=minimal
