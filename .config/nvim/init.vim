@@ -358,4 +358,6 @@ endfunction
 set termguicolors
 colorscheme darkprint
 
+Plug 'thenewvu/vim-plantuml-genin'
+
 call plug#end()
