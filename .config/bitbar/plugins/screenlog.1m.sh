@@ -6,10 +6,10 @@
 
 
 pidf=/tmp/com.bitbar.screenlog.pid
-logf=/tmp/com.bitbar.screenlog.log
 
-ffmpeg_fastest="/usr/local/bin/ffmpeg -f avfoundation -framerate 1 -pixel_format bgr0 -i 1 -c:v libvpx-vp9 -cpu-used 8 -deadline realtime -crf 50 -b:v 256K"
-ffmpeg_slowest="/usr/local/bin/ffmpeg -f avfoundation -framerate 1 -pixel_format bgr0 -i 1 -c:v libvpx-vp9 -cpu-used 8 -deadline realtime -crf 31 -b:v 0"
+ffmpeg_lo_quality="/usr/local/bin/ffmpeg -f avfoundation -r 5 -pixel_format bgr0 -i 1 -r 10 -vf mpdecimate,setpts=N/FRAME_RATE/TB -c:v libvpx-vp9 -cpu-used 8 -deadline realtime -crf 50 -b:v 0"
+ffmpeg_me_quality="/usr/local/bin/ffmpeg -f avfoundation -r 5 -pixel_format bgr0 -i 1 -r 10 -vf mpdecimate,setpts=N/FRAME_RATE/TB -c:v libvpx-vp9 -cpu-used 8 -deadline realtime -crf 40 -b:v 0"
+ffmpeg_hi_quality="/usr/local/bin/ffmpeg -f avfoundation -r 5 -pixel_format bgr0 -i 1 -r 10 -vf mpdecimate,setpts=N/FRAME_RATE/TB -c:v libvpx-vp9 -cpu-used 8 -deadline realtime -crf 31 -b:v 0"
 
 outdir=~/Documents/screenlogs
 
@@ -32,30 +32,37 @@ if [ "$cmd" == "status" ]; then
         if [ "$stat" == "T" ]; then
             echo "◉ $(ps -p $pid -o etime=) ▿ | font='Script12 BT' color=#F2B13C"
             echo "---"
-            echo "Resume | terminal=false refresh=true bash=$0 param1=resume"
+            echo "Resume | terminal=false refresh=true bash=$0 param1=resume font='Script12 BT'"
         else
             echo "◉ $(ps -p $pid -o etime=) ▿ | font='Script12 BT' color=#D94D40"
             echo "---"
-            echo "Pause | terminal=false refresh=true bash=$0 param1=pause"
+            echo "Pause | terminal=false refresh=true bash=$0 param1=pause font='Script12 BT'"
         fi
         echo "---"
-        echo "Stop | terminal=false refresh=true bash=$0 param1=stop"
+        echo "Stop | terminal=false refresh=true bash=$0 param1=stop font='Script12 BT'"
     else
         echo "◉  ▿ "
         echo "---"
-        echo "Start (Lo quality) | terminal=false refresh=true bash=$0 param1=start-fastest font='Script12 BT'"
+        echo "Start (Lo quality) | terminal=false refresh=true bash=$0 param1=start_lo_quality font='Script12 BT'"
         echo "---"
-        echo "Start (Hi quality) | terminal=false refresh=true bash=$0 param1=start-slowest font='Script12 BT'"
+        echo "Start (Me quality) | terminal=false refresh=true bash=$0 param1=start_me_quality font='Script12 BT'"
+        echo "---"
+        echo "Start (Hi quality) | terminal=false refresh=true bash=$0 param1=start_hi_quality font='Script12 BT'"
     fi
 fi
 
-if [ "$cmd" == "start-fastest" ]; then
-    nohup $ffmpeg_fastest $outdir/$(date +%Y-%m-%d-%H-%M.webm) &
+if [ "$cmd" == "start_lo_quality" ]; then
+    nohup $ffmpeg_lo_quality $outdir/$(date +%Y-%m-%d-%H-%M.webm) &
     echo $! > $pidf
 fi
 
-if [ "$cmd" == "start-slowest" ]; then
-    nohup $ffmpeg_slowest $outdir/$(date +%Y-%m-%d-%H-%M.webm) &
+if [ "$cmd" == "start_me_quality" ]; then
+    nohup $ffmpeg_me_quality $outdir/$(date +%Y-%m-%d-%H-%M.webm) &
+    echo $! > $pidf
+fi
+
+if [ "$cmd" == "start_hi_quality" ]; then
+    nohup $ffmpeg_hi_quality $outdir/$(date +%Y-%m-%d-%H-%M.webm) &
     echo $! > $pidf
 fi
 
