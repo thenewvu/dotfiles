@@ -7,11 +7,13 @@
 
 pidf=/tmp/com.bitbar.screenlog.pid
 
-ffmpeg_lo_quality="/usr/local/bin/ffmpeg -f avfoundation -r 5 -pixel_format bgr0 -i 1 -r 10 -vf mpdecimate,setpts=N/FRAME_RATE/TB -c:v libvpx-vp9 -cpu-used 8 -deadline realtime -crf 50 -b:v 0"
-ffmpeg_me_quality="/usr/local/bin/ffmpeg -f avfoundation -r 5 -pixel_format bgr0 -i 1 -r 10 -vf mpdecimate,setpts=N/FRAME_RATE/TB -c:v libvpx-vp9 -cpu-used 8 -deadline realtime -crf 40 -b:v 0"
-ffmpeg_hi_quality="/usr/local/bin/ffmpeg -f avfoundation -r 5 -pixel_format bgr0 -i 1 -r 10 -vf mpdecimate,setpts=N/FRAME_RATE/TB -c:v libvpx-vp9 -cpu-used 8 -deadline realtime -crf 31 -b:v 0"
+ffmpeg_lo_quality="/usr/local/bin/ffmpeg -f avfoundation -r 5 -pixel_format bgr0 -capture_cursor 1 -i 1 -r 10 -vf mpdecimate,setpts=N/FRAME_RATE/TB -c:v libvpx-vp9 -cpu-used 8 -deadline realtime -crf 50 -b:v 0"
+ffmpeg_me_quality="/usr/local/bin/ffmpeg -f avfoundation -r 5 -pixel_format bgr0 -capture_cursor 1 -i 1 -r 10 -vf mpdecimate,setpts=N/FRAME_RATE/TB -c:v libvpx-vp9 -cpu-used 8 -deadline realtime -crf 40 -b:v 0"
+ffmpeg_hi_quality="/usr/local/bin/ffmpeg -f avfoundation -r 5 -pixel_format bgr0 -capture_cursor 1 -i 1 -r 10 -vf mpdecimate,setpts=N/FRAME_RATE/TB -c:v libvpx-vp9 -cpu-used 8 -deadline realtime -crf 31 -b:v 0"
 
 outdir=~/Documents/screenlogs
+
+font="font='Script12 BT' size=12"
 
 if [ -f "$pidf" ]; then
     pid=$(cat $pidf) 
@@ -30,24 +32,24 @@ if [ "$cmd" == "status" ]; then
     if [ $running ]; then 
         stat=$(ps -p $pid -o stat= | tr -d ' ')
         if [ "$stat" == "T" ]; then
-            echo "◉ $(ps -p $pid -o etime=) ▿ | font='Script12 BT' color=#F2B13C"
+            echo "◉ ▿ | $font color=#F2B13C"
             echo "---"
-            echo "Resume | terminal=false refresh=true bash=$0 param1=resume font='Script12 BT'"
+            echo "Resume | $font terminal=false refresh=true bash=$0 param1=resume"
         else
-            echo "◉ $(ps -p $pid -o etime=) ▿ | font='Script12 BT' color=#D94D40"
+            echo "◉ ▿ | $font color=#D94D40"
             echo "---"
-            echo "Pause | terminal=false refresh=true bash=$0 param1=pause font='Script12 BT'"
+            echo "Pause | $font terminal=false refresh=true bash=$0 param1=pause"
         fi
         echo "---"
-        echo "Stop | terminal=false refresh=true bash=$0 param1=stop font='Script12 BT'"
+        echo "Stop | $font terminal=false refresh=true bash=$0 param1=stop"
     else
-        echo "◉  ▿ "
+        echo "◉ ▿ "
         echo "---"
-        echo "Start (Lo quality) | terminal=false refresh=true bash=$0 param1=start_lo_quality font='Script12 BT'"
+        echo "Start (Lo quality) | $font terminal=false refresh=true bash=$0 param1=start_lo_quality"
         echo "---"
-        echo "Start (Me quality) | terminal=false refresh=true bash=$0 param1=start_me_quality font='Script12 BT'"
+        echo "Start (Me quality) | $font terminal=false refresh=true bash=$0 param1=start_me_quality"
         echo "---"
-        echo "Start (Hi quality) | terminal=false refresh=true bash=$0 param1=start_hi_quality font='Script12 BT'"
+        echo "Start (Hi quality) | $font terminal=false refresh=true bash=$0 param1=start_hi_quality"
     fi
 fi
 

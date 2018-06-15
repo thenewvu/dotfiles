@@ -10,7 +10,7 @@ task=/usr/local/bin/task
 started=$($task +ACTIVE _id | head -n 1)
 stopped=$($task -ACTIVE _id)
 
-styles="font='Script12 BT' color=#af5fff"
+font="font='Script12 BT' size=12"
 
 if [ "$started" != "" ]; then
     proj=$($task _get $started.project)
@@ -24,14 +24,16 @@ if [ "$started" != "" ]; then
     opts="terminal=false refresh=true \
         bash=/bin/bash param1=-c \
         param2='$task stop $started'"
-    echo "$proj$desc ▿ | $opts $styles"
+    echo "$proj$desc ▿ | $font color=#af5fff $opts"
 else
-    echo "$(echo "$stopped" | wc -l) todos ▿ | $styles"
+    echo "$(echo "$stopped" | wc -l) todos ▿ | $font"
 fi
 
 echo "---"
 
-styles="font='Script12 BT' color=#af5fff"
+echo "✩ Project                          Task | $font color=gray trim=false"
+echo "✔ Project                          Task | $font color=gray trim=false alternate=true"
+echo '---'
 
 for id in $stopped; do
     proj=$($task _get $id.project)
@@ -43,11 +45,11 @@ for id in $stopped; do
         bash=/bin/bash param1=-c \
         param2='$task start $id'"
 
-    printf "◉ %16.16s ▹ %s | %s %s\n" "$proj" "$desc" "$opts" "$styles"
+    printf "✩ %-32.32s $desc | $opts $font\n" "$proj"
 
     opts="trim=false alternate=true terminal=false \
         refresh=true bash=/bin/bash param1=-c \
         param2='$task done $id'"
 
-    printf "✔ %16.16s ▹ %s | %s %s\n" "$proj" "$desc" "$opts" "$styles"
+    printf "✔ %-32.32s $desc | $opts $font\n" "$proj"
 done
