@@ -266,6 +266,8 @@ let g:ale_javascript_eslint_executable = 'eslint_d'
 let g:ale_javascript_eslint_use_global = 1
 let g:ale_linters['c'] = ['clang']
 let g:ale_linters['cpp'] = ['clang']
+" ref: https://github.com/w0rp/ale/issues/1460
+let g:ale_c_parse_makefile = 1
 let g:ale_fix_on_save = 1
 let g:ale_set_signs = 1
 let g:ale_sign_error = '⚑'
