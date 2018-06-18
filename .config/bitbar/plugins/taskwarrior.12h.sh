@@ -26,7 +26,12 @@ if [ "$started" != "" ]; then
         param2='$task stop $started'"
     echo "$proj$desc ▿ | $font color=#af5fff $opts"
 else
-    echo "$(echo "$stopped" | wc -l) todos ▿ | $font"
+    numof_stopped=$(echo "$stopped" | wc -l | tr -d '[:space:]')
+    if [ "$numof_stopped" == "1" ]; then
+        echo "1 todo ▿ | $font"
+    else
+        echo "$numof_stopped todos ▿ | $font"
+    fi
 fi
 
 echo "---"

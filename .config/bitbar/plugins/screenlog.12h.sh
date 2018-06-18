@@ -7,9 +7,9 @@
 
 pidf=/tmp/com.bitbar.screenlog.pid
 
-ffmpeg_lo_quality="/usr/local/bin/ffmpeg -f avfoundation -r 5 -pixel_format bgr0 -capture_cursor 1 -i 1 -r 10 -vf mpdecimate,setpts=N/FRAME_RATE/TB -c:v libvpx-vp9 -cpu-used 8 -deadline realtime -crf 50 -b:v 0"
-ffmpeg_me_quality="/usr/local/bin/ffmpeg -f avfoundation -r 5 -pixel_format bgr0 -capture_cursor 1 -i 1 -r 10 -vf mpdecimate,setpts=N/FRAME_RATE/TB -c:v libvpx-vp9 -cpu-used 8 -deadline realtime -crf 40 -b:v 0"
-ffmpeg_hi_quality="/usr/local/bin/ffmpeg -f avfoundation -r 5 -pixel_format bgr0 -capture_cursor 1 -i 1 -r 10 -vf mpdecimate,setpts=N/FRAME_RATE/TB -c:v libvpx-vp9 -cpu-used 8 -deadline realtime -crf 31 -b:v 0"
+ffmpeg_lo_quality="/usr/local/bin/ffmpeg -f avfoundation -r 1 -pixel_format bgr0 -i 1 -r 1 -vf mpdecimate,setpts=N/FRAME_RATE/TB -c:v libvpx-vp9 -cpu-used 8 -deadline realtime -crf 50 -b:v 0"
+ffmpeg_me_quality="/usr/local/bin/ffmpeg -f avfoundation -r 1 -pixel_format bgr0 -i 1 -r 1 -vf mpdecimate,setpts=N/FRAME_RATE/TB -c:v libvpx-vp9 -cpu-used 8 -deadline realtime -crf 40 -b:v 0"
+ffmpeg_hi_quality="/usr/local/bin/ffmpeg -f avfoundation -r 1 -pixel_format bgr0 -i 1 -r 1 -vf mpdecimate,setpts=N/FRAME_RATE/TB -c:v libvpx-vp9 -cpu-used 8 -deadline realtime -crf 31 -b:v 0"
 
 outdir=~/Documents/screenlogs
 
@@ -54,17 +54,17 @@ if [ "$cmd" == "status" ]; then
 fi
 
 if [ "$cmd" == "start_lo_quality" ]; then
-    nohup $ffmpeg_lo_quality $outdir/$(date +%Y-%m-%d-%H-%M.webm) &
+    nohup $ffmpeg_lo_quality $outdir/$(date +%Y-%m-%d-%H-%M.webm) >/dev/null 2>&1 &
     echo $! > $pidf
 fi
 
 if [ "$cmd" == "start_me_quality" ]; then
-    nohup $ffmpeg_me_quality $outdir/$(date +%Y-%m-%d-%H-%M.webm) &
+    nohup $ffmpeg_me_quality $outdir/$(date +%Y-%m-%d-%H-%M.webm) >/dev/null 2>&1 &
     echo $! > $pidf
 fi
 
 if [ "$cmd" == "start_hi_quality" ]; then
-    nohup $ffmpeg_hi_quality $outdir/$(date +%Y-%m-%d-%H-%M.webm) &
+    nohup $ffmpeg_hi_quality $outdir/$(date +%Y-%m-%d-%H-%M.webm) >/dev/null 2>&1 &
     echo $! > $pidf
 fi
 
