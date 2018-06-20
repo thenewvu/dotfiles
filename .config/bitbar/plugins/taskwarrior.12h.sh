@@ -10,7 +10,7 @@ task=/usr/local/bin/task
 started=$($task +ACTIVE _id | head -n 1)
 stopped=$($task -ACTIVE _id)
 
-font="font='Script12 BT' size=12"
+font="font='Courier' size=12"
 
 if [ "$started" != "" ]; then
     proj=$($task _get $started.project)

@@ -13,7 +13,7 @@ ffmpeg_hi_quality="/usr/local/bin/ffmpeg -f avfoundation -r 1 -pixel_format bgr0
 
 outdir=~/Documents/screenlogs
 
-font="font='Script12 BT' size=12"
+font="font='Courier' size=12"
 
 if [ -f "$pidf" ]; then
     pid=$(cat $pidf) 
@@ -43,7 +43,7 @@ if [ "$cmd" == "status" ]; then
         echo "---"
         echo "Stop | $font terminal=false refresh=true bash=$0 param1=stop"
     else
-        echo "◉ ▿ "
+        echo "◉ ▿ | $font"
         echo "---"
         echo "Start (Lo quality) | $font terminal=false refresh=true bash=$0 param1=start_lo_quality"
         echo "---"
