@@ -215,10 +215,10 @@ endif
 call plug#begin('~/.config/nvim/plugged')
 
 " improved javascript syntax
-Plug 'pangloss/vim-javascript'
+Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 
 " jsx syntax
-Plug 'MaxMEllon/vim-jsx-pretty'
+Plug 'MaxMEllon/vim-jsx-pretty', { 'for': 'javascript' }
 hi! link jsxCloseTag jsxTag
 hi! link jsxCloseString jsxTag
 
@@ -280,6 +280,11 @@ let g:ale_lint_on_filetype_changed = 0
 let g:ale_warn_about_trailing_whitespace = 0
 nmap <silent> [l <Plug>(ale_previous_wrap)
 nmap <silent> ]l <Plug>(ale_next_wrap)
+let g:ale_set_highlights = 0
+hi link ALEError       ErrorMsg
+hi link ALEErrorSign   ErrorMsg
+hi link ALEWarning     WarningMsg
+hi link ALEWarningSign WarningMsg
 
 " provides a buffer line which looks like the tab line
 Plug 'ap/vim-buftabline'
@@ -339,7 +344,7 @@ hi link GitGutterDelete DiffDelete
 nmap ]d <Plug>GitGutterNextHunk
 nmap [d <Plug>GitGutterPrevHunk
 
-Plug 'tpope/vim-markdown'
+Plug 'tpope/vim-markdown', { 'for': 'markdown' }
 
 Plug 'junegunn/vim-easy-align'
 xmap ga <Plug>(EasyAlign)
