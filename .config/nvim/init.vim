@@ -304,7 +304,6 @@ let g:tmuxline_theme = 'vim_statusline_2'
 let g:tmuxline_preset = {
   \ 'win': '#W',
   \ 'cwin': '#W#F',
-  \ 'x': '%R %a %d %b',
   \ 'options': {
   \   'status-justify': 'left'}
   \}
