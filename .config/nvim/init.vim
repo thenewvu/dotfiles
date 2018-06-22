@@ -56,35 +56,30 @@ set ttyfast
 " A customized version of a function in below link:
 " Ref: http://vim.wikia.com/wiki/Customize_text_for_closed_folds
 function! FoldText()
-  let line = getline(v:foldstart)
-  
-  if match(line, '^\s*\/\*.*$') == 0
-    let initial = matchstr(line, '^\s*\/\*')
-    let linenum = v:foldstart
-    while linenum < v:foldend
-      let line = getline(linenum)
-      let comment = substitute( line, '^\([ \t\/\*]*\)\(.*\)$', '\2', 'g' )
-      if comment != ''
-        break
+  let text = getline(v:foldstart)
+  let indentlevel = indent(v:foldstart)
+  let indent = repeat(' ', indentlevel)
+
+  " c-liked comment block
+  if match(text, '^\s*\/\*.*$') == 0
+    let line = v:foldstart
+    while line < v:foldend
+      let text = getline(line)
+      let body = substitute(text, '^\([ \t\/\*]*\)\(.*\)$', '\2', 'g')
+      if body != '' 
+        break 
       endif
-      let linenum = linenum + 1
+      let line = line + 1
     endwhile
-    let tmp = initial . ' ' . comment . '… */'
-  else
-    let tmp = line
-    let left = matchstr(line, '^.*{')
-    if match(left,  '.*{$') == 0
-      let line = getline(v:foldend)
-      let right = matchstr(line, '}.*$')
-      if match(right, '^}.*') == 0
-          let tmp = left . '…' . right
-      endif
-    endif
+    return indent . '/* ' . body . '… */'
   endif
-  let num_w = getwinvar( 0, '&number' ) * getwinvar( 0, '&numberwidth' )
-  let fold_w = getwinvar( 0, '&foldcolumn' )
-  let tmp = strpart( tmp, 0, winwidth(0) - num_w - fold_w - 1 )
-  return tmp
+
+  let head = substitute(text, '^[ \t]*', '', 'g')
+  let head = substitute(head, '[ \t]*$', '', 'g')
+  let text = getline(v:foldend)
+  let foot = substitute(text, '^[ \t]*', '', 'g')
+
+  return indent . head . '…' . foot
 endfunction
 
 " file is large from 500kb
