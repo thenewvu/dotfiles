@@ -32,18 +32,18 @@ if [ "$cmd" == "status" ]; then
     if [ $running ]; then 
         stat=$(ps -p $pid -o stat= | tr -d ' ')
         if [ "$stat" == "T" ]; then
-            echo "◉ ▿ | $font color=#F2B13C"
+            echo "◉ ▿| color=#F2B13C"
             echo "---"
             echo "Resume | $font terminal=false refresh=true bash=$0 param1=resume"
         else
-            echo "◉ ▿ | $font color=#D94D40"
+            echo "◉ ▿| color=#D94D40"
             echo "---"
             echo "Pause | $font terminal=false refresh=true bash=$0 param1=pause"
         fi
         echo "---"
         echo "Stop | $font terminal=false refresh=true bash=$0 param1=stop"
     else
-        echo "◉ ▿ | $font"
+        echo "◉ ▿"
         echo "---"
         echo "Start (Lo quality) | $font terminal=false refresh=true bash=$0 param1=start_lo_quality"
         echo "---"

@@ -24,13 +24,13 @@ if [ "$started" != "" ]; then
     opts="terminal=false refresh=true \
         bash=/bin/bash param1=-c \
         param2='$task stop $started'"
-    echo "$proj$desc ▿ | $font color=#af5fff $opts"
+    echo "$proj$desc ▿ | $opts"
 else
     numof_stopped=$(echo "$stopped" | wc -l | tr -d '[:space:]')
     if [ "$numof_stopped" == "1" ]; then
-        echo "1 todo ▿ | $font"
+        echo "1 todo ▿"
     else
-        echo "$numof_stopped todos ▿ | $font"
+        echo "$numof_stopped todos ▿"
     fi
 fi
 
