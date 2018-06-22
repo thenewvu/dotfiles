@@ -74,6 +74,11 @@ function! FoldText()
     return indent . '/* ' . body . '… */'
   endif
 
+  " diff
+  if match(text, '^diff.*') == 0
+    return text
+  endif
+
   let head = substitute(text, '^[ \t]*', '', 'g')
   let head = substitute(head, '[ \t]*$', '', 'g')
   let text = getline(v:foldend)
