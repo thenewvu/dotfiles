@@ -262,7 +262,6 @@ let g:ale_linters = {}
 let g:ale_fixers = {}
 let g:ale_linters['javascript'] = ['eslint']
 let g:ale_fixers['javascript'] = ['eslint']
-let g:ale_javascript_eslint_executable = 'eslint_d'
 let g:ale_javascript_eslint_use_global = 1
 let g:ale_linters['c'] = ['clang']
 let g:ale_linters['cpp'] = ['clang']
