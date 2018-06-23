@@ -359,8 +359,9 @@ function! s:check_back_space() abort
     return !col || getline('.')[col - 1]  =~ '\s'
 endfunction
 
+Plug 'thenewvu/vim-colors-whiteprint'
 set termguicolors
-colorscheme darkprint
+colorscheme whiteprint
 
 Plug 'thenewvu/vim-plantuml-genin'
 
