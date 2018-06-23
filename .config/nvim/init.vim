@@ -250,9 +250,6 @@ Plug 'chaoren/vim-wordmotion'
 Plug 'alvan/vim-closetag'
 let g:closetag_filenames = "*.html,*.xml,*.js,*.jsx"
 
-" Plug 'ervandew/supertab'
-" let g:SuperTabDefaultCompletionType = "context"
-
 " seamlessly working with tmux
 Plug 'christoomey/vim-tmux-navigator'
 
@@ -305,7 +302,8 @@ let g:tmuxline_preset = {
   \ 'win': '#W',
   \ 'cwin': '#W#F',
   \ 'options': {
-  \   'status-justify': 'left'}
+  \   'status-justify': 'left'
+   \}
   \}
 
 " likes ! but output into a buffer
