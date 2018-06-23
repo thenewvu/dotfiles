@@ -76,7 +76,7 @@ function! FoldText()
 
   " diff
   if match(text, '^diff.*') == 0
-    return text
+    return text . '…'
   endif
 
   let head = substitute(text, '^[ \t]*', '', 'g')
