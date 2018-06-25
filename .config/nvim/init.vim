@@ -40,7 +40,7 @@ set foldnestmax=5
 set foldlevel=0
 set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
 set fillchars+=fold:\ 
-set foldtext=FoldText()
+set foldtext=FormatFoldedText()
 let g:loaded_netrwPlugin = 1
 let g:loaded_matchparen = 1
 let g:matchparen_timeout = 5 " timeout to abort searching
@@ -53,49 +53,52 @@ set nospell
 set lazyredraw
 set ttyfast
 
-" A customized version of a function in below link:
-" Ref: http://vim.wikia.com/wiki/Customize_text_for_closed_folds
-function! FoldText()
+" use ripgrep as grepprg if available
+if executable('rg')
+  set grepprg=rg\ --vimgrep
+endif
+
+" Set %% to the dir that contains the current file
+" http://vim.wikia.com/wiki/Easy_edit_of_files_in_the_same_directory
+cabbr <expr> %% expand('%:p:h')
+
+function! FormatFoldedText()
   let text = getline(v:foldstart)
+
+  " git
+  if &syntax == "git"
+    return text . ' ⋯'
+  endif
+
+  " gitcommit
+  if &syntax == "gitcommit"
+    return text . ' ⋯'
+  endif
+
   let indentlevel = indent(v:foldstart)
   let indent = repeat(' ', indentlevel)
 
   " c-liked comment block
   if match(text, '^\s*\/\*.*$') == 0
-    let line = v:foldstart
-    while line < v:foldend
-      let text = getline(line)
-      let body = substitute(text, '^\([ \t\/\*]*\)\(.*\)$', '\2', 'g')
-      if body != '' 
-        break 
-      endif
-      let line = line + 1
-    endwhile
-    return indent . '/* ' . body . '… */'
+    return indent . '/*⋯*/'
   endif
 
-  " diff
-  if match(text, '^diff.*') == 0
-    return text . '…'
-  endif
-
-  let head = substitute(text, '^[ \t]*', '', 'g')
-  let head = substitute(head, '[ \t]*$', '', 'g')
+  let head = substitute(text, '^\s*', '', 'g')
+  let head = substitute(head, '\s*$', '', 'g')
   let text = getline(v:foldend)
-  let foot = substitute(text, '^[ \t]*', '', 'g')
+  let foot = substitute(text, '^\s*', '', 'g')
 
-  return indent . head . '…' . foot
+  return indent . head . '⋯' . foot
 endfunction
 
-" file is large from 500kb
-let g:LargeFile = 1024 * 500
-augroup OptimizeLargeFiles
+augroup OptimizeIfLargeFile
   au!
-  au BufReadPre * call OptimizeLargeFile("<afile>")
+  au BufReadPre * call OptimizeIfLargeFile("<afile>")
 augroup END
 
 " ref: http://vim.wikia.com/wiki/Faster_loading_of_large_files
-function! OptimizeLargeFile(file)
+let g:LargeFile = 1024 * 500
+function! OptimizeIfLargeFile(file)
   let f=getfsize(expand(a:file))
   if f > g:LargeFile || f == -2
     " no syntax highlighting etc
@@ -111,7 +114,7 @@ function! OptimizeLargeFile(file)
   endif
 endfunction
 
-function! ClampWinHeight(min, max)
+function! ClampCurWinHeight(min, max)
   exe max([min([line("$"), a:max]), a:min]) . "wincmd _"
 endfunction
 
@@ -120,10 +123,10 @@ augroup QuickFix
   au QuickFixCmdPost [^l]* nested copen
   au QuickFixCmdPost l*    nested lopen
   au FileType qf set nobuflisted
-  au FileType qf call ClampWinHeight(3, 10)
+  au FileType qf call ClampCurWinHeight(3, 10)
 augroup END
 
-augroup Vim
+augroup SourceVimrc
   au!
   au BufWritePost init.vim source %
 augroup END
@@ -133,23 +136,19 @@ augroup END
 let g:mapleader = ";"
 let g:maplocalleader = "\\"
 
-" point %% to the dir that contains the current file
-" Ref: http://vim.wikia.com/wiki/Easy_edit_of_files_in_the_same_directory
-cabbr <expr> %% expand('%:p:h')
-
 nnoremap <leader>; : 
 nnoremap <leader>e :e 
 nnoremap <F2> :e ~/.config/nvim/init.vim<CR>
 " no more Ex mode
 nnoremap Q <nop>
-" jump to begin/end of lines
+" jump to begin/end of a line
 nnoremap B ^
 nnoremap E $
 vnoremap B ^
 vnoremap E $
-" <space> to unfold under caret block and fold others
+" unfold and fold others
 nnoremap <space> zMzvzz 
-" keep the cursor always be vertical center
+" vertical center movement
 nnoremap G Gzz
 vnoremap G Gzz
 nnoremap n nzzzv
@@ -158,21 +157,25 @@ nnoremap j jzz
 nnoremap k kzz
 vnoremap j jzz
 vnoremap k kzz
-" insert new line without entering insert mode
+" add new line below
 nnoremap o o<esc>
+" add new line above
 nnoremap O O<esc>
-" break/join lines
+" break lines
 nnoremap J i<enter><esc>
+" join lines
 nnoremap K J
-" navigate between buffers
+" last buffer
 nnoremap gn <C-^>
+" next buffer
 nnoremap gt :bnext<cr>
+" prev uffer
 nnoremap gT :bprev<cr>
 " redo
 nnoremap U <c-r>zz
-" clear matching
+" clear searching
 nnoremap <leader><space> :let @/ = ""<CR>
-" close current buffer
+" close current buffer except last one
 nnoremap <silent> <leader>q :bp\|bd #<CR>
 " reload current file and redraw
 nnoremap <f5> :edit<cr>:redraw<cr>
@@ -198,17 +201,12 @@ nnoremap > >>
 nnoremap < <<
 " <ecs> to escape temrinal mode
 tnoremap <Esc> <C-\><C-n>
-" <f1> won't no longer open vim help
+" <f1> won't open vim help
 nnoremap <F1> <esc>
 inoremap <F1> <esc>
 vnoremap <F1> <esc>
-
 " search text in root directory
 nnoremap <leader>f :grep 
-" use ripgrep as grepprg if available
-if executable('rg')
-  set grepprg=rg\ --vimgrep
-endif
 
 " PLUGIN SETTINGS
 " ---------------
@@ -264,6 +262,7 @@ let g:ale_linters['c'] = ['clang']
 let g:ale_linters['cpp'] = ['clang']
 " ref: https://github.com/w0rp/ale/issues/1460
 let g:ale_c_parse_makefile = 1
+let g:ale_c_clang_options = '-std=c11 -Wall -pedantic-errors'
 let g:ale_fix_on_save = 1
 let g:ale_set_signs = 1
 let g:ale_sign_error = '⚑'
