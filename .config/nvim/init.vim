@@ -1,5 +1,7 @@
-" BEHAVIOR SETTINGS
-" -----------------
+" vim:fileencoding=utf-8:foldmethod=marker
+
+" General {{{
+
 set nobackup
 set nowritebackup
 set noswapfile
@@ -78,6 +80,11 @@ function! FormatFoldedText()
   let indentlevel = indent(v:foldstart)
   let indent = repeat(' ', indentlevel)
 
+  if &foldmethod == "marker"
+    let head = substitute(text, '{.*$', '', 'g')
+    return indent . head . '{{{⋯}}}'
+  endif
+
   " c-liked comment block
   if match(text, '^\s*\/\*.*$') == 0
     return indent . '/*⋯*/'
@@ -130,15 +137,34 @@ augroup SourceVimrc
   au!
   au BufWritePost init.vim source %
 augroup END
+"}}}
 
-" KEY SETTINGS
-" ------------
+" Keys {{{
+
 let g:mapleader = ";"
 let g:maplocalleader = "\\"
 
+" write current file with sudo
+cmap w! w !sudo tee > /dev/null %
+
 nnoremap <leader>; : 
 nnoremap <leader>e :e 
-nnoremap <F2> :e ~/.config/nvim/init.vim<CR>
+nnoremap <leader>f :grep 
+" clear searching
+nnoremap <leader><space> :let @/ = ""<CR>
+" close current buffer except last one
+nnoremap <leader>q :bp\|bd #<CR>
+
+nnoremap <f2> :e ~/.config/nvim/init.vim<CR>
+" reload current file and redraw
+nnoremap <f5> :edit<cr>:redraw<cr>
+" <f1> won't open vim help
+nnoremap <f1> <esc>
+inoremap <f1> <esc>
+vnoremap <f1> <esc>
+" <ecs> to escape temrinal mode
+tnoremap <esc> <C-\><C-n>
+
 " no more Ex mode
 nnoremap Q <nop>
 " jump to begin/end of a line
@@ -147,7 +173,7 @@ nnoremap E $
 vnoremap B ^
 vnoremap E $
 " unfold and fold others
-nnoremap <space> zMzvzz 
+nnoremap <space> zxzMzvzz
 " vertical center movement
 nnoremap G Gzz
 vnoremap G Gzz
@@ -173,14 +199,6 @@ nnoremap gt :bnext<cr>
 nnoremap gT :bprev<cr>
 " redo
 nnoremap U <c-r>zz
-" clear searching
-nnoremap <leader><space> :let @/ = ""<CR>
-" close current buffer except last one
-nnoremap <silent> <leader>q :bp\|bd #<CR>
-" reload current file and redraw
-nnoremap <f5> :edit<cr>:redraw<cr>
-" write current file with sudo
-cmap w! w !sudo tee > /dev/null %
 " navigate between splits
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
@@ -194,22 +212,14 @@ inoremap <C-h> <C-w>h
 inoremap <C-j> <C-w>j
 inoremap <C-k> <C-w>k
 inoremap <C-l> <C-w>l
-" run a shell command
-nnoremap ! :! 
 " move left/right one indent
 nnoremap > >>
 nnoremap < <<
-" <ecs> to escape temrinal mode
-tnoremap <Esc> <C-\><C-n>
-" <f1> won't open vim help
-nnoremap <F1> <esc>
-inoremap <F1> <esc>
-vnoremap <F1> <esc>
-" search text in root directory
-nnoremap <leader>f :grep 
 
-" PLUGIN SETTINGS
-" ---------------
+" }}}
+
+" Plugins {{{
+
 call plug#begin('~/.config/nvim/plugged')
 
 " improved javascript syntax
@@ -365,3 +375,5 @@ colorscheme whiteprint
 Plug 'thenewvu/vim-plantuml-genin'
 
 call plug#end()
+
+" }}}
