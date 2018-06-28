@@ -1,6 +1,6 @@
-######################################################
-# Key bindings
-######################################################
+# vim:fileencoding=utf-8:foldmethod=marker
+
+# Key mappings {{{
 
 # enable vi-liked key bindings
 set -o vi
@@ -24,9 +24,9 @@ for completion in /usr/local/etc/bash_completion.d/*; do
   source $completion
 done
 
-######################################################
-# Prompt
-######################################################
+# }}}
+
+# Prompt line {{{
 
 function prompt_right() {
   echo -e "\033[0;00m\\\t\033[0m"
@@ -44,9 +44,9 @@ function prompt() {
 
 PROMPT_COMMAND=prompt
 
-######################################################
-# EXPORTs
-######################################################
+# }}}
+
+# Environment variables {{{
 
 export VISUAL="nvim"
 export EDITOR="nvim"
@@ -79,9 +79,9 @@ export PATH="$ANDROID_SDK_ROOT/platform-tools:$PATH"
 export JAVA_HOME="/Applications/Android Studio.app/Contents/jre/jdk/Contents/Home"
 export PATH="$JAVA_HOME/bin:$PATH"
 
-######################################################
-# History configuration
-######################################################
+# }}}
+
+# Command history {{{
 
 # Increase the size of history maintained by BASH
 export HISTFILESIZE=10000
@@ -93,9 +93,9 @@ shopt -s histappend
 # Ensure syncing (flushing and reloading) of .bash_history with in-memory history:
 export PROMPT_COMMAND="history -a; history -c; history -r;${PROMPT_COMMAND}"
 
-######################################################
-# Aliases
-######################################################
+# }}}
+
+# Aliases {{{
 
 alias gs="git s"
 alias ga="git a"
@@ -115,3 +115,6 @@ alias ll="ls -lcthr"
 alias ls="ls -cthr"
 alias l="ls -cthr"
 alias ..="cd .."
+
+# }}}
+
