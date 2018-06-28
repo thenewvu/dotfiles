@@ -89,6 +89,12 @@ function! FormatFoldedText()
   let text = getline(v:foldend)
   let foot = substitute(text, '^\s*', '', 'g')
 
+  " c #define block
+  if match(head, '.*{\s*\\$') == 0 && match(foot, '.*}\s*\\*$') == 0
+    let head = substitute(head, '{\s*\\$', '{', 'g')
+    let foot = substitute(foot, '}\s*\\*$', '}', 'g')
+  endif
+
   return indent . head . '⋯' . foot
 endfunction
 
