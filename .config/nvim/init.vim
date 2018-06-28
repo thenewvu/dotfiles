@@ -67,12 +67,7 @@ function! FormatFoldedText()
   let text = getline(v:foldstart)
 
   " git
-  if &syntax == "git"
-    return text . ' ⋯'
-  endif
-
-  " gitcommit
-  if &syntax == "gitcommit"
+  if &syntax == "git" || &syntax == "gitcommit"
     return text . ' ⋯'
   endif
 
@@ -84,7 +79,7 @@ function! FormatFoldedText()
     return indent . head . '{{{⋯}}}'
   endif
 
-  " c-liked comment block
+  " /*...*/ block
   if match(text, '^\s*\/\*.*$') == 0
     return indent . '/*⋯*/'
   endif
