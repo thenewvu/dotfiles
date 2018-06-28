@@ -137,6 +137,11 @@ augroup SourceVimrc
   au!
   au BufWritePost init.vim source %
 augroup END
+
+augroup UpdateFolds
+  au!
+  au BufWritePost * normal zx
+augroup END
 "}}}
 
 " Keys {{{
