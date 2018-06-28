@@ -26,9 +26,9 @@ set nonumber " no line numbers
 set nocursorline
 set norelativenumber
 set expandtab
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
 set nolist
 set cindent
 set wildmenu " show auto-complete when typing in command line
