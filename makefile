@@ -1,4 +1,4 @@
-SRC := $(shell find -L . -type fl -not -path "**/.git*" -not -path "**/undo/**" -not -path "**/plugged/**" -not -path "./makefile" | sed "s|^\./||")
+SRC := $(shell find -L . -type fl -not -path "**/.git/*" -not -path "**/undo/**" -not -path "**/plugged/**" -not -path "./makefile" | sed "s|^\./||")
 DST := $(addprefix ~/, $(SRC))
 
 .PHONY: list
