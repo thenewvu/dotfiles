@@ -71,13 +71,13 @@ function! FormatFoldedText()
     return text . ' ⋯'
   endif
 
-  let indentlevel = indent(v:foldstart)
-  let indent = repeat(' ', indentlevel)
-
   if &foldmethod == "marker"
     let head = substitute(text, '{.*$', '', 'g')
-    return indent . head . '{{{⋯}}}'
+    return head . '{{{⋯}}}'
   endif
+
+  let indentlevel = indent(v:foldstart)
+  let indent = repeat(' ', indentlevel)
 
   " /*...*/ block
   if match(text, '^\s*\/\*.*$') == 0
