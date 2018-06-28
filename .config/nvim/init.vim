@@ -349,6 +349,9 @@ Plug 'danro/rename.vim'
 Plug 'dhruvasagar/vim-table-mode'
 
 Plug 'airblade/vim-gitgutter'
+
+set updatetime=400
+
 let g:gitgutter_signs = 1
 let g:gitgutter_override_sign_column_highlight = 0
 let g:gitgutter_diff_args = '-w'
@@ -357,10 +360,13 @@ let g:gitgutter_sign_added = '+'
 let g:gitgutter_sign_modified = '≠'
 let g:gitgutter_sign_removed = '_'
 let g:gitgutter_sign_modified_removed = '≠'
+
 hi link GitGutterAdd DiffAdd
 hi link GitGutterChange DiffChange
 hi link GitGutterChangeDelete DiffChange
 hi link GitGutterDelete DiffDelete
+
+nmap <leader>d :call gitgutter#toggle()<cr>
 nmap ]d <Plug>GitGutterNextHunk
 nmap [d <Plug>GitGutterPrevHunk
 
@@ -370,8 +376,10 @@ Plug 'junegunn/vim-easy-align'
 xmap ga <Plug>(EasyAlign)
 
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#file#enable_buffer_path = 1
+
 " select completion items by <tab>-ing
 inoremap <silent><expr> <TAB>
     \ pumvisible() ? "\<C-n>" :
