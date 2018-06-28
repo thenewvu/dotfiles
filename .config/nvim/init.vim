@@ -53,7 +53,6 @@ set noshowmode
 set noruler
 set nospell
 set lazyredraw
-set ttyfast
 
 " use ripgrep as grepprg if available
 if executable('rg')
