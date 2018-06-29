@@ -142,6 +142,7 @@ augroup UpdateFolds
   au!
   au BufWritePost * normal zx
 augroup END
+
 "}}}
 
 " Keys {{{
@@ -231,9 +232,12 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 
 " jsx syntax
-Plug 'MaxMEllon/vim-jsx-pretty', { 'for': 'javascript' }
+Plug 'MaxMEllon/vim-jsx-pretty', { 'for': 'javascript' } " {{{
+
 hi! link jsxCloseTag jsxTag
 hi! link jsxCloseString jsxTag
+
+" }}}
 
 " commenting
 Plug 'tpope/vim-commentary'
@@ -243,7 +247,8 @@ Plug 'Raimondi/delimitMate'
 
 " fuzzy search files
 Plug 'junegunn/fzf'
-Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf.vim' " {{{
+
 " fuzzy search file in the pwd
 nnoremap <leader>p :FZF<CR>
 " fuzzy search text in the current buffer
@@ -256,18 +261,23 @@ augroup FZF
   au TermOpen term://*FZF tnoremap <silent> <buffer><nowait> <esc> <c-c>
 augroup end
 
+"}}}
+
 " wb word by word
-Plug 'chaoren/vim-wordmotion'
+Plug 'chaoren/vim-wordmotion' 
 
 " automatically add end tag
-Plug 'alvan/vim-closetag'
+Plug 'alvan/vim-closetag' "{{{
+
 let g:closetag_filenames = "*.html,*.xml,*.js,*.jsx"
+
+" }}}
 
 " seamlessly working with tmux
 Plug 'christoomey/vim-tmux-navigator'
 
 " async linting
-Plug 'w0rp/ale'
+Plug 'w0rp/ale' "{{{
 
 let g:ale_fix_on_save = 1
 let g:ale_open_list = 0
@@ -304,8 +314,10 @@ hi link ALEErrorSign   ErrorMsg
 hi link ALEWarning     WarningMsg
 hi link ALEWarningSign WarningMsg
 
+" }}}
+
 " provides a buffer line which looks like the tab line
-Plug 'ap/vim-buftabline'
+Plug 'ap/vim-buftabline' "{{{
 
 let g:buftabline_indicators = 1
 let g:buftabline_plug_map = 0
@@ -315,11 +327,14 @@ hi! link BufTabLineActive    TablineSel
 hi! link BufTabLineHidden    Tabline
 hi! link BufTabLineFill      TablineFill
 
+" }}}
+
 " toolkit for develop golang
 Plug 'fatih/vim-go', { 'for': 'go' }
 
 " generate tmux theme that matches the current color scheme
-Plug 'edkolev/tmuxline.vim'
+Plug 'edkolev/tmuxline.vim' "{{{
+
 let g:tmuxline_powerline_separators = 0
 let g:tmuxline_theme = 'vim_statusline_2'
 let g:tmuxline_preset = {
@@ -330,25 +345,33 @@ let g:tmuxline_preset = {
    \}
   \}
 
+" }}}
+
 " likes ! but output into a buffer
-Plug 'sjl/clam.vim'
+Plug 'sjl/clam.vim' "{{{
+
 nnoremap !! :!<space>
 nnoremap ! :Clam<space>
 vnoremap ! :ClamVisual<space>
 
+" }}}
+
 " allow to edit and save changes in quickfix
 Plug 'stefandtw/quickfix-reflector.vim'
 
-Plug 'terryma/vim-multiple-cursors'
+Plug 'terryma/vim-multiple-cursors' "{{{
+
 hi link multiple_cursors_cursor Cursor
 hi link multiple_cursors_visual Search
+
+" }}}
 
 " provides :Rename command
 Plug 'danro/rename.vim'
 
 Plug 'dhruvasagar/vim-table-mode'
 
-Plug 'airblade/vim-gitgutter'
+Plug 'airblade/vim-gitgutter' "{{{
 
 set updatetime=400
 
@@ -370,12 +393,17 @@ nmap <leader>d :call gitgutter#toggle()<cr>
 nmap ]d <Plug>GitGutterNextHunk
 nmap [d <Plug>GitGutterPrevHunk
 
+" }}}
+
 Plug 'tpope/vim-markdown', { 'for': 'markdown' }
 
-Plug 'junegunn/vim-easy-align'
+Plug 'junegunn/vim-easy-align' "{{{
+
 xmap ga <Plug>(EasyAlign)
 
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" }}}
+
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } "{{{
 
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#file#enable_buffer_path = 1
@@ -391,9 +419,14 @@ function! s:check_back_space() abort
     return !col || getline('.')[col - 1]  =~ '\s'
 endfunction
 
-Plug 'thenewvu/vim-colors-whiteprint'
+" }}}
+
+Plug 'thenewvu/vim-colors-whiteprint' "{{{
+
 set termguicolors
 colorscheme whiteprint
+
+" }}}
 
 Plug 'thenewvu/vim-plantuml-genin'
 
