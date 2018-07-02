@@ -26,7 +26,7 @@ if [ "$started" != "" ]; then
         param2='$task stop $started'"
     echo "$proj$desc ▿ | $opts"
 else
-    numof_stopped=$(echo "$stopped" | wc -l | tr -d '[:space:]')
+    numof_stopped=$(echo "$stopped" | grep -v "^\s*$" | wc -l | tr -d '[:space:]')
     if [ "$numof_stopped" == "1" ]; then
         echo "1 todo ▿"
     else
