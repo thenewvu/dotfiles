@@ -432,6 +432,8 @@ colorscheme whiteprint
 
 Plug 'thenewvu/vim-plantuml-genin'
 
+Plug 'jreybert/vimagit'
+
 call plug#end()
 
 " }}}
