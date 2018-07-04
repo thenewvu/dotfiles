@@ -72,6 +72,10 @@ function! FormatFoldedText()
   endif
 
   if &foldmethod == "syntax"
+    if &syntax == 'git' || &syntax == 'gitcommit' || &syntax == 'magit'
+      return start_text . ' ↩'
+    endif
+
     " /*...*/ block
     if start_text =~ '\/\*' && end_text =~ '\*\/'
       let indent_level = indent(v:foldstart)
