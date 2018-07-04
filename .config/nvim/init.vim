@@ -35,7 +35,7 @@ set wildmenu " show auto-complete when typing in command line
 set wildmode=longest,list
 set wildignore+=.hg,.git,.svn
 set nowrap
-set showbreak=↳\ 
+set showbreak=↪\ 
 set foldenable
 set foldmethod=syntax
 set foldnestmax=12
