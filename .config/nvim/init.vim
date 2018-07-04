@@ -72,25 +72,26 @@ function! FormatFoldedText()
   endif
 
   if &foldmethod == "syntax"
-    let indent_level = indent(v:foldstart)
-    let indent_text = repeat(' ', indent_level)
-
     " /*...*/ block
     if start_text =~ '\/\*' && end_text =~ '\*\/'
+      let indent_level = indent(v:foldstart)
+      let indent_text = repeat(' ', indent_level)
       return indent_text . '/*⋯*/'
     endif
 
     " #define block
     if start_text =~ '{\s*\\' && end_text =~ '.*}\s*\\*'
-      let start_text = substitute(start_text, '{\s*\\$', '', 'g')
-      let end_text = substitute(end_text, '}\s*\\*$', '', 'g')
-      return start_text . '{⋯}' . end_text
+      " remove any text after last {
+      let start_text = substitute(start_text, '{{\@!.*$', '{', 'g')
+      return start_text . '⋯}'
     endif
 
     " {...} block
     if start_text =~ '{' && end_text =~ '}'
-      let start_text = substitute(start_text, '\s*$', '', 'g')
-      let end_text = substitute(end_text, '^\s*', '', 'g')
+      " remove any text after last {
+      let start_text = substitute(start_text, '{{\@!.*$', '{', 'g')
+      " remove any text before last }
+      let end_text = substitute(end_text, '^.*}\@<!}', '}', 'g')
       return start_text . '⋯' . end_text
     endif
   endif
@@ -297,7 +298,7 @@ let g:ale_sign_warning = '⚑'
 let g:ale_linters = {}
 let g:ale_fixers = {}
 let g:ale_linters['javascript'] = ['eslint']
-let g:ale_fixers['javascript'] = ['eslint']
+let g:ale_fixers['javascript'] = ['clang-format']
 let g:ale_javascript_eslint_use_global = 1
 let g:ale_linters['c'] = ['clang']
 let g:ale_linters['cpp'] = ['clang']
