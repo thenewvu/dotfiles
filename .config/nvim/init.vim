@@ -64,38 +64,38 @@ endif
 cabbr <expr> %% expand('%:p:h')
 
 function! FormatFoldedText()
-  let text = getline(v:foldstart)
+  let start_text = getline(v:foldstart)
+  let end_text = getline(v:foldend)
 
-  " git
-  if &syntax == "git" || &syntax == "gitcommit"
-    return text . ' ⋯'
+  if &foldmethod == "marker" && &foldmarker == "{{{,}}}"
+    return substitute(start_text, '{.*$', '', 'g') . '{{{⋯}}}'
   endif
 
-  if &foldmethod == "marker"
-    let head = substitute(text, '{.*$', '', 'g')
-    return head . '{{{⋯}}}'
+  if &foldmethod == "syntax"
+    let indent_level = indent(v:foldstart)
+    let indent_text = repeat(' ', indent_level)
+
+    " /*...*/ block
+    if start_text =~ '\/\*' && end_text =~ '\*\/'
+      return indent_text . '/*⋯*/'
+    endif
+
+    " #define block
+    if start_text =~ '{\s*\\' && end_text =~ '.*}\s*\\*'
+      let start_text = substitute(start_text, '{\s*\\$', '', 'g')
+      let end_text = substitute(end_text, '}\s*\\*$', '', 'g')
+      return start_text . '{⋯}' . end_text
+    endif
+
+    " {...} block
+    if start_text =~ '{' && end_text =~ '}'
+      let start_text = substitute(start_text, '\s*$', '', 'g')
+      let end_text = substitute(end_text, '^\s*', '', 'g')
+      return start_text . '⋯' . end_text
+    endif
   endif
 
-  let indentlevel = indent(v:foldstart)
-  let indent = repeat(' ', indentlevel)
-
-  " /*...*/ block
-  if match(text, '^\s*\/\*.*$') == 0
-    return indent . '/*⋯*/'
-  endif
-
-  let head = substitute(text, '^\s*', '', 'g')
-  let head = substitute(head, '\s*$', '', 'g')
-  let text = getline(v:foldend)
-  let foot = substitute(text, '^\s*', '', 'g')
-
-  " c #define block
-  if match(head, '.*{\s*\\$') == 0 && match(foot, '.*}\s*\\*$') == 0
-    let head = substitute(head, '{\s*\\$', '{', 'g')
-    let foot = substitute(foot, '}\s*\\*$', '}', 'g')
-  endif
-
-  return indent . head . '⋯' . foot
+  return start_text . ' ↩'
 endfunction
 
 augroup OptimizeIfLargeFile
