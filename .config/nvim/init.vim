@@ -437,7 +437,17 @@ colorscheme whiteprint
 
 Plug 'thenewvu/vim-plantuml-genin'
 
-Plug 'jreybert/vimagit'
+Plug 'jreybert/vimagit' "{{{
+
+augroup Vimagit
+  au!
+  autocmd User VimagitUpdateFile
+    \ if ( exists("*gitgutter#process_buffer") ) |
+    \ 	call gitgutter#process_buffer(bufnr(g:magit_last_updated_buffer), 1) |
+    \ endif
+augroup END
+
+"}}}
 
 call plug#end()
 
