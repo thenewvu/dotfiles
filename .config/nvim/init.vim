@@ -313,8 +313,8 @@ let g:ale_c_clangformat_options = '-style=file'
 let g:ale_c_parse_makefile = 1
 
 nmap <leader>l :ALEToggle<cr>
-nmap [l <Plug>(ale_previous_wrap)
-nmap ]l <Plug>(ale_next_wrap)
+nmap <silent> [l :call ale#loclist_jumping#Jump('before', 1)<cr>zz
+nmap <silent> ]l :call ale#loclist_jumping#Jump('after', 1)<cr>zz
 
 hi link ALEError       ErrorMsg
 hi link ALEErrorSign   ErrorMsg
@@ -397,8 +397,8 @@ hi link GitGutterChangeDelete DiffChange
 hi link GitGutterDelete DiffDelete
 
 nmap <leader>d :call gitgutter#toggle()<cr>
-nmap ]d <Plug>GitGutterNextHunk
-nmap [d <Plug>GitGutterPrevHunk
+nmap <silent> ]d :call gitgutter#hunk#next_hunk(1)<cr>zz
+nmap <silent> [d :call gitgutter#hunk#prev_hunk(1)<cr>zz
 
 " }}}
 
