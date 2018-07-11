@@ -73,7 +73,7 @@ function! FormatFoldedText()
 
   if &foldmethod == "syntax"
     if &syntax == 'git' || &syntax == 'gitcommit' || &syntax == 'magit'
-      return start_text . ' ↩'
+      return start_text . ' ▾'
     endif
 
     " /*...*/ block
@@ -102,7 +102,7 @@ function! FormatFoldedText()
     endif
   endif
 
-  return start_text . ' ↩'
+  return start_text . ' ▾'
 endfunction
 
 augroup OptimizeIfLargeFile
