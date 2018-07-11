@@ -284,43 +284,42 @@ let g:closetag_filenames = "*.html,*.xml,*.js,*.jsx"
 Plug 'christoomey/vim-tmux-navigator'
 
 " async linting
-Plug 'w0rp/ale' "{{{
+" Plug 'w0rp/ale' "{{{
 
-let g:ale_fix_on_save = 1
-let g:ale_open_list = 0
-let g:ale_lint_on_save = 1
-let g:ale_lint_on_enter = 0
-let g:ale_lint_on_text_changed = 0
-let g:ale_lint_on_filetype_changed = 0
-let g:ale_warn_about_trailing_whitespace = 0
+" let g:ale_fix_on_save = 1
+" let g:ale_open_list = 0
+" let g:ale_lint_on_save = 1
+" let g:ale_lint_on_enter = 0
+" let g:ale_lint_on_text_changed = 0
+" let g:ale_lint_on_filetype_changed = 0
+" let g:ale_warn_about_trailing_whitespace = 0
 
-let g:ale_set_highlights = 0
-let g:ale_set_signs = 1
-let g:ale_sign_error = '⚑'
-let g:ale_sign_warning = '⚑'
+" let g:ale_set_highlights = 0
+" let g:ale_set_signs = 1
+" let g:ale_sign_error = '⚑'
+" let g:ale_sign_warning = '⚑'
 
-let g:ale_linters = {}
-let g:ale_fixers = {}
-let g:ale_linters['javascript'] = ['eslint']
-let g:ale_fixers['javascript'] = ['clang-format']
-let g:ale_javascript_eslint_use_global = 1
-let g:ale_linters['c'] = ['clang']
-let g:ale_linters['cpp'] = ['clang']
-let g:ale_fixers['c'] = ['clang-format']
-let g:ale_fixers['cpp'] = ['clang-format']
-let g:ale_c_clang_options = '-std=c11 -Wall -pedantic-errors'
-let g:ale_c_clangformat_options = '-style=file'
-let g:ale_c_parse_makefile = 1
+" let g:ale_linters = {}
+" let g:ale_fixers = {}
+" let g:ale_linters['javascript'] = ['eslint']
+" let g:ale_fixers['javascript'] = ['clang-format']
+" let g:ale_javascript_eslint_use_global = 1
+" let g:ale_linters['c'] = ['clang']
+" let g:ale_linters['cpp'] = ['clang']
+" let g:ale_fixers['c'] = ['clang-format']
+" let g:ale_fixers['cpp'] = ['clang-format']
+" let g:ale_c_clang_options = '-std=c11 -Wall -pedantic-errors'
+" let g:ale_c_clangformat_options = '-style=file'
+" let g:ale_c_parse_makefile = 1
 
-nmap <leader>l :ALEToggle<cr>
-nmap <silent> [l :call ale#loclist_jumping#Jump('before', 1)<cr>zz
-nmap <silent> ]l :call ale#loclist_jumping#Jump('after', 1)<cr>zz
+" nmap <leader>l :ALEToggle<cr>
+" nmap <silent> [l :call ale#loclist_jumping#Jump('before', 1)<cr>zz
+" nmap <silent> ]l :call ale#loclist_jumping#Jump('after', 1)<cr>zz
 
-hi link ALEError       ErrorMsg
-hi link ALEErrorSign   ErrorMsg
-hi link ALEWarning     WarningMsg
-hi link ALEWarningSign WarningMsg
-
+" hi link ALEError       ErrorMsg
+" hi link ALEErrorSign   ErrorMsg
+" hi link ALEWarning     WarningMsg
+" hi link ALEWarningSign WarningMsg
 " }}}
 
 " provides a buffer line which looks like the tab line
