@@ -401,15 +401,6 @@ nmap <silent> [d :call gitgutter#hunk#prev_hunk(1)<cr>zz
 
 " }}}
 
-Plug 'gabrielelana/vim-markdown', { 'for': 'markdown' } " {{{
-
-let g:markdown_enable_spell_checking = 0
-let g:markdown_enable_folding = 1
-let g:markdown_enable_conceal = 1
-let g:markdown_mapping_switch_status = '<localleader>d'
-
-" }}}
-
 Plug 'junegunn/vim-easy-align' "{{{
 
 xmap ga <Plug>(EasyAlign)
