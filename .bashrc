@@ -102,8 +102,8 @@ alias ga="git a"
 alias gai="git ai"
 alias gl="git l"
 alias gc="git c"
-alias gd="git d"
-alias gdc="git dc"
+alias gd="git dw"
+alias gdc="git dcw"
 alias gp="git p"
 
 alias yta='youtube-dl -f bestaudio'

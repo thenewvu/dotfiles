@@ -3,7 +3,7 @@
   email = thenewvu@gmail.com
 [core]
   editor = nvim
-	excludesfile = ~/.gitexcludes
+  excludesfile = ~/.gitexcludes
 [credential]
   helper = cache --timeout 360000
 [gc]
@@ -23,11 +23,13 @@
 [mergetool "vimdiff"]
   cmd = nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
 [alias]
-  s  = status -s
-  l  = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %Cblue<%an>%Creset' --abbrev-commit --date=relative
-  a  = add
-  ai = add -i -p
-  c  = commit -v
-  d  = diff -w
-  dc = diff --cached -w
-  p  = push
+  s   = status -s
+  l   = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %Cblue<%an>%Creset' --abbrev-commit --date=relative
+  a   = add
+  ai  = add -i -p
+  c   = commit -v
+  d   = diff -w
+  dw  = diff -w --color-words
+  dc  = diff --cached -w
+  dcw = diff --cached -w --color-words
+  p   = push
