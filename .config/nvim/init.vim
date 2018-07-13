@@ -120,7 +120,7 @@ augroup OptimizeIfLargeFile
 augroup END
 
 " ref: http://vim.wikia.com/wiki/Faster_loading_of_large_files
-let g:LargeFile = 1024 * 500
+let g:LargeFile = 1024 * 30
 function! OptimizeIfLargeFile(file)
   let f=getfsize(expand(a:file))
   if f > g:LargeFile || f == -2
