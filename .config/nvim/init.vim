@@ -100,6 +100,15 @@ function! FormatFoldedText()
       let end_text = substitute(end_text, '^.*}\@<!}', '}', 'g')
       return start_text . '⋯' . end_text
     endif
+
+    " [...] block
+    if start_text =~ '[' && end_text =~ ']'
+      " remove any text after last [
+      let start_text = substitute(start_text, '[[\@!.*$', '[', 'g')
+      " remove any text before first ]
+      let end_text = substitute(end_text, '^.*]\@<!]', ']', 'g')
+      return start_text . '⋯' . end_text
+    endif
   endif
 
   return start_text . ' ▾'
