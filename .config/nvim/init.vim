@@ -84,12 +84,14 @@ function! FormatFoldedText()
     endif
 
     " #define block
-    if start_text =~ '{\s*\\' && end_text =~ '.*}\s*\\*'
-      " remove any text after last {
-      let start_text = substitute(start_text, '{{\@!.*$', '{', 'g')
-      " remove any text before first }
-      let end_text = substitute(end_text, '^.*}\@<!}', '}', 'g')
-      return start_text . '⋯' .end_text
+    if start_text =~ '^#define.*\\\s*$'
+      let start_text = substitute(start_text, '\s*\\\s*$', '', 'g')
+      return start_text . ' \ ▾'
+    endif
+
+    " {...} block in #define
+    if start_text =~ '{.*\\' && end_text =~ '}.*\\'
+      return start_text . ' ▾'
     endif
 
     " {...} block
