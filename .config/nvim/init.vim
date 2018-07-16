@@ -139,10 +139,6 @@ function! OptimizeIfLargeFile(file)
   endif
 endfunction
 
-function! ClampCurWinHeight(min, max)
-  exe max([min([line("$"), a:max]), a:min]) . "wincmd _"
-endfunction
-
 function! ShowSpaces(...)
   let @/='\v(\s+$)|( +\ze\t)'
   let oldhlsearch=&hlsearch
@@ -160,8 +156,12 @@ function! TrimSpaces() range
   let &hlsearch=oldhlsearch
 endfunction
 
-command -bar -nargs=? ShowSpaces call ShowSpaces(<args>)
-command -bar -nargs=0 -range=% TrimSpaces <line1>,<line2>call TrimSpaces()
+command! -bar -nargs=? ShowSpaces call ShowSpaces(<args>)
+command! -bar -nargs=0 -range=% TrimSpaces <line1>,<line2>call TrimSpaces()
+
+function! ClampCurWinHeight(min, max)
+  exe max([min([line("$"), a:max]), a:min]) . "wincmd _"
+endfunction
 
 augroup QuickFix
   au!
@@ -254,8 +254,6 @@ inoremap <C-l> <C-w>l
 " move left/right one indent
 nnoremap > >>
 nnoremap < <<
-vnoremap > >>
-vnoremap < <<
 
 " }}}
 
@@ -276,9 +274,6 @@ hi! link jsxCloseString jsxTag
 
 " commenting
 Plug 'tpope/vim-commentary'
-
-" automatically add end bracket/quote
-Plug 'Raimondi/delimitMate'
 
 " fuzzy search files
 Plug 'junegunn/fzf'
@@ -368,8 +363,9 @@ Plug 'dhruvasagar/vim-table-mode'
 
 Plug 'airblade/vim-gitgutter' "{{{
 
-set updatetime=400
+set updatetime=2000
 
+let g:gitgutter_enabled = 0
 let g:gitgutter_signs = 1
 let g:gitgutter_override_sign_column_highlight = 0
 let g:gitgutter_diff_args = '-w'
@@ -423,18 +419,6 @@ colorscheme whiteprint
 
 Plug 'thenewvu/vim-plantuml-genin'
 
-Plug 'jreybert/vimagit' "{{{
-
-augroup Vimagit
-  au!
-  autocmd User VimagitUpdateFile
-    \ if ( exists("*gitgutter#process_buffer") ) |
-    \ 	call gitgutter#process_buffer(bufnr(g:magit_last_updated_buffer), 1) |
-    \ endif
-augroup END
-
-"}}}
-
 " async linting
 Plug 'w0rp/ale' "{{{
 
@@ -468,6 +452,7 @@ hi link ALEError       ErrorMsg
 hi link ALEErrorSign   ErrorMsg
 hi link ALEWarning     WarningMsg
 hi link ALEWarningSign WarningMsg
+
 " }}}
 
 call plug#end()
