@@ -214,7 +214,7 @@ nnoremap E $
 vnoremap B ^
 vnoremap E $
 " unfold and fold others
-nnoremap <space> zxzMzvzz
+nnoremap <space> zMzvzz
 " vertical center movement
 nnoremap G Gzz
 vnoremap G Gzz
