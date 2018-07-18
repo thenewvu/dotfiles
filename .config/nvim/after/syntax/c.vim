@@ -1,7 +1,5 @@
-syn region	cDefine		start="^\s*\zs\(%:\|#\)\s*\(define\|undef\)\>" skip="\\$" end="$" keepend contains=ALLBUT,@cPreProcGroup,@Spell fold
+syn region cDefine start="^\s*\zs\(%:\|#\)\s*\(define\|undef\)\>" skip="\\$" end="$" keepend contains=ALLBUT,@cPreProcGroup,@Spell fold
 
-syn match CustomDelimiters                 /[(){},;]/ display
-syn match CustomOperators  /[\[\]\<\>\+\-\*=!\^&:\.]/ display
+syn match Delimiter "[();\\{}]" display
 
-hi   link CustomDelimiters                  Delimiter
-hi   link CustomOperators                    Operator
+syn keyword Macro assert
