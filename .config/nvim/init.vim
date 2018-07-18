@@ -459,6 +459,15 @@ Plug 'luochen1990/rainbow' "{{{
 
 "}}}
 
+Plug 'Yggdroot/indentLine' "{{{
+
+  let g:indentLine_enabled = 1
+  let g:indentLine_color_gui = '#504945'
+  let g:indentLine_bgcolor_gui = 'none'
+  let g:indentLine_char = '⋮'
+
+"}}}
+
 call plug#end()
 
 " }}}
