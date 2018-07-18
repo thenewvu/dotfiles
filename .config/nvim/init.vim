@@ -452,7 +452,7 @@ Plug 'luochen1990/rainbow' "{{{
 
   let g:rainbow_active = 1
   let g:rainbow_conf = {
-  \	'guifgs': ['#458588', '#d79921', '#b16286'],
+  \	'guifgs': ['#458588', '#d79921', '#b16286', '#98971a', '#689d6a'],
   \	'operators': '_,_',
 	\	'parentheses': ['start=/(/ end=/)/']
   \}
