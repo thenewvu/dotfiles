@@ -53,6 +53,8 @@ set noshowmode
 set noruler
 set nospell
 set lazyredraw
+set termguicolors
+colorscheme mygruvbox
 
 " use ripgrep as grepprg if available
 if executable('rg')
@@ -407,13 +409,6 @@ function! s:check_back_space() abort
     let col = col('.') - 1
     return !col || getline('.')[col - 1]  =~ '\s'
 endfunction
-
-" }}}
-
-Plug 'thenewvu/vim-colors-whiteprint' "{{{
-
-set termguicolors
-colorscheme whiteprint
 
 " }}}
 
