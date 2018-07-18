@@ -448,6 +448,17 @@ hi link ALEWarningSign WarningMsg
 
 " }}}
 
+Plug 'luochen1990/rainbow' "{{{
+
+  let g:rainbow_active = 1
+  let g:rainbow_conf = {
+  \	'guifgs': ['#458588', '#d79921', '#b16286'],
+  \	'operators': '_,_',
+	\	'parentheses': ['start=/(/ end=/)/']
+  \}
+
+"}}}
+
 call plug#end()
 
 " }}}
