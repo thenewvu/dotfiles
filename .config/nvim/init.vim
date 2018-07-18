@@ -82,7 +82,7 @@ function! FormatFoldedText()
     if start_text =~ '\/\*' && end_text =~ '\*\/'
       let indent_level = indent(v:foldstart)
       let indent_text = repeat(' ', indent_level)
-      return indent_text . '/*⋯*/'
+      return indent_text . '/*▾*/'
     endif
 
     " #define block
@@ -102,7 +102,7 @@ function! FormatFoldedText()
       let start_text = substitute(start_text, '{{\@!.*$', '{', 'g')
       " remove any text before first }
       let end_text = substitute(end_text, '^.*}\@<!}', '}', 'g')
-      return start_text . '⋯' . end_text
+      return start_text . '▾' . end_text
     endif
 
     " [...] block
@@ -111,7 +111,7 @@ function! FormatFoldedText()
       let start_text = substitute(start_text, '[[\@!.*$', '[', 'g')
       " remove any text before first ]
       let end_text = substitute(end_text, '^.*]\@<!]', ']', 'g')
-      return start_text . '⋯' . end_text
+      return start_text . '▾' . end_text
     endif
   endif
 
