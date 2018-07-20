@@ -1,3 +1,3 @@
 if executable('python')
-  nnoremap <leader>k :%!python -m json.tool<cr> 
+  nnoremap <leader><space> :%!python -m json.tool<cr> 
 endif

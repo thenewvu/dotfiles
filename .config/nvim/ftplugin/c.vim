@@ -7,10 +7,12 @@ if executable('clang-format')
   function! ClangFormat()
     if &mod
       let l:formatdiff = 1
+    else
+      let l:lines = 'all'
     endif
     pyf ~/.config/nvim/ftplugin/clang-format.py
   endfunction
 
-  nnoremap <leader>k :call ClangFormat()<cr> 
-  vnoremap <leader>k :call ClangFormatRange()<cr>
+  nnoremap <leader><space> :call ClangFormat()<cr> 
+  vnoremap <leader><space> :call ClangFormatRange()<cr>
 endif
