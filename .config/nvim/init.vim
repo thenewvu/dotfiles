@@ -236,6 +236,8 @@ inoremap <C-l> <C-w>l
 " move left/right one indent
 nnoremap > >>
 nnoremap < <<
+vnoremap < <gv
+vnoremap > >gv
 
 " }}}
 
