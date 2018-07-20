@@ -141,26 +141,6 @@ function! OptimizeIfLargeFile(file)
   endif
 endfunction
 
-function! ShowSpaces(...)
-  let @/='\v(\s+$)|( +\ze\t)'
-  let oldhlsearch=&hlsearch
-  if !a:0
-    let &hlsearch=!&hlsearch
-  else
-    let &hlsearch=a:1
-  end
-  return oldhlsearch
-endfunction
-
-function! TrimSpaces() range
-  let oldhlsearch=ShowSpaces(1)
-  execute a:firstline.",".a:lastline."substitute ///gec"
-  let &hlsearch=oldhlsearch
-endfunction
-
-command! -bar -nargs=? ShowSpaces call ShowSpaces(<args>)
-command! -bar -nargs=0 -range=% TrimSpaces <line1>,<line2>call TrimSpaces()
-
 function! ClampCurWinHeight(min, max)
   exe max([min([line("$"), a:max]), a:min]) . "wincmd _"
 endfunction
@@ -188,11 +168,11 @@ let g:maplocalleader = "\\"
 " write current file with sudo
 cmap w! w !sudo tee > /dev/null %
 
-nnoremap <leader>; : 
+nnoremap <leader>; :
 nnoremap <leader>e :e 
 nnoremap <leader>f :grep 
 " clear searching
-nnoremap <leader><space> :let @/ = ""<CR>
+nnoremap ; :noh<CR>:<backspace>
 " close current buffer except last one
 nnoremap <leader>q :bp\|bd #<CR>
 
@@ -214,7 +194,7 @@ nnoremap E $
 vnoremap B ^
 vnoremap E $
 " unfold and fold others
-nnoremap <space> zMzvzz
+nnoremap <space> zxzMzvzz
 " vertical center movement
 nnoremap G Gzz
 vnoremap G Gzz
@@ -277,19 +257,19 @@ hi! link jsxCloseString jsxTag
 " commenting
 Plug 'tpope/vim-commentary'
 
-" fuzzy search files
+" fuzzy searching
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim' " {{{
 
-" fuzzy search file in the pwd
-nnoremap <leader>p :FZF<CR>
+" quick open files by name with fuzzy autocompletion
+nnoremap <leader>p :FZF<cr>
 " fuzzy search text in the current buffer
-nnoremap / :BLines<cr>
-nnoremap <leader>/ /
+nnoremap <leader>r :BLines<cr>
+
 augroup FZF
   au!
   " <ecs> doesn't close fzf window because it's in terminal mode,
-  " this trick remaps <ecs> in terminal mode
+  " this trick remaps <ecs> in terminal mode to behave normally
   au TermOpen term://*FZF tnoremap <silent> <buffer><nowait> <esc> <c-c>
 augroup end
 
