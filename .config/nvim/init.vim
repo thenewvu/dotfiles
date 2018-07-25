@@ -86,7 +86,7 @@ function! FormatFoldedText()
     endif
 
     " #define block
-    if start_text =~ '^#define.*\\\s*$'
+    if start_text =~ '^#\s*define.*\\\s*$'
       let start_text = substitute(start_text, '\s*\\\s*$', '', 'g')
       return start_text . ' \ ▾'
     endif
