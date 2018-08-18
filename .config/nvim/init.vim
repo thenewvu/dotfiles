@@ -22,15 +22,10 @@ set hlsearch
 set smartcase
 set ignorecase
 set inccommand=nosplit " show preview when replacing with :s
-set nonumber " no line numbers
-set nocursorline
-set norelativenumber
 set expandtab
 set tabstop=2
 set softtabstop=2
 set shiftwidth=2
-set nolist
-set cindent
 set wildmenu " show auto-complete when typing in command line
 set wildmode=longest,list
 set wildignore+=.hg,.git,.svn
@@ -38,7 +33,7 @@ set nowrap
 set showbreak=↪\ 
 set foldenable
 set foldmethod=syntax
-set foldnestmax=12
+set foldnestmax=5
 set foldlevel=0
 set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
 set fillchars+=fold:\ 
@@ -51,10 +46,11 @@ set laststatus=0 " hide status bar at bottom
 set noshowcmd
 set noshowmode
 set noruler
-set nospell
 set lazyredraw
+
 set termguicolors
-colorscheme mygruvbox
+set background=dark
+colorscheme solarized
 
 " use ripgrep as grepprg if available
 if executable('rg')
@@ -124,33 +120,29 @@ augroup OptimizeIfLargeFile
 augroup END
 
 " ref: http://vim.wikia.com/wiki/Faster_loading_of_large_files
-let g:LargeFile = 1024 * 512
+let g:LargeFile = 1024 * 64
 function! OptimizeIfLargeFile(file)
   let f=getfsize(expand(a:file))
   if f > g:LargeFile || f == -2
     " no syntax highlighting etc
     set eventignore+=FileType
     " save memory when other file is viewed
-    setlocal bufhidden=unload
+    " setlocal bufhidden=unload
     " is read-only (write with :w new_filename)
-    setlocal buftype=nowrite
+    " setlocal buftype=nowrite
     " no undo possible
-    setlocal undolevels=-1
+    " setlocal undolevels=-1
   else
     set eventignore-=FileType
   endif
 endfunction
 
-function! ClampCurWinHeight(min, max)
-  exe max([min([line("$"), a:max]), a:min]) . "wincmd _"
-endfunction
-
-augroup QuickFix
+" auto open qf after running :make, ...
+" ref: http://vim.wikia.com/wiki/Automatically_open_the_quickfix_window_on_:make
+augroup QF
   au!
   au QuickFixCmdPost [^l]* nested copen
   au QuickFixCmdPost l*    nested lopen
-  au FileType qf set nobuflisted
-  au FileType qf call ClampCurWinHeight(3, 10)
 augroup END
 
 augroup SourceVimrc
@@ -189,10 +181,10 @@ tnoremap <esc> <C-\><C-n>
 " no more Ex mode
 nnoremap Q <nop>
 " jump to begin/end of a line
-nnoremap B ^
-nnoremap E $
-vnoremap B ^
-vnoremap E $
+nnoremap H ^
+nnoremap L $
+vnoremap H ^
+vnoremap L $
 " unfold and fold others
 nnoremap <space> zxzMzvzz
 " vertical center movement
@@ -238,6 +230,8 @@ nnoremap > >>
 nnoremap < <<
 vnoremap < <gv
 vnoremap > >gv
+
+nnoremap <leader>b :make<cr><cr>
 
 " Search selecting
 " Ref: http://vim.wikia.com/wiki/Search_for_visually_selected_text<Paste>
@@ -300,9 +294,6 @@ let g:closetag_filenames = "*.html,*.xml,*.js,*.jsx"
 
 " }}}
 
-" seamlessly working with tmux
-Plug 'christoomey/vim-tmux-navigator'
-
 " provides a buffer line which looks like the tab line
 Plug 'ap/vim-buftabline' "{{{
 
@@ -318,21 +309,6 @@ hi! link BufTabLineFill      TablineFill
 
 " toolkit for develop golang
 Plug 'fatih/vim-go', { 'for': 'go' }
-
-" generate tmux theme that matches the current color scheme
-Plug 'edkolev/tmuxline.vim' "{{{
-
-let g:tmuxline_powerline_separators = 0
-let g:tmuxline_theme = 'vim_statusline_2'
-let g:tmuxline_preset = {
-  \ 'win': '#W',
-  \ 'cwin': '#W#F',
-  \ 'options': {
-  \   'status-justify': 'left'
-   \}
-  \}
-
-" }}}
 
 " likes ! but output into a buffer
 Plug 'sjl/clam.vim' "{{{
@@ -428,8 +404,6 @@ let g:ale_sign_warning = '⚑'
 let g:ale_linters = {}
 let g:ale_fixers = {}
 let g:ale_linters['c'] = ['clang']
-let g:ale_linters['cpp'] = ['clang']
-let g:ale_c_clang_options = '-std=c11 -Wall -Wno-initializer-overrides -pedantic-errors'
 let g:ale_c_parse_makefile = 1
 
 nmap <leader>l :ALEToggle<cr>
@@ -442,17 +416,6 @@ hi link ALEWarning     WarningMsg
 hi link ALEWarningSign WarningMsg
 
 " }}}
-
-Plug 'luochen1990/rainbow' "{{{
-
-  let g:rainbow_active = 1
-  let g:rainbow_conf = {
-  \	'guifgs': ['#458588', '#d79921', '#b16286', '#98971a', '#689d6a'],
-  \	'operators': '_,_',
-	\	'parentheses': ['start=/(/ end=/)/']
-  \}
-
-"}}}
 
 Plug 'Yggdroot/indentLine' "{{{
 
