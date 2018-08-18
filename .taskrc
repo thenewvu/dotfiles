@@ -1,5 +1,0 @@
-data.location=~/.task
-
-include /usr/local/Cellar/task/2.5.1/share/doc/task/rc/light-256.theme
-
-default.command=next
