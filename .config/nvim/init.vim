@@ -1,4 +1,4 @@
-" vim:fileencoding=utf-8:foldmethod=marker
+" vim:fileencoding=utf-8:foldmethod=marker:foldmarker={{{,}}}
 
 " General {{{
 
@@ -33,6 +33,7 @@ set nowrap
 set showbreak=↪\ 
 set foldenable
 set foldmethod=syntax
+set foldmarker={,}
 set foldnestmax=5
 set foldlevel=0
 set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
@@ -42,7 +43,8 @@ let g:loaded_netrwPlugin = 1
 let g:loaded_matchparen = 1
 let g:matchparen_timeout = 5 " timeout to abort searching
 let g:matchparen_insert_timeout = 5
-set laststatus=0 " hide status bar at bottom
+set laststatus=2
+set statusline=%F
 set noshowcmd
 set noshowmode
 set noruler
@@ -62,56 +64,17 @@ endif
 cabbr <expr> %% expand('%:p:h')
 
 function! FormatFoldedText()
-  let start_text = getline(v:foldstart)
-  let end_text = getline(v:foldend)
+  let l:start = substitute(getline(v:foldstart), '^\s*', '', '')
+  let l:end = getline(v:foldend)
+  let l:indent = repeat(' ', indent(v:foldstart))
 
-  if &foldmethod == "marker" && &foldmarker == "{{{,}}}"
-    return substitute(start_text, '{.*$', '', 'g') . '{{{⋯}}}'
+  if &foldmethod == "marker"
+    let l:start = substitute(l:start, '{.*$', '{', '')
+    let l:end = substitute(l:end, '^.*}', '}', '')
+    return l:indent . l:start . '▾' . l:end
   endif
 
-  if &foldmethod == "syntax"
-    if &syntax == 'git' || &syntax == 'gitcommit' || &syntax == 'magit'
-      return start_text . ' ▾'
-    endif
-
-    " /*...*/ block
-    if start_text =~ '\/\*' && end_text =~ '\*\/'
-      let indent_level = indent(v:foldstart)
-      let indent_text = repeat(' ', indent_level)
-      return indent_text . '/*▾*/'
-    endif
-
-    " #define block
-    if start_text =~ '^#\s*define.*\\\s*$'
-      let start_text = substitute(start_text, '\s*\\\s*$', '', 'g')
-      return start_text . ' \ ▾'
-    endif
-
-    " {...} block in #define
-    if start_text =~ '{.*\\' && end_text =~ '}.*\\'
-      return start_text . ' ▾'
-    endif
-
-    " {...} block
-    if start_text =~ '{' && end_text =~ '}'
-      " remove any text after last {
-      let start_text = substitute(start_text, '{{\@!.*$', '{', 'g')
-      " remove any text before first }
-      let end_text = substitute(end_text, '^.*}\@<!}', '}', 'g')
-      return start_text . '▾' . end_text
-    endif
-
-    " [...] block
-    if start_text =~ '[' && end_text =~ ']'
-      " remove any text after last [
-      let start_text = substitute(start_text, '[[\@!.*$', '[', 'g')
-      " remove any text before first ]
-      let end_text = substitute(end_text, '^.*]\@<!]', ']', 'g')
-      return start_text . '▾' . end_text
-    endif
-  endif
-
-  return start_text . ' ▾'
+  return l:indent . l:start . ' ▾'
 endfunction
 
 augroup OptimizeIfLargeFile
@@ -120,7 +83,7 @@ augroup OptimizeIfLargeFile
 augroup END
 
 " ref: http://vim.wikia.com/wiki/Faster_loading_of_large_files
-let g:LargeFile = 1024 * 64
+let g:LargeFile = 1024 * 512 " 512KB
 function! OptimizeIfLargeFile(file)
   let f=getfsize(expand(a:file))
   if f > g:LargeFile || f == -2
@@ -185,6 +148,10 @@ nnoremap H ^
 nnoremap L $
 vnoremap H ^
 vnoremap L $
+nnoremap B ^
+nnoremap E $
+vnoremap B ^
+vnoremap E $
 " unfold and fold others
 nnoremap <space> zxzMzvzz
 " vertical center movement
