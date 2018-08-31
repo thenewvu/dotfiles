@@ -50,10 +50,6 @@ set noshowmode
 set noruler
 set lazyredraw
 
-set termguicolors
-set background=dark
-colorscheme solarized
-
 " use ripgrep as grepprg if available
 if executable('rg')
   set grepprg=rg\ --vimgrep
@@ -390,6 +386,15 @@ Plug 'Yggdroot/indentLine' "{{{
   let g:indentLine_color_gui = '#504945'
   let g:indentLine_bgcolor_gui = 'none'
   let g:indentLine_char = '⋮'
+
+"}}}
+
+Plug 'thenewvu/vim-colors-blueprint' "{{{
+
+  set rtp+=~/.config/nvim/plugged/vim-colors-blueprint
+  set termguicolors
+  set background=dark
+  colorscheme blueprint
 
 "}}}
 
