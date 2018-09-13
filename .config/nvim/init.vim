@@ -48,6 +48,7 @@ set statusline=%F
 set noshowcmd
 set noshowmode
 set noruler
+set number
 set lazyredraw
 
 " use ripgrep as grepprg if available
@@ -67,20 +68,27 @@ function! FormatFoldedText()
   if &foldmethod == "marker"
     let l:start = substitute(l:start, '{.*$', '{', '')
     let l:end = substitute(l:end, '^.*}', '}', '')
+    
+    if &syntax == "c" || &syntax == "cpp"
+      if l:end =~ "}.*\\"
+        let l:end = "}"
+      endif
+    endif
+
     return l:indent . l:start . '▾' . l:end
   endif
 
   return l:indent . l:start . ' ▾'
 endfunction
 
-augroup OptimizeIfLargeFile
+augroup AllTypes
   au!
-  au BufReadPre * call OptimizeIfLargeFile("<afile>")
+  au BufReadPre * call OptimizeLargeFile("<afile>")
 augroup END
 
 " ref: http://vim.wikia.com/wiki/Faster_loading_of_large_files
 let g:LargeFile = 1024 * 512 " 512KB
-function! OptimizeIfLargeFile(file)
+function! OptimizeLargeFile(file)
   let f=getfsize(expand(a:file))
   if f > g:LargeFile || f == -2
     " no syntax highlighting etc
@@ -98,15 +106,29 @@ endfunction
 
 " auto open qf after running :make, ...
 " ref: http://vim.wikia.com/wiki/Automatically_open_the_quickfix_window_on_:make
-augroup QF
+augroup QuickFix
   au!
   au QuickFixCmdPost [^l]* nested copen
   au QuickFixCmdPost l*    nested lopen
 augroup END
 
-augroup SourceVimrc
+" ref: https://github.com/junegunn/fzf.vim/issues/221
+augroup Fzf
+  au!
+  au FileType fzf tnoremap <buffer> <C-j> <Down>
+  au FileType fzf tnoremap <buffer> <C-k> <Up>
+augroup END
+
+augroup Vimrc
   au!
   au BufWritePost init.vim source %
+augroup END
+
+augroup Markdown
+  au!
+  au BufRead,BufNewFile *.markdown set filetype=markdown
+  au BufRead,BufNewFile *.md       set filetype=markdown
+  au BufRead,BufNewFile *.MD       set filetype=markdown
 augroup END
 
 "}}}
@@ -312,8 +334,8 @@ let g:gitgutter_sign_removed = '_'
 let g:gitgutter_sign_modified_removed = '≠'
 
 hi link GitGutterAdd DiffAdd
-hi link GitGutterChange DiffChange
-hi link GitGutterChangeDelete DiffChange
+hi link GitGutterChange DiffDelete
+hi link GitGutterChangeDelete DiffDelete
 hi link GitGutterDelete DiffDelete
 
 nmap <leader>d :call gitgutter#toggle()<cr>
@@ -383,9 +405,10 @@ hi link ALEWarningSign WarningMsg
 Plug 'Yggdroot/indentLine' "{{{
 
   let g:indentLine_enabled = 1
-  let g:indentLine_color_gui = '#504945'
-  let g:indentLine_bgcolor_gui = 'none'
+  let g:indentLine_bufTypeExclude = ['help', 'terminal']
   let g:indentLine_char = '⋮'
+  let g:indentLine_color_gui = '#5992c3'
+  let g:indentLine_bgcolor_gui = 'none'
 
 "}}}
 
@@ -397,6 +420,8 @@ Plug 'thenewvu/vim-colors-blueprint' "{{{
   colorscheme blueprint
 
 "}}}
+
+Plug 'chrisbra/Colorizer'
 
 call plug#end()
 

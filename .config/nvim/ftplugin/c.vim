@@ -1,5 +1,6 @@
 setlocal foldmethod=marker
 setlocal foldmarker={,}
+setlocal commentstring=//%s
 
 if executable('clang-format')
   function! ClangFormatRange() range
