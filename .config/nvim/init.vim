@@ -6,8 +6,8 @@ set nobackup
 set nowritebackup
 set noswapfile
 set undofile
-set undolevels=100
-set undoreload=100
+set undolevels=5000
+set undoreload=5000
 set splitbelow
 set splitright
 set confirm " ask to confirm closing an unsaved file
@@ -418,10 +418,16 @@ Plug 'thenewvu/vim-colors-blueprint' "{{{
   set termguicolors
   set background=dark
   colorscheme blueprint
-
 "}}}
 
 Plug 'chrisbra/Colorizer'
+
+Plug 'bfredl/nvim-miniyank' "{{{
+
+    map p <Plug>(miniyank-autoput)
+    map P <Plug>(miniyank-autoPut)
+
+"}}}
 
 call plug#end()
 
