@@ -26,6 +26,8 @@ set expandtab
 set tabstop=2
 set softtabstop=2
 set shiftwidth=2
+set autoindent
+set smartindent
 set wildmenu " show auto-complete when typing in command line
 set wildmode=longest,list
 set wildignore+=.hg,.git,.svn
@@ -50,6 +52,40 @@ set noshowmode
 set noruler
 set number
 set lazyredraw
+
+" REF: https://vi.stackexchange.com/questions/11276/print-full-filename-in-tabs-when-using-terminal-vim
+set tabline=%!MyTabLine() 
+"{{{
+  function! MyTabLine()
+    let s = ''
+    for i in range(tabpagenr('$'))
+      " select the highlighting
+      if i + 1 == tabpagenr()
+        let s .= '%#TabLineSel#'
+      else
+        let s .= '%#TabLine#'
+      endif
+
+      " set the tab page number (for mouse clicks)
+      let s .= '%' . (i + 1) . 'T'
+
+      " the label is made by MyTabLabel()
+      let s .= ' %{MyTabLabel(' . (i + 1) . ')} '
+    endfor
+
+    " after the last tab fill with TabLineFill and reset tab page nr
+    let s .= '%#TabLineFill#%T'
+
+    return s
+  endfunction
+
+  function! MyTabLabel(n)
+    let buflist = tabpagebuflist(a:n)
+    let winnr = tabpagewinnr(a:n)
+    return fnamemodify(bufname(buflist[0]), ':~:.')
+  endfunction
+"}}}"
+
 
 " use ripgrep as grepprg if available
 if executable('rg')
@@ -112,13 +148,6 @@ augroup QuickFix
   au QuickFixCmdPost l*    nested lopen
 augroup END
 
-" ref: https://github.com/junegunn/fzf.vim/issues/221
-augroup Fzf
-  au!
-  au FileType fzf tnoremap <buffer> <C-j> <Down>
-  au FileType fzf tnoremap <buffer> <C-k> <Up>
-augroup END
-
 augroup Vimrc
   au!
   au BufWritePost init.vim source %
@@ -142,14 +171,15 @@ let g:maplocalleader = "\\"
 cmap w! w !sudo tee > /dev/null %
 
 nnoremap <leader>; :
-nnoremap <leader>e :e 
+nnoremap <leader>e :tab drop
+nnoremap <leader>t :tabnew<cr>
 nnoremap <leader>f :grep 
 " clear searching
 nnoremap ; :noh<CR>:<backspace>
-" close current buffer except last one
-nnoremap <leader>q :bp\|bd #<CR>
+" close current tab
+nnoremap <leader>q :bd<cr>
 
-nnoremap <f2> :e ~/.config/nvim/init.vim<CR>
+nnoremap <f2> :tab drop ~/.config/nvim/init.vim<cr>
 " reload current file and redraw
 nnoremap <f5> :edit<cr>:redraw<cr>
 " <f1> won't open vim help
@@ -181,10 +211,6 @@ nnoremap j jzz
 nnoremap k kzz
 vnoremap j jzz
 vnoremap k kzz
-" add new line below
-nnoremap o o<esc>
-" add new line above
-nnoremap O O<esc>
 " break lines
 nnoremap J i<enter><esc>
 " join lines
@@ -192,9 +218,9 @@ nnoremap K J
 " last buffer
 nnoremap gn <C-^>
 " next buffer
-nnoremap gt :bnext<cr>
+" nnoremap gt :bnext<cr>
 " prev uffer
-nnoremap gT :bprev<cr>
+" nnoremap gT :bprev<cr>
 " redo
 nnoremap U <c-r>zz
 " navigate between splits
@@ -260,11 +286,20 @@ nnoremap <leader>p :FZF<cr>
 " fuzzy search text in the current buffer
 nnoremap <leader>r :BLines<cr>
 
+let g:fzf_action = {
+  \ 'return': 'tab split', 
+  \ 'ctrl-s': 'split',
+  \ 'ctrl-v': 'vsplit' }
+
 augroup FZF
   au!
   " <ecs> doesn't close fzf window because it's in terminal mode,
   " this trick remaps <ecs> in terminal mode to behave normally
   au TermOpen term://*FZF tnoremap <silent> <buffer><nowait> <esc> <c-c>
+  " <ctrl-up> and <ctrl-down> to navigate
+  " ref: https://github.com/junegunn/fzf.vim/issues/221
+  au FileType fzf tnoremap <buffer> <C-j> <Down>
+  au FileType fzf tnoremap <buffer> <C-k> <Up>
 augroup end
 
 "}}}
@@ -278,22 +313,6 @@ Plug 'alvan/vim-closetag' "{{{
 let g:closetag_filenames = "*.html,*.xml,*.js,*.jsx"
 
 " }}}
-
-" provides a buffer line which looks like the tab line
-Plug 'ap/vim-buftabline' "{{{
-
-let g:buftabline_indicators = 1
-let g:buftabline_plug_map = 0
-
-hi! link BufTabLineCurrent   TablineSel
-hi! link BufTabLineActive    TablineSel
-hi! link BufTabLineHidden    Tabline
-hi! link BufTabLineFill      TablineFill
-
-" }}}
-
-" toolkit for develop golang
-Plug 'fatih/vim-go', { 'for': 'go' }
 
 " likes ! but output into a buffer
 Plug 'sjl/clam.vim' "{{{
@@ -405,9 +424,10 @@ hi link ALEWarningSign WarningMsg
 Plug 'Yggdroot/indentLine' "{{{
 
   let g:indentLine_enabled = 1
+  let g:indentLine_faster = 1
   let g:indentLine_bufTypeExclude = ['help', 'terminal']
-  let g:indentLine_char = '⋮'
-  let g:indentLine_color_gui = '#5992c3'
+  let g:indentLine_char = '│'
+  let g:indentLine_color_gui = '#2c4e6c'
   let g:indentLine_bgcolor_gui = 'none'
 
 "}}}
@@ -426,6 +446,15 @@ Plug 'bfredl/nvim-miniyank' "{{{
 
     map p <Plug>(miniyank-autoput)
     map P <Plug>(miniyank-autoPut)
+
+"}}}
+
+Plug 'simnalamburt/vim-mundo' "{{{
+
+  let g:mundo_width = 120
+  let g:mundo_preview_height = 20
+  
+  nnoremap <leader>h MundoToggle<cr>
 
 "}}}
 
