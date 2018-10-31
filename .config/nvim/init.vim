@@ -12,7 +12,7 @@ set splitbelow
 set splitright
 set confirm " ask to confirm closing an unsaved file
 set hidden " switch between buffers without saving
-set completeopt=menuone,preview
+set completeopt=menuone
 set encoding=utf-8
 set clipboard^=unnamedplus,unnamed
 set autoread " autoreload files on change
@@ -150,7 +150,7 @@ augroup END
 
 augroup Vimrc
   au!
-  au BufWritePost init.vim source %
+  au BufWritePost $MYVIMRC source % | echom "Reloaded " . $MYVIMRC | edit | redraw
 augroup END
 
 augroup Markdown
@@ -170,16 +170,14 @@ let g:maplocalleader = "\\"
 " write current file with sudo
 cmap w! w !sudo tee > /dev/null %
 
-nnoremap <leader>; :
-nnoremap <leader>e :tab drop
-nnoremap <leader>t :tabnew<cr>
+nnoremap <leader>e :e 
 nnoremap <leader>f :grep 
 " clear searching
 nnoremap ; :noh<CR>:<backspace>
 " close current tab
 nnoremap <leader>q :bd<cr>
 
-nnoremap <f2> :tab drop ~/.config/nvim/init.vim<cr>
+nnoremap <f2> :e ~/.config/nvim/init.vim<cr>
 " reload current file and redraw
 nnoremap <f5> :edit<cr>:redraw<cr>
 " <f1> won't open vim help
@@ -215,12 +213,10 @@ vnoremap k kzz
 nnoremap J i<enter><esc>
 " join lines
 nnoremap K J
-" last buffer
-nnoremap gn <C-^>
 " next buffer
-" nnoremap gt :bnext<cr>
+nnoremap gt :bnext<cr>
 " prev uffer
-" nnoremap gT :bprev<cr>
+nnoremap gT :bprev<cr>
 " redo
 nnoremap U <c-r>zz
 " navigate between splits
@@ -269,8 +265,8 @@ Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 " jsx syntax
 Plug 'MaxMEllon/vim-jsx-pretty', { 'for': 'javascript' } " {{{
 
-hi! link jsxCloseTag jsxTag
-hi! link jsxCloseString jsxTag
+  hi! link jsxCloseTag jsxTag
+  hi! link jsxCloseString jsxTag
 
 " }}}
 
@@ -281,26 +277,17 @@ Plug 'tpope/vim-commentary'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim' " {{{
 
-" quick open files by name with fuzzy autocompletion
-nnoremap <leader>p :FZF<cr>
-" fuzzy search text in the current buffer
-nnoremap <leader>r :BLines<cr>
+  " quick open files by name with fuzzy autocompletion
+  nnoremap <leader>p :FZF<cr>
+  " fuzzy search text in the current buffer
+  nnoremap <leader>r :BLines<cr>
 
-let g:fzf_action = {
-  \ 'return': 'tab split', 
-  \ 'ctrl-s': 'split',
-  \ 'ctrl-v': 'vsplit' }
-
-augroup FZF
-  au!
-  " <ecs> doesn't close fzf window because it's in terminal mode,
-  " this trick remaps <ecs> in terminal mode to behave normally
-  au TermOpen term://*FZF tnoremap <silent> <buffer><nowait> <esc> <c-c>
-  " <ctrl-up> and <ctrl-down> to navigate
-  " ref: https://github.com/junegunn/fzf.vim/issues/221
-  au FileType fzf tnoremap <buffer> <C-j> <Down>
-  au FileType fzf tnoremap <buffer> <C-k> <Up>
-augroup end
+  augroup FZF
+    au!
+    " <ecs> doesn't close fzf window because it's in terminal mode,
+    " this trick remaps <ecs> in terminal mode to behave normally
+    au TermOpen term://*FZF tnoremap <silent> <buffer><nowait> <esc> <c-c>
+  augroup end
 
 "}}}
 
@@ -310,16 +297,19 @@ Plug 'chaoren/vim-wordmotion'
 " automatically add end tag
 Plug 'alvan/vim-closetag' "{{{
 
-let g:closetag_filenames = "*.html,*.xml,*.js,*.jsx"
+  let g:closetag_filenames = "*.html,*.xml,*.js,*.jsx"
 
 " }}}
+
+" auto add )}]'" after ({['"
+Plug 'jiangmiao/auto-pairs'
 
 " likes ! but output into a buffer
 Plug 'sjl/clam.vim' "{{{
 
-nnoremap !! :!<space>
-nnoremap ! :Clam<space>
-vnoremap ! :ClamVisual<space>
+  nnoremap !! :!<space>
+  nnoremap ! :Clam<space>
+  vnoremap ! :ClamVisual<space>
 
 " }}}
 
@@ -328,8 +318,8 @@ Plug 'stefandtw/quickfix-reflector.vim'
 
 Plug 'terryma/vim-multiple-cursors' "{{{
 
-hi link multiple_cursors_cursor Cursor
-hi link multiple_cursors_visual Search
+  hi link multiple_cursors_cursor Cursor
+  hi link multiple_cursors_visual Search
 
 " }}}
 
@@ -340,50 +330,32 @@ Plug 'dhruvasagar/vim-table-mode'
 
 Plug 'airblade/vim-gitgutter' "{{{
 
-set updatetime=2000
+  set updatetime=2000
 
-let g:gitgutter_enabled = 0
-let g:gitgutter_signs = 1
-let g:gitgutter_override_sign_column_highlight = 0
-let g:gitgutter_diff_args = '-w'
-let g:gitgutter_map_keys = 0
-let g:gitgutter_sign_added = '+'
-let g:gitgutter_sign_modified = '≠'
-let g:gitgutter_sign_removed = '_'
-let g:gitgutter_sign_modified_removed = '≠'
+  let g:gitgutter_enabled = 0
+  let g:gitgutter_signs = 1
+  let g:gitgutter_override_sign_column_highlight = 0
+  let g:gitgutter_diff_args = '-w'
+  let g:gitgutter_map_keys = 0
+  let g:gitgutter_sign_added = '+'
+  let g:gitgutter_sign_modified = '≠'
+  let g:gitgutter_sign_removed = '_'
+  let g:gitgutter_sign_modified_removed = '≠'
 
-hi link GitGutterAdd DiffAdd
-hi link GitGutterChange DiffDelete
-hi link GitGutterChangeDelete DiffDelete
-hi link GitGutterDelete DiffDelete
+  hi link GitGutterAdd DiffAdd
+  hi link GitGutterChange DiffDelete
+  hi link GitGutterChangeDelete DiffDelete
+  hi link GitGutterDelete DiffDelete
 
-nmap <leader>d :call gitgutter#toggle()<cr>
-nmap <silent> ]d :call gitgutter#hunk#next_hunk(1)<cr>zz
-nmap <silent> [d :call gitgutter#hunk#prev_hunk(1)<cr>zz
+  nmap <leader>d :call gitgutter#toggle()<cr>
+  nmap <silent> ]d :call gitgutter#hunk#next_hunk(1)<cr>zz
+  nmap <silent> [d :call gitgutter#hunk#prev_hunk(1)<cr>zz
 
 " }}}
 
 Plug 'junegunn/vim-easy-align' "{{{
 
-xmap ga <Plug>(EasyAlign)
-
-" }}}
-
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } "{{{
-
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#file#enable_buffer_path = 1
-
-" select completion items by <tab>-ing
-inoremap <silent><expr> <TAB>
-    \ pumvisible() ? "\<C-n>" :
-    \ <SID>check_back_space() ? "\<TAB>" :
-    \ deoplete#mappings#manual_complete()
-
-function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~ '\s'
-endfunction
+  xmap ga <Plug>(EasyAlign)
 
 " }}}
 
@@ -438,10 +410,12 @@ Plug 'thenewvu/vim-colors-blueprint' "{{{
   set termguicolors
   set background=dark
   colorscheme blueprint
+
 "}}}
 
-Plug 'chrisbra/Colorizer'
-
+Plug 'chrisbra/Colorizer' 
+" Workaround for issue:
+" https://github.com/neovim/neovim/issues/1822
 Plug 'bfredl/nvim-miniyank' "{{{
 
     map p <Plug>(miniyank-autoput)
@@ -454,9 +428,22 @@ Plug 'simnalamburt/vim-mundo' "{{{
   let g:mundo_width = 120
   let g:mundo_preview_height = 20
   
-  nnoremap <leader>h MundoToggle<cr>
+  nnoremap <leader>u :MundoToggle<cr>
 
 "}}}
+
+" provides a buffer line which looks like the tab line
+Plug 'ap/vim-buftabline' "{{{
+
+  let g:buftabline_indicators = 1
+  let g:buftabline_plug_map = 0
+
+  hi! link BufTabLineCurrent   TablineSel
+  hi! link BufTabLineActive    TablineSel
+  hi! link BufTabLineHidden    Tabline
+  hi! link BufTabLineFill      TablineFill
+
+" }}}
 
 call plug#end()
 
