@@ -2,14 +2,9 @@
 
 " General {{{
 
-set nobackup
-set nowritebackup
-set noswapfile
-set undofile
-set undolevels=5000
-set undoreload=5000
-set splitbelow
-set splitright
+set nobackup nowritebackup noswapfile
+set undofile undolevels=5000 undoreload=5000
+set splitbelow splitright
 set confirm " ask to confirm closing an unsaved file
 set hidden " switch between buffers without saving
 set completeopt=menuone
@@ -19,25 +14,15 @@ set autoread " autoreload files on change
 set backspace=indent,eol,start " make backspace work like most other apps
 set incsearch " highlight search matching interactively
 set hlsearch
-set smartcase
-set ignorecase
+set smartcase ignorecase
 set inccommand=nosplit " show preview when replacing with :s
-set expandtab
-set tabstop=2
-set softtabstop=2
-set shiftwidth=2
-set autoindent
-set smartindent
+set expandtab smarttab tabstop=4 shiftwidth=4 softtabstop=4 
 set wildmenu " show auto-complete when typing in command line
 set wildmode=longest,list
 set wildignore+=.hg,.git,.svn
 set nowrap
 set showbreak=↪\ 
-set foldenable
-set foldmethod=syntax
-set foldmarker={,}
-set foldnestmax=5
-set foldlevel=0
+set foldenable foldmethod=syntax foldmarker={,} foldnestmax=5 foldlevel=0
 set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
 set fillchars+=fold:\ 
 set foldtext=FormatFoldedText()
