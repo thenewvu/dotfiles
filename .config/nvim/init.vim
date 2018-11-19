@@ -445,6 +445,15 @@ Plug 'ap/vim-buftabline' "{{{
 
 " }}}
 
+Plug 'cofyc/vim-uncrustify' "{{{
+
+    augroup Uncrustify
+        au!
+        au FileType c noremap <buffer> <leader><space> :call Uncrustify('c')<CR>
+        au FileType c vnoremap <buffer> <leader><space> :call RangeUncrustify('c')<CR>
+    augroup END
+
+"}}}
 call plug#end()
 
 " }}}
