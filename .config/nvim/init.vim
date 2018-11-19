@@ -30,13 +30,16 @@ let g:loaded_netrwPlugin = 1
 let g:loaded_matchparen = 1
 let g:matchparen_timeout = 5 " timeout to abort searching
 let g:matchparen_insert_timeout = 5
+let g:c_syntax_for_h = 1
 set laststatus=2
 set statusline=%F
 set noshowcmd
 set noshowmode
 set noruler
 set number
+set autoindent smartindent
 set lazyredraw
+set synmaxcol=1000
 
 " REF: https://vi.stackexchange.com/questions/11276/print-full-filename-in-tabs-when-using-terminal-vim
 set tabline=%!MyTabLine() 
@@ -89,7 +92,7 @@ function! FormatFoldedText()
   if &foldmethod == "marker"
     let l:start = substitute(l:start, '{.*$', '{', '')
     let l:end = substitute(l:end, '^.*}', '}', '')
-    
+
     if &syntax == "c" || &syntax == "cpp"
       if l:end =~ "}.*\\"
         let l:end = "}"
@@ -160,7 +163,7 @@ nnoremap <leader>f :grep
 " clear searching
 nnoremap ; :noh<CR>:<backspace>
 " close current tab
-nnoremap <leader>q :bd<cr>
+nnoremap <leader>q :bp<bar>sp<bar>bn<bar>bd<cr>
 
 nnoremap <f2> :e ~/.config/nvim/init.vim<cr>
 " reload current file and redraw
@@ -266,6 +269,7 @@ Plug 'junegunn/fzf.vim' " {{{
   nnoremap <leader>p :FZF<cr>
   " fuzzy search text in the current buffer
   nnoremap <leader>r :BLines<cr>
+  nnoremap <leader>g :Lines<cr>
 
   augroup FZF
     au!
@@ -275,6 +279,9 @@ Plug 'junegunn/fzf.vim' " {{{
   augroup end
 
 "}}}
+
+Plug 'tpope/vim-fugitive'
+Plug 'junegunn/gv.vim'
 
 " wb word by word
 Plug 'chaoren/vim-wordmotion' 
@@ -315,21 +322,21 @@ Plug 'dhruvasagar/vim-table-mode'
 
 Plug 'airblade/vim-gitgutter' "{{{
 
-  set updatetime=2000
+  set updatetime=1000
 
   let g:gitgutter_enabled = 0
   let g:gitgutter_signs = 1
   let g:gitgutter_override_sign_column_highlight = 0
   let g:gitgutter_diff_args = '-w'
   let g:gitgutter_map_keys = 0
-  let g:gitgutter_sign_added = '+'
-  let g:gitgutter_sign_modified = '≠'
+  let g:gitgutter_sign_added = '✙'
+  let g:gitgutter_sign_modified = '✲'
   let g:gitgutter_sign_removed = '_'
-  let g:gitgutter_sign_modified_removed = '≠'
+  let g:gitgutter_sign_modified_removed = '✲'
 
   hi link GitGutterAdd DiffAdd
-  hi link GitGutterChange DiffDelete
-  hi link GitGutterChangeDelete DiffDelete
+  hi link GitGutterChange DiffChange
+  hi link GitGutterChangeDelete DiffChange
   hi link GitGutterDelete DiffDelete
 
   nmap <leader>d :call gitgutter#toggle()<cr>
@@ -439,6 +446,9 @@ Plug 'cofyc/vim-uncrustify' "{{{
     augroup END
 
 "}}}
+
+Plug 'jreybert/vimagit'
+
 call plug#end()
 
 " }}}
