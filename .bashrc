@@ -38,6 +38,7 @@ function prompt_left() {
 
 function prompt() {
   printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' ┄
+  printf "\e]2;%s\a" "${PWD##*/}"
   compensate=5
   PS1=$(printf "%*s\r%s\n\$ " "$(($(tput cols)+${compensate}))" "$(prompt_right)" "$(prompt_left)")
 }
