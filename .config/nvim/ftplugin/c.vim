@@ -11,3 +11,8 @@ setlocal cinoptions+=J1
 setlocal cinoptions+=m1
 setlocal cinoptions+=(s
 setlocal cinoptions+={s
+
+let g:c_no_if0 = 0
+let g:c_no_utf = 0
+let g:c_no_cformat = 0
+let g:c_no_bsd = 0
