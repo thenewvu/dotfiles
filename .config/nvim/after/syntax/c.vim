@@ -1,3 +1,3 @@
-syn match Delimiter "[();\\{},]" display
+syn match Delimiter "[();\\{},\[\]]" display
 
 syn keyword Debug assert
