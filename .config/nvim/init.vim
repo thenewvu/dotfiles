@@ -12,10 +12,7 @@ set encoding=utf-8
 set clipboard^=unnamedplus,unnamed
 set autoread " autoreload files on change
 set backspace=indent,eol,start " make backspace work like most other apps
-set incsearch " highlight search matching interactively
-set hlsearch
-set smartcase ignorecase
-set inccommand=nosplit " show preview when replacing with :s
+set incsearch hlsearch smartcase ignorecase inccommand=nosplit gdefault
 set expandtab smarttab tabstop=4 shiftwidth=4 softtabstop=4 
 set wildmenu " show auto-complete when typing in command line
 set wildmode=longest,list
@@ -25,7 +22,7 @@ set showbreak=↪\
 set foldenable foldmethod=syntax foldmarker={,} foldnestmax=5 foldlevel=0
 set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
 set fillchars+=fold:\ 
-set foldtext=FormatFoldedText()
+set foldtext=FoldText()
 let g:loaded_netrwPlugin = 1
 let g:loaded_matchparen = 1
 let g:matchparen_timeout = 5 " timeout to abort searching
@@ -41,50 +38,11 @@ set autoindent smartindent
 set lazyredraw
 set synmaxcol=1000
 
-" REF: https://vi.stackexchange.com/questions/11276/print-full-filename-in-tabs-when-using-terminal-vim
-set tabline=%!MyTabLine() 
-"{{{
-  function! MyTabLine()
-    let s = ''
-    for i in range(tabpagenr('$'))
-      " select the highlighting
-      if i + 1 == tabpagenr()
-        let s .= '%#TabLineSel#'
-      else
-        let s .= '%#TabLine#'
-      endif
-
-      " set the tab page number (for mouse clicks)
-      let s .= '%' . (i + 1) . 'T'
-
-      " the label is made by MyTabLabel()
-      let s .= ' %{MyTabLabel(' . (i + 1) . ')} '
-    endfor
-
-    " after the last tab fill with TabLineFill and reset tab page nr
-    let s .= '%#TabLineFill#%T'
-
-    return s
-  endfunction
-
-  function! MyTabLabel(n)
-    let buflist = tabpagebuflist(a:n)
-    let winnr = tabpagewinnr(a:n)
-    return fnamemodify(bufname(buflist[0]), ':~:.')
-  endfunction
-"}}}"
-
-
-" use ripgrep as grepprg if available
-if executable('rg')
-  set grepprg=rg\ --vimgrep
-endif
-
 " Set %% to the dir that contains the current file
 " http://vim.wikia.com/wiki/Easy_edit_of_files_in_the_same_directory
 cabbr <expr> %% expand('%:p:h')
 
-function! FormatFoldedText()
+function! FoldText() 
   let l:start = substitute(getline(v:foldstart), '^\s*', '', '')
   let l:end = getline(v:foldend)
   let l:indent = repeat(' ', indent(v:foldstart))
@@ -103,18 +61,13 @@ function! FormatFoldedText()
   endif
 
   return l:indent . l:start . ' ▾'
-endfunction
-
-augroup AllTypes
-  au!
-  au BufReadPre * call OptimizeLargeFile("<afile>")
-augroup END
+endfunction 
 
 " ref: http://vim.wikia.com/wiki/Faster_loading_of_large_files
-let g:LargeFile = 1024 * 512 " 512KB
-function! OptimizeLargeFile(file)
+let g:LargeFileThreshold = 1024 * 512 " 512KB
+function! SpeedRead(file)
   let f=getfsize(expand(a:file))
-  if f > g:LargeFile || f == -2
+  if f > g:LargeFileThreshold || f == -2
     " no syntax highlighting etc
     set eventignore+=FileType
     " save memory when other file is viewed
@@ -128,24 +81,19 @@ function! OptimizeLargeFile(file)
   endif
 endfunction
 
-" auto open qf after running :make, ...
-" ref: http://vim.wikia.com/wiki/Automatically_open_the_quickfix_window_on_:make
-augroup QuickFix
-  au!
-  au QuickFixCmdPost [^l]* nested copen
-  au QuickFixCmdPost l*    nested lopen
-augroup END
+augroup All
+    au!
 
-augroup Vimrc
-  au!
-  au BufWritePost $MYVIMRC source % | echom "Reloaded " . $MYVIMRC | edit | redraw
-augroup END
+    " speed up editing large files
+    au BufReadPre * call SpeedRead("<afile>")
 
-augroup Markdown
-  au!
-  au BufRead,BufNewFile *.markdown set filetype=markdown
-  au BufRead,BufNewFile *.md       set filetype=markdown
-  au BufRead,BufNewFile *.MD       set filetype=markdown
+    " auto resource $MYVIMRC on change
+    au BufWritePost $MYVIMRC source %
+
+    " better recognizing markdown files
+    au BufRead,BufNewFile *.markdown set filetype=markdown
+    au BufRead,BufNewFile *.md       set filetype=markdown
+    au BufRead,BufNewFile *.MD       set filetype=markdown
 augroup END
 
 "}}}
@@ -168,10 +116,6 @@ nnoremap <leader>q :bp<bar>sp<bar>bn<bar>bd<cr>
 nnoremap <f2> :e ~/.config/nvim/init.vim<cr>
 " reload current file and redraw
 nnoremap <f5> :edit<cr>:redraw<cr>
-" <f1> won't open vim help
-nnoremap <f1> <esc>
-inoremap <f1> <esc>
-vnoremap <f1> <esc>
 " <ecs> to escape temrinal mode
 tnoremap <esc> <C-\><C-n>
 
@@ -304,9 +248,6 @@ Plug 'sjl/clam.vim' "{{{
   vnoremap ! :ClamVisual<space>
 
 " }}}
-
-" allow to edit and save changes in quickfix
-Plug 'stefandtw/quickfix-reflector.vim'
 
 Plug 'terryma/vim-multiple-cursors' "{{{
 
