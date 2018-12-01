@@ -112,6 +112,8 @@ nnoremap <leader>f :grep
 nnoremap ; :noh<CR>:<backspace>
 " close current tab
 nnoremap <leader>q :bp<bar>sp<bar>bn<bar>bd<cr>
+nnoremap H :bprev<cr>
+nnoremap L :bnext<cr>
 
 nnoremap <f2> :e ~/.config/nvim/init.vim<cr>
 " reload current file and redraw
@@ -122,10 +124,6 @@ tnoremap <esc> <C-\><C-n>
 " no more Ex mode
 nnoremap Q <nop>
 " jump to begin/end of a line
-nnoremap H ^
-nnoremap L $
-vnoremap H ^
-vnoremap L $
 nnoremap B ^
 nnoremap E $
 vnoremap B ^
@@ -145,10 +143,6 @@ vnoremap k kzz
 nnoremap J i<enter><esc>
 " join lines
 nnoremap K J
-" next buffer
-nnoremap gt :bnext<cr>
-" prev uffer
-nnoremap gT :bprev<cr>
 " redo
 nnoremap U <c-r>zz
 " navigate between splits
@@ -171,6 +165,7 @@ vnoremap < <gv
 vnoremap > >gv
 
 nnoremap <leader>b :make<cr><cr>
+nnoremap ` <C-^>
 
 " Search selecting
 " Ref: http://vim.wikia.com/wiki/Search_for_visually_selected_text<Paste>
@@ -368,13 +363,24 @@ Plug 'simnalamburt/vim-mundo' "{{{
 " provides a buffer line which looks like the tab line
 Plug 'ap/vim-buftabline' "{{{
 
-  let g:buftabline_indicators = 1
-  let g:buftabline_plug_map = 0
+    let g:buftabline_indicators = 1
+    let g:buftabline_numbers = 2
 
-  hi! link BufTabLineCurrent   TablineSel
-  hi! link BufTabLineActive    TablineSel
-  hi! link BufTabLineHidden    Tabline
-  hi! link BufTabLineFill      TablineFill
+    nmap <leader>1 <Plug>BufTabLine.Go(1)
+    nmap <leader>2 <Plug>BufTabLine.Go(2)
+    nmap <leader>3 <Plug>BufTabLine.Go(3)
+    nmap <leader>4 <Plug>BufTabLine.Go(4)
+    nmap <leader>5 <Plug>BufTabLine.Go(5)
+    nmap <leader>6 <Plug>BufTabLine.Go(6)
+    nmap <leader>7 <Plug>BufTabLine.Go(7)
+    nmap <leader>8 <Plug>BufTabLine.Go(8)
+    nmap <leader>9 <Plug>BufTabLine.Go(9)
+    nmap <leader>0 <Plug>BufTabLine.Go(10)
+
+    hi! link BufTabLineCurrent   TablineSel
+    hi! link BufTabLineActive    TablineSel
+    hi! link BufTabLineHidden    Tabline
+    hi! link BufTabLineFill      TablineFill
 
 " }}}
 
