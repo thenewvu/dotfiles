@@ -324,6 +324,7 @@ Plug 'Yggdroot/indentLine' "{{{
   let g:indentLine_enabled = 1
   let g:indentLine_faster = 1
   let g:indentLine_bufTypeExclude = ['help', 'terminal']
+  let g:indentLine_fileTypeExclude = ['markdown']
   let g:indentLine_char = '│'
   let g:indentLine_color_gui = '#2c4e6c'
   let g:indentLine_bgcolor_gui = 'none'
@@ -340,6 +341,7 @@ Plug 'thenewvu/vim-colors-blueprint' "{{{
 "}}}
 
 Plug 'chrisbra/Colorizer' 
+
 " Workaround for issue:
 " https://github.com/neovim/neovim/issues/1822
 Plug 'bfredl/nvim-miniyank' "{{{
@@ -393,6 +395,14 @@ Plug 'cofyc/vim-uncrustify' "{{{
 "}}}
 
 Plug 'jreybert/vimagit'
+
+Plug 'plasticboy/vim-markdown' "{{{
+
+    let g:vim_markdown_toc_autofit = 1
+    let g:vim_markdown_no_default_key_mappings = 1
+    let g:vim_markdown_fenced_languages = ['c','cpp','go','javascript','python','java','objc','objcpp', 'make','vim','cmake','bash=sh']
+
+"}}}
 
 Plug 'skywind3000/asyncrun.vim' "{{{
 
