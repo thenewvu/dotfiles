@@ -3,7 +3,7 @@
 " General {{{
 
 set nobackup nowritebackup noswapfile
-set undofile undolevels=5000 undoreload=5000
+set undofile undolevels=500 undoreload=500
 set splitbelow splitright
 set confirm " ask to confirm closing an unsaved file
 set hidden " switch between buffers without saving
