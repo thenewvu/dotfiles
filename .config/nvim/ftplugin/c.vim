@@ -7,5 +7,7 @@ setlocal cindent
 setlocal cinoptions=
 setlocal cinoptions+=t0
 setlocal cinoptions+=j1
+setlocal cinoptions+=J1
 setlocal cinoptions+=m1
 setlocal cinoptions+=(s
+setlocal cinoptions+={s
