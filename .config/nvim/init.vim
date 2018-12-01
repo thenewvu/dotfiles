@@ -273,7 +273,7 @@ Plug 'airblade/vim-gitgutter' "{{{
   hi link GitGutterChangeDelete DiffChange
   hi link GitGutterDelete DiffDelete
 
-  nmap <leader>d :call gitgutter#toggle()<cr>
+  nmap <M-d> :call gitgutter#toggle()<cr>
   nmap <silent> ]d :call gitgutter#hunk#next_hunk(1)<cr>zz
   nmap <silent> [d :call gitgutter#hunk#prev_hunk(1)<cr>zz
 
@@ -308,7 +308,7 @@ let g:ale_fixers = {}
 let g:ale_linters['c'] = ['clang']
 let g:ale_c_parse_makefile = 1
 
-nmap <leader>l :ALEToggle<cr>
+nmap <M-l> :ALEToggle<cr>
 nmap <silent> [l :call ale#loclist_jumping#Jump('before', 1)<cr>zz
 nmap <silent> ]l :call ale#loclist_jumping#Jump('after', 1)<cr>zz
 
@@ -354,7 +354,7 @@ Plug 'simnalamburt/vim-mundo' "{{{
   let g:mundo_width = 120
   let g:mundo_preview_height = 20
   
-  nnoremap <leader>u :MundoToggle<cr>
+  nnoremap <M-u> :MundoToggle<cr>
 
 "}}}
 
