@@ -107,7 +107,6 @@ let g:maplocalleader = "\\"
 cmap w! w !sudo tee > /dev/null %
 
 nnoremap <leader>e :e 
-nnoremap <leader>f :grep 
 " clear searching
 nnoremap ; :noh<CR>:<backspace>
 " close current tab
@@ -164,7 +163,6 @@ nnoremap < <<
 vnoremap < <gv
 vnoremap > >gv
 
-nnoremap <leader>b :make<cr><cr>
 nnoremap ` <C-^>
 
 " Search selecting
@@ -395,6 +393,21 @@ Plug 'cofyc/vim-uncrustify' "{{{
 "}}}
 
 Plug 'jreybert/vimagit'
+
+Plug 'skywind3000/asyncrun.vim' "{{{
+
+    let g:asyncrun_open = 8
+
+    nnoremap <leader>b :call AsyncRunMake()<cr>
+    nnoremap <leader>f :AsyncRun rg --vimgrep 
+
+    function! AsyncRunMake()
+        exec ':AsyncStop'
+        sleep 1000m
+        exec ':AsyncRun make -j8'
+    endfunction
+
+"}}}
 
 call plug#end()
 
