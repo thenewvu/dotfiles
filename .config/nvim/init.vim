@@ -36,7 +36,7 @@ set noruler
 set number
 set autoindent smartindent
 set lazyredraw
-set synmaxcol=1000
+set synmaxcol=320
 
 " Set %% to the dir that contains the current file
 " http://vim.wikia.com/wiki/Easy_edit_of_files_in_the_same_directory
@@ -96,7 +96,7 @@ augroup All
     au BufRead,BufNewFile *.MD       set filetype=markdown
 augroup END
 
-"}}}
+" }}}
 
 " Keys {{{
 
@@ -164,6 +164,7 @@ vnoremap < <gv
 vnoremap > >gv
 
 nnoremap ` <C-^>
+nnoremap <tab> <C-o>
 
 " Search selecting
 " Ref: http://vim.wikia.com/wiki/Search_for_visually_selected_text<Paste>
@@ -185,10 +186,11 @@ vnoremap <silent> # :<C-U>
 call plug#begin('~/.config/nvim/plugged')
 
 " improved javascript syntax
-Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+" Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 
 " jsx syntax
-Plug 'MaxMEllon/vim-jsx-pretty', { 'for': 'javascript' } " {{{
+" Plug 'MaxMEllon/vim-jsx-pretty', { 'for': 'javascript' } 
+" {{{
 
   hi! link jsxCloseTag jsxTag
   hi! link jsxCloseString jsxTag
@@ -200,7 +202,8 @@ Plug 'tpope/vim-commentary'
 
 " fuzzy searching
 Plug 'junegunn/fzf'
-Plug 'junegunn/fzf.vim' " {{{
+Plug 'junegunn/fzf.vim' 
+" {{{
 
   " quick open files by name with fuzzy autocompletion
   nnoremap <leader>p :FZF<cr>
@@ -215,7 +218,7 @@ Plug 'junegunn/fzf.vim' " {{{
     au TermOpen term://*FZF tnoremap <silent> <buffer><nowait> <esc> <c-c>
   augroup end
 
-"}}}
+" }}}
 
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim'
@@ -224,7 +227,8 @@ Plug 'junegunn/gv.vim'
 Plug 'chaoren/vim-wordmotion' 
 
 " automatically add end tag
-Plug 'alvan/vim-closetag' "{{{
+Plug 'alvan/vim-closetag' 
+" {{{
 
   let g:closetag_filenames = "*.html,*.xml,*.js,*.jsx"
 
@@ -234,7 +238,8 @@ Plug 'alvan/vim-closetag' "{{{
 Plug 'jiangmiao/auto-pairs'
 
 " likes ! but output into a buffer
-Plug 'sjl/clam.vim' "{{{
+Plug 'sjl/clam.vim' 
+" {{{
 
   nnoremap !! :!<space>
   nnoremap ! :Clam<space>
@@ -242,7 +247,8 @@ Plug 'sjl/clam.vim' "{{{
 
 " }}}
 
-Plug 'terryma/vim-multiple-cursors' "{{{
+Plug 'terryma/vim-multiple-cursors' 
+" {{{
 
   hi link multiple_cursors_cursor Cursor
   hi link multiple_cursors_visual Search
@@ -254,7 +260,8 @@ Plug 'danro/rename.vim'
 
 Plug 'dhruvasagar/vim-table-mode'
 
-Plug 'airblade/vim-gitgutter' "{{{
+Plug 'airblade/vim-gitgutter' 
+" {{{
 
   set updatetime=1000
 
@@ -279,7 +286,8 @@ Plug 'airblade/vim-gitgutter' "{{{
 
 " }}}
 
-Plug 'junegunn/vim-easy-align' "{{{
+Plug 'junegunn/vim-easy-align' 
+" {{{
 
   xmap ga <Plug>(EasyAlign)
 
@@ -288,38 +296,40 @@ Plug 'junegunn/vim-easy-align' "{{{
 Plug 'thenewvu/vim-plantuml-genin'
 
 " async linting
-Plug 'w0rp/ale' "{{{
+Plug 'w0rp/ale' 
+" {{{
 
-let g:ale_fix_on_save = 1
-let g:ale_open_list = 0
-let g:ale_lint_on_save = 1
-let g:ale_lint_on_enter = 0
-let g:ale_lint_on_text_changed = 0
-let g:ale_lint_on_filetype_changed = 0
-let g:ale_warn_about_trailing_whitespace = 0
+    let g:ale_fix_on_save = 1
+    let g:ale_open_list = 0
+    let g:ale_lint_on_save = 1
+    let g:ale_lint_on_enter = 0
+    let g:ale_lint_on_text_changed = 0
+    let g:ale_lint_on_filetype_changed = 0
+    let g:ale_warn_about_trailing_whitespace = 0
 
-let g:ale_set_highlights = 0
-let g:ale_set_signs = 1
-let g:ale_sign_error = '⚑'
-let g:ale_sign_warning = '⚑'
+    let g:ale_set_highlights = 0
+    let g:ale_set_signs = 1
+    let g:ale_sign_error = '⚑'
+    let g:ale_sign_warning = '⚑'
 
-let g:ale_linters = {}
-let g:ale_fixers = {}
-let g:ale_linters['c'] = ['clang']
-let g:ale_c_parse_makefile = 1
+    let g:ale_linters = {}
+    let g:ale_fixers = {}
+    let g:ale_linters['c'] = ['clang']
+    let g:ale_c_parse_makefile = 1
 
-nmap <M-l> :ALEToggle<cr>
-nmap <silent> [l :call ale#loclist_jumping#Jump('before', 1)<cr>zz
-nmap <silent> ]l :call ale#loclist_jumping#Jump('after', 1)<cr>zz
+    nmap <M-l> :ALEToggle<cr>
+    nmap <silent> [l :call ale#loclist_jumping#Jump('before', 1)<cr>zz
+    nmap <silent> ]l :call ale#loclist_jumping#Jump('after', 1)<cr>zz
 
-hi link ALEError       ErrorMsg
-hi link ALEErrorSign   ErrorMsg
-hi link ALEWarning     WarningMsg
-hi link ALEWarningSign WarningMsg
+    hi link ALEError       ErrorMsg
+    hi link ALEErrorSign   ErrorMsg
+    hi link ALEWarning     WarningMsg
+    hi link ALEWarningSign WarningMsg
 
 " }}}
 
-Plug 'Yggdroot/indentLine' "{{{
+Plug 'Yggdroot/indentLine' 
+" {{{
 
   let g:indentLine_enabled = 1
   let g:indentLine_faster = 1
@@ -329,39 +339,43 @@ Plug 'Yggdroot/indentLine' "{{{
   let g:indentLine_color_gui = '#2c4e6c'
   let g:indentLine_bgcolor_gui = 'none'
 
-"}}}
+" }}}
 
-Plug 'thenewvu/vim-colors-blueprint' "{{{
+Plug 'thenewvu/vim-colors-blueprint' 
+" {{{
 
   set rtp+=~/.config/nvim/plugged/vim-colors-blueprint
   set termguicolors
   set background=dark
   colorscheme blueprint
 
-"}}}
+" }}}
 
 Plug 'chrisbra/Colorizer' 
 
 " Workaround for issue:
 " https://github.com/neovim/neovim/issues/1822
-Plug 'bfredl/nvim-miniyank' "{{{
+Plug 'bfredl/nvim-miniyank' 
+" {{{
 
     map p <Plug>(miniyank-autoput)
     map P <Plug>(miniyank-autoPut)
 
-"}}}
+" }}}
 
-Plug 'simnalamburt/vim-mundo' "{{{
+Plug 'simnalamburt/vim-mundo' 
+" {{{
 
   let g:mundo_width = 120
   let g:mundo_preview_height = 20
   
   nnoremap <M-u> :MundoToggle<cr>
 
-"}}}
+" }}}
 
 " provides a buffer line which looks like the tab line
-Plug 'ap/vim-buftabline' "{{{
+Plug 'ap/vim-buftabline' 
+" {{{
 
     let g:buftabline_indicators = 1
     let g:buftabline_numbers = 2
@@ -384,27 +398,37 @@ Plug 'ap/vim-buftabline' "{{{
 
 " }}}
 
-Plug 'cofyc/vim-uncrustify' "{{{
+Plug 'sbdchd/neoformat' 
+" {{{
 
-    augroup Uncrustify
-        au!
-        au FileType c noremap <buffer> <leader><space> :call Uncrustify('c')<CR>
-        au FileType c vnoremap <buffer> <leader><space> :call RangeUncrustify('c')<CR>
-    augroup END
+    let g:neoformat_enabled_c = ['clangformat']
+    let g:neoformat_enabled_cpp = ['clangformat']
+    let g:neoformat_enabled_java = ['clangformat']
+    let g:neoformat_enabled_javascript = ['clangformat']
 
-"}}}
+    nnoremap <leader><space> :Neoformat<cr>
 
-Plug 'jreybert/vimagit'
+" }}}
 
-Plug 'plasticboy/vim-markdown' "{{{
+Plug 'jreybert/vimagit' 
+" {{{
 
+    nnoremap <M-c> :MagitOnly<cr>
+
+" }}}
+
+Plug 'plasticboy/vim-markdown' 
+" {{{
+
+    let g:vim_markdown_conceal = 2
     let g:vim_markdown_toc_autofit = 1
     let g:vim_markdown_no_default_key_mappings = 1
-    let g:vim_markdown_fenced_languages = ['c','cpp','go','javascript','python','java','objc','objcpp', 'make','vim','cmake','bash=sh']
+    let g:vim_markdown_fenced_languages = ['c','cpp','go','javascript=js','python','java','objc','objcpp', 'make','vim','cmake','bash=sh']
 
-"}}}
+" }}}
 
-Plug 'skywind3000/asyncrun.vim' "{{{
+Plug 'skywind3000/asyncrun.vim' 
+" {{{
 
     let g:asyncrun_open = 8
 
@@ -417,7 +441,28 @@ Plug 'skywind3000/asyncrun.vim' "{{{
         exec ':AsyncRun make -j8'
     endfunction
 
-"}}}
+" }}}
+
+Plug 'ap/vim-readdir'
+
+Plug 'easymotion/vim-easymotion' 
+" {{{
+
+    nmap f <Plug>(easymotion-overwin-f)
+
+" }}}
+
+Plug 'brooth/far.vim' 
+" {{{
+
+    nnoremap <leader>F :Far 
+
+    hi def link FarSearchVal Search
+    hi def link FarReplaceVal DiffChange
+    hi def link FarReplacedItem DiffChange
+    hi def link FarExcludedItem Comment
+
+" }}}
 
 call plug#end()
 
