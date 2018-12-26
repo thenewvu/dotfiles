@@ -7,7 +7,7 @@ set undofile undolevels=500 undoreload=500
 set splitbelow splitright
 set confirm " ask to confirm closing an unsaved file
 set hidden " switch between buffers without saving
-set completeopt=menuone
+set completeopt=menu,menuone,noselect,noinsert
 set encoding=utf-8
 set clipboard^=unnamedplus,unnamed
 set autoread " autoreload files on change
@@ -33,7 +33,7 @@ set statusline=%F
 set noshowcmd
 set noshowmode
 set noruler
-set number
+set nonumber
 set autoindent smartindent
 set lazyredraw
 set synmaxcol=320
@@ -270,10 +270,10 @@ Plug 'airblade/vim-gitgutter'
   let g:gitgutter_override_sign_column_highlight = 0
   let g:gitgutter_diff_args = '-w'
   let g:gitgutter_map_keys = 0
-  let g:gitgutter_sign_added = '✙'
-  let g:gitgutter_sign_modified = '✲'
+  let g:gitgutter_sign_added = '+'
+  let g:gitgutter_sign_modified = '*'
   let g:gitgutter_sign_removed = '_'
-  let g:gitgutter_sign_modified_removed = '✲'
+  let g:gitgutter_sign_modified_removed = '*'
 
   hi link GitGutterAdd DiffAdd
   hi link GitGutterChange DiffChange
@@ -398,15 +398,12 @@ Plug 'ap/vim-buftabline'
 
 " }}}
 
-Plug 'sbdchd/neoformat' 
+Plug 'rhysd/vim-clang-format' 
 " {{{
 
-    let g:neoformat_enabled_c = ['clangformat']
-    let g:neoformat_enabled_cpp = ['clangformat']
-    let g:neoformat_enabled_java = ['clangformat']
-    let g:neoformat_enabled_javascript = ['clangformat']
+    let g:clang_format#auto_format = 1
 
-    nnoremap <leader><space> :Neoformat<cr>
+    nnoremap <leader><space> :ClangFormat<cr>
 
 " }}}
 
@@ -432,10 +429,10 @@ Plug 'skywind3000/asyncrun.vim'
 
     let g:asyncrun_open = 8
 
-    nnoremap <leader>b :call AsyncRunMake()<cr>
+    nnoremap <leader>b :call AsyncMake()<cr>
     nnoremap <leader>f :AsyncRun rg --vimgrep 
 
-    function! AsyncRunMake()
+    function! AsyncMake()
         exec ':AsyncStop'
         sleep 1000m
         exec ':AsyncRun make -j8'
@@ -461,6 +458,24 @@ Plug 'brooth/far.vim'
     hi def link FarReplaceVal DiffChange
     hi def link FarReplacedItem DiffChange
     hi def link FarExcludedItem Comment
+
+" }}}
+
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'Shougo/deoplete-clangx'
+Plug 'Shougo/neoinclude.vim'
+" {{{
+
+    set runtimepath+=~/.config/nvim/plugged/deoplete.nvim
+
+    let g:deoplete#enable_at_startup = 1
+
+    call deoplete#custom#source('_', 'disabled_syntaxes', ['Comment', 'String'])
+
+    call deoplete#custom#source('clangx', 'clang_binary', '/usr/bin/clang')
+
+    call deoplete#custom#source('clangx', 'default_c_options', '-std=c11 -Wall')
+    call deoplete#custom#source('clangx', 'default_cpp_options', '-Wall')
 
 " }}}
 
