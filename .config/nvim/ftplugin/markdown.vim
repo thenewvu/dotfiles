@@ -4,7 +4,7 @@ setlocal formatoptions-=l " auto wrap long lines (>textwidth)
 setlocal linebreak
 setlocal nolist
 setlocal nonumber
-setlocal conceallevel=2 concealcursor=vc
+setlocal conceallevel=2 concealcursor=
 
 " underline markdown headers
 " Ref: https://goo.gl/6zf93B

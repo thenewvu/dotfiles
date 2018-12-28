@@ -34,6 +34,7 @@ set noshowcmd
 set noshowmode
 set noruler
 set nonumber
+set signcolumn=yes
 set autoindent smartindent
 set lazyredraw
 set synmaxcol=320
@@ -94,6 +95,8 @@ augroup All
     au BufRead,BufNewFile *.markdown set filetype=markdown
     au BufRead,BufNewFile *.md       set filetype=markdown
     au BufRead,BufNewFile *.MD       set filetype=markdown
+
+    au TermOpen * setlocal signcolumn=no
 augroup END
 
 " }}}
@@ -265,24 +268,24 @@ Plug 'airblade/vim-gitgutter'
 
   set updatetime=1000
 
-  let g:gitgutter_enabled = 0
+  let g:gitgutter_enabled = 1
   let g:gitgutter_signs = 1
   let g:gitgutter_override_sign_column_highlight = 0
   let g:gitgutter_diff_args = '-w'
   let g:gitgutter_map_keys = 0
   let g:gitgutter_sign_added = '+'
-  let g:gitgutter_sign_modified = '*'
+  let g:gitgutter_sign_modified = '∓'
   let g:gitgutter_sign_removed = '_'
-  let g:gitgutter_sign_modified_removed = '*'
+  let g:gitgutter_sign_modified_removed = '∓'
 
   hi link GitGutterAdd DiffAdd
   hi link GitGutterChange DiffChange
   hi link GitGutterChangeDelete DiffChange
   hi link GitGutterDelete DiffDelete
 
-  nmap <M-d> :call gitgutter#toggle()<cr>
-  nmap <silent> ]d :call gitgutter#hunk#next_hunk(1)<cr>zz
-  nmap <silent> [d :call gitgutter#hunk#prev_hunk(1)<cr>zz
+  nmap <leader>d :call gitgutter#toggle()<cr>
+  nmap ]d :call gitgutter#hunk#next_hunk(1)<cr>zz
+  nmap [d :call gitgutter#hunk#prev_hunk(1)<cr>zz
 
 " }}}
 
@@ -298,6 +301,8 @@ Plug 'thenewvu/vim-plantuml-genin'
 " async linting
 Plug 'w0rp/ale' 
 " {{{
+
+  set rtp+=~/.config/nvim/plugged/ale
 
     let g:ale_fix_on_save = 1
     let g:ale_open_list = 0
@@ -315,11 +320,21 @@ Plug 'w0rp/ale'
     let g:ale_linters = {}
     let g:ale_fixers = {}
     let g:ale_linters['c'] = ['clang']
+    let g:ale_linters['markdown'] = ['markdownlint']
     let g:ale_c_parse_makefile = 1
 
-    nmap <M-l> :ALEToggle<cr>
-    nmap <silent> [l :call ale#loclist_jumping#Jump('before', 1)<cr>zz
-    nmap <silent> ]l :call ale#loclist_jumping#Jump('after', 1)<cr>zz
+    call ale#linter#Define('markdown', {
+        \ 'name': 'markdownlint',
+        \ 'executable': 'markdownlint',
+        \ 'lint_file': 1,
+        \ 'output_stream': 'both',
+        \ 'command': 'markdownlint --config ~/.markdownlint %s',
+        \ 'callback': 'ale#handlers#markdownlint#Handle'
+    \ })
+
+    nmap <leader>l :ALEToggle<cr>
+    nmap ]l :call ale#loclist_jumping#Jump('before', 1)<cr>zz
+    nmap [l :call ale#loclist_jumping#Jump('after', 1)<cr>zz
 
     hi link ALEError       ErrorMsg
     hi link ALEErrorSign   ErrorMsg
@@ -369,7 +384,7 @@ Plug 'simnalamburt/vim-mundo'
   let g:mundo_width = 120
   let g:mundo_preview_height = 20
   
-  nnoremap <M-u> :MundoToggle<cr>
+  nnoremap <leader>u :MundoToggle<cr>
 
 " }}}
 
@@ -410,7 +425,7 @@ Plug 'rhysd/vim-clang-format'
 Plug 'jreybert/vimagit' 
 " {{{
 
-    nnoremap <M-c> :MagitOnly<cr>
+    nnoremap <leader>c :MagitOnly<cr>
 
 " }}}
 
@@ -418,9 +433,11 @@ Plug 'plasticboy/vim-markdown'
 " {{{
 
     let g:vim_markdown_conceal = 2
-    let g:vim_markdown_toc_autofit = 1
     let g:vim_markdown_no_default_key_mappings = 1
     let g:vim_markdown_fenced_languages = ['c','cpp','go','javascript=js','python','java','objc','objcpp', 'make','vim','cmake','bash=sh']
+
+    hi link mkdString        markdownCode
+    hi link mkdCode          markdownCode
 
 " }}}
 
@@ -449,7 +466,7 @@ Plug 'easymotion/vim-easymotion'
 
 " }}}
 
-Plug 'brooth/far.vim' 
+Plug 'brooth/far.vim'
 " {{{
 
     nnoremap <leader>F :Far 
