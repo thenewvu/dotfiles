@@ -5,8 +5,11 @@ setlocal linebreak
 setlocal nolist
 setlocal nonumber
 setlocal conceallevel=2 concealcursor=
+setlocal nofoldenable
 
 " underline markdown headers
 " Ref: https://goo.gl/6zf93B
-nnoremap <leader>mh yypVr-
-nnoremap <leader>mhh yypVr=
+nnoremap <buffer> <leader>mh yypVr-
+nnoremap <buffer> <leader>mhh yypVr=
+
+nnoremap <buffer> <space> <nop>

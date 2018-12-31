@@ -48,6 +48,10 @@ function! FoldText()
   let l:end = getline(v:foldend)
   let l:indent = repeat(' ', indent(v:foldstart))
 
+  if &syntax == "markdown"
+    return l:indent . l:start
+  endif
+
   if &foldmethod == "marker"
     let l:start = substitute(l:start, '{.*$', '{', '')
     let l:end = substitute(l:end, '^.*}', '}', '')
@@ -341,6 +345,21 @@ Plug 'w0rp/ale'
     hi link ALEWarning     WarningMsg
     hi link ALEWarningSign WarningMsg
 
+    function! LinterStatus() abort
+        let l:counts = ale#statusline#Count(bufnr(''))
+
+        let l:all_errors = l:counts.error + l:counts.style_error
+        let l:all_non_errors = l:counts.total - l:all_errors
+
+        return l:counts.total == 0 ? 'OK' : printf(
+        \   '%dW %dE',
+        \   all_non_errors,
+        \   all_errors
+        \)
+    endfunction
+
+set statusline+=%=%{LinterStatus()}
+
 " }}}
 
 Plug 'Yggdroot/indentLine' 
@@ -418,8 +437,6 @@ Plug 'rhysd/vim-clang-format'
 
     let g:clang_format#auto_format = 1
 
-    nnoremap <leader><space> :ClangFormat<cr>
-
 " }}}
 
 Plug 'jreybert/vimagit' 
@@ -433,11 +450,31 @@ Plug 'plasticboy/vim-markdown'
 " {{{
 
     let g:vim_markdown_conceal = 2
+    let g:vim_markdown_folding_disabled = 1
     let g:vim_markdown_no_default_key_mappings = 1
     let g:vim_markdown_fenced_languages = ['c','cpp','go','javascript=js','python','java','objc','objcpp', 'make','vim','cmake','bash=sh']
 
-    hi link mkdString        markdownCode
-    hi link mkdCode          markdownCode
+    hi! link mkdString        Normal
+    hi! link mkdCode          Keyword
+    hi! link mkdCodeDelimiter Delimiter
+    hi! link mkdCodeStart     Delimiter
+    hi! link mkdCodeEnd       Delimiter
+    hi! link mkdFootnote      Normal
+    hi! link mkdBlockquote    Normal
+    hi! link mkdListItem      Normal
+    hi! link mkdRule          Normal
+    hi! link mkdLineBreak     Delimiter
+    hi! link mkdFootnotes     Normal
+    hi! link mkdLink          Keyword
+    hi! link mkdURL           Comment
+    hi! link mkdInlineURL     Comment
+    hi! link mkdID            Normal
+    hi! link mkdLinkDef       Normal
+    hi! link mkdLinkDefTarget Normal
+    hi! link mkdLinkTitle     Keyword
+    hi! link mkdDelimiter     Delimiter
+    hi! link mkdHeading       Delimiter
+    hi! link htmlH1           Keyword
 
 " }}}
 
@@ -487,10 +524,14 @@ Plug 'Shougo/neoinclude.vim'
 
     let g:deoplete#enable_at_startup = 1
 
-    call deoplete#custom#source('_', 'disabled_syntaxes', ['Comment', 'String'])
+    call deoplete#custom#option('sources', {
+    \ '_': ['buffer'],
+    \ 'cpp': ['clangx'],
+    \ 'c': ['clangx']
+    \})
 
     call deoplete#custom#source('clangx', 'clang_binary', '/usr/bin/clang')
-
+    call deoplete#custom#source('clangx', 'rank', 9999)
     call deoplete#custom#source('clangx', 'default_c_options', '-std=c11 -Wall')
     call deoplete#custom#source('clangx', 'default_cpp_options', '-Wall')
 
