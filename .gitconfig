@@ -33,3 +33,4 @@
   dc  = diff --cached -w
   dcw = diff --cached -w --color-words
   p   = push
+  clonefast = clone --shallow-submodules --depth=1 -j8 
