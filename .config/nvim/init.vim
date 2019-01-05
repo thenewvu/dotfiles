@@ -499,7 +499,7 @@ Plug 'brooth/far.vim'
 
     let g:far#source = 'rgnvim'
     let g:far#window_layout = 'current'
-    let g:far#file_mask_favorites = ['**/*.{c,h}']
+    let g:far#file_mask_favorites = ['c','h']
     let g:far#collapse_result = 1
 
     hi def link FarSearchVal DiffDelete
