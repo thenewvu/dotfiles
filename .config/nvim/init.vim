@@ -288,8 +288,8 @@ Plug 'airblade/vim-gitgutter'
   hi link GitGutterDelete DiffDelete
 
   nmap <leader>d :call gitgutter#toggle()<cr>
-  nmap ]d :call gitgutter#hunk#next_hunk(1)<cr>zz
-  nmap [d :call gitgutter#hunk#prev_hunk(1)<cr>zz
+  nmap <silent> ]d :call gitgutter#hunk#next_hunk(1)<cr>zz
+  nmap <silent> [d :call gitgutter#hunk#prev_hunk(1)<cr>zz
 
 " }}}
 
@@ -306,8 +306,6 @@ Plug 'thenewvu/vim-plantuml-genin'
 Plug 'w0rp/ale' 
 " {{{
 
-  set rtp+=~/.config/nvim/plugged/ale
-
     let g:ale_fix_on_save = 1
     let g:ale_open_list = 0
     let g:ale_lint_on_save = 1
@@ -316,7 +314,7 @@ Plug 'w0rp/ale'
     let g:ale_lint_on_filetype_changed = 0
     let g:ale_warn_about_trailing_whitespace = 0
 
-    let g:ale_set_highlights = 0
+    let g:ale_set_highlights = 1
     let g:ale_set_signs = 1
     let g:ale_sign_error = '⚑'
     let g:ale_sign_warning = '⚑'
@@ -327,23 +325,14 @@ Plug 'w0rp/ale'
     let g:ale_linters['markdown'] = ['markdownlint']
     let g:ale_c_parse_makefile = 1
 
-    call ale#linter#Define('markdown', {
-        \ 'name': 'markdownlint',
-        \ 'executable': 'markdownlint',
-        \ 'lint_file': 1,
-        \ 'output_stream': 'both',
-        \ 'command': 'markdownlint --config ~/.markdownlint %s',
-        \ 'callback': 'ale#handlers#markdownlint#Handle'
-    \ })
-
     nmap <leader>l :ALEToggle<cr>
-    nmap ]l :call ale#loclist_jumping#Jump('before', 1)<cr>zz
-    nmap [l :call ale#loclist_jumping#Jump('after', 1)<cr>zz
+    nmap <silent> ]l :call ale#loclist_jumping#Jump('before', 1)<cr>zz
+    nmap <silent> [l :call ale#loclist_jumping#Jump('after', 1)<cr>zz
 
     hi link ALEError       ErrorMsg
     hi link ALEErrorSign   ErrorMsg
-    hi link ALEWarning     WarningMsg
-    hi link ALEWarningSign WarningMsg
+    hi link ALEWarning     ErrorMsg
+    hi link ALEWarningSign ErrorMsg
 
     function! LinterStatus() abort
         let l:counts = ale#statusline#Count(bufnr(''))
@@ -358,7 +347,7 @@ Plug 'w0rp/ale'
         \)
     endfunction
 
-set statusline+=%=%{LinterStatus()}
+    set statusline+=%=%{LinterStatus()}
 
 " }}}
 
@@ -508,9 +497,14 @@ Plug 'brooth/far.vim'
 
     nnoremap <leader>F :Far 
 
-    hi def link FarSearchVal Search
-    hi def link FarReplaceVal DiffChange
-    hi def link FarReplacedItem DiffChange
+    let g:far#source = 'rgnvim'
+    let g:far#window_layout = 'current'
+    let g:far#file_mask_favorites = ['**/*.{c,h}']
+    let g:far#collapse_result = 1
+
+    hi def link FarSearchVal DiffDelete
+    hi def link FarReplaceVal DiffAdd
+    hi def link FarReplacedItem DiffAdd
     hi def link FarExcludedItem Comment
 
 " }}}
@@ -525,9 +519,9 @@ Plug 'Shougo/neoinclude.vim'
     let g:deoplete#enable_at_startup = 1
 
     call deoplete#custom#option('sources', {
-    \ '_': ['buffer'],
-    \ 'cpp': ['clangx'],
-    \ 'c': ['clangx']
+    \ '_': ['buffer', 'file/include'],
+    \ 'cpp': ['clangx', 'file/include'],
+    \ 'c': ['clangx', 'file/include']
     \})
 
     call deoplete#custom#source('clangx', 'clang_binary', '/usr/bin/clang')
