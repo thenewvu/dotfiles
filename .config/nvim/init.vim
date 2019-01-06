@@ -38,6 +38,7 @@ set signcolumn=yes
 set autoindent smartindent
 set lazyredraw
 set synmaxcol=320
+set diffopt+=algorithm:patience
 
 " Set %% to the dir that contains the current file
 " http://vim.wikia.com/wiki/Easy_edit_of_files_in_the_same_directory
@@ -228,7 +229,7 @@ Plug 'junegunn/fzf.vim'
 " }}}
 
 Plug 'tpope/vim-fugitive'
-Plug 'junegunn/gv.vim'
+Plug 'kablamo/vim-git-log'
 
 " wb word by word
 Plug 'chaoren/vim-wordmotion' 
@@ -275,12 +276,12 @@ Plug 'airblade/vim-gitgutter'
   let g:gitgutter_enabled = 1
   let g:gitgutter_signs = 1
   let g:gitgutter_override_sign_column_highlight = 0
-  let g:gitgutter_diff_args = '-w'
+  let g:gitgutter_diff_args = '-w --patience'
   let g:gitgutter_map_keys = 0
-  let g:gitgutter_sign_added = '+'
-  let g:gitgutter_sign_modified = '∓'
-  let g:gitgutter_sign_removed = '_'
-  let g:gitgutter_sign_modified_removed = '∓'
+  let g:gitgutter_sign_added = '\ '
+  let g:gitgutter_sign_modified = '\ '
+  let g:gitgutter_sign_removed = '\ '
+  let g:gitgutter_sign_modified_removed = '\ '
 
   hi link GitGutterAdd DiffAdd
   hi link GitGutterChange DiffChange
