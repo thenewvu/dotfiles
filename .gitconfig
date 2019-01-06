@@ -28,9 +28,11 @@
   a   = add
   ai  = add -i -p
   c   = commit -v
-  d   = diff -w
-  dw  = diff -w --color-words
+  d   = diff -w --patience
+  dt  = difftool -w --patience
+  dw  = diff -w --color-words --patience
   dc  = diff --cached -w
+  dct = difftool --cached -w
   dcw = diff --cached -w --color-words
   p   = push
   clonefast = clone --shallow-submodules --depth=1 -j8 
