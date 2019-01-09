@@ -11,9 +11,7 @@ ffmpeg_lo_quality="/usr/local/bin/ffmpeg -f avfoundation -r 1 -pixel_format bgr0
 ffmpeg_me_quality="/usr/local/bin/ffmpeg -f avfoundation -r 1 -pixel_format bgr0 -i 1 -r 1 -vf mpdecimate,setpts=N/FRAME_RATE/TB -c:v libvpx-vp9 -cpu-used 8 -deadline realtime -crf 40 -b:v 0"
 ffmpeg_hi_quality="/usr/local/bin/ffmpeg -f avfoundation -r 1 -pixel_format bgr0 -i 1 -r 1 -vf mpdecimate,setpts=N/FRAME_RATE/TB -c:v libvpx-vp9 -cpu-used 8 -deadline realtime -crf 31 -b:v 0"
 
-outdir=~/Documents/screenlogs
-
-font="font='Courier' size=12"
+outdir=/tmp/
 
 if [ -f "$pidf" ]; then
     pid=$(cat $pidf) 
@@ -34,22 +32,22 @@ if [ "$cmd" == "status" ]; then
         if [ "$stat" == "T" ]; then
             echo "◉ ▿| color=#F2B13C"
             echo "---"
-            echo "Resume | $font terminal=false refresh=true bash=$0 param1=resume"
+            echo "Resume | terminal=false refresh=true bash=$0 param1=resume"
         else
             echo "◉ ▿| color=#D94D40"
             echo "---"
-            echo "Pause | $font terminal=false refresh=true bash=$0 param1=pause"
+            echo "Pause | terminal=false refresh=true bash=$0 param1=pause"
         fi
         echo "---"
-        echo "Stop | $font terminal=false refresh=true bash=$0 param1=stop"
+        echo "Stop | terminal=false refresh=true bash=$0 param1=stop"
     else
         echo "◉ ▿"
         echo "---"
-        echo "Start (Lo quality) | $font terminal=false refresh=true bash=$0 param1=start_lo_quality"
+        echo "Start (Lo quality) | terminal=false refresh=true bash=$0 param1=start_lo_quality"
         echo "---"
-        echo "Start (Me quality) | $font terminal=false refresh=true bash=$0 param1=start_me_quality"
+        echo "Start (Me quality) | terminal=false refresh=true bash=$0 param1=start_me_quality"
         echo "---"
-        echo "Start (Hi quality) | $font terminal=false refresh=true bash=$0 param1=start_hi_quality"
+        echo "Start (Hi quality) | terminal=false refresh=true bash=$0 param1=start_hi_quality"
     fi
 fi
 
@@ -69,7 +67,7 @@ if [ "$cmd" == "start_hi_quality" ]; then
 fi
 
 if [ "$cmd" == "stop" ]; then
-    kill -SIGQUIT $pid && rm $pidf
+    kill -SIGQUIT $pid & rm $pidf
 fi
 
 if [ "$cmd" == "pause" ]; then
