@@ -4,7 +4,7 @@
 
 set nobackup nowritebackup noswapfile
 set undofile undolevels=500 undoreload=500
-set splitbelow splitright
+set splitright
 set confirm " ask to confirm closing an unsaved file
 set hidden " switch between buffers without saving
 set completeopt=menu,menuone,noselect,noinsert
@@ -17,7 +17,7 @@ set expandtab smarttab tabstop=4 shiftwidth=4 softtabstop=4
 set wildmenu " show auto-complete when typing in command line
 set wildmode=longest,list
 set wildignore+=.hg,.git,.svn
-set nowrap
+set nowrap breakindent linebreak breakindentopt=shift:2 breakat='\ ^I;,'
 set showbreak=↪\ 
 set foldenable foldmethod=syntax foldmarker={,} foldnestmax=5 foldlevel=0
 set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
@@ -38,13 +38,14 @@ set signcolumn=yes
 set autoindent smartindent
 set lazyredraw
 set synmaxcol=320
-set diffopt+=algorithm:patience
+set diffopt+=algorithm:histogram,iwhiteall,iblank,iwhiteeol
+set list listchars=tab:\│\ ,trail:␣
 
 " Set %% to the dir that contains the current file
 " http://vim.wikia.com/wiki/Easy_edit_of_files_in_the_same_directory
 cabbr <expr> %% expand('%:p:h')
 
-function! FoldText() 
+function! FoldText()
   let l:start = substitute(getline(v:foldstart), '^\s*', '', '')
   let l:end = getline(v:foldend)
   let l:indent = repeat(' ', indent(v:foldstart))
@@ -142,10 +143,10 @@ nnoremap G Gzz
 vnoremap G Gzz
 nnoremap n nzzzv
 nnoremap N Nzzzv
-nnoremap j jzz
-nnoremap k kzz
-vnoremap j jzz
-vnoremap k kzz
+nnoremap j gjzz
+nnoremap k gkzz
+vnoremap j gjzz
+vnoremap k gkzz
 " break lines
 nnoremap J i<enter><esc>
 " join lines
@@ -230,6 +231,11 @@ Plug 'junegunn/fzf.vim'
 
 Plug 'tpope/vim-fugitive'
 Plug 'kablamo/vim-git-log'
+"{{{
+
+    nnoremap <silent> <leader>gl :GitLog<cr>
+
+"}}}
 
 " wb word by word
 Plug 'chaoren/vim-wordmotion' 
@@ -276,21 +282,18 @@ Plug 'airblade/vim-gitgutter'
   let g:gitgutter_enabled = 1
   let g:gitgutter_signs = 1
   let g:gitgutter_override_sign_column_highlight = 0
-  let g:gitgutter_diff_args = '-w --patience'
-  let g:gitgutter_map_keys = 0
+  let g:gitgutter_diff_args = '-w'
   let g:gitgutter_sign_added = '\ '
   let g:gitgutter_sign_modified = '\ '
   let g:gitgutter_sign_removed = '\ '
   let g:gitgutter_sign_modified_removed = '\ '
 
   hi link GitGutterAdd DiffAdd
-  hi link GitGutterChange DiffChange
-  hi link GitGutterChangeDelete DiffChange
+  hi link GitGutterChange DiffText
+  hi link GitGutterChangeDelete DiffText
   hi link GitGutterDelete DiffDelete
 
-  nmap <leader>d :call gitgutter#toggle()<cr>
-  nmap <silent> ]d :call gitgutter#hunk#next_hunk(1)<cr>zz
-  nmap <silent> [d :call gitgutter#hunk#prev_hunk(1)<cr>zz
+  nmap <leader>gd :call gitgutter#toggle()<cr>
 
 " }}}
 
@@ -358,7 +361,7 @@ Plug 'Yggdroot/indentLine'
   let g:indentLine_enabled = 1
   let g:indentLine_faster = 1
   let g:indentLine_bufTypeExclude = ['help', 'terminal']
-  let g:indentLine_fileTypeExclude = ['markdown']
+  let g:indentLine_fileTypeExclude = ['markdown', 'git']
   let g:indentLine_char = '│'
   let g:indentLine_color_gui = '#2c4e6c'
   let g:indentLine_bgcolor_gui = 'none'
@@ -432,7 +435,7 @@ Plug 'rhysd/vim-clang-format'
 Plug 'jreybert/vimagit' 
 " {{{
 
-    nnoremap <leader>c :MagitOnly<cr>
+    nnoremap <leader>gc :MagitOnly<cr>
 
 " }}}
 
