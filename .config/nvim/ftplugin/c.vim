@@ -1,6 +1,7 @@
 setlocal foldmethod=marker foldmarker={,}
 setlocal commentstring=//%s
 setlocal expandtab smarttab tabstop=4 shiftwidth=4 softtabstop=4
+setlocal list
 
 setlocal cinkeys="0{,0},0),0#,!^F,o,O,e"
 setlocal cindent

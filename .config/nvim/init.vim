@@ -39,7 +39,7 @@ set autoindent smartindent
 set lazyredraw
 set synmaxcol=320
 set diffopt+=algorithm:histogram,iwhiteall,iblank,iwhiteeol
-set list listchars=tab:\│\ ,trail:␣
+set nolist listchars=tab:\│\ ,trail:␣
 
 " Set %% to the dir that contains the current file
 " http://vim.wikia.com/wiki/Easy_edit_of_files_in_the_same_directory
