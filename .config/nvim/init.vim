@@ -230,7 +230,7 @@ Plug 'junegunn/fzf.vim'
 " }}}
 
 Plug 'tpope/vim-fugitive'
-Plug 'kablamo/vim-git-log'
+Plug 'kablamo/vim-git-log', { 'on': 'GitLog' }
 "{{{
 
     nnoremap <silent> <leader>gl :GitLog<cr>
@@ -252,7 +252,7 @@ Plug 'alvan/vim-closetag'
 Plug 'jiangmiao/auto-pairs'
 
 " likes ! but output into a buffer
-Plug 'sjl/clam.vim' 
+Plug 'sjl/clam.vim', { 'on': 'Clam' }
 " {{{
 
   nnoremap !! :!<space>
@@ -272,7 +272,7 @@ Plug 'terryma/vim-multiple-cursors'
 " provides :Rename command
 Plug 'danro/rename.vim'
 
-Plug 'dhruvasagar/vim-table-mode'
+Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeEnable' }
 
 Plug 'airblade/vim-gitgutter' 
 " {{{
@@ -304,7 +304,7 @@ Plug 'junegunn/vim-easy-align'
 
 " }}}
 
-Plug 'thenewvu/vim-plantuml-genin'
+Plug 'thenewvu/vim-plantuml-genin', { 'on': 'PlantUMLGenin' }
 
 " async linting
 Plug 'w0rp/ale' 
@@ -317,17 +317,23 @@ Plug 'w0rp/ale'
     let g:ale_lint_on_text_changed = 0
     let g:ale_lint_on_filetype_changed = 0
     let g:ale_warn_about_trailing_whitespace = 0
+    let g:ale_completion_enabled = 0
 
     let g:ale_set_highlights = 1
     let g:ale_set_signs = 1
-    let g:ale_sign_error = '⚑'
-    let g:ale_sign_warning = '⚑'
+    let g:ale_sign_error = '\ '
+    let g:ale_sign_warning = '\ '
 
     let g:ale_linters = {}
-    let g:ale_fixers = {}
-    let g:ale_linters['c'] = ['clang']
+    let g:ale_linters['c'] = ['clangd']
+    let g:ale_linters['cpp'] = ['clangd']
     let g:ale_linters['markdown'] = ['markdownlint']
-    let g:ale_c_parse_makefile = 1
+
+    let g:ale_fixers = {}
+    let g:ale_fixers['c'] = ['clang-format']
+    let g:ale_c_clangformat_options = '-style=file -assume-filename=file.c'
+    let g:ale_fixers['cpp'] = ['clang-format']
+    let g:ale_cpp_clangformat_options = '-style=file -assume-filename=file.cpp'
 
     nmap <leader>l :ALEToggle<cr>
     nmap <silent> ]l :call ale#loclist_jumping#Jump('before', 1)<cr>zz
@@ -355,6 +361,52 @@ Plug 'w0rp/ale'
 
 " }}}
 
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'prabirshrestha/asyncomplete-file.vim'
+Plug 'prabirshrestha/asyncomplete-buffer.vim'
+"{{{
+
+    let g:lsp_diagnostics_enabled = 0
+    let g:lsp_preview_keep_focus = 0
+
+    hi link LspErrorText ErrorMsg
+    hi link LspWarningLine WarningMsg
+
+    nmap <leader>ld <plug>(lsp-definition)
+    nmap <leader>li <plug>(lsp-hover)
+    nmap <leader>lR <plug>(lsp-rename)
+    nmap <leader>lf <plug>(lsp-code-action)
+    nmap ]l <plug>(lsp-next-error)
+    nmap [l <plug>(lsp-previous-error)
+
+    augroup ASYNCOMPLETE
+        au!
+        au User lsp_setup call lsp#register_server({
+            \ 'name': 'clangd',
+            \ 'cmd': {server_info->['clangd']},
+            \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
+            \ })
+        au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
+            \ 'name': 'file',
+            \ 'whitelist': ['*'],
+            \ 'priority': 10,
+            \ 'completor': function('asyncomplete#sources#file#completor')
+            \ }))
+        au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
+            \ 'name': 'buffer',
+            \ 'whitelist': ['*'],
+            \ 'blacklist': ['c', 'cpp', 'objc', 'objcpp'],
+            \ 'completor': function('asyncomplete#sources#buffer#completor'),
+            \ }))
+
+        au FileType *.lsp-hover nnoremap <buffer><esc> :pclose<cr>
+    augroup END
+
+"}}}
+
 Plug 'Yggdroot/indentLine' 
 " {{{
 
@@ -378,7 +430,7 @@ Plug 'thenewvu/vim-colors-blueprint'
 
 " }}}
 
-Plug 'chrisbra/Colorizer' 
+Plug 'chrisbra/Colorizer', { 'on': 'ColorHighlight' }
 
 " Workaround for issue:
 " https://github.com/neovim/neovim/issues/1822
@@ -390,7 +442,7 @@ Plug 'bfredl/nvim-miniyank'
 
 " }}}
 
-Plug 'simnalamburt/vim-mundo' 
+Plug 'simnalamburt/vim-mundo', { 'on': 'MundoToggle' }
 " {{{
 
   let g:mundo_width = 120
@@ -425,14 +477,7 @@ Plug 'ap/vim-buftabline'
 
 " }}}
 
-Plug 'rhysd/vim-clang-format' 
-" {{{
-
-    let g:clang_format#auto_format = 1
-
-" }}}
-
-Plug 'jreybert/vimagit' 
+Plug 'jreybert/vimagit', { 'on': 'MagitOnly' }
 " {{{
 
     nnoremap <leader>gc :MagitOnly<cr>
@@ -471,7 +516,7 @@ Plug 'plasticboy/vim-markdown'
 
 " }}}
 
-Plug 'skywind3000/asyncrun.vim' 
+Plug 'skywind3000/asyncrun.vim', { 'on': 'AsyncRun' }
 " {{{
 
     let g:asyncrun_open = 8
@@ -496,7 +541,7 @@ Plug 'easymotion/vim-easymotion'
 
 " }}}
 
-Plug 'brooth/far.vim'
+Plug 'brooth/far.vim', { 'on': 'Far' }
 " {{{
 
     nnoremap <leader>F :Far 
@@ -510,28 +555,6 @@ Plug 'brooth/far.vim'
     hi def link FarReplaceVal DiffAdd
     hi def link FarReplacedItem DiffAdd
     hi def link FarExcludedItem Comment
-
-" }}}
-
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'Shougo/deoplete-clangx'
-Plug 'Shougo/neoinclude.vim'
-" {{{
-
-    set runtimepath+=~/.config/nvim/plugged/deoplete.nvim
-
-    let g:deoplete#enable_at_startup = 1
-
-    call deoplete#custom#option('sources', {
-    \ '_': ['buffer', 'file/include'],
-    \ 'cpp': ['clangx', 'file/include'],
-    \ 'c': ['clangx', 'file/include']
-    \})
-
-    call deoplete#custom#source('clangx', 'clang_binary', '/usr/bin/clang')
-    call deoplete#custom#source('clangx', 'rank', 9999)
-    call deoplete#custom#source('clangx', 'default_c_options', '-std=c11 -Wall')
-    call deoplete#custom#source('clangx', 'default_cpp_options', '-Wall')
 
 " }}}
 
