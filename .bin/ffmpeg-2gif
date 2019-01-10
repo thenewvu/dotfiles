@@ -1,0 +1,12 @@
+#!/bin/bash
+
+INP="$1"
+
+FILENAME="$(BASENAME -- "$INP")"
+EXTENSION="${FILENAME##*.}"
+BASENAME="${FILENAME%.*}"
+
+OUT="./$BASENAME.gif"
+echo "Converting $INP -> $OUT"
+
+ffmpeg -i "$INP" -pix_fmt pal8 "$OUT"

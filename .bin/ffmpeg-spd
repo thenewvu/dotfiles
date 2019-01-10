@@ -1,0 +1,13 @@
+#!/bin/bash
+
+INP="$1"
+SPD="$2"
+
+FILENAME="$(BASENAME -- "$INP")"
+EXTENSION="${FILENAME##*.}"
+BASENAME="${FILENAME%.*}"
+
+OUT="./$BASENAME.x$SPD.$EXTENSION"
+echo "Converting $INP -> $OUT"
+
+ffmpeg -i "$INP" -filter:v "setpts=$SPD*PTS" "$OUT"

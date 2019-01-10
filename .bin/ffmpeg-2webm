@@ -1,0 +1,12 @@
+#!/bin/bash
+
+INP="$1"
+
+FILENAME="$(BASENAME -- "$INP")"
+EXTENSION="${FILENAME##*.}"
+BASENAME="${FILENAME%.*}"
+
+OUT="./$BASENAME.webm"
+echo "Converting $INP -> $OUT"
+
+ffmpeg -i "$INP" -c:v libvpx-vp9 -deadline realtime -cpu-used -8 -crf 12 -b:v 500K "$OUT"
