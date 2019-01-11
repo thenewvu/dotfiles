@@ -40,6 +40,7 @@ set lazyredraw
 set synmaxcol=320
 set diffopt+=algorithm:histogram,iwhiteall,iblank,iwhiteeol
 set nolist listchars=tab:\│\ ,trail:␣
+set shortmess+=c
 
 " Set %% to the dir that contains the current file
 " http://vim.wikia.com/wiki/Easy_edit_of_files_in_the_same_directory
@@ -557,6 +558,8 @@ Plug 'brooth/far.vim', { 'on': 'Far' }
     hi def link FarExcludedItem Comment
 
 " }}}
+
+Plug 'sakhnik/nvim-gdb', { 'branch': 'legacy' }
 
 call plug#end()
 
