@@ -196,14 +196,14 @@ vnoremap <silent> # :<C-U>
 call plug#begin('~/.config/nvim/plugged')
 
 " improved javascript syntax
-" Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 
 " jsx syntax
-" Plug 'MaxMEllon/vim-jsx-pretty', { 'for': 'javascript' } 
+Plug 'MaxMEllon/vim-jsx-pretty', { 'for': 'javascript' } 
 " {{{
 
-  hi! link jsxCloseTag jsxTag
-  hi! link jsxCloseString jsxTag
+    hi! link jsxCloseTag jsxTag
+    hi! link jsxCloseString jsxTag
 
 " }}}
 
@@ -219,7 +219,6 @@ Plug 'junegunn/fzf.vim'
   nnoremap <leader>p :FZF<cr>
   " fuzzy search text in the current buffer
   nnoremap <leader>r :BLines<cr>
-  nnoremap <leader>g :Lines<cr>
 
   augroup FZF
     au!
@@ -305,14 +304,13 @@ Plug 'junegunn/vim-easy-align'
 
 " }}}
 
-Plug 'thenewvu/vim-plantuml-genin', { 'on': 'PlantUMLGenin' }
-
 " async linting
 Plug 'w0rp/ale' 
 " {{{
 
     let g:ale_fix_on_save = 1
-    let g:ale_open_list = 0
+    let g:ale_open_list = 1
+    let g:ale_set_loclist = 1
     let g:ale_lint_on_save = 1
     let g:ale_lint_on_enter = 0
     let g:ale_lint_on_text_changed = 0
@@ -335,6 +333,7 @@ Plug 'w0rp/ale'
     let g:ale_c_clangformat_options = '-style=file -assume-filename=file.c'
     let g:ale_fixers['cpp'] = ['clang-format']
     let g:ale_cpp_clangformat_options = '-style=file -assume-filename=file.cpp'
+    let g:ale_fixers['javascript'] = ['prettier']
 
     nmap <leader>l :ALEToggle<cr>
     nmap <silent> ]l :call ale#loclist_jumping#Jump('before', 1)<cr>zz
@@ -342,8 +341,8 @@ Plug 'w0rp/ale'
 
     hi link ALEError       ErrorMsg
     hi link ALEErrorSign   ErrorMsg
-    hi link ALEWarning     ErrorMsg
-    hi link ALEWarningSign ErrorMsg
+    hi link ALEWarning     WarningMsg
+    hi link ALEWarningSign WarningMsg
 
     function! LinterStatus() abort
         let l:counts = ale#statusline#Count(bufnr(''))
@@ -367,7 +366,6 @@ Plug 'prabirshrestha/vim-lsp'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'prabirshrestha/asyncomplete-file.vim'
-Plug 'prabirshrestha/asyncomplete-buffer.vim'
 "{{{
 
     let g:lsp_diagnostics_enabled = 0
@@ -395,12 +393,6 @@ Plug 'prabirshrestha/asyncomplete-buffer.vim'
             \ 'whitelist': ['*'],
             \ 'priority': 10,
             \ 'completor': function('asyncomplete#sources#file#completor')
-            \ }))
-        au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
-            \ 'name': 'buffer',
-            \ 'whitelist': ['*'],
-            \ 'blacklist': ['c', 'cpp', 'objc', 'objcpp'],
-            \ 'completor': function('asyncomplete#sources#buffer#completor'),
             \ }))
 
         au FileType *.lsp-hover nnoremap <buffer><esc> :pclose<cr>
@@ -430,8 +422,6 @@ Plug 'thenewvu/vim-colors-blueprint'
   colorscheme blueprint
 
 " }}}
-
-Plug 'chrisbra/Colorizer', { 'on': 'ColorHighlight' }
 
 " Workaround for issue:
 " https://github.com/neovim/neovim/issues/1822
@@ -535,31 +525,32 @@ Plug 'skywind3000/asyncrun.vim', { 'on': 'AsyncRun' }
 
 Plug 'ap/vim-readdir'
 
-Plug 'easymotion/vim-easymotion' 
-" {{{
-
-    nmap f <Plug>(easymotion-overwin-f)
-
-" }}}
-
 Plug 'brooth/far.vim', { 'on': 'Far' }
 " {{{
 
-    nnoremap <leader>F :Far 
+    nnoremap <leader>s :Far 
 
     let g:far#source = 'rgnvim'
     let g:far#window_layout = 'current'
-    let g:far#file_mask_favorites = ['c','h']
+    let g:far#file_mask_favorites = ['c','cpp','js']
     let g:far#collapse_result = 1
+    let g:far#auto_preview = 0
 
-    hi def link FarSearchVal DiffDelete
+    hi def link FarSearchVal DiffText
     hi def link FarReplaceVal DiffAdd
     hi def link FarReplacedItem DiffAdd
     hi def link FarExcludedItem Comment
 
 " }}}
 
-Plug 'sakhnik/nvim-gdb', { 'branch': 'legacy' }
+Plug 'sakhnik/nvim-gdb', { 'branch': 'legacy', 'on': ['GdbStart', 'GdbStartLLDB'] }
+
+Plug 'easymotion/vim-easymotion'
+" {{{
+
+    nmap f <Plug>(easymotion-prefix)
+
+" }}}
 
 call plug#end()
 
