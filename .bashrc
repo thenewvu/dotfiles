@@ -63,6 +63,7 @@ export PATH="$GEM_HOME/ruby/2.3.0/bin:$PATH"
 export GREP_OPTIONS='--ignore-case --color=auto'
 export CLICOLOR=1
 
+export FZF_COMPLETION_TRIGGER='``'
 export FZF_DEFAULT_OPTS="--height=40% --color=bw --reverse"
 export FZF_DEFAULT_COMMAND="rg --files --hidden --follow  --glob '!.git/*'"
 export FZF_CTRL_T_COMMAND="rg --files --hidden --follow  --glob '!.git/*'"
@@ -96,14 +97,14 @@ export LDFLAGS="-L/usr/local/opt/llvm/lib -Wl,-rpath,/usr/local/opt/llvm/lib"
 # Command history {{{
 
 # Increase the size of history maintained by BASH
-export HISTFILESIZE=10000
+export HISTFILESIZE=1000
 export HISTSIZE=${HISTFILESIZE}
 # Use leading space to hide commands from history:
 export HISTCONTROL=ignorespace:ignoredups:erasedups
 # When the shell exits, append to the history file instead of overwriting it
 shopt -s histappend
 # Ensure syncing (flushing and reloading) of .bash_history with in-memory history:
-export PROMPT_COMMAND="history -a; history -c; history -r;${PROMPT_COMMAND}"
+export PROMPT_COMMAND="history -n; history -w; history -c; history -r; $PROMPT_COMMAND"
 
 # }}}
 
