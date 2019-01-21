@@ -1,0 +1,12 @@
+#!/bin/bash
+
+INP="$1"
+OUT=`
+    curl -sS -N "https://dict.laban.vn/ajax/autocomplete?type=1&site=dictionary&query=$INP" --compressed | \
+    jq -r '.suggestions[] | .data' | \
+    sed -e 's/<img[^>]*>//g' | \
+    w3m -dump -T text/html \
+`
+
+echo "$OUT"
+

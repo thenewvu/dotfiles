@@ -1,0 +1,10 @@
+#!/bin/bash
+
+INP="$1"
+OUT=`
+    curl -sS -N "https://relatedwords.org/api/related?term=$INP" --compressed | \
+    jq -r ".[] | .word" | \
+    head -n 40 \
+`
+
+echo "$OUT"
