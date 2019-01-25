@@ -28,19 +28,10 @@ done
 
 # Prompt line {{{
 
-function prompt_right() {
-  echo -e "\033[0;00m\\\t\033[0m"
-}
-
-function prompt_left() {
-  echo -e "\033[0;00m\u@\h:\w\033[0m"
-}
-
+# ref: https://superuser.com/a/517110
 function prompt() {
-  printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' ┄
-  printf "\e]2;%s\a" "${PWD##*/}"
-  compensate=5
-  PS1=$(printf "%*s\r%s\n\$ " "$(($(tput cols)+${compensate}))" "$(prompt_right)" "$(prompt_left)")
+    printf "\e]2;%s\a" "${PWD##*/}"
+    PS1=$(printf "\e[40m%*s\r%s\e[0m\n\$ " "$(($(tput cols)-6))" "\t" "\u@\h:\w")
 }
 
 PROMPT_COMMAND=prompt
