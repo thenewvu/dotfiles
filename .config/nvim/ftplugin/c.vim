@@ -11,7 +11,7 @@ setlocal cinoptions+=j1
 setlocal cinoptions+=J1
 setlocal cinoptions+=m1
 setlocal cinoptions+=(s
-setlocal cinoptions+={s
+setlocal cinoptions+={0
 
 let g:c_no_if0 = 0
 let g:c_no_utf = 0

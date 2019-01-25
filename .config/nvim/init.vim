@@ -4,7 +4,6 @@
 
 set nobackup nowritebackup noswapfile
 set undofile undolevels=500 undoreload=500
-set splitright
 set confirm " ask to confirm closing an unsaved file
 set hidden " switch between buffers without saving
 set completeopt=menu,menuone,noselect,noinsert
@@ -41,6 +40,7 @@ set synmaxcol=320
 set diffopt+=algorithm:histogram,iwhiteall,iblank,iwhiteeol
 set nolist listchars=tab:\│\ ,trail:␣
 set shortmess+=c
+set splitbelow splitright
 
 " Set %% to the dir that contains the current file
 " http://vim.wikia.com/wiki/Easy_edit_of_files_in_the_same_directory
@@ -104,32 +104,30 @@ augroup All
     au BufRead,BufNewFile *.MD       set filetype=markdown
 
     au TermOpen * setlocal signcolumn=no
+    au TermOpen * startinsert
+
+    autocmd BufWinEnter,WinEnter term://* startinsert
+    autocmd BufLeave term://* stopinsert
 augroup END
 
 " }}}
 
 " Keys {{{
 
-let g:mapleader = ";"
-let g:maplocalleader = "\\"
-
 " write current file with sudo
 cmap w! w !sudo tee > /dev/null %
-
-nnoremap <leader>e :e 
+nnoremap <A-e> :e 
 " clear searching
-nnoremap ; :noh<CR>:<backspace>
-" close current tab
-nnoremap <leader>q :bp<bar>sp<bar>bn<bar>bd<cr>
-nnoremap H :bprev<cr>
-nnoremap L :bnext<cr>
-
+nnoremap ? :noh<CR>:<backspace>
+" close current buffer without closing the current window
+nnoremap <A-q> :bp<bar>sp<bar>bn<bar>bd<cr>
+" close current window
+nnoremap <A-w> :close<cr>
+" close current buffer without closing the current window
+tnoremap <A-q> <C-\><C-N>:bp<bar>sp<bar>bn<bar>bd<cr>
 nnoremap <f2> :e ~/.config/nvim/init.vim<cr>
 " reload current file and redraw
 nnoremap <f5> :edit<cr>:redraw<cr>
-" <ecs> to escape temrinal mode
-tnoremap <esc> <C-\><C-n>
-
 " no more Ex mode
 nnoremap Q <nop>
 " jump to begin/end of a line
@@ -154,27 +152,32 @@ nnoremap J i<enter><esc>
 nnoremap K J
 " redo
 nnoremap U <c-r>zz
-" navigate between splits
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
-tnoremap <C-h> <C-w>h
-tnoremap <C-j> <C-w>j
-tnoremap <C-k> <C-w>k
-tnoremap <C-l> <C-w>l
-inoremap <C-h> <C-w>h
-inoremap <C-j> <C-w>j
-inoremap <C-k> <C-w>k
-inoremap <C-l> <C-w>l
+" navigate between splits and buffers
+tnoremap <A-h> <C-\><C-N><C-w>h
+tnoremap <A-j> <C-\><C-N><C-w>j
+tnoremap <A-k> <C-\><C-N><C-w>k
+tnoremap <A-l> <C-\><C-N><C-w>l
+inoremap <A-h> <C-w>h
+inoremap <A-j> <C-w>j
+inoremap <A-k> <C-w>k
+inoremap <A-l> <C-w>l
+nnoremap <A-h> <C-w>h
+nnoremap <A-j> <C-w>j
+nnoremap <A-k> <C-w>k
+nnoremap <A-l> <C-w>l
+" exit terminal mode
+tnoremap <A-;> <C-\><C-n>
 " move left/right one indent
 nnoremap > >>
 nnoremap < <<
 vnoremap < <gv
 vnoremap > >gv
-
-nnoremap ` <C-^>
-nnoremap <tab> <C-o>
+" open terminal
+nnoremap <A-t> :term<cr>
+" split vertically
+nnoremap <A-\> :vsplit<cr>
+" split horizontally
+nnoremap <A--> :split<cr>
 
 " Search selecting
 " Ref: http://vim.wikia.com/wiki/Search_for_visually_selected_text<Paste>
@@ -216,9 +219,11 @@ Plug 'junegunn/fzf.vim'
 " {{{
 
   " quick open files by name with fuzzy autocompletion
-  nnoremap <leader>p :FZF<cr>
+  nnoremap <A-o> :FZF<cr>
+  tnoremap <A-o> <C-\><C-N>:FZF<cr>
   " fuzzy search text in the current buffer
-  nnoremap <leader>r :BLines<cr>
+  nnoremap <A-f> :BLines<cr>
+  tnoremap <A-f> <C-\><C-N>:BLines<cr>
 
   augroup FZF
     au!
@@ -228,14 +233,6 @@ Plug 'junegunn/fzf.vim'
   augroup end
 
 " }}}
-
-Plug 'tpope/vim-fugitive'
-Plug 'kablamo/vim-git-log', { 'on': 'GitLog' }
-"{{{
-
-    nnoremap <silent> <leader>gl :GitLog<cr>
-
-"}}}
 
 " wb word by word
 Plug 'chaoren/vim-wordmotion' 
@@ -250,16 +247,6 @@ Plug 'alvan/vim-closetag'
 
 " auto add )}]'" after ({['"
 Plug 'jiangmiao/auto-pairs'
-
-" likes ! but output into a buffer
-Plug 'sjl/clam.vim', { 'on': 'Clam' }
-" {{{
-
-  nnoremap !! :!<space>
-  nnoremap ! :Clam<space>
-  vnoremap ! :ClamVisual<space>
-
-" }}}
 
 Plug 'terryma/vim-multiple-cursors' 
 " {{{
@@ -292,8 +279,6 @@ Plug 'airblade/vim-gitgutter'
   hi link GitGutterChange DiffText
   hi link GitGutterChangeDelete DiffText
   hi link GitGutterDelete DiffDelete
-
-  nmap <leader>gd :call gitgutter#toggle()<cr>
 
 " }}}
 
@@ -335,10 +320,6 @@ Plug 'w0rp/ale'
     let g:ale_cpp_clangformat_options = '-style=file -assume-filename=file.cpp'
     let g:ale_fixers['javascript'] = ['prettier']
 
-    nmap <leader>l :ALEToggle<cr>
-    nmap <silent> ]l :call ale#loclist_jumping#Jump('before', 1)<cr>zz
-    nmap <silent> [l :call ale#loclist_jumping#Jump('after', 1)<cr>zz
-
     hi link ALEError       ErrorMsg
     hi link ALEErrorSign   ErrorMsg
     hi link ALEWarning     WarningMsg
@@ -373,13 +354,6 @@ Plug 'prabirshrestha/asyncomplete-file.vim'
 
     hi link LspErrorText ErrorMsg
     hi link LspWarningLine WarningMsg
-
-    nmap <leader>ld <plug>(lsp-definition)
-    nmap <leader>li <plug>(lsp-hover)
-    nmap <leader>lR <plug>(lsp-rename)
-    nmap <leader>lf <plug>(lsp-code-action)
-    nmap ]l <plug>(lsp-next-error)
-    nmap [l <plug>(lsp-previous-error)
 
     augroup ASYNCOMPLETE
         au!
@@ -439,8 +413,6 @@ Plug 'simnalamburt/vim-mundo', { 'on': 'MundoToggle' }
   let g:mundo_width = 120
   let g:mundo_preview_height = 20
   
-  nnoremap <leader>u :MundoToggle<cr>
-
 " }}}
 
 " provides a buffer line which looks like the tab line
@@ -450,28 +422,32 @@ Plug 'ap/vim-buftabline'
     let g:buftabline_indicators = 1
     let g:buftabline_numbers = 2
 
-    nmap <leader>1 <Plug>BufTabLine.Go(1)
-    nmap <leader>2 <Plug>BufTabLine.Go(2)
-    nmap <leader>3 <Plug>BufTabLine.Go(3)
-    nmap <leader>4 <Plug>BufTabLine.Go(4)
-    nmap <leader>5 <Plug>BufTabLine.Go(5)
-    nmap <leader>6 <Plug>BufTabLine.Go(6)
-    nmap <leader>7 <Plug>BufTabLine.Go(7)
-    nmap <leader>8 <Plug>BufTabLine.Go(8)
-    nmap <leader>9 <Plug>BufTabLine.Go(9)
-    nmap <leader>0 <Plug>BufTabLine.Go(10)
+    nmap <A-1> <Plug>BufTabLine.Go(1)
+    nmap <A-2> <Plug>BufTabLine.Go(2)
+    nmap <A-3> <Plug>BufTabLine.Go(3)
+    nmap <A-4> <Plug>BufTabLine.Go(4)
+    nmap <A-5> <Plug>BufTabLine.Go(5)
+    nmap <A-6> <Plug>BufTabLine.Go(6)
+    nmap <A-7> <Plug>BufTabLine.Go(7)
+    nmap <A-8> <Plug>BufTabLine.Go(8)
+    nmap <A-9> <Plug>BufTabLine.Go(9)
+    nmap <A-0> <Plug>BufTabLine.Go(10)
+    tmap <A-1> <C-\><C-n><Plug>BufTabLine.Go(1)
+    tmap <A-2> <C-\><C-n><Plug>BufTabLine.Go(2)
+    tmap <A-3> <C-\><C-n><Plug>BufTabLine.Go(3)
+    tmap <A-4> <C-\><C-n><Plug>BufTabLine.Go(4)
+    tmap <A-5> <C-\><C-n><Plug>BufTabLine.Go(5)
+    tmap <A-6> <C-\><C-n><Plug>BufTabLine.Go(6)
+    tmap <A-7> <C-\><C-n><Plug>BufTabLine.Go(7)
+    tmap <A-8> <C-\><C-n><Plug>BufTabLine.Go(8)
+    tmap <A-9> <C-\><C-n><Plug>BufTabLine.Go(9)
+    tmap <A-0> <C-\><C-n><Plug>BufTabLine.Go(10)
+
 
     hi! link BufTabLineCurrent   TablineSel
     hi! link BufTabLineActive    TablineSel
     hi! link BufTabLineHidden    Tabline
     hi! link BufTabLineFill      TablineFill
-
-" }}}
-
-Plug 'jreybert/vimagit', { 'on': 'MagitOnly' }
-" {{{
-
-    nnoremap <leader>gc :MagitOnly<cr>
 
 " }}}
 
@@ -509,29 +485,20 @@ Plug 'plasticboy/vim-markdown'
 
 Plug 'skywind3000/asyncrun.vim', { 'on': 'AsyncRun' }
 " {{{
+    let g:asyncrun_open = 10
 
-    let g:asyncrun_open = 8
-
-    nnoremap <leader>b :call AsyncMake()<cr>
-    nnoremap <leader>f :AsyncRun rg --vimgrep 
-
-    function! AsyncMake()
-        exec ':AsyncStop'
-        sleep 1000m
-        exec ':AsyncRun make -j8'
-    endfunction
+    nnoremap <A-m> :AsyncRun make -j8<cr>
+    nnoremap <A-s> :AsyncRun! rg --vimgrep 
 
 " }}}
-
-Plug 'ap/vim-readdir'
 
 Plug 'brooth/far.vim', { 'on': 'Far' }
 " {{{
 
-    nnoremap <leader>s :Far 
+    nnoremap <A-r> :Far 
 
     let g:far#source = 'rgnvim'
-    let g:far#window_layout = 'current'
+    let g:far#window_layout = 'bottom'
     let g:far#file_mask_favorites = ['c','cpp','js']
     let g:far#collapse_result = 1
     let g:far#auto_preview = 0
@@ -543,12 +510,11 @@ Plug 'brooth/far.vim', { 'on': 'Far' }
 
 " }}}
 
-Plug 'sakhnik/nvim-gdb', { 'branch': 'legacy', 'on': ['GdbStart', 'GdbStartLLDB'] }
-
 Plug 'easymotion/vim-easymotion'
 " {{{
 
     nmap f <Plug>(easymotion-prefix)
+    vmap f <Plug>(easymotion-prefix)
 
 " }}}
 
