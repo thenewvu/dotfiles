@@ -118,11 +118,11 @@ augroup END
 cmap w! w !sudo tee > /dev/null %
 nnoremap ;; :
 " close current buffer without closing the current window
-nnoremap <C-x> :bp<bar>sp<bar>bn<bar>bd<cr>
+nnoremap <A-q> :bp<bar>sp<bar>bn<bar>bd<cr>
 " close current window
-nnoremap <C-w> :close<cr>
+nnoremap <A-w> :close<cr>
 " close current buffer without closing the current window
-tnoremap <C-x> <C-\><C-N>:bp<bar>sp<bar>bn<bar>bd<cr>
+tnoremap <A-q> <C-\><C-N>:bp<bar>sp<bar>bn<bar>bd<cr>
 nnoremap <f2> :e ~/.config/nvim/init.vim<cr>
 " reload current file and redraw
 nnoremap <f5> :edit<cr>:redraw<cr>
@@ -151,31 +151,31 @@ nnoremap K J
 " redo
 nnoremap U <c-r>zz
 " navigate between splits and buffers
-tnoremap <C-h> <C-\><C-N><C-w>h
-tnoremap <C-j> <C-\><C-N><C-w>j
-tnoremap <C-k> <C-\><C-N><C-w>k
-tnoremap <C-l> <C-\><C-N><C-w>l
-inoremap <C-h> <C-w>h
-inoremap <C-j> <C-w>j
-inoremap <C-k> <C-w>k
-inoremap <C-l> <C-w>l
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
+tnoremap <A-h> <C-\><C-N><C-w>h
+tnoremap <A-j> <C-\><C-N><C-w>j
+tnoremap <A-k> <C-\><C-N><C-w>k
+tnoremap <A-l> <C-\><C-N><C-w>l
+inoremap <A-h> <C-w>h
+inoremap <A-j> <C-w>j
+inoremap <A-k> <C-w>k
+inoremap <A-l> <C-w>l
+nnoremap <A-h> <C-w>h
+nnoremap <A-j> <C-w>j
+nnoremap <A-k> <C-w>k
+nnoremap <A-l> <C-w>l
 " exit terminal mode
-tnoremap <C-v> <C-\><C-n>
+tnoremap <A-v> <C-\><C-n>
 " move left/right one indent
 nnoremap > >>
 nnoremap < <<
 vnoremap < <gv
 vnoremap > >gv
 " open terminal
-nnoremap <C-t> :term<cr>
+nnoremap <A-t> :term<cr>
 " split vertically
-nnoremap <C-\> :vsplit<cr>
+nnoremap <A-\> :vsplit<cr>
 " split horizontally
-nnoremap <C--> :split<cr>
+nnoremap <A--> :split<cr>
 
 " Search selecting
 " Ref: http://vim.wikia.com/wiki/Search_for_visually_selected_text<Paste>
@@ -217,11 +217,10 @@ Plug 'junegunn/fzf.vim'
 " {{{
 
   " quick open files by name with fuzzy autocompletion
-  nnoremap <C-o> :FZF<cr>
-  tnoremap <C-o> <C-\><C-N>:FZF<cr>
+  nnoremap <tab> :FZF<cr>
+  tnoremap <tab> <C-\><C-N>:FZF<cr>
   " fuzzy search text in the current buffer
-  nnoremap <C-i> :BLines<cr>
-  tnoremap <C-i> <C-\><C-N>:BLines<cr>
+  nnoremap <A-tab> :BLines<cr>
 
   augroup FZF
     au!
@@ -419,26 +418,26 @@ Plug 'ap/vim-buftabline'
     let g:buftabline_indicators = 1
     let g:buftabline_numbers = 2
 
-    nmap <C-1> <Plug>BufTabLine.Go(1)
-    nmap <C-2> <Plug>BufTabLine.Go(2)
-    nmap <C-3> <Plug>BufTabLine.Go(3)
-    nmap <C-4> <Plug>BufTabLine.Go(4)
-    nmap <C-5> <Plug>BufTabLine.Go(5)
-    nmap <C-6> <Plug>BufTabLine.Go(6)
-    nmap <C-7> <Plug>BufTabLine.Go(7)
-    nmap <C-8> <Plug>BufTabLine.Go(8)
-    nmap <C-9> <Plug>BufTabLine.Go(9)
-    nmap <C-0> <Plug>BufTabLine.Go(10)
-    tmap <C-1> <C-\><C-n><Plug>BufTabLine.Go(1)
-    tmap <C-2> <C-\><C-n><Plug>BufTabLine.Go(2)
-    tmap <C-3> <C-\><C-n><Plug>BufTabLine.Go(3)
-    tmap <C-4> <C-\><C-n><Plug>BufTabLine.Go(4)
-    tmap <C-5> <C-\><C-n><Plug>BufTabLine.Go(5)
-    tmap <C-6> <C-\><C-n><Plug>BufTabLine.Go(6)
-    tmap <C-7> <C-\><C-n><Plug>BufTabLine.Go(7)
-    tmap <C-8> <C-\><C-n><Plug>BufTabLine.Go(8)
-    tmap <C-9> <C-\><C-n><Plug>BufTabLine.Go(9)
-    tmap <C-0> <C-\><C-n><Plug>BufTabLine.Go(10)
+    nmap <A-1> <Plug>BufTabLine.Go(1)
+    nmap <A-2> <Plug>BufTabLine.Go(2)
+    nmap <A-3> <Plug>BufTabLine.Go(3)
+    nmap <A-4> <Plug>BufTabLine.Go(4)
+    nmap <A-5> <Plug>BufTabLine.Go(5)
+    nmap <A-6> <Plug>BufTabLine.Go(6)
+    nmap <A-7> <Plug>BufTabLine.Go(7)
+    nmap <A-8> <Plug>BufTabLine.Go(8)
+    nmap <A-9> <Plug>BufTabLine.Go(9)
+    nmap <A-0> <Plug>BufTabLine.Go(10)
+    tmap <A-1> <C-\><C-n><Plug>BufTabLine.Go(1)
+    tmap <A-2> <C-\><C-n><Plug>BufTabLine.Go(2)
+    tmap <A-3> <C-\><C-n><Plug>BufTabLine.Go(3)
+    tmap <A-4> <C-\><C-n><Plug>BufTabLine.Go(4)
+    tmap <A-5> <C-\><C-n><Plug>BufTabLine.Go(5)
+    tmap <A-6> <C-\><C-n><Plug>BufTabLine.Go(6)
+    tmap <A-7> <C-\><C-n><Plug>BufTabLine.Go(7)
+    tmap <A-8> <C-\><C-n><Plug>BufTabLine.Go(8)
+    tmap <A-9> <C-\><C-n><Plug>BufTabLine.Go(9)
+    tmap <A-0> <C-\><C-n><Plug>BufTabLine.Go(10)
 
 
     hi! link BufTabLineCurrent   TablineSel
@@ -485,15 +484,15 @@ Plug 'skywind3000/asyncrun.vim', { 'on': 'AsyncRun' }
     let g:asyncrun_open = 10
 
     nnoremap ! :AsyncRun<space>
-    nnoremap <C-b> :AsyncRun make -j8<cr>
-    nnoremap <C-f> :AsyncRun! rg --vimgrep 
+    nnoremap <A-b> :AsyncRun make -j8<cr>
+    nnoremap <A-f> :AsyncRun! rg --vimgrep 
 
 " }}}
 
 Plug 'brooth/far.vim', { 'on': 'Far' }
 " {{{
 
-    nnoremap <C-r> :Far 
+    nnoremap <A-r> :Far 
 
     let g:far#source = 'rgnvim'
     let g:far#window_layout = 'bottom'
