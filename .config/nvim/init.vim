@@ -116,15 +116,13 @@ augroup END
 
 " write current file with sudo
 cmap w! w !sudo tee > /dev/null %
-nnoremap <A-e> :e 
-" clear searching
-nnoremap ? :noh<CR>:<backspace>
+nnoremap ;; :
 " close current buffer without closing the current window
-nnoremap <A-q> :bp<bar>sp<bar>bn<bar>bd<cr>
+nnoremap <C-x> :bp<bar>sp<bar>bn<bar>bd<cr>
 " close current window
-nnoremap <A-w> :close<cr>
+nnoremap <C-w> :close<cr>
 " close current buffer without closing the current window
-tnoremap <A-q> <C-\><C-N>:bp<bar>sp<bar>bn<bar>bd<cr>
+tnoremap <C-x> <C-\><C-N>:bp<bar>sp<bar>bn<bar>bd<cr>
 nnoremap <f2> :e ~/.config/nvim/init.vim<cr>
 " reload current file and redraw
 nnoremap <f5> :edit<cr>:redraw<cr>
@@ -135,8 +133,8 @@ nnoremap B ^
 nnoremap E $
 vnoremap B ^
 vnoremap E $
-" unfold and fold others
-nnoremap <space> zxzMzvzz
+" unfold only the current block and remove search hl
+nnoremap <space> zxzMzvzz:noh<CR>:<backspace>
 " vertical center movement
 nnoremap G Gzz
 vnoremap G Gzz
@@ -153,31 +151,31 @@ nnoremap K J
 " redo
 nnoremap U <c-r>zz
 " navigate between splits and buffers
-tnoremap <A-h> <C-\><C-N><C-w>h
-tnoremap <A-j> <C-\><C-N><C-w>j
-tnoremap <A-k> <C-\><C-N><C-w>k
-tnoremap <A-l> <C-\><C-N><C-w>l
-inoremap <A-h> <C-w>h
-inoremap <A-j> <C-w>j
-inoremap <A-k> <C-w>k
-inoremap <A-l> <C-w>l
-nnoremap <A-h> <C-w>h
-nnoremap <A-j> <C-w>j
-nnoremap <A-k> <C-w>k
-nnoremap <A-l> <C-w>l
+tnoremap <C-h> <C-\><C-N><C-w>h
+tnoremap <C-j> <C-\><C-N><C-w>j
+tnoremap <C-k> <C-\><C-N><C-w>k
+tnoremap <C-l> <C-\><C-N><C-w>l
+inoremap <C-h> <C-w>h
+inoremap <C-j> <C-w>j
+inoremap <C-k> <C-w>k
+inoremap <C-l> <C-w>l
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
 " exit terminal mode
-tnoremap <A-;> <C-\><C-n>
+tnoremap <C-v> <C-\><C-n>
 " move left/right one indent
 nnoremap > >>
 nnoremap < <<
 vnoremap < <gv
 vnoremap > >gv
 " open terminal
-nnoremap <A-t> :term<cr>
+nnoremap <C-t> :term<cr>
 " split vertically
-nnoremap <A-\> :vsplit<cr>
+nnoremap <C-\> :vsplit<cr>
 " split horizontally
-nnoremap <A--> :split<cr>
+nnoremap <C--> :split<cr>
 
 " Search selecting
 " Ref: http://vim.wikia.com/wiki/Search_for_visually_selected_text<Paste>
@@ -219,16 +217,15 @@ Plug 'junegunn/fzf.vim'
 " {{{
 
   " quick open files by name with fuzzy autocompletion
-  nnoremap <A-o> :FZF<cr>
-  tnoremap <A-o> <C-\><C-N>:FZF<cr>
+  nnoremap <C-o> :FZF<cr>
+  tnoremap <C-o> <C-\><C-N>:FZF<cr>
   " fuzzy search text in the current buffer
-  nnoremap <A-f> :BLines<cr>
-  tnoremap <A-f> <C-\><C-N>:BLines<cr>
+  nnoremap <C-i> :BLines<cr>
+  tnoremap <C-i> <C-\><C-N>:BLines<cr>
 
   augroup FZF
     au!
-    " <ecs> doesn't close fzf window because it's in terminal mode,
-    " this trick remaps <ecs> in terminal mode to behave normally
+    " <esc> to close fzf window
     au TermOpen term://*FZF tnoremap <silent> <buffer><nowait> <esc> <c-c>
   augroup end
 
@@ -422,26 +419,26 @@ Plug 'ap/vim-buftabline'
     let g:buftabline_indicators = 1
     let g:buftabline_numbers = 2
 
-    nmap <A-1> <Plug>BufTabLine.Go(1)
-    nmap <A-2> <Plug>BufTabLine.Go(2)
-    nmap <A-3> <Plug>BufTabLine.Go(3)
-    nmap <A-4> <Plug>BufTabLine.Go(4)
-    nmap <A-5> <Plug>BufTabLine.Go(5)
-    nmap <A-6> <Plug>BufTabLine.Go(6)
-    nmap <A-7> <Plug>BufTabLine.Go(7)
-    nmap <A-8> <Plug>BufTabLine.Go(8)
-    nmap <A-9> <Plug>BufTabLine.Go(9)
-    nmap <A-0> <Plug>BufTabLine.Go(10)
-    tmap <A-1> <C-\><C-n><Plug>BufTabLine.Go(1)
-    tmap <A-2> <C-\><C-n><Plug>BufTabLine.Go(2)
-    tmap <A-3> <C-\><C-n><Plug>BufTabLine.Go(3)
-    tmap <A-4> <C-\><C-n><Plug>BufTabLine.Go(4)
-    tmap <A-5> <C-\><C-n><Plug>BufTabLine.Go(5)
-    tmap <A-6> <C-\><C-n><Plug>BufTabLine.Go(6)
-    tmap <A-7> <C-\><C-n><Plug>BufTabLine.Go(7)
-    tmap <A-8> <C-\><C-n><Plug>BufTabLine.Go(8)
-    tmap <A-9> <C-\><C-n><Plug>BufTabLine.Go(9)
-    tmap <A-0> <C-\><C-n><Plug>BufTabLine.Go(10)
+    nmap <C-1> <Plug>BufTabLine.Go(1)
+    nmap <C-2> <Plug>BufTabLine.Go(2)
+    nmap <C-3> <Plug>BufTabLine.Go(3)
+    nmap <C-4> <Plug>BufTabLine.Go(4)
+    nmap <C-5> <Plug>BufTabLine.Go(5)
+    nmap <C-6> <Plug>BufTabLine.Go(6)
+    nmap <C-7> <Plug>BufTabLine.Go(7)
+    nmap <C-8> <Plug>BufTabLine.Go(8)
+    nmap <C-9> <Plug>BufTabLine.Go(9)
+    nmap <C-0> <Plug>BufTabLine.Go(10)
+    tmap <C-1> <C-\><C-n><Plug>BufTabLine.Go(1)
+    tmap <C-2> <C-\><C-n><Plug>BufTabLine.Go(2)
+    tmap <C-3> <C-\><C-n><Plug>BufTabLine.Go(3)
+    tmap <C-4> <C-\><C-n><Plug>BufTabLine.Go(4)
+    tmap <C-5> <C-\><C-n><Plug>BufTabLine.Go(5)
+    tmap <C-6> <C-\><C-n><Plug>BufTabLine.Go(6)
+    tmap <C-7> <C-\><C-n><Plug>BufTabLine.Go(7)
+    tmap <C-8> <C-\><C-n><Plug>BufTabLine.Go(8)
+    tmap <C-9> <C-\><C-n><Plug>BufTabLine.Go(9)
+    tmap <C-0> <C-\><C-n><Plug>BufTabLine.Go(10)
 
 
     hi! link BufTabLineCurrent   TablineSel
@@ -487,15 +484,16 @@ Plug 'skywind3000/asyncrun.vim', { 'on': 'AsyncRun' }
 " {{{
     let g:asyncrun_open = 10
 
-    nnoremap <A-m> :AsyncRun make -j8<cr>
-    nnoremap <A-s> :AsyncRun! rg --vimgrep 
+    nnoremap ! :AsyncRun<space>
+    nnoremap <C-b> :AsyncRun make -j8<cr>
+    nnoremap <C-f> :AsyncRun! rg --vimgrep 
 
 " }}}
 
 Plug 'brooth/far.vim', { 'on': 'Far' }
 " {{{
 
-    nnoremap <A-r> :Far 
+    nnoremap <C-r> :Far 
 
     let g:far#source = 'rgnvim'
     let g:far#window_layout = 'bottom'
@@ -507,14 +505,6 @@ Plug 'brooth/far.vim', { 'on': 'Far' }
     hi def link FarReplaceVal DiffAdd
     hi def link FarReplacedItem DiffAdd
     hi def link FarExcludedItem Comment
-
-" }}}
-
-Plug 'easymotion/vim-easymotion'
-" {{{
-
-    nmap f <Plug>(easymotion-prefix)
-    vmap f <Plug>(easymotion-prefix)
 
 " }}}
 
