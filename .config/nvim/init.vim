@@ -164,7 +164,7 @@ nnoremap <A-j> <C-w>j
 nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
 " exit terminal mode
-tnoremap <A-v> <C-\><C-n>
+tnoremap <A-n> <C-\><C-n>
 " move left/right one indent
 nnoremap > >>
 nnoremap < <<
@@ -217,10 +217,9 @@ Plug 'junegunn/fzf.vim'
 " {{{
 
   " quick open files by name with fuzzy autocompletion
-  nnoremap <tab> :FZF<cr>
-  tnoremap <tab> <C-\><C-N>:FZF<cr>
+  nnoremap ` :FZF<cr>
   " fuzzy search text in the current buffer
-  nnoremap <A-tab> :BLines<cr>
+  nnoremap <tab> :BLines<cr>
 
   augroup FZF
     au!
@@ -484,7 +483,7 @@ Plug 'skywind3000/asyncrun.vim', { 'on': 'AsyncRun' }
     let g:asyncrun_open = 10
 
     nnoremap ! :AsyncRun<space>
-    nnoremap <A-b> :AsyncRun make -j8<cr>
+    nnoremap <F8> :AsyncRun make -j8<cr>
     nnoremap <A-f> :AsyncRun! rg --vimgrep 
 
 " }}}
