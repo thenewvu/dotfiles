@@ -281,6 +281,62 @@ Plug 'junegunn/vim-easy-align'
 
 " }}}
 
+" async linting
+Plug 'w0rp/ale' 
+" {{{
+
+    let g:ale_fix_on_save = 1
+    let g:ale_open_list = 0
+    let g:ale_set_loclist = 1
+    let g:ale_lint_on_save = 1
+    let g:ale_lint_on_enter = 0
+    let g:ale_lint_on_text_changed = 0
+    let g:ale_lint_on_filetype_changed = 0
+    let g:ale_warn_about_trailing_whitespace = 0
+    let g:ale_completion_enabled = 0
+
+    let g:ale_set_highlights = 1
+    let g:ale_set_signs = 1
+    let g:ale_sign_error = '\ '
+    let g:ale_sign_warning = '\ '
+
+    let g:ale_linters = {}
+    let g:ale_linters['c'] = ['clangd']
+    let g:ale_linters['cpp'] = ['clangd']
+    let g:ale_linters['markdown'] = ['markdownlint']
+
+    let g:ale_fixers = {}
+    let g:ale_fixers['c'] = ['clang-format']
+    let g:ale_c_clangformat_options = '-style=file -assume-filename=file.c'
+    let g:ale_fixers['cpp'] = ['clang-format']
+    let g:ale_cpp_clangformat_options = '-style=file -assume-filename=file.cpp'
+    let g:ale_fixers['javascript'] = ['prettier']
+
+    hi link ALEError       SpellBad
+    hi link ALEErrorSign   ErrorMsg
+    hi link ALEWarning     SpellLocal
+    hi link ALEWarningSign WarningMsg
+
+    function! LinterStatus() abort
+        let l:counts = ale#statusline#Count(bufnr(''))
+
+        let l:all_errors = l:counts.error + l:counts.style_error
+        let l:all_non_errors = l:counts.total - l:all_errors
+
+        return l:counts.total == 0 ? 'OK' : printf(
+        \   '%dW %dE',
+        \   all_non_errors,
+        \   all_errors
+        \)
+    endfunction
+
+    set statusline+=%=%{LinterStatus()}
+
+    nmap <F7> <Plug>(ale_previous_wrap)
+    nmap <F9> <Plug>(ale_next_wrap)
+
+" }}}
+
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'prabirshrestha/asyncomplete.vim'
@@ -289,21 +345,7 @@ Plug 'prabirshrestha/asyncomplete-file.vim'
 "{{{
 
     let g:asyncomplete_smart_completion = 1
-
-    let g:lsp_diagnostics_echo_cursor = 1
-    let g:lsp_diagnostics_enabled = 1
-
-    let g:lsp_signs_enabled = 1
-    let g:lsp_signs_error = { 'text': '\ ' }
-    let g:lsp_signs_warning = { 'text': '\ ' }
-    let g:lsp_signs_hint = { 'text': '\ ' }
-    let g:lsp_signs_information = { 'text': '\ ' }
-
-    hi link     LspErrorText        ErrorMsg
-    hi clear    LspErrorLine
-
-    hi link     LspWarningText      WarningMsg
-    hi clear    LspWarningLine
+    let g:lsp_diagnostics_enabled = 0
 
     augroup AsyncComplete
         au!
@@ -322,12 +364,8 @@ Plug 'prabirshrestha/asyncomplete-file.vim'
             \ }))
 
         au FileType *.lsp-hover nnoremap <buffer><esc> :pclose<cr>
-
-        au BufWritePost *.h,*.c,*.cpp,*.m,*.mm silent! :LspDocumentFormatSync
     augroup END
 
-    nmap <F7>  :LspPreviousError<cr>
-    nmap <F9>  :LspNextError<cr>
     nmap <F10> <Plug>(lsp-definition)
     nmap <F11> <Plug>(lsp-rename)
     nmap <F12> <Plug>(lsp-code-action)
