@@ -72,28 +72,22 @@ function! FoldText()
 endfunction 
 
 " ref: http://vim.wikia.com/wiki/Faster_loading_of_large_files
-let g:LargeFileThreshold = 1024 * 512 " 512KB
-function! SpeedRead(file)
-  let f=getfsize(expand(a:file))
-  if f > g:LargeFileThreshold || f == -2
+function! OptimizeForLargeFile()
     " no syntax highlighting etc
     set eventignore+=FileType
     " save memory when other file is viewed
-    " setlocal bufhidden=unload
+    setlocal bufhidden=unload
     " is read-only (write with :w new_filename)
-    " setlocal buftype=nowrite
+    setlocal buftype=nowrite
     " no undo possible
-    " setlocal undolevels=-1
-  else
-    set eventignore-=FileType
-  endif
+    setlocal undolevels=-1
 endfunction
 
 augroup All
     au!
 
     " speed up editing large files
-    au BufReadPre * call SpeedRead("<afile>")
+    au BufReadPre * if getfsize(expand("<afile")) > 1024 * 512 | call OptimizeForLargeFile() | endif
 
     " auto resource $MYVIMRC on change
     au BufWritePost $MYVIMRC source %
@@ -113,6 +107,8 @@ augroup END
 " }}}
 
 " Keys {{{
+
+let mapleader = ";"
 
 " write current file with sudo
 cmap w! w !sudo tee > /dev/null %
