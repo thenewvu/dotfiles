@@ -44,7 +44,7 @@ set splitbelow splitright
 
 " Set %% to the dir that contains the current file
 " http://vim.wikia.com/wiki/Easy_edit_of_files_in_the_same_directory
-cabbr <expr> %% expand('%:p:h')
+cabbr <expr> %% fnamemodify(resolve(expand('%:p')), ':h')
 
 function! FoldText()
   let l:start = substitute(getline(v:foldstart), '^\s*', '', '')
