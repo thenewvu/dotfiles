@@ -101,17 +101,6 @@ export PROMPT_COMMAND="history -n; history -w; history -c; history -r; $PROMPT_C
 
 # Aliases {{{
 
-alias gs="git s"
-alias ga="git a"
-alias gai="git ai"
-alias gl="git l"
-alias gc="git c"
-alias gd="git d"
-alias gdc="git dc"
-alias gdw="git dw"
-alias gdcw="git dcw"
-alias gp="git p"
-
 alias yta='youtube-dl -f bestaudio'
 alias ytv='youtube-dl -f "bestvideo[height<=720][ext=webm]+bestaudio[ext=webm]/best" --write-sub --write-auto-sub --sub-lang=en'
 alias mpa='mpv --no-video --ytdl-format="bestaudio,91"'

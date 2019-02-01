@@ -24,16 +24,8 @@
 [mergetool "nvim"]
   cmd = nvim -f -c \"Gvdiff\" \"$MERGED\"
 [alias]
-  s   = status -s
-  l   = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %Cblue<%an>%Creset' --abbrev-commit --date=relative
-  a   = add
-  ai  = add -i -p
-  c   = commit -v
-  d   = diff -w
-  dt  = difftool -w
-  dw  = diff -w --color-words
-  dc  = diff --cached -w
-  dct = difftool --cached -w
-  dcw = diff --cached -w --color-words
-  p   = push
-  clonefast = clone --shallow-submodules --depth=1 -j8 
+  status-short = status -s
+  graph = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %Cblue<%an>%Creset' --abbrev-commit --date=relative
+  add-part = add -i -p
+  commit-visual = commit -v
+  clone-shallow= clone --shallow-submodules --depth=1 -j8 
