@@ -173,6 +173,9 @@ nnoremap <A-\> :vsplit<cr>
 " split horizontally
 nnoremap <A--> :split<cr>
 
+" star search and keep cursor loc
+nmap <silent> * *<C-o>
+
 " Search selecting
 " Ref: http://vim.wikia.com/wiki/Search_for_visually_selected_text<Paste>
 vnoremap <silent> * :<C-U>
