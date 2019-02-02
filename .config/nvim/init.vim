@@ -299,6 +299,8 @@ Plug 'w0rp/ale'
     hi link ALEError       SpellBad
     hi link ALEWarning     SpellLocal
 
+    let g:ale_c_parse_compile_commands = 1
+
     let g:ale_linters = {}
     let g:ale_linters['c'] = ['clangd']
     let g:ale_linters['cpp'] = ['clangd']
