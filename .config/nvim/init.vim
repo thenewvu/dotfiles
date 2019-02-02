@@ -330,6 +330,7 @@ Plug 'w0rp/ale'
 
     nmap <F7> <Plug>(ale_previous_wrap)
     nmap <F9> <Plug>(ale_next_wrap)
+    nmap <F10> <Plug>(ale_go_to_definition)
 
 " }}}
 
@@ -362,7 +363,6 @@ Plug 'prabirshrestha/asyncomplete-file.vim'
         au FileType *.lsp-hover nnoremap <buffer><esc> :pclose<cr>
     augroup END
 
-    nmap <F10> <Plug>(lsp-definition)
     nmap <F11> <Plug>(lsp-rename)
     nmap <F12> <Plug>(lsp-code-action)
 
