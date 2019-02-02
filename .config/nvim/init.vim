@@ -305,9 +305,9 @@ Plug 'w0rp/ale'
     let g:ale_linters['markdown'] = ['markdownlint']
 
     let g:ale_fixers = {}
-    let g:ale_fixers['c'] = ['clang-format']
+    let g:ale_fixers['c'] = ['clang-format', 'trim_whitespace']
     let g:ale_c_clangformat_options = '-style=file -assume-filename=file.c'
-    let g:ale_fixers['cpp'] = ['clang-format']
+    let g:ale_fixers['cpp'] = ['clang-format', 'trim_whitespace']
     let g:ale_cpp_clangformat_options = '-style=file -assume-filename=file.cpp'
     let g:ale_fixers['javascript'] = ['prettier']
 
