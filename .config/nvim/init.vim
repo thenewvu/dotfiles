@@ -295,9 +295,9 @@ Plug 'w0rp/ale'
     let g:ale_completion_enabled = 0
 
     let g:ale_set_highlights = 1
-    let g:ale_set_signs = 1
-    let g:ale_sign_error = '⚐›'
-    let g:ale_sign_warning = '⚐›'
+    let g:ale_set_signs = 0
+    hi link ALEError       SpellBad
+    hi link ALEWarning     SpellLocal
 
     let g:ale_linters = {}
     let g:ale_linters['c'] = ['clangd']
@@ -310,11 +310,6 @@ Plug 'w0rp/ale'
     let g:ale_fixers['cpp'] = ['clang-format']
     let g:ale_cpp_clangformat_options = '-style=file -assume-filename=file.cpp'
     let g:ale_fixers['javascript'] = ['prettier']
-
-    hi link ALEError       SpellBad
-    hi link ALEErrorSign   ErrorMsg
-    hi link ALEWarning     SpellLocal
-    hi link ALEWarningSign WarningMsg
 
     function! LinterStatus() abort
         let l:counts = ale#statusline#Count(bufnr(''))
