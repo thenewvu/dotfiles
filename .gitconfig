@@ -1,31 +1,62 @@
 [user]
-  name = Vu Le
-  email = thenewvu@gmail.com
+	name = Vu Le
+	email = thenewvu@gmail.com
 [core]
-  editor = nvim
-  excludesfile = ~/.gitexcludes
+	editor = nvim
+	excludesfile = ~/.gitexcludes
 [credential]
-  helper = cache --timeout 360000
+	helper = cache --timeout 360000
+[pager]
+    diff = diff-highlight | less -R --tabs=4
+    log = diff-highlight | less -R --tabs=4
+    show = diff-highlight | less -R --tabs=4
+[interactive]
+	diffFilter = diff-highlight
 [gc]
-  autoDetach = false
+	autoDetach = false
 [pull]
-  rebase = true
+	rebase = true
+[log]
+    date = relative
 [diff]
-  tool = vimdiff
-  algorithm = histogram
+	indentHeuristic = true
+    wordRegex = [A-Z0-9]+|[A-Z0-9]?[a-z0-9]+|[^[:space:]]
+	tool = vimdiff
+	algorithm = histogram
 [difftool]
-  prompt = false
+	prompt = false
 [difftool "vimdiff"]
-  cmd = nvim -d $LOCAL $REMOTE
+	cmd = nvim -d $LOCAL $REMOTE
 [merge]
-  tool = nvim
+	tool = nvim
 [mergetool]
-  prompt = false
+	prompt = false
 [mergetool "nvim"]
-  cmd = nvim -f -c \"Gvdiff\" \"$MERGED\"
+	cmd = nvim -f -c \"Gvdiff\" \"$MERGED\"
+[color]
+	branch = auto
+	diff = auto
+	status = auto
+    showbranch = auto
+	ui = true
+[color "branch"]
+	current = yellow reverse
+	local = yellow
+	remote = green
+[color "diff"]
+	meta = magenta ul
+	frag = magenta dim
+	old = red 0
+	new = green 0
+[color "status"]
+	added = green
+	changed = yellow
+    untracked = red
 [alias]
-  status-short = status -s
-  graph = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %Cblue<%an>%Creset' --abbrev-commit --date=relative
-  add-part = add -i -p
-  commit-visual = commit -v
-  clone-shallow= clone --shallow-submodules --depth=1 -j8 
+    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+    st = status --short
+    ai = add -p
+    dc = diff --cached
+    cm = commit -m
+[help]
+	autocorrect = 50
