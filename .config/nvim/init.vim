@@ -312,6 +312,8 @@ Plug 'w0rp/ale'
     let g:ale_fixers['cpp'] = ['clang-format', 'trim_whitespace']
     let g:ale_cpp_clangformat_options = '-style=file -assume-filename=file.cpp'
     let g:ale_fixers['javascript'] = ['prettier']
+    let g:ale_fixers['json'] = ['prettier']
+    let g:ale_javascript_prettier_options = '--parser json'
 
     function! LinterStatus() abort
         let l:counts = ale#statusline#Count(bufnr(''))
