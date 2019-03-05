@@ -93,7 +93,7 @@ export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
 # Command history {{{
 
 # Increase the size of history maintained by BASH
-export HISTFILESIZE=1000
+export HISTFILESIZE=5000
 export HISTSIZE=${HISTFILESIZE}
 # Use leading space to hide commands from history:
 export HISTCONTROL=ignorespace:ignoredups:erasedups
