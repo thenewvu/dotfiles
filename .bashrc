@@ -116,5 +116,21 @@ alias ..="cd .."
 
 alias mv="mv -i"
 alias cp="cp -i"
+
+fzf__git_hash="echo {} | grep -o '[a-f0-9]\{7\}' | head -1"
+fzf__git_show="$fzf__git_hash | xargs -I % sh -c 'git show --color=always % | diff-highlight'"
+fzf__git_diff="$fzf__git_hash | xargs -I % sh -c 'git difftool %^!'"
+
+git-browse() {
+    git log --relative --graph --abbrev-commit --date=relative --color=always \
+            --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' |
+        fzf --cycle --no-sort --reverse --tiebreak=index --no-multi --ansi \
+            --preview="$fzf__git_show"                                     \
+            --bind "enter:execute:$fzf__git_diff"                          \
+            --bind "alt-y:execute:$fzf__git_hash | pbcopy"                 \
+            --bind "alt-j:preview-down"                                    \
+            --bind "alt-k:preview-up"
+}
+
 # }}}
 
