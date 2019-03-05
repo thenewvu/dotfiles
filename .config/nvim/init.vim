@@ -100,8 +100,8 @@ augroup All
     au TermOpen * setlocal signcolumn=no
     au TermOpen * startinsert
 
-    autocmd BufWinEnter,WinEnter term://* startinsert
-    autocmd BufLeave term://* stopinsert
+    " autocmd BufWinEnter,WinEnter term://* startinsert
+    " autocmd BufLeave term://* stopinsert
 augroup END
 
 " }}}
@@ -124,6 +124,8 @@ nnoremap <f2> :e ~/.config/nvim/init.vim<cr>
 nnoremap <f5> :edit<cr>:redraw<cr>
 " no more Ex mode
 nnoremap Q <nop>
+" no more macro
+nnoremap q <nop>
 " jump to begin/end of a line
 nnoremap B ^
 nnoremap E $
@@ -160,7 +162,7 @@ nnoremap <A-j> <C-w>j
 nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
 " exit terminal mode
-tnoremap <A-n> <C-\><C-n>
+tnoremap <A-space> <C-\><C-n>
 " move left/right one indent
 nnoremap > >>
 nnoremap < <<
@@ -440,7 +442,7 @@ Plug 'ap/vim-buftabline'
     tmap <A-0> <C-\><C-n><Plug>BufTabLine.Go(10)
 
 
-    hi! link BufTabLineCurrent   TablineSel
+    hi! link BufTabLineCurrent   Normal
     hi! link BufTabLineActive    TablineSel
     hi! link BufTabLineHidden    Tabline
     hi! link BufTabLineFill      TablineFill
@@ -484,26 +486,7 @@ Plug 'skywind3000/asyncrun.vim', { 'on': 'AsyncRun' }
     let g:asyncrun_open = 10
 
     nnoremap ! :AsyncRun<space>
-    nnoremap <F8> :AsyncRun make -j8<cr>
     nnoremap <A-f> :AsyncRun! rg --vimgrep 
-
-" }}}
-
-Plug 'brooth/far.vim', { 'on': 'Far' }
-" {{{
-
-    nnoremap <A-r> :Far 
-
-    let g:far#source = 'rgnvim'
-    let g:far#window_layout = 'bottom'
-    let g:far#file_mask_favorites = ['c','cpp','js']
-    let g:far#collapse_result = 1
-    let g:far#auto_preview = 0
-
-    hi def link FarSearchVal DiffText
-    hi def link FarReplaceVal DiffAdd
-    hi def link FarReplacedItem DiffAdd
-    hi def link FarExcludedItem Comment
 
 " }}}
 
