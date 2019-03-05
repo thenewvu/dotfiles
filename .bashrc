@@ -114,5 +114,7 @@ alias ls="ls -cthr"
 alias l="ls -cthr"
 alias ..="cd .."
 
+alias mv="mv -i"
+alias cp="cp -i"
 # }}}
 
