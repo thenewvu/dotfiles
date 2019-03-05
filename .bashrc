@@ -86,6 +86,8 @@ export LDFLAGS="-L/usr/local/opt/llvm/lib -Wl,-rpath,/usr/local/opt/llvm/lib"
 export FFF_OPENER=fff-opener
 export FFF_TRASH=~/.Trash
 
+export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
+
 # }}}
 
 # Command history {{{
