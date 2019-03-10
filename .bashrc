@@ -123,13 +123,13 @@ fzf__git_diff="$fzf__git_hash | xargs -I % sh -c 'git difftool %^!'"
 
 git-browse() {
     git log --relative --graph --abbrev-commit --date=relative --color=always \
-            --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' |
+            --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' "$@" |
         fzf --cycle --no-sort --reverse --tiebreak=index --no-multi --ansi \
             --preview="$fzf__git_show"                                     \
             --bind "enter:execute:$fzf__git_diff"                          \
-            --bind "alt-y:execute:$fzf__git_hash | pbcopy"                 \
-            --bind "alt-j:preview-down"                                    \
-            --bind "alt-k:preview-up"
+            --bind "ctrl-y:execute:$fzf__git_hash | pbcopy"                 \
+            --bind "ctrl-j:preview-down"                                    \
+            --bind "ctrl-k:preview-up"
 }
 
 # }}}
