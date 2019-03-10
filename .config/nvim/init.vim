@@ -97,11 +97,8 @@ augroup All
     au BufRead,BufNewFile *.md       set filetype=markdown
     au BufRead,BufNewFile *.MD       set filetype=markdown
 
-    au TermOpen * setlocal signcolumn=no
-    au TermOpen * startinsert
-
-    " autocmd BufWinEnter,WinEnter term://* startinsert
-    " autocmd BufLeave term://* stopinsert
+    au BufWinEnter,WinEnter terminal startinsert
+    au BufLeave terminal stopinsert
 augroup END
 
 " }}}
@@ -190,6 +187,44 @@ vnoremap <silent> # :<C-U>
   \gvy?<C-R><C-R>=substitute(
   \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
   \gV:call setreg('"', old_reg, old_regtype)<CR>
+
+
+" create/toggle a terminal window at very bottom
+" https://pastebin.com/FjdkegRH
+" {{{
+
+" Toggle 'default' terminal
+nnoremap <A-`> :call ChooseTerm("terminal", 1)<CR>
+tnoremap <A-`> <C-\><C-n>:call ChooseTerm("terminal", 1)<CR>
+ 
+function! ChooseTerm(termname, slider)
+    let pane = bufwinnr(a:termname)
+    let buf = bufexists(a:termname)
+    if pane > 0
+        " pane is visible
+        if a:slider > 0
+            :exe pane . "wincmd c"
+        else
+            :exe "e #"
+        endif
+    elseif buf > 0
+        " buffer is not in pane
+        if a:slider
+            :exe "topleft split"
+        endif
+        :exe "buffer " . a:termname
+    else
+        " buffer is not loaded, create
+        if a:slider
+            :exe "topleft split"
+        endif
+        :terminal
+        :exe "f " a:termname
+    endif
+endfunction
+
+" }}}
+
 
 " }}}
 
