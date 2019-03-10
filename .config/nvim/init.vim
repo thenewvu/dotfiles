@@ -37,7 +37,7 @@ set signcolumn=yes
 set autoindent smartindent
 set lazyredraw
 set synmaxcol=320
-set diffopt+=algorithm:histogram,iwhiteall,iblank,iwhiteeol
+set diffopt+=algorithm:patience,iwhiteall,iblank,iwhiteeol
 set nolist listchars=tab:\│\ ,trail:␣
 set shortmess+=c
 set splitbelow splitright
