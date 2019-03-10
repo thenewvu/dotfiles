@@ -413,7 +413,7 @@ Plug 'Yggdroot/indentLine'
   let g:indentLine_enabled = 1
   let g:indentLine_faster = 1
   let g:indentLine_bufTypeExclude = ['help', 'terminal']
-  let g:indentLine_fileTypeExclude = ['markdown', 'git']
+  let g:indentLine_fileTypeExclude = ['markdown', 'git', 'json']
   let g:indentLine_char = '│'
   let g:indentLine_color_gui = '#2c4e6c'
   let g:indentLine_bgcolor_gui = 'none'
