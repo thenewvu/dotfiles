@@ -73,21 +73,23 @@ endfunction
 
 " ref: http://vim.wikia.com/wiki/Faster_loading_of_large_files
 function! OptimizeForLargeFile()
-    " no syntax highlighting etc
-    set eventignore+=FileType
-    " save memory when other file is viewed
-    setlocal bufhidden=unload
-    " is read-only (write with :w new_filename)
-    setlocal buftype=nowrite
-    " no undo possible
-    setlocal undolevels=-1
+    if getfsize(expand("<afile")) > 1024 * 512 " 512kb
+        " no syntax highlighting etc
+        set eventignore+=FileType
+        " save memory when other file is viewed
+        setlocal bufhidden=unload
+        " is read-only (write with :w new_filename)
+        setlocal buftype=nowrite
+        " no undo possible
+        setlocal undolevels=-1
+    endif
 endfunction
 
 augroup All
     au!
 
     " speed up editing large files
-    au BufReadPre * if getfsize(expand("<afile")) > 1024 * 512 | call OptimizeForLargeFile() | endif
+    au BufReadPre * call OptimizeForLargeFile()
 
     " auto resource $MYVIMRC on change
     au BufWritePost $MYVIMRC source %
