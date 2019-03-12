@@ -121,10 +121,6 @@ tnoremap <A-q> <C-\><C-N>:bp<bar>sp<bar>bn<bar>bd<cr>
 nnoremap <f2> :e ~/.config/nvim/init.vim<cr>
 " reload current file and redraw
 nnoremap <f5> :edit<cr>:redraw<cr>
-" no more Ex mode
-nnoremap Q <nop>
-" no more macro
-nnoremap q <nop>
 " jump to begin/end of a line
 nnoremap B ^
 nnoremap E $
