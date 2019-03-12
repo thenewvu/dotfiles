@@ -99,8 +99,8 @@ augroup All
     au BufRead,BufNewFile *.md       set filetype=markdown
     au BufRead,BufNewFile *.MD       set filetype=markdown
 
-    au BufWinEnter,WinEnter terminal startinsert
-    au BufLeave terminal stopinsert
+    au TermOpen * setlocal signcolumn="no"
+    au TermOpen * :startinsert
 augroup END
 
 " }}}
