@@ -55,7 +55,7 @@ export GREP_OPTIONS='--ignore-case --color=auto'
 export CLICOLOR=1
 
 export FZF_COMPLETION_TRIGGER='``'
-export FZF_DEFAULT_OPTS="--reverse --ansi --color=16 --color fg:7,bg:0,hl:3,fg+:2,bg+:0,hl+:3 --color info:7,prompt:3,spinner:7,pointer:2,marker:2"
+export FZF_DEFAULT_OPTS="--reverse --ansi --color=16 --color fg:7,bg:0,hl:2,fg+:15,bg+:0,hl+:2 --color info:15,prompt:2,spinner:15,pointer:7,marker:7"
 export FZF_DEFAULT_COMMAND="rg --files --hidden --follow  --glob '!.git/*'"
 export FZF_CTRL_T_COMMAND="rg --files --hidden --follow  --glob '!.git/*'"
 
