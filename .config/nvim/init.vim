@@ -115,9 +115,7 @@ nnoremap ;; :
 " close current buffer without closing the current window
 nnoremap <A-q> :bp<bar>sp<bar>bn<bar>bd<cr>
 " close current window
-nnoremap <A-w> :close<cr>
-" close current buffer without closing the current window
-tnoremap <A-q> <C-\><C-N>:bp<bar>sp<bar>bn<bar>bd<cr>
+nnoremap <A-x> :close<cr>
 nnoremap <f2> :e ~/.config/nvim/init.vim<cr>
 " reload current file and redraw
 nnoremap <f5> :edit<cr>:redraw<cr>
@@ -157,14 +155,12 @@ nnoremap <A-j> <C-w>j
 nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
 " exit terminal mode
-tnoremap <A-space> <C-\><C-n>
+tnoremap <A-;> <C-\><C-n>
 " move left/right one indent
 nnoremap > >>
 nnoremap < <<
 vnoremap < <gv
 vnoremap > >gv
-" open terminal
-nnoremap <A-t> :term<cr>
 " split vertically
 nnoremap <A-\> :vsplit<cr>
 " split horizontally
@@ -172,6 +168,8 @@ nnoremap <A--> :split<cr>
 
 " star search and keep cursor loc
 nmap <silent> * *<C-o>
+" select pasted text
+nnoremap <expr> gp '`[' . getregtype()[0] . '`]'
 
 " Search selecting
 " Ref: http://vim.wikia.com/wiki/Search_for_visually_selected_text<Paste>
@@ -268,9 +266,9 @@ Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim' 
 " {{{
 
-  " quick open files by name with fuzzy autocompletion
+  " fuzzy search files in cwd
   nnoremap ` :FZF<cr>
-  " fuzzy search text in the current buffer
+  " fuzzy search text in cur buf
   nnoremap <tab> :BLines<cr>
 
   augroup FZF
@@ -451,8 +449,8 @@ Plug 'thenewvu/vim-colors-blueprint'
 Plug 'bfredl/nvim-miniyank' 
 " {{{
 
-    map p <Plug>(miniyank-autoput)
-    map P <Plug>(miniyank-autoPut)
+    map p <Plug>(miniyank-autoput)gp
+    map P <Plug>(miniyank-autoPut)gp
 
 " }}}
 
@@ -491,7 +489,6 @@ Plug 'ap/vim-buftabline'
     tmap <A-8> <C-\><C-n><Plug>BufTabLine.Go(8)
     tmap <A-9> <C-\><C-n><Plug>BufTabLine.Go(9)
     tmap <A-0> <C-\><C-n><Plug>BufTabLine.Go(10)
-
 
     hi! link BufTabLineCurrent   Normal
     hi! link BufTabLineActive    TablineSel
