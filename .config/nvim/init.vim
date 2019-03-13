@@ -538,16 +538,6 @@ Plug 'skywind3000/asyncrun.vim', { 'on': 'AsyncRun' }
 
 " }}}
 
-Plug 'easymotion/vim-easymotion'
-"{{{
-
-    let g:EasyMotion_do_mapping = 0
-    let g:EasyMotion_smartcase = 1
-
-    map f <Plug>(easymotion-overwin-f)
-
-"}}}"
-
 call plug#end()
 
 " }}}
