@@ -449,8 +449,11 @@ Plug 'thenewvu/vim-colors-blueprint'
 Plug 'bfredl/nvim-miniyank' 
 " {{{
 
-    map p <Plug>(miniyank-autoput)gp
-    map P <Plug>(miniyank-autoPut)gp
+    map p <Plug>(miniyank-autoput)
+    map P <Plug>(miniyank-autoPut)
+
+    nnoremap p p`[v`]=
+    nnoremap P P`[v`]=
 
 " }}}
 
