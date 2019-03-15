@@ -100,7 +100,7 @@ augroup All
     au BufRead,BufNewFile *.MD       set filetype=markdown
 
     au TermOpen * setlocal signcolumn="no"
-    au TermOpen * :startinsert
+    au BufWinEnter,WinEnter term://* startinsert
 augroup END
 
 " }}}
