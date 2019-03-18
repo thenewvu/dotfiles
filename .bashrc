@@ -118,10 +118,10 @@ alias mv="mv -i"
 alias cp="cp -i"
 
 fzf__git_hash="echo {} | grep -o '[a-f0-9]\{7\}' | head -1"
-fzf__git_show="$fzf__git_hash | xargs -I % sh -c 'git show --color=always % | diff-highlight'"
+fzf__git_show="$fzf__git_hash | xargs -I % sh -c 'git show --color=always % | diff-so-fancy'"
 fzf__git_diff="$fzf__git_hash | xargs -I % sh -c 'git difftool %^!'"
 
-git-browse() {
+gl() {
     git log --relative --abbrev-commit --date=relative --color=always --pretty=format:'%C(white)%h:%Creset %s' --no-merges "$@" |
         fzf --cycle --no-sort --reverse --tiebreak=index --no-multi --ansi \
             --preview="$fzf__git_show" --preview-window=wrap:70%           \
@@ -130,6 +130,11 @@ git-browse() {
             --bind "ctrl-j:preview-down"                                   \
             --bind "ctrl-k:preview-up"
 }
+
+alias gs="git status --short"
+alias ga="git add -ip"
+alias gd="git diff --cached"
+alias gc="git commit -m"
 
 # }}}
 
