@@ -45,21 +45,21 @@
 	remote = green
 [color "diff"]
 	meta = 11
-	frag = 13
+	frag = 8
+    func = 15
 	old = 9
 	new = 10
-	commit = 13
-	whitespace = 0
+	commit = 8
+	whitespace = 8
+[color "interactive"]
+    prompt = 11
+    header = 11
+    help = 11
+    error = 11
 [color "status"]
 	added = 10
 	changed = 11
-    untracked = 9
-[alias]
-    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
-    st = status --short
-    ai = add -p
-    dc = diff --cached
-    cm = commit -m
+    untracked = 15
 [help]
 	autocorrect = 50
 [color "diff-highlight"]
