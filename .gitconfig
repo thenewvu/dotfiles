@@ -63,7 +63,7 @@
 [help]
 	autocorrect = 50
 [color "diff-highlight"]
-	oldNormal = 9
-	oldHighlight = 9 1
-	newNormal = 10
-	newHighlight = 10 2
+    oldNormal = "#FEBFAB"
+    oldHighlight = "#FEBFAB" "#a25588"
+    newNormal = "#73FA75"
+    newHighlight = "#73FA75" "#3d8b83"
