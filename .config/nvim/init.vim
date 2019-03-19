@@ -537,7 +537,7 @@ Plug 'skywind3000/asyncrun.vim', { 'on': 'AsyncRun' }
     let g:asyncrun_open = 10
 
     nnoremap ! :AsyncRun<space>
-    nnoremap <A-f> :AsyncRun! rg --vimgrep 
+    nnoremap f :AsyncRun! rg --vimgrep 
 
 " }}}
 
