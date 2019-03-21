@@ -55,7 +55,7 @@ export GREP_OPTIONS='--ignore-case --color=auto'
 export CLICOLOR=1
 
 export FZF_COMPLETION_TRIGGER='``'
-export FZF_DEFAULT_OPTS="--reverse --ansi --color=16 --color fg:7,bg:0,hl:2,fg+:7,bg+:0,hl+:2 --color info:15,prompt:2,spinner:15,pointer:7,marker:7"
+export FZF_DEFAULT_OPTS="--reverse --ansi --color=16 --color fg:7,hl:2,fg+:7,bg+:#335b7e,hl+:2 --color info:15,prompt:2,spinner:15,pointer:7,marker:7"
 export FZF_DEFAULT_COMMAND="rg --files --hidden --follow  --glob '!.git/*'"
 export FZF_CTRL_T_COMMAND="rg --files --hidden --follow  --glob '!.git/*'"
 
@@ -122,12 +122,12 @@ alias ..="cd .."
 alias mv="mv -i"
 alias cp="cp -i"
 
-fzf__git_hash="echo {} | grep -o '[a-f0-9]\{7\}' | head -1"
-fzf__git_show="$fzf__git_hash | xargs -I % sh -c 'git show --color=always % | diff-so-fancy'"
+fzf__git_hash="echo {} | grep -o '[a-f0-9]\{7\}\$' | head -1"
+fzf__git_show="$fzf__git_hash | xargs -I % sh -c 'git show --color=always % | diff-so-fancy | less -RFX --tabs=1'"
 fzf__git_diff="$fzf__git_hash | xargs -I % sh -c 'git difftool %^!'"
 
 gl() {
-    git log --relative --abbrev-commit --date=relative --color=always --pretty=format:'%C(white)%h:%Creset %s' --no-merges "$@" |
+    git log --relative --abbrev-commit --date=relative --color=always --pretty=format:'%C(auto)%s %C(auto)%d%Creset %C(auto)%h' --no-merges "$@" |
         fzf --cycle --no-sort --reverse --tiebreak=index --no-multi --ansi \
             --preview="$fzf__git_show" --preview-window=wrap:70%           \
             --bind "enter:execute:$fzf__git_diff"                          \
