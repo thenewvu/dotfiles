@@ -127,7 +127,7 @@ fzf__git_show="$fzf__git_hash | xargs -I % sh -c 'git show --color=always % | di
 fzf__git_diff="$fzf__git_hash | xargs -I % sh -c 'git difftool %^!'"
 
 gl() {
-    git log --relative --abbrev-commit --date=relative --color=always --pretty=format:'%C(auto)%s %C(auto)%d %C(auto)%h%Creset' --no-merges "$@" |
+    git log --abbrev-commit --date=relative --color=always --pretty=format:'%C(auto)%s %C(auto)%d %C(auto)%h%Creset' --no-merges "$@" |
         fzf --cycle --no-sort --reverse --tiebreak=index --no-multi --ansi \
             --preview="$fzf__git_show" --preview-window=wrap:70%           \
             --bind "enter:execute:$fzf__git_diff"                          \
