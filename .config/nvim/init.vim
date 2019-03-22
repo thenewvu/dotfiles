@@ -8,7 +8,6 @@ set confirm " ask to confirm closing an unsaved file
 set hidden " switch between buffers without saving
 set completeopt=menu,menuone,noselect,noinsert
 set encoding=utf-8
-set clipboard^=unnamedplus,unnamed
 set autoread " autoreload files on change
 set backspace=indent,eol,start " make backspace work like most other apps
 set incsearch hlsearch smartcase ignorecase inccommand=nosplit gdefault
@@ -165,11 +164,18 @@ vnoremap > >gv
 nnoremap <A-\> :vsplit<cr>
 " split horizontally
 nnoremap <A--> :split<cr>
-
 " star search and keep cursor loc
 nmap <silent> * *<C-o>
-" select pasted text
-nnoremap <expr> gp '`[' . getregtype()[0] . '`]'
+" copy to pbcopy
+nnoremap <silent> gy :.w !pbcopy<CR><CR> 
+vnoremap <silent> gy :<CR>:let @a=@" \| execute "normal! vgvy" \| let res=system("pbcopy", @") \| let @"=@a<CR>
+" paste from pbpaste
+nnoremap <silent> gP O<esc>:r !pbpaste<CR>
+nnoremap <silent> gp :r !pbpaste<CR>
+" paste to the current indent
+nnoremap p ]p
+nnoremap P ]P
+
 
 " Search selecting
 " Ref: http://vim.wikia.com/wiki/Search_for_visually_selected_text<Paste>
@@ -441,19 +447,6 @@ Plug 'thenewvu/vim-colors-blueprint'
   set termguicolors
   set background=dark
   colorscheme blueprint
-
-" }}}
-
-" Workaround for issue:
-" https://github.com/neovim/neovim/issues/1822
-Plug 'bfredl/nvim-miniyank' 
-" {{{
-
-    map p <Plug>(miniyank-autoput)
-    map P <Plug>(miniyank-autoPut)
-
-    nnoremap p p`[v`]=
-    nnoremap P P`[v`]=
 
 " }}}
 
