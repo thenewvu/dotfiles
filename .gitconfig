@@ -45,8 +45,8 @@
 	remote = green
 [color "diff"]
 	meta = 11
-	frag = 8
-    func = 15
+	frag = 11
+    func = 11
 	old = 9
 	new = 10
 	commit = 8
