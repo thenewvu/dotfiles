@@ -395,40 +395,6 @@ Plug 'w0rp/ale'
 
 " }}}
 
-Plug 'prabirshrestha/async.vim'
-Plug 'prabirshrestha/vim-lsp'
-Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/asyncomplete-lsp.vim'
-Plug 'prabirshrestha/asyncomplete-file.vim'
-"{{{
-
-    let g:asyncomplete_smart_completion = 1
-    let g:lsp_diagnostics_enabled = 0
-
-    augroup AsyncComplete
-        au!
-
-        au User lsp_setup call lsp#register_server({
-            \ 'name': 'clangd',
-            \ 'cmd': {server_info->['clangd']},
-            \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
-            \ })
-
-        au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
-            \ 'name': 'file',
-            \ 'whitelist': ['*'],
-            \ 'priority': 10,
-            \ 'completor': function('asyncomplete#sources#file#completor')
-            \ }))
-
-        au FileType *.lsp-hover nnoremap <buffer><esc> :pclose<cr>
-    augroup END
-
-    nmap <F11> <Plug>(lsp-rename)
-    nmap <F12> <Plug>(lsp-code-action)
-
-"}}}
-
 Plug 'Yggdroot/indentLine' 
 " {{{
 
