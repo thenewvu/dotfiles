@@ -502,6 +502,8 @@ Plug 'skywind3000/asyncrun.vim', { 'on': 'AsyncRun' }
 
 " }}}
 
+Plug 'RRethy/vim-hexokinase', { 'on': 'HexokinaseToggle' }
+
 call plug#end()
 
 " }}}
