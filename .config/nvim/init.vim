@@ -175,6 +175,8 @@ nnoremap <silent> gp :r !pbpaste<CR>
 " paste to the current indent
 nnoremap p ]p
 nnoremap P ]P
+" <r> keep replacing
+nnoremap r R
 
 
 " Search selecting
