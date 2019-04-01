@@ -177,6 +177,8 @@ nnoremap p ]p
 nnoremap P ]P
 " <r> keep replacing
 nnoremap r R
+nnoremap <A-tab> <C-w><C-p>
+tnoremap <A-tab> <C-\><C-n><C-w><C-p>
 
 
 " Search selecting
