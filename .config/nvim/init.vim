@@ -141,18 +141,18 @@ nnoremap K J
 " redo
 nnoremap U <c-r>zz
 " navigate between splits and buffers
-tnoremap <A-h> <C-\><C-N><C-w>h
-tnoremap <A-j> <C-\><C-N><C-w>j
-tnoremap <A-k> <C-\><C-N><C-w>k
-tnoremap <A-l> <C-\><C-N><C-w>l
-inoremap <A-h> <C-w>h
-inoremap <A-j> <C-w>j
-inoremap <A-k> <C-w>k
-inoremap <A-l> <C-w>l
-nnoremap <A-h> <C-w>h
-nnoremap <A-j> <C-w>j
-nnoremap <A-k> <C-w>k
-nnoremap <A-l> <C-w>l
+tnoremap <C-h> <C-\><C-N><C-w>h
+tnoremap <C-j> <C-\><C-N><C-w>j
+tnoremap <C-k> <C-\><C-N><C-w>k
+tnoremap <C-l> <C-\><C-N><C-w>l
+inoremap <C-h> <C-w>h
+inoremap <C-j> <C-w>j
+inoremap <C-k> <C-w>k
+inoremap <C-l> <C-w>l
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
 " exit terminal mode
 tnoremap <A-;> <C-\><C-n>
 " move left/right one indent
@@ -177,8 +177,12 @@ nnoremap p ]p
 nnoremap P ]P
 " <r> keep replacing
 nnoremap r R
-nnoremap <A-tab> <C-w><C-p>
-tnoremap <A-tab> <C-\><C-n><C-w><C-p>
+nnoremap <A-tab> :b#<cr>
+tnoremap <A-tab> <C-\><C-n>:b#<cr>
+nnoremap <A-l> :bn<cr>
+tnoremap <A-l> <C-\><C-n>:bn<cr>
+nnoremap <A-h> :bp<cr>
+tnoremap <A-h> <C-\><C-n>:bp<cr>
 
 
 " Search selecting
