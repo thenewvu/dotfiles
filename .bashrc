@@ -123,7 +123,7 @@ alias mv="mv -i"
 alias cp="cp -i"
 
 fzf__git_hash="echo {} | grep -o '[a-f0-9]\{7\}\$' | head -1"
-fzf__git_show="$fzf__git_hash | xargs -I % sh -c 'git show --color=always % | diff-so-fancy | less -RFX --tabs=1'"
+fzf__git_show="$fzf__git_hash | xargs -I % sh -c 'git show --color=always % | diff-so-fancy | less -RFX --tabs=4'"
 fzf__git_diff="$fzf__git_hash | xargs -I % sh -c 'git difftool %^!'"
 
 gl() {
