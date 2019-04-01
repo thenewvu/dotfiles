@@ -8,6 +8,6 @@ syn match cOperator "&&\|||"
 syn match Delimiter "[.();\\{},\[\]\"\']" display
 syn match Delimiter "->" display
 
-syn keyword Debug assert expect
+syn keyword Debug assert asserteq case
 
 syn match Define "^\s*\zs\(%:\|#\)\s*\(define\|undef\)\>"
