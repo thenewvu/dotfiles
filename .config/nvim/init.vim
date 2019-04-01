@@ -449,6 +449,9 @@ Plug 'skywind3000/asyncrun.vim', { 'on': 'AsyncRun' }
 " }}}
 
 Plug 'RRethy/vim-hexokinase', { 'on': 'HexokinaseToggle' }
+" {{{
+    let g:Hexokinase_virtualText = '██████'
+" }}}
 
 Plug 'https://gitlab.com/Lenovsky/nuake.git'
 " {{{
