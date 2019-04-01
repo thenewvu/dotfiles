@@ -460,6 +460,8 @@ Plug 'RRethy/vim-hexokinase', { 'on': 'HexokinaseToggle' }
 Plug 'https://gitlab.com/Lenovsky/nuake.git'
 " {{{
 
+    let g:nuake_size = 0.33
+
     nnoremap <F12> :Nuake<CR>
     inoremap <F12> <C-\><C-n>:Nuake<CR>
     tnoremap <F12> <C-\><C-n>:Nuake<CR>
