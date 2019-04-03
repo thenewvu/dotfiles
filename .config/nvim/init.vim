@@ -111,10 +111,6 @@ let mapleader = ";"
 " write current file with sudo
 cmap w! w !sudo tee > /dev/null %
 nnoremap ;; :
-" close current buffer without closing the current window
-nnoremap <A-q> :bp<bar>sp<bar>bn<bar>bd<cr>
-" close current window
-nnoremap <A-x> :close<cr>
 nnoremap <f2> :e ~/.config/nvim/init.vim<cr>
 " reload current file and redraw
 nnoremap <f5> :edit<cr>:redraw<cr>
@@ -153,17 +149,17 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
-" exit terminal mode
-tnoremap <A-;> <C-\><C-n>
+" split vertically
+nnoremap <C-d> :vsplit<cr>
+" split horizontally
+nnoremap <C-s> :split<cr>
+" close current window
+nnoremap <C-q> :close<cr>
 " move left/right one indent
 nnoremap > >>
 nnoremap < <<
 vnoremap < <gv
 vnoremap > >gv
-" split vertically
-nnoremap <A-\> :vsplit<cr>
-" split horizontally
-nnoremap <A--> :split<cr>
 " star search and keep cursor loc
 nmap <silent> * *<C-o>
 " copy to pbcopy
@@ -177,12 +173,16 @@ nnoremap p ]p
 nnoremap P ]P
 " <r> keep replacing
 nnoremap r R
+" navigate to the last accessed buffer
 nnoremap <A-tab> :b#<cr>
 tnoremap <A-tab> <C-\><C-n>:b#<cr>
+" navigate between buffers horizontally
 nnoremap <A-l> :bn<cr>
 tnoremap <A-l> <C-\><C-n>:bn<cr>
 nnoremap <A-h> :bp<cr>
 tnoremap <A-h> <C-\><C-n>:bp<cr>
+" close current buffer without closing the current window
+nnoremap <A-q> :bp<bar>sp<bar>bn<bar>bd<cr>
 
 
 " Search selecting
