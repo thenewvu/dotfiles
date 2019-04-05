@@ -31,7 +31,8 @@ done
 # ref: https://superuser.com/a/517110
 function prompt() {
     printf "\e]2;%s\a" "${PWD##*/}"
-    PS1=$(printf "\e[40m%*s\r%s\e[0m\n\$ " "$(($(tput cols)-6))" "\t" "\u@\h:\w")
+    hasjobs=$(jobs -p)
+    PS1=$(printf "\e[40m%*s\r%s\e[0m\n\$ " "$(($(tput cols)-6))" "\t" "\u@\h:\w ${hasjobs:+[\j]}")
 }
 
 PROMPT_COMMAND=prompt
