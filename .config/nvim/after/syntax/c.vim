@@ -14,6 +14,7 @@ syn match Define "^\s*\zs\(%:\|#\)\s*\(define\|undef\)\>"
 syn match cFunction "\<\h\w*\>\(\s\|\n\)*("me=e-1 contains=cType,cDelimiter,cDefine
 syn match cFunctionPointer "(\s*\*\s*\h\w*\s*)\(\s\|\n\)*(" contains=cDelimiter,cOperator
 syn match cMacro "\<\(_\|\u\)\+\(\u\|\d\|_\)*\>"
+syn keyword	cOperator	__typeof __auto_type
 
 hi! link cFunction function
 hi! link cFunctionPointer function
