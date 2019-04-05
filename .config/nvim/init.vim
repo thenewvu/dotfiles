@@ -124,6 +124,8 @@ nnoremap <space> zxzMzvzz:noh<CR>:<backspace>
 " vertical center movement
 nnoremap G Gzz
 vnoremap G Gzz
+nnoremap gg ggzz
+vnoremap gg ggzz
 nnoremap n nzzzv
 nnoremap N Nzzzv
 nnoremap j gjzz
