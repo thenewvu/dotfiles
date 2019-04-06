@@ -315,7 +315,6 @@ Plug 'w0rp/ale'
     let g:ale_linters = {}
     let g:ale_linters['c'] = ['clangd']
     let g:ale_linters['cpp'] = ['clangd']
-    let g:ale_linters['markdown'] = ['markdownlint']
 
     let g:ale_fixers = {}
     let g:ale_fixers['c'] = ['clang-format', 'trim_whitespace']
@@ -325,6 +324,12 @@ Plug 'w0rp/ale'
     let g:ale_fixers['javascript'] = ['prettier']
     let g:ale_fixers['json'] = ['prettier']
     let g:ale_json_prettier_options = '--parser json'
+    let g:ale_fixers['css'] = ['prettier']
+    let g:ale_css_prettier_options = '--parser css'
+    let g:ale_fixers['markdown'] = ['prettier']
+    let g:ale_markdown_prettier_options = '--parser markdown'
+    let g:ale_fixers['html'] = ['prettier']
+    let g:ale_html_prettier_options = '--parser html'
 
     function! LinterStatus() abort
         let l:counts = ale#statusline#Count(bufnr(''))
