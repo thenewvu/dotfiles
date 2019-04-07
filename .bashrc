@@ -124,11 +124,13 @@ alias mv="mv -i"
 alias cp="cp -i"
 
 fzf__git_hash="echo {} | grep -o '[a-f0-9]\{7\}\$' | head -1"
-fzf__git_show="$fzf__git_hash | xargs -I % sh -c 'git show --color=always % | diff-so-fancy | less -RFX --tabs=4'"
+fzf__git_show="$fzf__git_hash | xargs -I % sh -c 'git show --color=always --ignore-all-space --ignore-blank-lines % | diff-so-fancy | less -RFX --tabs=4'"
 fzf__git_diff="$fzf__git_hash | xargs -I % sh -c 'git difftool %^!'"
 
 gl() {
-    git log --abbrev-commit --date=relative --color=always --pretty=format:'%C(auto)%s %C(auto)%d %C(auto)%h%Creset' --no-merges "$@" |
+    git log --abbrev-commit --date=relative --color=always                 \
+            --pretty=format:'%C(auto)%s %C(auto)%d %C(auto)%h%Creset'      \
+            --no-merges -n 100 "$@" |
         fzf --cycle --no-sort --reverse --tiebreak=index --no-multi --ansi \
             --preview="$fzf__git_show" --preview-window=wrap:70%           \
             --bind "enter:execute:$fzf__git_diff"                          \
