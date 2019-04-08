@@ -250,9 +250,6 @@ Plug 'alvan/vim-closetag'
 
 " }}}
 
-" auto add )}]'" after ({['"
-Plug 'jiangmiao/auto-pairs'
-
 Plug 'terryma/vim-multiple-cursors' 
 " {{{
 
@@ -474,6 +471,8 @@ Plug 'https://gitlab.com/Lenovsky/nuake.git'
     tnoremap <F12> <C-\><C-n>:Nuake<CR>
 
 " }}}
+
+Plug 'kana/vim-smartinput'
 
 call plug#end()
 
