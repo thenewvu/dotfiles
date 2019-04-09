@@ -84,9 +84,6 @@ export CXXFLAGS="-isysroot /Applications/Xcode.app/Contents/Developer/Platforms/
 export OBJCFLAGS="-isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/"
 export LDFLAGS="-L/usr/local/opt/llvm/lib -Wl,-rpath,/usr/local/opt/llvm/lib"
 
-export FFF_OPENER=fff-opener
-export FFF_TRASH=~/.Trash
-
 export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
 
 # }}}
