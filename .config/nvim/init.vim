@@ -33,7 +33,9 @@ set noshowmode
 set noruler
 set nonumber
 set signcolumn=yes
-set autoindent smartindent
+set autoindent smartindent cindent
+set cinkeys=0{,0},0),0#,!^F,o,O,e
+set cinoptions=t0,j1,J1,m1,(s,{0,L0,g0
 set lazyredraw
 set synmaxcol=320
 set diffopt+=algorithm:patience,iwhiteall,iblank,iwhiteeol
