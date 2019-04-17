@@ -121,8 +121,10 @@ nnoremap B ^
 nnoremap E $
 vnoremap B ^
 vnoremap E $
-" unfold only the current block and remove search hl
-nnoremap <space> zxzMzvzz:noh<CR>:<backspace>
+" clear search hl
+nnoremap <esc><esc> :noh<cr>
+" toggle folding
+nnoremap <space> zxzMzvzz
 " vertical center movement
 nnoremap G Gzz
 vnoremap G Gzz
