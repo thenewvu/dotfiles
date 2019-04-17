@@ -283,12 +283,7 @@ Plug 'airblade/vim-gitgutter'
 
 " }}}
 
-Plug 'junegunn/vim-easy-align' 
-" {{{
-
-  xmap ga <Plug>(EasyAlign)
-
-" }}}
+Plug 'godlygeek/tabular'
 
 " async linting
 Plug 'w0rp/ale' 

@@ -2,6 +2,6 @@ setlocal noexpandtab
 
 augroup MAKE
     au!
-    au BufWritePre *.mk :%EasyAlign*/\\$/
-    au BufWritePre makefile :%EasyAlign*/\\$/
+    au BufWritePre *.mk :Tabularize /\\$
+    au BufWritePre makefile :Tabularize /\\$
 augroup END
