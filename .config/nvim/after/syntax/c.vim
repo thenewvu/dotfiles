@@ -12,9 +12,9 @@ syn match Define "^\s*\zs\(%:\|#\)\s*\(define\|undef\)\>"
 
 " https://github.com/TUSSON/.vim/blob/master/syntax/c.vim
 syn match cFunction "\<\h\w*\>\(\s\|\n\)*("me=e-1 contains=cType,cDelimiter,cDefine
-syn match cFunctionPointer "(\s*\*\s*\h\w*\s*)\(\s\|\n\)*(" contains=cDelimiter,cOperator
+hi! link cFunction function
+
 syn match cMacro "\<\(_\|\u\)\+\(\u\|\d\|_\)*\>"
 syn keyword	cOperator	__typeof __auto_type
 
-hi! link cFunction function
-hi! link cFunctionPointer function
+hi! link cUserCont Delimiter
