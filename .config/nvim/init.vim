@@ -203,7 +203,9 @@ tnoremap <A-h> <C-\><C-n>:bp<cr>
 " close current buffer without closing the current window
 nnoremap <A-q> :bp<bar>sp<bar>bn<bar>bd<cr>
 " map <f12> to suspend the current vim process
-nnoremap <f12> :w<CR><C-z> 
+nnoremap <F12> <C-z>
+inoremap <F12> <esc><C-z>
+vnoremap <F12> <esc><C-z>
 
 " Search selecting
 " Ref: http://vim.wikia.com/wiki/Search_for_visually_selected_text<Paste>
