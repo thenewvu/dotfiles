@@ -121,6 +121,10 @@ nnoremap B ^
 nnoremap E $
 vnoremap B ^
 vnoremap E $
+nnoremap H 0
+nnoremap L $
+vnoremap H 0
+vnoremap L $
 " clear search hl
 nnoremap <esc><esc> :noh<cr>
 " toggle folding
@@ -168,15 +172,24 @@ vnoremap < <gv
 vnoremap > >gv
 " star search and keep cursor loc
 nmap <silent> * *<C-o>
-" copy to pbcopy
-nnoremap <silent> gy :.w !pbcopy<CR><CR> 
-vnoremap <silent> gy :<CR>:let @a=@" \| execute "normal! vgvy" \| let res=system("pbcopy", @") \| let @"=@a<CR>
-" paste from pbpaste
-nnoremap <silent> gP O<esc>:r !pbpaste<CR>
-nnoremap <silent> gp :r !pbpaste<CR>
-" paste to the current indent
-nnoremap p ]p
-nnoremap P ]P
+" copy/paste to/from system clipboard
+" https://sheerun.net/2014/03/21/how-to-boost-your-vim-productivity/
+vmap gy "+y
+vmap gd "+d
+nmap gp "+p
+nmap gP "+P
+vmap gp "+p
+vmap gP "+P
+" select text just pasted
+" https://sheerun.net/2014/03/21/how-to-boost-your-vim-productivity/
+noremap gvp `[v`]
+" multiple lines multiple times with simple ppppp
+" https://sheerun.net/2014/03/21/how-to-boost-your-vim-productivity/
+vnoremap <silent> y y`]
+vnoremap <silent> p p`]
+nnoremap <silent> p p`]
+" avoid accidentally showing command history window when quiting
+map q: :q
 " <r> keep replacing
 nnoremap r R
 " navigate to the last accessed buffer
@@ -462,6 +475,14 @@ Plug 'RRethy/vim-hexokinase', { 'on': 'HexokinaseToggle' }
 " }}}
 
 Plug 'kana/vim-smartinput'
+
+Plug 'terryma/vim-expand-region'
+" {{{
+
+    vmap v <Plug>(expand_region_expand)
+    vmap V <Plug>(expand_region_shrink)
+
+" }}}
 
 call plug#end()
 
