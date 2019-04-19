@@ -189,7 +189,8 @@ nnoremap <A-h> :bp<cr>
 tnoremap <A-h> <C-\><C-n>:bp<cr>
 " close current buffer without closing the current window
 nnoremap <A-q> :bp<bar>sp<bar>bn<bar>bd<cr>
-
+" map <f12> to suspend the current vim process
+nnoremap <f12> :w<CR><C-z> 
 
 " Search selecting
 " Ref: http://vim.wikia.com/wiki/Search_for_visually_selected_text<Paste>
@@ -458,17 +459,6 @@ Plug 'skywind3000/asyncrun.vim', { 'on': 'AsyncRun' }
 Plug 'RRethy/vim-hexokinase', { 'on': 'HexokinaseToggle' }
 " {{{
     let g:Hexokinase_virtualText = '██████'
-" }}}
-
-Plug 'https://gitlab.com/Lenovsky/nuake.git'
-" {{{
-
-    let g:nuake_size = 0.33
-
-    nnoremap <F12> :Nuake<CR>
-    inoremap <F12> <C-\><C-n>:Nuake<CR>
-    tnoremap <F12> <C-\><C-n>:Nuake<CR>
-
 " }}}
 
 Plug 'kana/vim-smartinput'
