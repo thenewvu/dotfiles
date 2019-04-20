@@ -8,7 +8,7 @@ set -o vi
 bind 'TAB: menu-complete'
 bind 'set completion-ignore-case on'
 # <f12> to execute `fg`
-bind '"\e[24~":"fg\n"'
+bind '"\e`":"fg\n"'
 
 ######################################################
 # Imports
