@@ -473,6 +473,8 @@ Plug 'vim-python/python-syntax'
 
 " }}}
 
+Plug 'tikhomirov/vim-glsl', { 'for': 'glsl' }
+
 call plug#end()
 
 " }}}
