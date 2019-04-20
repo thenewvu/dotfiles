@@ -9,6 +9,6 @@ syn match Delimiter "[();\\{},]" display
 syn match Define "^\s*\zs\(%:\|#\)\s*\(define\|undef\)\>"
 
 syn keyword	cOperator	__typeof __auto_type
-syn match cFunction "\<\k\+\ze(" display
+syn match Function "\<\k\+\ze(" display
 
 hi! link cUserCont Delimiter
