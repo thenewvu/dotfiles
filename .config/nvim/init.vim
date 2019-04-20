@@ -277,6 +277,11 @@ Plug 'airblade/vim-gitgutter'
 " }}}
 
 Plug 'godlygeek/tabular'
+" {{{
+
+    vnoremap ga :Tabularize /
+
+" }}}
 
 " async linting
 Plug 'w0rp/ale' 
