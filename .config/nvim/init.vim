@@ -201,18 +201,6 @@ vnoremap <silent> # :<C-U>
 
 call plug#begin('~/.config/nvim/plugged')
 
-" improved javascript syntax
-Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
-
-" jsx syntax
-Plug 'MaxMEllon/vim-jsx-pretty', { 'for': 'javascript' } 
-" {{{
-
-    hi! link jsxCloseTag jsxTag
-    hi! link jsxCloseString jsxTag
-
-" }}}
-
 " commenting
 Plug 'tpope/vim-commentary'
 
