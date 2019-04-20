@@ -466,7 +466,7 @@ Plug 'terryma/vim-expand-region'
 
 " }}}
 
-Plug 'vim-python/python-syntax'
+Plug 'vim-python/python-syntax', { 'for': 'python' }
 " {{{
 
     let g:python_highlight_operators = 1
