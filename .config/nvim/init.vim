@@ -20,7 +20,7 @@ set showbreak=↪\
 set foldenable foldmethod=syntax foldmarker={,} foldnestmax=5 foldlevel=0
 set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
 set fillchars+=fold:\ 
-set foldtext=FoldText()
+set nofoldenable
 let g:loaded_netrwPlugin = 1
 let g:loaded_matchparen = 1
 let g:matchparen_timeout = 5 " timeout to abort searching
@@ -46,31 +46,6 @@ set splitbelow splitright
 " Set %% to the dir that contains the current file
 " http://vim.wikia.com/wiki/Easy_edit_of_files_in_the_same_directory
 cabbr <expr> %% fnamemodify(resolve(expand('%:p')), ':h')
-
-function! FoldText()
-  let l:start = substitute(getline(v:foldstart), '^\s*', '', '')
-  let l:end = getline(v:foldend)
-  let l:indent = repeat(' ', indent(v:foldstart))
-
-  if &syntax == "markdown"
-    return l:indent . l:start
-  endif
-
-  if &foldmethod == "marker"
-    let l:start = substitute(l:start, '{.*$', '{', '')
-    let l:end = substitute(l:end, '^.*}', '}', '')
-
-    if &syntax == "c" || &syntax == "cpp"
-      if l:end =~ "}.*\\"
-        let l:end = "}"
-      endif
-    endif
-
-    return l:indent . l:start . '▾' . l:end
-  endif
-
-  return l:indent . l:start . ' ▾'
-endfunction 
 
 " ref: http://vim.wikia.com/wiki/Faster_loading_of_large_files
 function! OptimizeForLargeFile()
