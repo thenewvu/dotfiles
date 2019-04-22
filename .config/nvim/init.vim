@@ -167,6 +167,9 @@ nnoremap <silent> p p`]
 map q: :q
 " <r> keep replacing
 nnoremap r R
+" newline without enter inserting mode
+nnoremap o o<esc>
+nnoremap O O<esc>
 " navigate to the last accessed buffer
 nnoremap <A-tab> :b#<cr>
 tnoremap <A-tab> <C-\><C-n>:b#<cr>
