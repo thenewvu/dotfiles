@@ -143,5 +143,16 @@ alias ga="git add -ip"
 alias gd="git diff --cached"
 alias gc="git commit -m"
 
+twitch() {
+    curl    -H 'Accept: application/vnd.twitchtv.v3+json' \
+            -H "Client-ID: $(cat ~/.twitch_client_id)" \
+            "https://api.twitch.tv/kraken/streams?limit=10&language=en&game=$1" |
+    jq      -r '.streams[].channel | "\(.game)\t\(.status[0:128])\t\(.url)"' |
+    column  -t -s $'\t' |
+    fzf     --cycle --no-sort --reverse --tiebreak=index --no-multi --ansi |
+    grep    -o 'https://.*' |
+    xargs   -I % bash --login -c 'ytp %'
+}
+
 # }}}
 
