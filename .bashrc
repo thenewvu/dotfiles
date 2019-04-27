@@ -45,6 +45,7 @@ PROMPT_COMMAND=prompt
 
 export VISUAL="nvim"
 export EDITOR="nvim"
+export BROWSER="~/.bin/browser"
 
 export PATH="$HOME/.bin/:$PATH"
 

@@ -1,0 +1,28 @@
+#!/bin/bash
+
+case $1 in
+    http*://*youtube.com/watch?*|http*://youtu.be/watch?*)
+        mpv --ytdl-format="bestvideo[height<=720][ext=webm]+bestaudio[ext=webm]/best" "$1"
+    ;;
+    http*://clips.twitch.tv/*)
+        mpv --ytdl-format="720p/best" "$1"
+    ;;
+    http*://gfycat.com/*)
+        mpv "$1"
+    ;;
+    http*://www.facebook.com/*)
+        open -a /Applications/Firefox.app "$(echo "$1" | sed 's/www./m./')"
+    ;;
+    http*://v.redd.it/*)
+        mpv --loop=inf --autofit 640x480 "$1"
+    ;;
+    *.jpg*|*.png*|*.webp*)
+        mpv --pause --autofit 640x480 "$1"
+    ;;
+    *.gif*|*.gifv*|*.webm*|*.mp4*)
+        mpv --loop=inf --autofit 640x480 "$1"
+    ;;
+    *)
+        open -a /Applications/Firefox.app "$1"
+    ;;
+esac 
