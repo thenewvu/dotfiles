@@ -1,7 +1,7 @@
 #!/bin/bash
 
 case $1 in
-    http*://*youtube.com/watch?*|http*://youtu.be/watch?*)
+    http*://*youtube.com/*|http*://youtu.be/*)
         mpv --ytdl-format="bestvideo[height<=720][ext=webm]+bestaudio[ext=webm]/best" "$1"
     ;;
     http*://clips.twitch.tv/*)
