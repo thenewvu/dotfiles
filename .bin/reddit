@@ -1,0 +1,4 @@
+#!/bin/bash
+
+RTV_BROWSER=~/.bin/browser rtv
+
