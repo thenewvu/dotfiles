@@ -109,11 +109,6 @@ export PROMPT_COMMAND="history -n; history -w; history -c; history -r; $PROMPT_C
 
 alias yta='youtube-dl -f bestaudio'
 alias ytv='youtube-dl -f "bestvideo[height<=720][ext=webm]+bestaudio[ext=webm]/best" --write-sub --write-auto-sub --sub-lang=en'
-ytp() {
-    __FMT=`youtube-dl -F $1 | fzf`
-    __FMT=`echo "$__FMT" | cut -d' ' -f1`
-    mpv --ytdl-format="$__FMT" "$1"
-}
 
 alias ll="ls -lcthr"
 alias ls="ls -cthr"
