@@ -438,7 +438,7 @@ Plug 'skywind3000/asyncrun.vim', { 'on': 'AsyncRun' }
     let g:asyncrun_open = 10
 
     nnoremap ! :AsyncRun<space>
-    nnoremap f :AsyncRun! rg --vimgrep 
+    nnoremap <A-f> :AsyncRun! rg --vimgrep 
 
 " }}}
 
@@ -452,8 +452,8 @@ Plug 'kana/vim-smartinput'
 Plug 'terryma/vim-expand-region'
 " {{{
 
-    vmap v <Plug>(expand_region_expand)
-    vmap V <Plug>(expand_region_shrink)
+    vmap = <Plug>(expand_region_expand)
+    vmap - <Plug>(expand_region_shrink)
 
 " }}}
 
