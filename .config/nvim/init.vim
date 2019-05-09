@@ -202,6 +202,8 @@ vnoremap <silent> # :<C-U>
 
 " Plugins {{{
 
+" vim-plug {{{
+
 call plug#begin('~/.config/nvim/plugged')
 
 " commenting
@@ -210,7 +212,54 @@ Plug 'tpope/vim-commentary'
 " fuzzy searching
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim' 
-" {{{
+
+" wb word by word
+Plug 'chaoren/vim-wordmotion' 
+
+" automatically add end tag
+Plug 'alvan/vim-closetag' 
+
+Plug 'terryma/vim-multiple-cursors' 
+
+Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeEnable' }
+
+Plug 'airblade/vim-gitgutter' 
+
+Plug 'godlygeek/tabular'
+
+" async linting
+Plug 'w0rp/ale' 
+
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+
+Plug 'Yggdroot/indentLine' 
+
+Plug 'thenewvu/vim-colors-blueprint' 
+
+Plug 'simnalamburt/vim-mundo', { 'on': 'MundoToggle' }
+
+" provides a buffer line which looks like the tab line
+Plug 'ap/vim-buftabline' 
+
+Plug 'plasticboy/vim-markdown' 
+
+Plug 'skywind3000/asyncrun.vim', { 'on': 'AsyncRun' }
+
+Plug 'RRethy/vim-hexokinase', { 'on': 'HexokinaseToggle' }
+
+Plug 'kana/vim-smartinput'
+
+Plug 'terryma/vim-expand-region'
+
+Plug 'vim-python/python-syntax', { 'for': 'python' }
+
+Plug 'tikhomirov/vim-glsl', { 'for': 'glsl' }
+
+call plug#end()
+
+" }}}
+
+" fzf {{{
 
   " fuzzy search files in cwd
   nnoremap ` :FZF<cr>
@@ -225,29 +274,20 @@ Plug 'junegunn/fzf.vim'
 
 " }}}
 
-" wb word by word
-Plug 'chaoren/vim-wordmotion' 
-
-" automatically add end tag
-Plug 'alvan/vim-closetag' 
-" {{{
+" vim-closetab {{{
 
   let g:closetag_filenames = "*.html,*.xml,*.js,*.jsx"
 
 " }}}
 
-Plug 'terryma/vim-multiple-cursors' 
-" {{{
+" vim-multiple-cursors {{{
 
   hi link multiple_cursors_cursor Cursor
   hi link multiple_cursors_visual Search
 
 " }}}
 
-Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeEnable' }
-
-Plug 'airblade/vim-gitgutter' 
-" {{{
+" vim-gitguter {{{
 
   set updatetime=1000
 
@@ -267,16 +307,13 @@ Plug 'airblade/vim-gitgutter'
 
 " }}}
 
-Plug 'godlygeek/tabular'
-" {{{
+" tabular {{{
 
     vnoremap ga :Tabularize /
 
 " }}}
 
-" async linting
-Plug 'w0rp/ale' 
-" {{{
+" ale {{{
 
     let g:ale_fix_on_save = 1
     let g:ale_open_list = 0
@@ -337,16 +374,16 @@ Plug 'w0rp/ale'
 
 " }}}
 
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-"{{{
+" deoplete {{{
 
     let g:deoplete#enable_at_startup = 1
-    let g:deoplete#sources = { 'c': ['ale'] }
+
+    call deoplete#custom#source('sources', {'c': ['ale']})
+    call deoplete#custom#source('ale', 'rank', 1)
 
 "}}}
 
-Plug 'Yggdroot/indentLine' 
-" {{{
+" indentLine {{{
 
   let g:indentLine_enabled = 1
   let g:indentLine_faster = 1
@@ -358,27 +395,23 @@ Plug 'Yggdroot/indentLine'
 
 " }}}
 
-Plug 'thenewvu/vim-colors-blueprint' 
-" {{{
+" vim-colors-blueprint {{{
 
-  set rtp+=~/.config/nvim/plugged/vim-colors-blueprint
+  " set rtp+=~/.config/nvim/plugged/vim-colors-blueprint
   set termguicolors
   set background=dark
   colorscheme blueprint
 
 " }}}
 
-Plug 'simnalamburt/vim-mundo', { 'on': 'MundoToggle' }
-" {{{
+" vim-mundo {{{
 
   let g:mundo_width = 120
   let g:mundo_preview_height = 20
   
 " }}}
 
-" provides a buffer line which looks like the tab line
-Plug 'ap/vim-buftabline' 
-" {{{
+" vim-buftabline {{{
 
     let g:buftabline_indicators = 1
     let g:buftabline_numbers = 2
@@ -411,8 +444,7 @@ Plug 'ap/vim-buftabline'
 
 " }}}
 
-Plug 'plasticboy/vim-markdown' 
-" {{{
+" vim-markdown {{{
 
     let g:vim_markdown_conceal = 2
     let g:vim_markdown_folding_disabled = 1
@@ -443,8 +475,7 @@ Plug 'plasticboy/vim-markdown'
 
 " }}}
 
-Plug 'skywind3000/asyncrun.vim', { 'on': 'AsyncRun' }
-" {{{
+" asyncrun.vim {{{
     let g:asyncrun_open = 10
 
     nnoremap ! :AsyncRun<space>
@@ -452,30 +483,23 @@ Plug 'skywind3000/asyncrun.vim', { 'on': 'AsyncRun' }
 
 " }}}
 
-Plug 'RRethy/vim-hexokinase', { 'on': 'HexokinaseToggle' }
-" {{{
+" vim-hexokinase {{{
     let g:Hexokinase_virtualText = '██████'
 " }}}
 
-Plug 'kana/vim-smartinput'
-
-Plug 'terryma/vim-expand-region'
-" {{{
+" vim-expand-region {{{
 
     vmap = <Plug>(expand_region_expand)
     vmap - <Plug>(expand_region_shrink)
 
 " }}}
 
-Plug 'vim-python/python-syntax', { 'for': 'python' }
-" {{{
+" python-syntax {{{
 
     let g:python_highlight_operators = 1
 
 " }}}
 
-Plug 'tikhomirov/vim-glsl', { 'for': 'glsl' }
-
-call plug#end()
-
 " }}}
+
+
