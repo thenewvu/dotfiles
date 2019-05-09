@@ -1,12 +1,10 @@
 #!/bin/bash
 
-INP="$1"
-OUT=`
-    curl -sS -N "https://dict.laban.vn/ajax/autocomplete?type=1&site=dictionary&query=$INP" --compressed | \
-    jq -r '.suggestions[] | .data' | \
-    sed -e 's/<img[^>]*>//g' | \
-    w3m -dump -T text/html \
-`
-
-echo "$OUT"
-
+echo "`
+    curl    -sS "https://dict.laban.vn/ajax/find?type=1&query=$1"  \
+            -H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8' \
+            --compressed |
+    jq      -r '.enViData.best.details' |
+    tail    -n +10 |
+    w3m     -dump -T text/html 
+`"
