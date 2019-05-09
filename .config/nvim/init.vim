@@ -323,8 +323,6 @@ call plug#end()
     let g:ale_lint_on_text_changed = 0
     let g:ale_lint_on_filetype_changed = 0
     let g:ale_warn_about_trailing_whitespace = 0
-    let g:ale_completion_enabled = 1
-    let g:ale_completion_max_suggestions = 10
 
     let g:ale_set_highlights = 1
     let g:ale_set_signs = 0
