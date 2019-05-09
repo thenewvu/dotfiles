@@ -286,10 +286,12 @@ Plug 'w0rp/ale'
     let g:ale_lint_on_text_changed = 0
     let g:ale_lint_on_filetype_changed = 0
     let g:ale_warn_about_trailing_whitespace = 0
-    let g:ale_completion_enabled = 0
+    let g:ale_completion_enabled = 1
+    let g:ale_completion_max_suggestions = 10
 
     let g:ale_set_highlights = 1
     let g:ale_set_signs = 0
+
     hi link ALEError       SpellBad
     hi link ALEWarning     SpellLocal
 
@@ -334,6 +336,14 @@ Plug 'w0rp/ale'
     nmap <F10> <Plug>(ale_go_to_definition)
 
 " }}}
+
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+"{{{
+
+    let g:deoplete#enable_at_startup = 1
+    let g:deoplete#sources = { 'c': ['ale'] }
+
+"}}}
 
 Plug 'Yggdroot/indentLine' 
 " {{{
