@@ -316,8 +316,6 @@ call plug#end()
 " ale {{{
 
     let g:ale_fix_on_save = 1
-    let g:ale_open_list = 0
-    let g:ale_set_loclist = 1
     let g:ale_lint_on_save = 1
     let g:ale_lint_on_enter = 0
     let g:ale_lint_on_text_changed = 0
