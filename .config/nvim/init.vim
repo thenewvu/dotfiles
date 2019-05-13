@@ -377,6 +377,7 @@ call plug#end()
     call deoplete#custom#option('auto_complete_delay', 200)
     call deoplete#custom#option('max_list', 10)
 
+    call deoplete#custom#source('_', 'disabled_syntaxes', ['Comment', 'String'])
     call deoplete#custom#source('sources', {
         \'_': ['buffer'],
         \'c': ['ale']
