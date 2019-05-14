@@ -225,7 +225,7 @@ Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeEnable' }
 
 Plug 'airblade/vim-gitgutter' 
 
-Plug 'godlygeek/tabular'
+Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 
 " async linting
 Plug 'w0rp/ale' 
