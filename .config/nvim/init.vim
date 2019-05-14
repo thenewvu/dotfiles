@@ -230,7 +230,10 @@ Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 " async linting
 Plug 'w0rp/ale' 
 
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
 Plug 'Yggdroot/indentLine' 
 
@@ -331,13 +334,13 @@ call plug#end()
     let g:ale_c_parse_compile_commands = 1
 
     let g:ale_linters = {}
-    let g:ale_linters['c'] = ['clangd']
-    let g:ale_linters['cpp'] = ['clangd']
+    " let g:ale_linters['c'] = ['clangd']
+    " let g:ale_linters['cpp'] = ['clangd']
 
     let g:ale_fixers = {}
-    let g:ale_fixers['c'] = ['clang-format', 'trim_whitespace']
+    " let g:ale_fixers['c'] = ['clang-format', 'trim_whitespace']
     let g:ale_c_clangformat_options = '-style=file -assume-filename=file.c'
-    let g:ale_fixers['cpp'] = ['clang-format', 'trim_whitespace']
+    " let g:ale_fixers['cpp'] = ['clang-format', 'trim_whitespace']
     let g:ale_cpp_clangformat_options = '-style=file -assume-filename=file.cpp'
     let g:ale_fixers['javascript'] = ['prettier']
     let g:ale_fixers['json'] = ['prettier']
@@ -370,21 +373,32 @@ call plug#end()
 
 " }}}
 
-" deoplete {{{
+" asyncomplete {{{
 
-    let g:deoplete#enable_at_startup = 1
+let g:asyncomplete_popup_delay = 200
 
-    call deoplete#custom#option('auto_complete_delay', 200)
-    call deoplete#custom#option('max_list', 10)
+" }}}
 
-    call deoplete#custom#source('_', 'disabled_syntaxes', ['Comment', 'String'])
-    call deoplete#custom#source('sources', {
-        \'_': ['buffer'],
-        \'c': ['ale']
-    \})
-    call deoplete#custom#source('ale', 'rank', 1)
+" vim-lsp {{{
 
-"}}}
+let g:lsp_diagnostics_echo_cursor = 0
+let g:lsp_diagnostics_enabled = 0
+let g:lsp_highlight_references_enabled = 0
+
+if executable('clangd')
+    augroup VIM_LSP
+        au!
+        au User lsp_setup call lsp#register_server({
+            \ 'name': 'clangd',
+            \ 'cmd': {server_info->['clangd', '-background-index']},
+            \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
+            \ })
+        au BufWritePre *.c silent LspDocumentFormatSync
+    augroup END
+
+endif
+
+" }}}
 
 " indentLine {{{
 
