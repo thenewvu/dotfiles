@@ -235,8 +235,6 @@ Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'prabirshrestha/asyncomplete-buffer.vim'
-Plug 'Shougo/neoinclude.vim'
-Plug 'kyouryuukunn/asyncomplete-neoinclude.vim'
 
 Plug 'Yggdroot/indentLine' 
 
@@ -376,28 +374,6 @@ call plug#end()
 
 " }}}
 
-" asyncomplete {{{
-
-let g:asyncomplete_popup_delay = 200
-
-augroup ASYNCOMPLETE
-    au!
-    au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#neoinclude#get_source_options({
-        \ 'name': 'neoinclude',
-        \ 'whitelist': ['c'],
-        \ 'refresh_pattern': '\(<\|"\|/\)$',
-        \ 'completor': function('asyncomplete#sources#neoinclude#completor'),
-        \ }))
-    au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
-        \ 'name': 'buffer',
-        \ 'whitelist': ['*'],
-        \ 'blacklist': ['c'],
-        \ 'completor': function('asyncomplete#sources#buffer#completor'),
-        \ }))
-augroup END
-
-" }}}
-
 " vim-lsp {{{
 
 let g:lsp_diagnostics_echo_cursor = 0
@@ -416,6 +392,22 @@ if executable('clangd')
     augroup END
 
 endif
+
+" }}}
+
+" asyncomplete {{{
+
+let g:asyncomplete_popup_delay = 200
+
+augroup ASYNCOMPLETE
+    au!
+    au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
+        \ 'name': 'buffer',
+        \ 'whitelist': ['*'],
+        \ 'blacklist': ['c'],
+        \ 'completor': function('asyncomplete#sources#buffer#completor'),
+        \ }))
+augroup END
 
 " }}}
 
