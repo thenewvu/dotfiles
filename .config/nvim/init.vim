@@ -335,13 +335,13 @@ call plug#end()
     let g:ale_c_parse_compile_commands = 1
 
     let g:ale_linters = {}
-    " let g:ale_linters['c'] = ['clangd']
-    " let g:ale_linters['cpp'] = ['clangd']
+    let g:ale_linters['c'] = ['clangd']
+    let g:ale_linters['cpp'] = ['clangd']
 
     let g:ale_fixers = {}
-    " let g:ale_fixers['c'] = ['clang-format', 'trim_whitespace']
+    let g:ale_fixers['c'] = ['clang-format', 'trim_whitespace']
     let g:ale_c_clangformat_options = '-style=file -assume-filename=file.c'
-    " let g:ale_fixers['cpp'] = ['clang-format', 'trim_whitespace']
+    let g:ale_fixers['cpp'] = ['clang-format', 'trim_whitespace']
     let g:ale_cpp_clangformat_options = '-style=file -assume-filename=file.cpp'
     let g:ale_fixers['javascript'] = ['prettier']
     let g:ale_fixers['json'] = ['prettier']
@@ -376,7 +376,6 @@ call plug#end()
 
 " vim-lsp {{{
 
-let g:lsp_diagnostics_echo_cursor = 0
 let g:lsp_diagnostics_enabled = 0
 let g:lsp_highlight_references_enabled = 0
 
@@ -388,9 +387,7 @@ if executable('clangd')
             \ 'cmd': {server_info->['clangd', '-background-index']},
             \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
             \ })
-        au BufWritePre *.c silent LspDocumentFormatSync
     augroup END
-
 endif
 
 " }}}
