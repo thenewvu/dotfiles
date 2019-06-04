@@ -1,9 +1,9 @@
-" vim:fileencoding=utf-8:foldmethod=marker:foldmarker={{{,}}}
+ " vim:fileencoding=utf-8:foldmethod=marker:foldmarker={{{,}}}
 
 " General {{{
 
 set nobackup nowritebackup noswapfile
-set undofile undolevels=500 undoreload=500
+set undofile undolevels=5000 undoreload=5000
 set confirm " ask to confirm closing an unsaved file
 set hidden " switch between buffers without saving
 set completeopt=menu,menuone,noselect,noinsert
