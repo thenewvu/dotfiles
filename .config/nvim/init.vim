@@ -239,8 +239,6 @@ Plug 'airblade/vim-gitgutter'
 
 Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 
-" async linting
-Plug 'w0rp/ale' 
 
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/async.vim'
@@ -326,97 +324,6 @@ call plug#end()
 " tabular {{{
 
     vnoremap ga :Tabularize /
-
-" }}}
-
-" ale {{{
-
-    let g:ale_fix_on_save = 1
-    let g:ale_lint_on_save = 1
-    let g:ale_lint_on_enter = 0
-    let g:ale_lint_on_text_changed = 0
-    let g:ale_lint_on_filetype_changed = 0
-    let g:ale_warn_about_trailing_whitespace = 0
-
-    let g:ale_set_highlights = 1
-    let g:ale_set_signs = 0
-
-    hi link ALEError       SpellBad
-    hi link ALEWarning     SpellLocal
-
-    let g:ale_c_parse_compile_commands = 1
-
-    let g:ale_linters = {}
-    let g:ale_linters['c'] = ['clangd']
-    let g:ale_linters['cpp'] = ['clangd']
-
-    let g:ale_fixers = {}
-    let g:ale_fixers['c'] = ['clang-format', 'trim_whitespace']
-    let g:ale_c_clangformat_options = '-style=file -assume-filename=file.c'
-    let g:ale_fixers['cpp'] = ['clang-format', 'trim_whitespace']
-    let g:ale_cpp_clangformat_options = '-style=file -assume-filename=file.cpp'
-    let g:ale_fixers['javascript'] = ['prettier']
-    let g:ale_fixers['json'] = ['prettier']
-    let g:ale_json_prettier_options = '--parser json'
-    let g:ale_fixers['css'] = ['prettier']
-    let g:ale_css_prettier_options = '--parser css'
-    let g:ale_fixers['markdown'] = ['prettier']
-    let g:ale_markdown_prettier_options = '--parser markdown'
-    let g:ale_fixers['html'] = ['prettier']
-    let g:ale_html_prettier_options = '--parser html'
-
-    function! LinterStatus() abort
-        let l:counts = ale#statusline#Count(bufnr(''))
-
-        let l:all_errors = l:counts.error + l:counts.style_error
-        let l:all_non_errors = l:counts.total - l:all_errors
-
-        return l:counts.total == 0 ? 'OK' : printf(
-        \   '%dW %dE',
-        \   all_non_errors,
-        \   all_errors
-        \)
-    endfunction
-
-    set statusline+=%=%{LinterStatus()}
-
-    nmap <F7> <Plug>(ale_previous_wrap)
-    nmap <F9> <Plug>(ale_next_wrap)
-    nmap <F10> <Plug>(ale_go_to_definition)
-
-" }}}
-
-" vim-lsp {{{
-
-let g:lsp_diagnostics_enabled = 0
-let g:lsp_highlight_references_enabled = 0
-
-if executable('clangd')
-    augroup VIM_LSP
-        au!
-        au User lsp_setup call lsp#register_server({
-            \ 'name': 'clangd',
-            \ 'cmd': {server_info->['clangd', '-background-index']},
-            \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
-            \ })
-    augroup END
-endif
-
-" }}}
-
-" asyncomplete {{{
-
-let g:asyncomplete_popup_delay = 200
-
-augroup ASYNCOMPLETE
-    au!
-    au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
-        \ 'name': 'buffer',
-        \ 'whitelist': ['*'],
-        \ 'blacklist': ['c'],
-        \ 'completor': function('asyncomplete#sources#buffer#completor'),
-        \ }))
-augroup END
 
 " }}}
 
