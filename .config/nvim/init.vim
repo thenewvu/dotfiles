@@ -430,6 +430,7 @@ nmap <silent> <F11> <Plug>(coc-implementation)
 
     nnoremap ! :AsyncRun<space>
     nnoremap <A-f> :AsyncRun! rg --vimgrep 
+    nnoremap <F8> :AsyncRun! make %:r<cr>
 
 " }}}
 
