@@ -22,6 +22,9 @@ case $1 in
     *.gif*|*.gifv*|*.webm*|*.mp4*)
         /usr/local/bin/mpv --loop=inf --autofit 640x480 "$1"
     ;;
+    *.mp3*|*.flac*|*.mkv*)
+        /usr/local/bin/mpv --loop=inf --autofit 640x480 "$1"
+    ;;
     *)
         open -a /Applications/Firefox.app "$1"
     ;;
