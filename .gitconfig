@@ -7,9 +7,9 @@
 [credential]
 	helper = cache --timeout 360000
 [pager]
-    diff = diff-so-fancy | less -R --tabs=4
-    log = diff-so-fancy | less -R --tabs=4
-    show = diff-so-fancy | less -R --tabs=4
+    diff = diff-so-fancy | less -R --tabs=4 --pattern '^(Date|added|deleted|modified): '
+    log = diff-so-fancy | less -R --tabs=4 --pattern '^(Date|added|deleted|modified): '
+    show = diff-so-fancy | less -R --tabs=4 --pattern '^(Date|added|deleted|modified): '
 [interactive]
 	diffFilter = diff-highlight
 [gc]
