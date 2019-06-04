@@ -241,11 +241,7 @@ Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 
 Plug 'prettier/vim-prettier', { 'do': 'npm install' }
 
-Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/async.vim'
-Plug 'prabirshrestha/vim-lsp'
-Plug 'prabirshrestha/asyncomplete-lsp.vim'
-Plug 'prabirshrestha/asyncomplete-buffer.vim'
+Plug 'neoclide/coc.nvim', {'do': 'npm install'} 
 
 Plug 'Yggdroot/indentLine' 
 
@@ -271,6 +267,15 @@ Plug 'vim-python/python-syntax', { 'for': 'python' }
 Plug 'tikhomirov/vim-glsl', { 'for': 'glsl' }
 
 call plug#end()
+
+" }}}
+
+" coc.nvim {{{
+
+nmap <silent> <F9> <Plug>(coc-diagnostic-prev)
+nmap <silent> <F7> <Plug>(coc-diagnostic-next)
+nmap <silent> <F10> <Plug>(coc-definition)
+nmap <silent> <F11> <Plug>(coc-implementation)
 
 " }}}
 
