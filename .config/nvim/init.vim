@@ -262,8 +262,6 @@ Plug 'kana/vim-smartinput'
 
 Plug 'terryma/vim-expand-region'
 
-Plug 'vim-python/python-syntax', { 'for': 'python' }
-
 Plug 'tikhomirov/vim-glsl', { 'for': 'glsl' }
 
 call plug#end()
