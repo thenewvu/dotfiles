@@ -239,6 +239,7 @@ Plug 'airblade/vim-gitgutter'
 
 Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 
+Plug 'prettier/vim-prettier', { 'do': 'npm install' }
 
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/async.vim'
