@@ -48,6 +48,7 @@ export BROWSER="~/.bin/browser"
 export PATH="$HOME/.bin/:$PATH"
 
 export GOPATH="$HOME/Works/projects/go"
+export PATH="$GOPATH/bin:$PATH"
 
 export GEM_HOME="$HOME/.gem"
 export PATH="$GEM_HOME/bin:$PATH"
