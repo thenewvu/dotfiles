@@ -194,6 +194,22 @@ vnoremap <silent> # :<C-U>
   \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
   \gV:call setreg('"', old_reg, old_regtype)<CR>
 
+
+function! ToggleQuickFix()
+  if exists("g:qwindow")
+    cclose
+    unlet g:qwindow
+  else
+    try
+      copen 10
+      let g:qwindow = 1
+    catch 
+      echo "No Errors found!"
+    endtry
+  endif
+endfunction
+nnoremap <silent> <F12> :call ToggleQuickFix()<CR>
+
 " }}}
 
 " Plugins {{{
