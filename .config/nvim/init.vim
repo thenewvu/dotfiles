@@ -180,10 +180,6 @@ nnoremap <A-h> :bp<cr>
 tnoremap <A-h> <C-\><C-n>:bp<cr>
 " close current buffer without closing the current window
 nnoremap <A-q> :bp<bar>sp<bar>bn<bar>bd<cr>
-" suspend the current vim process
-nnoremap <A-`> <C-z>
-inoremap <A-`> <esc><C-z>
-vnoremap <A-`> <esc><C-z>
 
 " Search selecting
 " Ref: http://vim.wikia.com/wiki/Search_for_visually_selected_text<Paste>
@@ -522,6 +518,16 @@ augroup END
 " python-syntax {{{
 
     let g:python_highlight_operators = 1
+
+" }}}
+
+" nuake {{{
+
+let g:nuake_size = 0.33
+
+nnoremap <A-`> :Nuake<CR>
+inoremap <A-`> <C-\><C-n>:Nuake<CR>
+tnoremap <A-`> <C-\><C-n>:Nuake<CR>
 
 " }}}
 
