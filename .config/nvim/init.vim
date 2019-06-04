@@ -264,6 +264,8 @@ Plug 'terryma/vim-expand-region'
 
 Plug 'tikhomirov/vim-glsl', { 'for': 'glsl' }
 
+Plug 'https://gitlab.com/Lenovsky/nuake.git'
+
 call plug#end()
 
 " }}}
