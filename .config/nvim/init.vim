@@ -432,7 +432,8 @@ nmap <silent> <F11> <Plug>(coc-implementation)
 
 " nuake {{{
 
-let g:nuake_size = 0.33
+let g:nuake_size = 1
+let g:nuake_position = 'left'
 
 nnoremap <A-`> :Nuake<CR>
 inoremap <A-`> <C-\><C-n>:Nuake<CR>
