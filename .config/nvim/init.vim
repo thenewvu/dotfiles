@@ -100,7 +100,6 @@ let mapleader = ";"
 
 " write current file with sudo
 cmap w! w !sudo tee > /dev/null %
-nnoremap ;; :
 nnoremap <f2> :e ~/.config/nvim/init.vim<cr>
 " reload current file and redraw
 nnoremap <f5> :edit<cr>:redraw<cr>
