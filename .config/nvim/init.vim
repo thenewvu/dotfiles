@@ -61,6 +61,16 @@ function! OptimizeForLargeFile()
     endif
 endfunction
 
+function! OnTabEnter(path)
+  if isdirectory(a:path)
+    let dirname = a:path
+  else
+    let dirname = fnamemodify(a:path, ":h")
+  endif
+  execute "tcd ". dirname
+endfunction()
+
+
 augroup All
     au!
 
@@ -77,6 +87,9 @@ augroup All
 
     au TermOpen * setlocal signcolumn="no"
     au BufWinEnter,WinEnter term://* startinsert
+
+    " https://dmerej.info/blog/post/vim-cwd-and-neovim/
+    au TabNewEntered * call OnTabEnter(expand("<amatch>"))
 augroup END
 
 " }}}
