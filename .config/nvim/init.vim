@@ -100,6 +100,7 @@ let mapleader = ";"
 
 " write current file with sudo
 cmap w! w !sudo tee > /dev/null %
+nnoremap <leader>e :e 
 nnoremap <f2> :e ~/.config/nvim/init.vim<cr>
 " reload current file and redraw
 nnoremap <f5> :edit<cr>:redraw<cr>
@@ -147,11 +148,11 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 " split vertically
-nnoremap <C-d> :vsplit<cr>
+nnoremap <C-right> :vsplit<cr>
 " split horizontally
-nnoremap <C-s> :split<cr>
+nnoremap <C-down> :split<cr>
 " close current window
-nnoremap <C-q> :close<cr>
+nnoremap <C-d> <C-w>c
 " move left/right one indent
 nnoremap > >>
 nnoremap < <<
@@ -190,8 +191,6 @@ nnoremap <A-l> :bn<cr>
 tnoremap <A-l> <C-\><C-n>:bn<cr>
 nnoremap <A-h> :bp<cr>
 tnoremap <A-h> <C-\><C-n>:bp<cr>
-" close current buffer without closing the current window
-nnoremap <A-q> :bp<bar>sp<bar>bn<bar>bd<cr>
 
 " Search selecting
 " Ref: http://vim.wikia.com/wiki/Search_for_visually_selected_text<Paste>
