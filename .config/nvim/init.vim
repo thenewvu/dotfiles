@@ -250,7 +250,7 @@ Plug 'airblade/vim-gitgutter'
 
 Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 
-Plug 'prettier/vim-prettier', { 'do': 'npm install' }
+Plug 'prettier/vim-prettier', { 'do': 'npm install', 'for': ['javascript', 'css', 'json', 'markdown', 'html'] }
 
 Plug 'neoclide/coc.nvim', {'do': 'npm install'} 
 
