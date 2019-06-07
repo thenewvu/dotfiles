@@ -274,9 +274,6 @@ Plug 'tikhomirov/vim-glsl', { 'for': 'glsl' }
 
 Plug 'https://gitlab.com/Lenovsky/nuake.git'
 
-Plug 'zefei/vim-wintabs'
-Plug 'zefei/vim-wintabs-powerline'
-
 call plug#end()
 
 " }}}
@@ -433,41 +430,11 @@ nmap <silent> <F11> <Plug>(coc-implementation)
 
 let g:nuake_size = 1
 let g:nuake_position = 'left'
+let g:nuake_per_tab = 1
 
 nnoremap <A-`> :Nuake<CR>
 inoremap <A-`> <C-\><C-n>:Nuake<CR>
 tnoremap <A-`> <C-\><C-n>:Nuake<CR>
-
-" }}}
-
-" vim-wintabs {{{
-
-let g:wintabs_ui_buffer_name_format = '  %o %t '
-
-nnoremap <leader>1 :<C-U>WintabsGo 1<cr>
-nnoremap <leader>2 :<C-U>WintabsGo 2<cr>
-nnoremap <leader>3 :<C-U>WintabsGo 3<cr>
-nnoremap <leader>4 :<C-U>WintabsGo 4<cr>
-nnoremap <leader>5 :<C-U>WintabsGo 5<cr>
-nnoremap <leader>6 :<C-U>WintabsGo 6<cr>
-nnoremap <leader>7 :<C-U>WintabsGo 7<cr>
-nnoremap <leader>8 :<C-U>WintabsGo 8<cr>
-nnoremap <leader>9 :<C-U>WintabsGo 9<cr>
-
-nnoremap <leader>d :<C-U>WintabsClose<cr>
-nnoremap <leader>u :<C-U>WintabsUndo<cr>
-nnoremap <leader>a :<C-U>WintabsOnly<cr>
-
-let g:wintabs_powerline_sep_buffer_transition = "\ue0b1"
-let g:wintabs_powerline_sep_tab_transition = "\ue0b3"
-
-hi default link WintabsEmpty TabLineFill
-hi default link WintabsActive TabLineSel
-hi default link WintabsInactive TabLineFill
-hi default link WintabsArrow TabLineFill
-hi default link WintabsActiveNC TabLineFill
-hi default link WintabsInactiveNC TabLineFill
-
 
 " }}}
 
