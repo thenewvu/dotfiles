@@ -457,7 +457,6 @@ nmap <silent> <F11> <Plug>(coc-implementation)
 
 let g:nuake_size = 1
 let g:nuake_position = 'left'
-let g:nuake_per_tab = 1
 
 nnoremap <A-`> :Nuake<CR>
 inoremap <A-`> <C-\><C-n>:Nuake<CR>
