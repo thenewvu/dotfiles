@@ -183,14 +183,6 @@ nnoremap r R
 " newline without enter inserting mode
 nnoremap o o<esc>
 nnoremap O O<esc>
-" navigate to the last accessed buffer
-nnoremap <A-tab> :b#<cr>
-tnoremap <A-tab> <C-\><C-n>:b#<cr>
-" navigate between buffers horizontally
-nnoremap <A-l> :bn<cr>
-tnoremap <A-l> <C-\><C-n>:bn<cr>
-nnoremap <A-h> :bp<cr>
-tnoremap <A-h> <C-\><C-n>:bp<cr>
 
 " Search selecting
 " Ref: http://vim.wikia.com/wiki/Search_for_visually_selected_text<Paste>
