@@ -221,9 +221,6 @@ nnoremap <silent> <F12> :call ToggleQuickFix()<CR>
 
 call plug#begin('~/.config/nvim/plugged')
 
-" commenting
-Plug 'tpope/vim-commentary'
-
 " fuzzy searching
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim' 
