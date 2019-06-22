@@ -425,8 +425,15 @@ nmap <silent> <F11> <Plug>(coc-implementation)
 
 " }}}
 
+" vim-hugefile {{{
 
+let g:hugefile_trigger_size = 1
 
+" }}}
+
+" vim-prettier {{{
+
+let g:prettier#config#config_precedence = 'file-override'
 
 " }}}
 
