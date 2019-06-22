@@ -131,11 +131,11 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 " split vertically
-nnoremap <C-right> :vsplit<cr>
+nnoremap <C-d> :vsplit<cr>
 " split horizontally
-nnoremap <C-down> :split<cr>
+nnoremap <C-s> :split<cr>
 " close current window
-nnoremap <C-d> <C-w>c
+nnoremap <C-q> <C-w>c
 " move left/right one indent
 nnoremap > >>
 nnoremap < <<
@@ -360,7 +360,7 @@ nmap <silent> <F11> <Plug>(coc-implementation)
     nmap <leader>8 <Plug>BufTabLine.Go(8)
     nmap <leader>9 <Plug>BufTabLine.Go(9)
     nmap <leader>0 <Plug>BufTabLine.Go(10)
-    nnoremap <leader>d :bdelete<cr>
+    nnoremap <leader>q :bp<bar>sp<bar>bn<bar>bd<cr>
 
     hi! link BufTabLineCurrent   Normal
     hi! link BufTabLineActive    TablineSel
@@ -404,7 +404,7 @@ nmap <silent> <F11> <Plug>(coc-implementation)
     let g:asyncrun_open = 10
 
     nnoremap ! :AsyncRun<space>
-    nnoremap <A-f> :AsyncRun! rg --vimgrep 
+    nnoremap <leader>f :AsyncRun! rg --vimgrep 
     nnoremap <F8> :AsyncRun! make %:r<cr>
 
 " }}}
