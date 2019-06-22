@@ -47,20 +47,6 @@ set splitbelow splitright
 " http://vim.wikia.com/wiki/Easy_edit_of_files_in_the_same_directory
 cabbr <expr> %% fnamemodify(resolve(expand('%:p')), ':h')
 
-" ref: http://vim.wikia.com/wiki/Faster_loading_of_large_files
-function! OptimizeForLargeFile()
-    if getfsize(expand("<afile")) > 1024 * 512 " 512kb
-        " no syntax highlighting etc
-        set eventignore+=FileType
-        " save memory when other file is viewed
-        setlocal bufhidden=unload
-        " is read-only (write with :w new_filename)
-        setlocal buftype=nowrite
-        " no undo possible
-        setlocal undolevels=-1
-    endif
-endfunction
-
 function! OnTabEnter(path)
   if isdirectory(a:path)
     let dirname = a:path
@@ -73,9 +59,6 @@ endfunction()
 
 augroup All
     au!
-
-    " speed up editing large files
-    au BufReadPre * call OptimizeForLargeFile()
 
     " auto resource $MYVIMRC on change
     au BufWritePost $MYVIMRC source %
@@ -265,6 +248,7 @@ Plug 'terryma/vim-expand-region'
 Plug 'tikhomirov/vim-glsl', { 'for': 'glsl' }
 
 Plug 'https://gitlab.com/Lenovsky/nuake.git'
+Plug 'mhinz/vim-hugefile'
 
 call plug#end()
 
