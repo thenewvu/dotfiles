@@ -247,7 +247,6 @@ Plug 'terryma/vim-expand-region'
 
 Plug 'tikhomirov/vim-glsl', { 'for': 'glsl' }
 
-Plug 'https://gitlab.com/Lenovsky/nuake.git'
 Plug 'mhinz/vim-hugefile'
 
 call plug#end()
@@ -426,14 +425,8 @@ nmap <silent> <F11> <Plug>(coc-implementation)
 
 " }}}
 
-" nuake {{{
 
-let g:nuake_size = 1
-let g:nuake_position = 'left'
 
-nnoremap <A-`> :Nuake<CR>
-inoremap <A-`> <C-\><C-n>:Nuake<CR>
-tnoremap <A-`> <C-\><C-n>:Nuake<CR>
 
 " }}}
 
