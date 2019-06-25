@@ -252,6 +252,8 @@ Plug 'tikhomirov/vim-glsl', { 'for': 'glsl' }
 
 Plug 'mhinz/vim-hugefile'
 
+Plug 'terryma/vim-expand-region'
+
 call plug#end()
 
 " }}}
@@ -440,6 +442,22 @@ let g:prettier#config#config_precedence = 'file-override'
 
 " }}}
 
+" vim-expand-region {{{
+
+map m <Plug>(expand_region_expand)
+map M <Plug>(expand_region_shrink)
+
+call expand_region#custom_text_objects('html', {
+      \ 'it' :1,
+\ })
+call expand_region#custom_text_objects('svg', {
+      \ 'it' :1,
+\ })
+call expand_region#custom_text_objects('xml', {
+      \ 'it' :1,
+\ })
+
+" }}}
 
 " }}}
 
