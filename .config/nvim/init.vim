@@ -254,6 +254,8 @@ Plug 'mhinz/vim-hugefile'
 
 Plug 'terryma/vim-expand-region'
 
+Plug 'easymotion/vim-easymotion'
+
 call plug#end()
 
 " }}}
@@ -456,6 +458,17 @@ call expand_region#custom_text_objects('svg', {
 call expand_region#custom_text_objects('xml', {
       \ 'it' :1,
 \ })
+
+" }}}
+
+" vim-easymotion {{{
+
+     " type `l` and match `l`&`L`
+    let g:EasyMotion_smartcase = 1
+    " Smartsign (type `3` and match `3`&`#`)
+    let g:EasyMotion_use_smartsign_us = 1
+
+    nmap f <Plug>(easymotion-overwin-f2)
 
 " }}}
 
