@@ -22,7 +22,7 @@ case $1 in
     *.gif*|*.gifv*|*.webm*|*.mp4*)
         /usr/local/bin/mpv --force-window=yes --loop=inf --autofit 640x480 "$1"
     ;;
-    *.mp3*|*.flac*|*.mkv*)
+    *.mp3*|*.flac*|*.mkv*|*.m4a*)
         /usr/local/bin/mpv --force-window=yes --loop=inf --autofit 640x480 "$1"
     ;;
     *)
