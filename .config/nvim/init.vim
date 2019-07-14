@@ -10,7 +10,7 @@ set completeopt=menu,menuone,noselect,noinsert
 set encoding=utf-8
 set autoread " autoreload files on change
 set backspace=indent,eol,start " make backspace work like most other apps
-set incsearch hlsearch smartcase ignorecase inccommand=nosplit gdefault
+set incsearch hlsearch noignorecase inccommand=nosplit gdefault
 set expandtab smarttab tabstop=4 shiftwidth=4 softtabstop=4 
 set wildmenu " show auto-complete when typing in command line
 set wildmode=longest,list
@@ -69,7 +69,6 @@ augroup All
     au BufRead,BufNewFile *.MD       set filetype=markdown
 
     au TermOpen * setlocal signcolumn="no"
-    au BufWinEnter,WinEnter term://* startinsert
 
     " https://dmerej.info/blog/post/vim-cwd-and-neovim/
     au TabNewEntered * call OnTabEnter(expand("<amatch>"))
@@ -80,10 +79,12 @@ augroup END
 " Keys {{{
 
 let mapleader = ";"
-
+nnoremap ;; :
+nnoremap <leader>e :e 
+nnoremap <leader>w :w<cr>
 " write current file with sudo
 cmap w! w !sudo tee > /dev/null %
-nnoremap <leader>e :e 
+nnoremap <f1> :help 
 nnoremap <f2> :e ~/.config/nvim/init.vim<cr>
 " reload current file and redraw
 nnoremap <f5> :edit<cr>:redraw<cr>
@@ -116,7 +117,7 @@ nnoremap J i<enter><esc>
 " join lines
 nnoremap K J
 " redo
-nnoremap U <c-r>zz
+nnoremap U <c-r>
 " navigate between splits and buffers
 tnoremap <C-h> <C-\><C-N><C-w>h
 tnoremap <C-j> <C-\><C-N><C-w>j
@@ -187,7 +188,7 @@ function! ToggleQuickFix()
     unlet g:qwindow
   else
     try
-      copen 10
+      bot copen 10
       let g:qwindow = 1
     catch 
       echo "No Errors found!"
@@ -217,8 +218,6 @@ Plug 'chaoren/vim-wordmotion'
 " automatically add end tag
 Plug 'alvan/vim-closetag' 
 
-Plug 'terryma/vim-multiple-cursors' 
-
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeEnable' }
 
 Plug 'airblade/vim-gitgutter' 
@@ -227,7 +226,7 @@ Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 
 Plug 'prettier/vim-prettier', { 'do': 'npm install', 'for': ['javascript', 'css', 'json', 'markdown', 'html', 'svg', 'xml'] }
 
-Plug 'neoclide/coc.nvim', {'do': 'npm install'} 
+Plug 'neoclide/coc.nvim', { 'tag': '*', 'branch': 'release' }
 
 Plug 'Yggdroot/indentLine' 
 
@@ -238,7 +237,7 @@ Plug 'simnalamburt/vim-mundo', { 'on': 'MundoToggle' }
 " provides a buffer line which looks like the tab line
 Plug 'ap/vim-buftabline' 
 
-Plug 'plasticboy/vim-markdown' 
+Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 
 Plug 'skywind3000/asyncrun.vim', { 'on': 'AsyncRun' }
 
@@ -254,7 +253,14 @@ Plug 'mhinz/vim-hugefile'
 
 Plug 'terryma/vim-expand-region'
 
-Plug 'easymotion/vim-easymotion'
+Plug 'tpope/vim-eunuch'
+
+Plug 'kassio/neoterm'
+
+" Plug 'sickill/vim-pasta'
+Plug 'ForTheReallys/paste-indent'
+
+Plug 'amadeus/vim-convert-color-to', { 'on': 'ConvertColorTo' }
 
 call plug#end()
 
@@ -265,7 +271,7 @@ call plug#end()
 nmap <silent> <F9> <Plug>(coc-diagnostic-prev)
 nmap <silent> <F7> <Plug>(coc-diagnostic-next)
 nmap <silent> <F10> <Plug>(coc-definition)
-nmap <silent> <F11> <Plug>(coc-implementation)
+nmap <silent> <leader>s :CocList symbols<cr>
 
 " }}}
 
@@ -274,7 +280,11 @@ nmap <silent> <F11> <Plug>(coc-implementation)
   " fuzzy search files in cwd
   nnoremap ` :FZF<cr>
   " fuzzy search text in cur buf
-  nnoremap <tab> :BLines<cr>
+  nnoremap / :BLines<cr>
+  " exact search text in cur buf
+  nnoremap ? /
+  " fuzzy search text in cur buf
+  nnoremap ' :Marks<cr>
 
   augroup FZF
     au!
@@ -446,8 +456,8 @@ let g:prettier#config#config_precedence = 'file-override'
 
 " vim-expand-region {{{
 
-map m <Plug>(expand_region_expand)
-map M <Plug>(expand_region_shrink)
+map <tab> <Plug>(expand_region_expand)
+map <s-tab> <Plug>(expand_region_shrink)
 
 call expand_region#custom_text_objects('html', {
       \ 'it' :1,
@@ -461,14 +471,18 @@ call expand_region#custom_text_objects('xml', {
 
 " }}}
 
-" vim-easymotion {{{
+" neoterm {{{
 
-     " type `l` and match `l`&`L`
-    let g:EasyMotion_smartcase = 1
-    " Smartsign (type `3` and match `3`&`#`)
-    let g:EasyMotion_use_smartsign_us = 1
+let g:neoterm_size = 10
 
-    nmap f <Plug>(easymotion-overwin-f2)
+map <f11> :bot Ttoggle<cr>
+tmap <f11> <C-\><C-n>:bot Ttoggle<cr>
+
+" }}}
+
+" vim-pasta {{{
+
+let g:pasta_disabled_filetypes = ['json']
 
 " }}}
 
