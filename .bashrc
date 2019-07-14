@@ -88,19 +88,26 @@ export LDFLAGS="-L/usr/local/opt/llvm/lib -Wl,-rpath,/usr/local/opt/llvm/lib"
 
 export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
 
+export NNN_OPENER=~/.bin/browser
+
 # }}}
 
 # Command history {{{
+# https://sanctum.geek.nz/arabesque/better-bash-history/
 
 # Increase the size of history maintained by BASH
-export HISTFILESIZE=5000
+export HISTFILESIZE=10000
 export HISTSIZE=${HISTFILESIZE}
-# Use leading space to hide commands from history:
-export HISTCONTROL=ignorespace:ignoredups:erasedups
+# ignore recording duplicated or space-leading commands
+export HISTCONTROL=ignoreboth
+# ignore recording some trivial commands
+export HISTIGNORE='ls:ll:l:bg:fg:history'
 # When the shell exits, append to the history file instead of overwriting it
 shopt -s histappend
-# Ensure syncing (flushing and reloading) of .bash_history with in-memory history:
-export PROMPT_COMMAND="history -n; history -w; history -c; history -r; $PROMPT_COMMAND"
+# Use one command per line
+shopt -s cmdhist
+
+export PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 
 # }}}
 
