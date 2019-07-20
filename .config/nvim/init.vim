@@ -167,6 +167,15 @@ nnoremap r R
 " newline without enter inserting mode
 nnoremap o o<esc>
 nnoremap O O<esc>
+" jump to last edit position backward
+nnoremap <tab> <C-o>
+" jump to last edit position foreward
+nnoremap <S-tab> <C-i>
+" multiple cursors
+" http://www.kevinli.co/posts/2017-01-19-multiple-cursors-in-500-bytes-of-vimscript/
+nnoremap cn *``cgn
+let g:mc = "y/\\V\<C-r>=escape(@\", '/')\<CR>\<CR>"
+vnoremap <expr> cn g:mc . "``cgn"
 
 " Search selecting
 " Ref: http://vim.wikia.com/wiki/Search_for_visually_selected_text<Paste>
@@ -232,9 +241,8 @@ Plug 'Yggdroot/indentLine'
 
 Plug 'thenewvu/vim-colors-blueprint' 
 
-Plug 'simnalamburt/vim-mundo', { 'on': 'MundoToggle' }
+Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 
-" provides a buffer line which looks like the tab line
 Plug 'ap/vim-buftabline' 
 
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
@@ -255,12 +263,13 @@ Plug 'terryma/vim-expand-region'
 
 Plug 'tpope/vim-eunuch'
 
-Plug 'kassio/neoterm'
-
-" Plug 'sickill/vim-pasta'
 Plug 'ForTheReallys/paste-indent'
 
 Plug 'amadeus/vim-convert-color-to', { 'on': 'ConvertColorTo' }
+
+Plug 'justinmk/vim-sneak'
+
+Plug 'mptre/vim-printf'
 
 call plug#end()
 
@@ -268,14 +277,57 @@ call plug#end()
 
 " coc.nvim {{{
 
-nmap <silent> <F9> <Plug>(coc-diagnostic-prev)
-nmap <silent> <F7> <Plug>(coc-diagnostic-next)
-nmap <silent> <F10> <Plug>(coc-definition)
-nmap <silent> <leader>s :CocList symbols<cr>
+nmap <silent> ]e <Plug>(coc-diagnostic-prev-error)
+nmap <silent> [e <Plug>(coc-diagnostic-next-error)
 
 " }}}
 
 " fzf {{{
+
+function! s:align_lists(lists)
+  let maxes = {}
+  for list in a:lists
+    let i = 0
+    while i < len(list)
+      let maxes[i] = max([get(maxes, i, 0), len(list[i])])
+      let i += 1
+    endwhile
+  endfor
+  for list in a:lists
+    call map(list, "printf('%-'.maxes[v:key].'s', v:val)")
+  endfor
+  return a:lists
+endfunction
+
+function! s:btags_source()
+  let lines = map(split(system(printf(
+    \ 'ctags --c-types=defgpstuvl -f - --sort=no --excmd=number --language-force=%s %s',
+    \ &filetype, expand('%:S'))), "\n"), 'split(v:val, "\t")')
+  if v:shell_error
+    throw 'failed to extract tags'
+  endif
+  return map(s:align_lists(lines), 'join(v:val, "\t")')
+endfunction
+
+function! s:btags_sink(line)
+  execute split(a:line, "\t")[2]
+endfunction
+
+function! s:btags()
+  try
+    call fzf#run({
+    \ 'source':  s:btags_source(),
+    \ 'options': '+m -d "\t" --with-nth 1,4.. -n 1 --tiebreak=index',
+    \ 'down':    '40%',
+    \ 'sink':    function('s:btags_sink')})
+  catch
+    echohl WarningMsg
+    echom v:exception
+    echohl None
+  endtry
+endfunction
+
+command! BTags call s:btags()
 
   " fuzzy search files in cwd
   nnoremap ` :FZF<cr>
@@ -283,8 +335,7 @@ nmap <silent> <leader>s :CocList symbols<cr>
   nnoremap / :BLines<cr>
   " exact search text in cur buf
   nnoremap ? /
-  " fuzzy search text in cur buf
-  nnoremap ' :Marks<cr>
+  nnoremap <leader>t :BTags<cr>
 
   augroup FZF
     au!
@@ -352,13 +403,6 @@ nmap <silent> <leader>s :CocList symbols<cr>
   set background=dark
   colorscheme blueprint
 
-" }}}
-
-" vim-mundo {{{
-
-  let g:mundo_width = 120
-  let g:mundo_preview_height = 20
-  
 " }}}
 
 " vim-buftabline {{{
@@ -456,8 +500,8 @@ let g:prettier#config#config_precedence = 'file-override'
 
 " vim-expand-region {{{
 
-map <tab> <Plug>(expand_region_expand)
-map <s-tab> <Plug>(expand_region_shrink)
+map m <Plug>(expand_region_expand)
+map M <Plug>(expand_region_shrink)
 
 call expand_region#custom_text_objects('html', {
       \ 'it' :1,
@@ -471,18 +515,41 @@ call expand_region#custom_text_objects('xml', {
 
 " }}}
 
-" neoterm {{{
-
-let g:neoterm_size = 10
-
-map <f11> :bot Ttoggle<cr>
-tmap <f11> <C-\><C-n>:bot Ttoggle<cr>
-
-" }}}
-
 " vim-pasta {{{
 
 let g:pasta_disabled_filetypes = ['json']
+
+" }}}
+
+" vim-wordmotion {{{
+
+let g:wordmotion_spaces = '_.,'
+
+" }}}
+
+" undotree {{{
+
+let g:undotree_WindowLayout = 2
+let g:undotree_SplitWidth = 60
+
+" }}}
+
+" vim-sneak {{{
+
+let g:sneak#label = 1
+
+omap s <Plug>Sneak_s
+omap S <Plug>Sneak_S
+
+hi Sneak guifg=black guibg=yellow
+hi SneakScope guifg=black guibg=yellow
+
+" }}}
+
+" vim-printf {{{
+
+nnoremap <leader>p "zyiwo<esc>"zp:Printf<cr>
+vnoremap <leader>p yo<esc>]p:Printf<cr>
 
 " }}}
 

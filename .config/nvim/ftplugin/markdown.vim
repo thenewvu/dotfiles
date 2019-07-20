@@ -1,4 +1,4 @@
-setlocal wrap
+setlocal nowrap
 setlocal textwidth=80
 setlocal formatoptions-=l " auto wrap long lines (>textwidth)
 setlocal linebreak
