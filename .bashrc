@@ -145,5 +145,7 @@ alias ga="git add -ip"
 alias gd="git diff --cached"
 alias gc="git commit -m"
 
+alias ctags="`brew --prefix`/bin/ctags"
+
 # }}}
 
