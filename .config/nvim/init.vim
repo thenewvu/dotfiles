@@ -191,9 +191,9 @@ nnoremap <tab> <C-o>
 nnoremap <S-tab> <C-i>
 " multiple cursors
 " http://www.kevinli.co/posts/2017-01-19-multiple-cursors-in-500-bytes-of-vimscript/
-nnoremap cn *``cgn
+nnoremap r *``cgn
 let g:mc = "y/\\V\<C-r>=escape(@\", '/')\<CR>\<CR>"
-vnoremap <expr> cn g:mc . "``cgn"
+vnoremap <expr> r g:mc . "``cgn"
 
 " Search selecting
 " Ref: http://vim.wikia.com/wiki/Search_for_visually_selected_text<Paste>
@@ -335,7 +335,7 @@ function! s:btags()
   try
     call fzf#run({
     \ 'source':  s:btags_source(),
-    \ 'options': '+m -d "\t" --with-nth 1,4.. -n 1 --tiebreak=index',
+    \ 'options': '-d "\t" --with-nth 1 -n 1',
     \ 'down':    '40%',
     \ 'sink':    function('s:btags_sink')})
   catch
