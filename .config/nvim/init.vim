@@ -536,6 +536,8 @@ let g:undotree_SplitWidth = 60
 noremap <A-`> :Topen<cr>
 noremap <A-b> :T make %:r<cr>
 
+let g:neoterm_autoscroll = 1
+
 " }}}
 
 " }}}
