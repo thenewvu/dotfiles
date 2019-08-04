@@ -15,9 +15,9 @@ set expandtab smarttab tabstop=4 shiftwidth=4 softtabstop=4
 set wildmenu " show auto-complete when typing in command line
 set wildmode=longest,list
 set wildignore+=.hg,.git,.svn
-set nowrap breakindent linebreak breakindentopt=shift:2 breakat='\ ^I;,'
-set showbreak=↪\ 
-set foldenable foldmethod=syntax foldmarker={,} foldnestmax=5 foldlevel=0
+set nowrap breakindent linebreak breakindentopt=shift:-2
+set showbreak=↳\ 
+set foldenable foldmethod=syntax foldmarker={,} foldnestmax=1 foldlevel=0
 set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
 set fillchars+=fold:\ 
 set nofoldenable
@@ -161,39 +161,36 @@ nnoremap < <<
 vnoremap < <gv
 vnoremap > >gv
 " star search and keep cursor loc
-nmap <silent> * *<C-o>
+nnoremap <silent> * *<C-o>
 " copy/paste to/from system clipboard
 " https://sheerun.net/2014/03/21/how-to-boost-your-vim-productivity/
-vmap gy "+y
-vmap gd "+d
-nmap gp "+p
-nmap gP "+P
-vmap gp "+p
-vmap gP "+P
-" select text just pasted
-" https://sheerun.net/2014/03/21/how-to-boost-your-vim-productivity/
-noremap gvp `[v`]
+vnoremap gy "+y
+nnoremap gp "+p
+nnoremap gP "+P
+vnoremap gp "+p
+vnoremap gP "+P
 " multiple lines multiple times with simple ppppp
 " https://sheerun.net/2014/03/21/how-to-boost-your-vim-productivity/
 vnoremap <silent> y y`]
 vnoremap <silent> p p`]
 nnoremap <silent> p p`]
-" avoid accidentally showing command history window when quiting
-map q: :q
+" paste in visual mode without reyanking
+" https://stackoverflow.com/a/5093286
+xnoremap p pgvy
 " <r> keep replacing
 nnoremap r R
 " newline without enter inserting mode
 nnoremap o o<esc>
 nnoremap O O<esc>
 " jump to last edit position backward
-nnoremap <tab> <C-o>
+nnoremap <C-p> <C-o>
 " jump to last edit position foreward
-nnoremap <S-tab> <C-i>
+nnoremap <C-n> <C-i>
 " multiple cursors
 " http://www.kevinli.co/posts/2017-01-19-multiple-cursors-in-500-bytes-of-vimscript/
-nnoremap r *``cgn
+nnoremap q *``cgn
 let g:mc = "y/\\V\<C-r>=escape(@\", '/')\<CR>\<CR>"
-vnoremap <expr> r g:mc . "``cgn"
+vnoremap <expr> q g:mc . "``cgn"
 
 " Search selecting
 " Ref: http://vim.wikia.com/wiki/Search_for_visually_selected_text<Paste>
@@ -265,8 +262,6 @@ Plug 'ap/vim-buftabline'
 
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 
-Plug 'skywind3000/asyncrun.vim', { 'on': 'AsyncRun' }
-
 Plug 'RRethy/vim-hexokinase', { 'on': 'HexokinaseToggle' }
 
 Plug 'kana/vim-smartinput'
@@ -281,13 +276,9 @@ Plug 'terryma/vim-expand-region'
 
 Plug 'tpope/vim-eunuch'
 
-Plug 'ForTheReallys/paste-indent'
-
 Plug 'amadeus/vim-convert-color-to', { 'on': 'ConvertColorTo' }
 
-Plug 'justinmk/vim-sneak'
-
-Plug 'mptre/vim-printf'
+Plug 'kassio/neoterm'
 
 call plug#end()
 
@@ -295,8 +286,8 @@ call plug#end()
 
 " coc.nvim {{{
 
-nmap <silent> ]e <Plug>(coc-diagnostic-prev-error)
-nmap <silent> [e <Plug>(coc-diagnostic-next-error)
+nmap <silent> ]e <Plug>(coc-diagnostic-prev)
+nmap <silent> [e <Plug>(coc-diagnostic-next)
 
 " }}}
 
@@ -347,19 +338,18 @@ endfunction
 
 command! BTags call s:btags()
 
-  " fuzzy search files in cwd
-  nnoremap ` :FZF<cr>
-  " fuzzy search text in cur buf
-  nnoremap / :BLines<cr>
-  " exact search text in cur buf
-  nnoremap ? /
-  nnoremap <leader>t :BTags<cr>
+" fuzzy search files in cwd
+nnoremap ` :FZF<cr>
+" fuzzy search text in cur buf
+nnoremap / :BLines<cr>
+nnoremap <tab> :BTags<cr>
+noremap <A-f> :Rg 
 
-  augroup FZF
+augroup FZF
     au!
     " <esc> to close fzf window
     au TermOpen term://*FZF tnoremap <silent> <buffer><nowait> <esc> <c-c>
-  augroup end
+augroup end
 
 " }}}
 
@@ -428,16 +418,16 @@ command! BTags call s:btags()
     let g:buftabline_indicators = 1
     let g:buftabline_numbers = 2
 
-    nmap <leader>1 <Plug>BufTabLine.Go(1)
-    nmap <leader>2 <Plug>BufTabLine.Go(2)
-    nmap <leader>3 <Plug>BufTabLine.Go(3)
-    nmap <leader>4 <Plug>BufTabLine.Go(4)
-    nmap <leader>5 <Plug>BufTabLine.Go(5)
-    nmap <leader>6 <Plug>BufTabLine.Go(6)
-    nmap <leader>7 <Plug>BufTabLine.Go(7)
-    nmap <leader>8 <Plug>BufTabLine.Go(8)
-    nmap <leader>9 <Plug>BufTabLine.Go(9)
-    nmap <leader>0 <Plug>BufTabLine.Go(10)
+    nmap <A-1> <Plug>BufTabLine.Go(1)
+    nmap <A-2> <Plug>BufTabLine.Go(2)
+    nmap <A-3> <Plug>BufTabLine.Go(3)
+    nmap <A-4> <Plug>BufTabLine.Go(4)
+    nmap <A-5> <Plug>BufTabLine.Go(5)
+    nmap <A-6> <Plug>BufTabLine.Go(6)
+    nmap <A-7> <Plug>BufTabLine.Go(7)
+    nmap <A-8> <Plug>BufTabLine.Go(8)
+    nmap <A-9> <Plug>BufTabLine.Go(9)
+    nmap <A-0> <Plug>BufTabLine.Go(10)
     nnoremap <leader>q :bp<bar>sp<bar>bn<bar>bd<cr>
 
     hi! link BufTabLineCurrent   Normal
@@ -452,7 +442,6 @@ command! BTags call s:btags()
     let g:vim_markdown_conceal = 2
     let g:vim_markdown_folding_disabled = 1
     let g:vim_markdown_no_default_key_mappings = 1
-    let g:vim_markdown_fenced_languages = ['c','cpp','go','javascript=js','python','java','objc','objcpp', 'make','vim','cmake','bash=sh']
 
     hi! link mkdString        Normal
     hi! link mkdCode          Keyword
@@ -475,15 +464,6 @@ command! BTags call s:btags()
     hi! link mkdDelimiter     Delimiter
     hi! link mkdHeading       Delimiter
     hi! link htmlH1           Keyword
-
-" }}}
-
-" asyncrun.vim {{{
-    let g:asyncrun_open = 10
-
-    nnoremap ! :AsyncRun<space>
-    nnoremap <leader>f :AsyncRun! rg --vimgrep 
-    nnoremap <F8> :AsyncRun! make %:r<cr>
 
 " }}}
 
@@ -533,18 +513,6 @@ call expand_region#custom_text_objects('xml', {
 
 " }}}
 
-" vim-pasta {{{
-
-let g:pasta_disabled_filetypes = ['json']
-
-" }}}
-
-" vim-wordmotion {{{
-
-let g:wordmotion_spaces = '_.,'
-
-" }}}
-
 " undotree {{{
 
 let g:undotree_WindowLayout = 2
@@ -552,22 +520,10 @@ let g:undotree_SplitWidth = 60
 
 " }}}
 
-" vim-sneak {{{
+" neoterm {{{
 
-let g:sneak#label = 1
-
-omap s <Plug>Sneak_s
-omap S <Plug>Sneak_S
-
-hi Sneak guifg=black guibg=yellow
-hi SneakScope guifg=black guibg=yellow
-
-" }}}
-
-" vim-printf {{{
-
-nnoremap <leader>p "zyiwo<esc>"zp:Printf<cr>
-vnoremap <leader>p yo<esc>]p:Printf<cr>
+noremap <A-`> :Topen<cr>
+noremap <A-b> :T make %:r<cr>
 
 " }}}
 

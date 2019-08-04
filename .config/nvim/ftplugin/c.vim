@@ -1,6 +1,7 @@
 setlocal foldenable foldmethod=marker foldmarker={,} foldtext=FoldC()
 setlocal commentstring=//%s
 setlocal expandtab smarttab tabstop=4 shiftwidth=4 softtabstop=4
+setlocal nowrap breakat=, breakindentopt=shift:0
 
 function! FoldC()
     let l:start = substitute(getline(v:foldstart), '^\s*', '', '')
