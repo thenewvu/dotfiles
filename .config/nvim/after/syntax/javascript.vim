@@ -6,9 +6,8 @@ syn match Operator	"/$"
 syn match Operator "&&\|||"
 syn match Operator "[\]\[]"
 
-syn keyword Keyword	function
+syn keyword Keyword	function async await new
 syn keyword StorageClass var let const
-syn keyword Operator new
 
 syn match Delimiter "[();\\{},]" display
 syn match Function "\<\k\+\ze(" display

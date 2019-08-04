@@ -98,8 +98,13 @@ augroup END
 
 let mapleader = ";"
 nnoremap ;; :
-noremap <A-e> :e 
-noremap <A-w> :w<cr>
+nnoremap <A-e> :e 
+vnoremap <A-e> <esc>:e 
+inoremap <A-e> <esc>:e 
+tnoremap <A-e> <C-\><C-n>:e 
+nnoremap <A-w> :w<cr>
+vnoremap <A-w> <esc>:w<cr>
+inoremap <A-w> <esc>:w<cr>
 " write current file with sudo
 cmap w! w !sudo tee > /dev/null %
 nnoremap <f1> :help 
@@ -221,6 +226,77 @@ function! ToggleQuickFix()
 endfunction
 nnoremap <silent> <F12> :call ToggleQuickFix()<CR>
 
+
+" https://github.com/kutsan/dotfiles/blob/8b243cd065b90b3d05dbbc71392f1dba1282d777/.vim/autoload/kutsan/mappings.vim#L1-L52
+function! TerminalCreateIfNot() abort
+	if !has('nvim')
+		return v:false
+	endif
+
+	if !exists('g:terminal')
+		let g:terminal = {
+			\ 'loaded': v:null,
+			\ 'termbufferid': v:null,
+			\ 'originbufferid': v:null,
+			\ 'jobid': v:null
+		\ }
+	endif
+
+	function! g:terminal.on_exit(jobid, data, event)
+		silent execute 'buffer' g:terminal.originbufferid
+		silent execute 'bdelete!' g:terminal.termbufferid
+
+		let g:terminal = {
+			\ 'loaded': v:null,
+			\ 'termbufferid': v:null,
+			\ 'originbufferid': v:null,
+			\ 'jobid': v:null
+		\ }
+	endfunction
+
+	" Create terminal and finish.
+	if !g:terminal.loaded
+		let g:terminal.originbufferid = bufnr('')
+
+		enew
+        let g:terminal.jobid = termopen(&shell, g:terminal)
+		let g:terminal.loaded = v:true
+		let g:terminal.termbufferid = bufnr('')
+
+		return v:true
+	endif
+endfunction
+
+function! TerminalToggle() abort
+    call TerminalCreateIfNot()
+
+	" Go back to origin buffer if current buffer is terminal.
+	if g:terminal.termbufferid ==# bufnr('')
+		silent execute 'buffer' g:terminal.originbufferid
+
+	" Launch terminal buffer and start insert mode.
+	else
+		let g:terminal.originbufferid = bufnr('')
+		silent execute 'buffer' g:terminal.termbufferid
+		startinsert
+	endif
+endfunction
+
+" https://gist.github.com/ram535/b1b7af6cd7769ec0481eb2eed549ea23
+function! TerminalExec(cmd)
+    call TerminalCreateIfNot()
+    call jobsend(g:terminal.jobid, a:cmd . "\n")
+endfunction
+
+nnoremap <silent> <A-`> :call TerminalToggle()<cr>
+inoremap <silent> <A-`> <esc>:call TerminalToggle()<cr>
+vnoremap <silent> <A-`> <esc>:call TerminalToggle()<cr>
+tnoremap <silent> <A-`> <C-\><C-n>:call TerminalToggle()<cr>
+
+nnoremap <silent> <A-b>      :call TerminalExec('make ' . expand('%:r'))<cr>
+inoremap <silent> <A-b> <esc>:call TerminalExec('make ' . expand('%:r'))<cr>
+vnoremap <silent> <A-b> <esc>:call TerminalExec('make ' . expand('%:r'))<cr>
+
 " }}}
 
 " Plugins {{{
@@ -277,8 +353,6 @@ Plug 'terryma/vim-expand-region'
 Plug 'tpope/vim-eunuch'
 
 Plug 'amadeus/vim-convert-color-to', { 'on': 'ConvertColorTo' }
-
-Plug 'kassio/neoterm'
 
 call plug#end()
 
@@ -343,7 +417,10 @@ nnoremap ` :FZF<cr>
 " fuzzy search text in cur buf
 nnoremap / :BLines<cr>
 nnoremap <tab> :BTags<cr>
-noremap <A-f> :Rg 
+nnoremap <A-f> :Rg 
+inoremap <A-f> <esc>:Rg 
+vnoremap <A-f> <esc>:Rg 
+tnoremap <A-f> <C-\><C-n>:Rg 
 
 augroup FZF
     au!
@@ -418,17 +495,41 @@ augroup end
     let g:buftabline_indicators = 1
     let g:buftabline_numbers = 2
 
-    map <A-1> <Plug>BufTabLine.Go(1)
-    map <A-2> <Plug>BufTabLine.Go(2)
-    map <A-3> <Plug>BufTabLine.Go(3)
-    map <A-4> <Plug>BufTabLine.Go(4)
-    map <A-5> <Plug>BufTabLine.Go(5)
-    map <A-6> <Plug>BufTabLine.Go(6)
-    map <A-7> <Plug>BufTabLine.Go(7)
-    map <A-8> <Plug>BufTabLine.Go(8)
-    map <A-9> <Plug>BufTabLine.Go(9)
-    map <A-0> <Plug>BufTabLine.Go(10)
-    map <A-q> :bp<bar>sp<bar>bn<bar>bd<cr>
+    nmap <A-1> <Plug>BufTabLine.Go(1)
+    nmap <A-2> <Plug>BufTabLine.Go(2)
+    nmap <A-3> <Plug>BufTabLine.Go(3)
+    nmap <A-4> <Plug>BufTabLine.Go(4)
+    nmap <A-5> <Plug>BufTabLine.Go(5)
+    nmap <A-6> <Plug>BufTabLine.Go(6)
+    nmap <A-7> <Plug>BufTabLine.Go(7)
+    nmap <A-8> <Plug>BufTabLine.Go(8)
+    nmap <A-9> <Plug>BufTabLine.Go(9)
+    nmap <A-0> <Plug>BufTabLine.Go(10)
+    nmap <A-q> :bp<bar>sp<bar>bn<bar>bd<cr>
+
+    imap <A-1> <esc><Plug>BufTabLine.Go(1)
+    imap <A-2> <esc><Plug>BufTabLine.Go(2)
+    imap <A-3> <esc><Plug>BufTabLine.Go(3)
+    imap <A-4> <esc><Plug>BufTabLine.Go(4)
+    imap <A-5> <esc><Plug>BufTabLine.Go(5)
+    imap <A-6> <esc><Plug>BufTabLine.Go(6)
+    imap <A-7> <esc><Plug>BufTabLine.Go(7)
+    imap <A-8> <esc><Plug>BufTabLine.Go(8)
+    imap <A-9> <esc><Plug>BufTabLine.Go(9)
+    imap <A-0> <esc><Plug>BufTabLine.Go(10)
+    imap <A-q> <esc>:bp<bar>sp<bar>bn<bar>bd<cr>
+
+    vmap <A-1> <esc><Plug>BufTabLine.Go(1)
+    vmap <A-2> <esc><Plug>BufTabLine.Go(2)
+    vmap <A-3> <esc><Plug>BufTabLine.Go(3)
+    vmap <A-4> <esc><Plug>BufTabLine.Go(4)
+    vmap <A-5> <esc><Plug>BufTabLine.Go(5)
+    vmap <A-6> <esc><Plug>BufTabLine.Go(6)
+    vmap <A-7> <esc><Plug>BufTabLine.Go(7)
+    vmap <A-8> <esc><Plug>BufTabLine.Go(8)
+    vmap <A-9> <esc><Plug>BufTabLine.Go(9)
+    vmap <A-0> <esc><Plug>BufTabLine.Go(10)
+    vmap <A-q> <esc>:bp<bar>sp<bar>bn<bar>bd<cr>
 
     tmap <A-1> <C-\><C-n><Plug>BufTabLine.Go(1)
     tmap <A-2> <C-\><C-n><Plug>BufTabLine.Go(2)
@@ -528,15 +629,6 @@ call expand_region#custom_text_objects('xml', {
 
 let g:undotree_WindowLayout = 2
 let g:undotree_SplitWidth = 60
-
-" }}}
-
-" neoterm {{{
-
-noremap <A-`> :Topen<cr>
-noremap <A-b> :T make %:r<cr>
-
-let g:neoterm_autoscroll = 1
 
 " }}}
 
