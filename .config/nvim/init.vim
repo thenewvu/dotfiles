@@ -98,8 +98,8 @@ augroup END
 
 let mapleader = ";"
 nnoremap ;; :
-nnoremap <leader>e :e 
-nnoremap <leader>w :w<cr>
+noremap <A-e> :e 
+noremap <A-w> :w<cr>
 " write current file with sudo
 cmap w! w !sudo tee > /dev/null %
 nnoremap <f1> :help 
@@ -418,17 +418,28 @@ augroup end
     let g:buftabline_indicators = 1
     let g:buftabline_numbers = 2
 
-    nmap <A-1> <Plug>BufTabLine.Go(1)
-    nmap <A-2> <Plug>BufTabLine.Go(2)
-    nmap <A-3> <Plug>BufTabLine.Go(3)
-    nmap <A-4> <Plug>BufTabLine.Go(4)
-    nmap <A-5> <Plug>BufTabLine.Go(5)
-    nmap <A-6> <Plug>BufTabLine.Go(6)
-    nmap <A-7> <Plug>BufTabLine.Go(7)
-    nmap <A-8> <Plug>BufTabLine.Go(8)
-    nmap <A-9> <Plug>BufTabLine.Go(9)
-    nmap <A-0> <Plug>BufTabLine.Go(10)
-    nnoremap <leader>q :bp<bar>sp<bar>bn<bar>bd<cr>
+    map <A-1> <Plug>BufTabLine.Go(1)
+    map <A-2> <Plug>BufTabLine.Go(2)
+    map <A-3> <Plug>BufTabLine.Go(3)
+    map <A-4> <Plug>BufTabLine.Go(4)
+    map <A-5> <Plug>BufTabLine.Go(5)
+    map <A-6> <Plug>BufTabLine.Go(6)
+    map <A-7> <Plug>BufTabLine.Go(7)
+    map <A-8> <Plug>BufTabLine.Go(8)
+    map <A-9> <Plug>BufTabLine.Go(9)
+    map <A-0> <Plug>BufTabLine.Go(10)
+    map <A-q> :bp<bar>sp<bar>bn<bar>bd<cr>
+
+    tmap <A-1> <C-\><C-n><Plug>BufTabLine.Go(1)
+    tmap <A-2> <C-\><C-n><Plug>BufTabLine.Go(2)
+    tmap <A-3> <C-\><C-n><Plug>BufTabLine.Go(3)
+    tmap <A-4> <C-\><C-n><Plug>BufTabLine.Go(4)
+    tmap <A-5> <C-\><C-n><Plug>BufTabLine.Go(5)
+    tmap <A-6> <C-\><C-n><Plug>BufTabLine.Go(6)
+    tmap <A-7> <C-\><C-n><Plug>BufTabLine.Go(7)
+    tmap <A-8> <C-\><C-n><Plug>BufTabLine.Go(8)
+    tmap <A-9> <C-\><C-n><Plug>BufTabLine.Go(9)
+    tmap <A-0> <C-\><C-n><Plug>BufTabLine.Go(10)
 
     hi! link BufTabLineCurrent   Normal
     hi! link BufTabLineActive    TablineSel
