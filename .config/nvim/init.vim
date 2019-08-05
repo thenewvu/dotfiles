@@ -178,7 +178,7 @@ nnoremap < <<
 vnoremap < <gv
 vnoremap > >gv
 " star search and keep cursor loc
-nnoremap <silent> * *<C-o>
+nnoremap <silent> * *``
 " copy/paste to/from system clipboard
 " https://sheerun.net/2014/03/21/how-to-boost-your-vim-productivity/
 vnoremap gy "+y
@@ -297,9 +297,6 @@ endfunction
 " https://gist.github.com/ram535/b1b7af6cd7769ec0481eb2eed549ea23
 function! TerminalExec(cmd)
     call TerminalCreateIfNot()
-
-    let g:terminal.originbufferid = bufnr('')
-    silent execute 'buffer' g:terminal.termbufferid
 
     call jobsend(g:terminal.jobid, a:cmd . "\n")
 endfunction
