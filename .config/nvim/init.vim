@@ -109,8 +109,6 @@ inoremap <A-w> <esc>:w<cr>
 cmap w! w !sudo tee > /dev/null %
 nnoremap <f1> :help 
 nnoremap <f2> :e ~/.config/nvim/init.vim<cr>
-" reload current file and redraw
-nnoremap <f5> :edit<cr>:redraw<cr>
 " jump to begin/end of a line
 nnoremap B ^
 nnoremap E $
@@ -142,24 +140,38 @@ nnoremap K J
 " redo
 nnoremap U <c-r>
 " navigate between splits and buffers
-tnoremap <C-h> <C-\><C-N><C-w>h
-tnoremap <C-j> <C-\><C-N><C-w>j
-tnoremap <C-k> <C-\><C-N><C-w>k
-tnoremap <C-l> <C-\><C-N><C-w>l
-inoremap <C-h> <C-w>h
-inoremap <C-j> <C-w>j
-inoremap <C-k> <C-w>k
-inoremap <C-l> <C-w>l
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
+tnoremap <A-h> <C-\><C-N><C-w>h
+tnoremap <A-j> <C-\><C-N><C-w>j
+tnoremap <A-k> <C-\><C-N><C-w>k
+tnoremap <A-l> <C-\><C-N><C-w>l
+inoremap <A-h> <C-w>h
+inoremap <A-j> <C-w>j
+inoremap <A-k> <C-w>k
+inoremap <A-l> <C-w>l
+nnoremap <A-h> <C-w>h
+nnoremap <A-j> <C-w>j
+nnoremap <A-k> <C-w>k
+nnoremap <A-l> <C-w>l
 " split vertically
-nnoremap <C-d> :vsplit<cr>
+nnoremap <A-d> :vsplit<cr>
+inoremap <A-d> <esc>:vsplit<cr>
+vnoremap <A-d> <esc>:vsplit<cr>
+tnoremap <A-d> <C-\><C-n>:vsplit<cr>
 " split horizontally
-nnoremap <C-s> :split<cr>
+nnoremap <A-s> :split<cr>
+inoremap <A-s> <esc>:split<cr>
+vnoremap <A-s> <esc>:split<cr>
+tnoremap <A-s> <C-\><C-n>:split<cr>
+" close other splits
+nnoremap <A-a> :only<cr>
+inoremap <A-a> <esc>:only<cr>
+vnoremap <A-a> <esc>:only<cr>
+tnoremap <A-a> <C-\><C-n>:only<cr>
 " close current window
-nnoremap <C-q> <C-w>c
+nnoremap <A-q> <C-w>c
+inoremap <A-q> <esc><C-w>c
+vnoremap <A-q> <esc><C-w>c
+tnoremap <A-q> <C-\><C-n><C-w>c
 " move left/right one indent
 nnoremap > >>
 nnoremap < <<
@@ -188,9 +200,9 @@ nnoremap r R
 nnoremap o o<esc>
 nnoremap O O<esc>
 " jump to last edit position backward
-nnoremap <C-p> <C-o>
+nnoremap <A-p> <C-o>
 " jump to last edit position foreward
-nnoremap <C-n> <C-i>
+nnoremap <A-n> <C-i>
 " multiple cursors
 " http://www.kevinli.co/posts/2017-01-19-multiple-cursors-in-500-bytes-of-vimscript/
 nnoremap q *``cgn
@@ -285,6 +297,10 @@ endfunction
 " https://gist.github.com/ram535/b1b7af6cd7769ec0481eb2eed549ea23
 function! TerminalExec(cmd)
     call TerminalCreateIfNot()
+
+    let g:terminal.originbufferid = bufnr('')
+    silent execute 'buffer' g:terminal.termbufferid
+
     call jobsend(g:terminal.jobid, a:cmd . "\n")
 endfunction
 
@@ -505,7 +521,7 @@ augroup end
     nmap <A-8> <Plug>BufTabLine.Go(8)
     nmap <A-9> <Plug>BufTabLine.Go(9)
     nmap <A-0> <Plug>BufTabLine.Go(10)
-    nmap <A-q> :bp<bar>sp<bar>bn<bar>bd<cr>
+    nmap <A-x> :bp<bar>sp<bar>bn<bar>bd<cr>
 
     imap <A-1> <esc><Plug>BufTabLine.Go(1)
     imap <A-2> <esc><Plug>BufTabLine.Go(2)
@@ -517,7 +533,7 @@ augroup end
     imap <A-8> <esc><Plug>BufTabLine.Go(8)
     imap <A-9> <esc><Plug>BufTabLine.Go(9)
     imap <A-0> <esc><Plug>BufTabLine.Go(10)
-    imap <A-q> <esc>:bp<bar>sp<bar>bn<bar>bd<cr>
+    imap <A-x> <esc>:bp<bar>sp<bar>bn<bar>bd<cr>
 
     vmap <A-1> <esc><Plug>BufTabLine.Go(1)
     vmap <A-2> <esc><Plug>BufTabLine.Go(2)
@@ -529,7 +545,7 @@ augroup end
     vmap <A-8> <esc><Plug>BufTabLine.Go(8)
     vmap <A-9> <esc><Plug>BufTabLine.Go(9)
     vmap <A-0> <esc><Plug>BufTabLine.Go(10)
-    vmap <A-q> <esc>:bp<bar>sp<bar>bn<bar>bd<cr>
+    vmap <A-x> <esc>:bp<bar>sp<bar>bn<bar>bd<cr>
 
     tmap <A-1> <C-\><C-n><Plug>BufTabLine.Go(1)
     tmap <A-2> <C-\><C-n><Plug>BufTabLine.Go(2)
