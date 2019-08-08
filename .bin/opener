@@ -10,19 +10,13 @@ case $1 in
     http*://gfycat.com/*)
         /usr/local/bin/mpv --force-window=yes "$1"
     ;;
-    http*://www.facebook.com/*)
-        open -a /Applications/Firefox.app "$(echo "$1" | sed 's/www./m./')"
-    ;;
     http*://v.redd.it/*)
         /usr/local/bin/mpv --force-window=yes --loop=inf --autofit 640x480 "$1"
     ;;
     *.jpg*|*.png*|*.webp*)
         /usr/local/bin/mpv --force-window=yes --pause --autofit 640x480 "$1"
     ;;
-    *.gif*|*.gifv*|*.webm*|*.mp4*)
-        /usr/local/bin/mpv --force-window=yes --loop=inf --autofit 640x480 "$1"
-    ;;
-    *.mp3*|*.flac*|*.mkv*|*.m4a*)
+    *.gif*|*.gifv*|*.webm*|*.mp4*|*.wmv*|*.mp3*|*.flac*|*.mkv*|*.m4a*)
         /usr/local/bin/mpv --force-window=yes --loop=inf --autofit 640x480 "$1"
     ;;
     *)

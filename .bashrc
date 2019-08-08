@@ -43,7 +43,6 @@ PROMPT_COMMAND=prompt
 
 export VISUAL="nvim"
 export EDITOR="nvim"
-export BROWSER="~/.bin/browser"
 
 export PATH="$HOME/.bin/:$PATH"
 
@@ -88,7 +87,7 @@ export LDFLAGS="-L/usr/local/opt/llvm/lib -Wl,-rpath,/usr/local/opt/llvm/lib"
 
 export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
 
-export NNN_OPENER=~/.bin/browser
+export NNN_OPENER=~/.bin/opener
 
 # }}}
 
