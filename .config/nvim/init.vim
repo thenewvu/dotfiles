@@ -12,9 +12,8 @@ set autoread " autoreload files on change
 set backspace=indent,eol,start " make backspace work like most other apps
 set incsearch hlsearch noignorecase inccommand=nosplit gdefault
 set expandtab smarttab tabstop=4 shiftwidth=4 softtabstop=4 
-set wildmenu " show auto-complete when typing in command line
-set wildmode=longest,list
 set wildignore+=.hg,.git,.svn
+set wildoptions=pum
 set nowrap breakindent linebreak breakindentopt=shift:-2
 set showbreak=↳\ 
 set foldenable foldmethod=syntax foldmarker={,} foldnestmax=1 foldlevel=0
@@ -140,45 +139,43 @@ nnoremap K J
 " redo
 nnoremap U <c-r>
 " navigate between splits and buffers
-tnoremap <A-h> <C-\><C-N><C-w>h
-tnoremap <A-j> <C-\><C-N><C-w>j
-tnoremap <A-k> <C-\><C-N><C-w>k
-tnoremap <A-l> <C-\><C-N><C-w>l
-inoremap <A-h> <C-w>h
-inoremap <A-j> <C-w>j
-inoremap <A-k> <C-w>k
-inoremap <A-l> <C-w>l
-nnoremap <A-h> <C-w>h
-nnoremap <A-j> <C-w>j
-nnoremap <A-k> <C-w>k
-nnoremap <A-l> <C-w>l
+tnoremap <C-h> <C-\><C-N><C-w>h
+tnoremap <C-j> <C-\><C-N><C-w>j
+tnoremap <C-k> <C-\><C-N><C-w>k
+tnoremap <C-l> <C-\><C-N><C-w>l
+inoremap <C-h> <C-w>h
+inoremap <C-j> <C-w>j
+inoremap <C-k> <C-w>k
+inoremap <C-l> <C-w>l
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
 " split vertically
-nnoremap <A-d> :vsplit<cr>
-inoremap <A-d> <esc>:vsplit<cr>
-vnoremap <A-d> <esc>:vsplit<cr>
-tnoremap <A-d> <C-\><C-n>:vsplit<cr>
+nnoremap <C-d> :vsplit<cr>
+inoremap <C-d> <esc>:vsplit<cr>
+vnoremap <C-d> <esc>:vsplit<cr>
+tnoremap <C-d> <C-\><C-n>:vsplit<cr>
 " split horizontally
-nnoremap <A-s> :split<cr>
-inoremap <A-s> <esc>:split<cr>
-vnoremap <A-s> <esc>:split<cr>
-tnoremap <A-s> <C-\><C-n>:split<cr>
+nnoremap <C-s> :split<cr>
+inoremap <C-s> <esc>:split<cr>
+vnoremap <C-s> <esc>:split<cr>
+tnoremap <C-s> <C-\><C-n>:split<cr>
 " close other splits
-nnoremap <A-a> :only<cr>
-inoremap <A-a> <esc>:only<cr>
-vnoremap <A-a> <esc>:only<cr>
-tnoremap <A-a> <C-\><C-n>:only<cr>
+nnoremap <C-a> :only<cr>
+inoremap <C-a> <esc>:only<cr>
+vnoremap <C-a> <esc>:only<cr>
+tnoremap <C-a> <C-\><C-n>:only<cr>
 " close current window
-nnoremap <A-q> <C-w>c
-inoremap <A-q> <esc><C-w>c
-vnoremap <A-q> <esc><C-w>c
-tnoremap <A-q> <C-\><C-n><C-w>c
+nnoremap <C-q> <C-w>c
+inoremap <C-q> <esc><C-w>c
+vnoremap <C-q> <esc><C-w>c
+tnoremap <C-q> <C-\><C-n><C-w>c
 " move left/right one indent
 nnoremap > >>
 nnoremap < <<
 vnoremap < <gv
 vnoremap > >gv
-" star search and keep cursor loc
-nnoremap <silent> * *``
 " copy/paste to/from system clipboard
 " https://sheerun.net/2014/03/21/how-to-boost-your-vim-productivity/
 vnoremap gy "+y
@@ -209,18 +206,14 @@ nnoremap q *``cgn
 let g:mc = "y/\\V\<C-r>=escape(@\", '/')\<CR>\<CR>"
 vnoremap <expr> q g:mc . "``cgn"
 
-" Search selecting
-" Ref: http://vim.wikia.com/wiki/Search_for_visually_selected_text<Paste>
+" search without jumping
+" https://stackoverflow.com/a/4262209
+nnoremap <silent> * :let @/='\<<C-R>=expand("<cword>")<CR>\>'<CR>:set hls<CR>
 vnoremap <silent> * :<C-U>
   \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
-  \gvy/<C-R><C-R>=substitute(
-  \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
-  \gV:call setreg('"', old_reg, old_regtype)<CR>
-vnoremap <silent> # :<C-U>
-  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
-  \gvy?<C-R><C-R>=substitute(
-  \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
-  \gV:call setreg('"', old_reg, old_regtype)<CR>
+  \gvy:let @/=substitute(
+  \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR>
+  \gV:call setreg('"', old_reg, old_regtype)<CR>:set hls<CR>
 
 
 function! ToggleQuickFix()
