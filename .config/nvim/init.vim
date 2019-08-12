@@ -197,9 +197,9 @@ nnoremap r R
 nnoremap o o<esc>
 nnoremap O O<esc>
 " jump to last edit position backward
-nnoremap <A-p> <C-o>
+nnoremap H <C-o>
 " jump to last edit position foreward
-nnoremap <A-n> <C-i>
+nnoremap L <C-i>
 " multiple cursors
 " http://www.kevinli.co/posts/2017-01-19-multiple-cursors-in-500-bytes-of-vimscript/
 nnoremap q *``cgn
@@ -360,6 +360,8 @@ Plug 'tpope/vim-eunuch'
 
 Plug 'amadeus/vim-convert-color-to', { 'on': 'ConvertColorTo' }
 
+Plug 'skywind3000/asyncrun.vim', { 'on': 'AsyncRun' }
+
 call plug#end()
 
 " }}}
@@ -423,10 +425,6 @@ nnoremap ` :FZF<cr>
 " fuzzy search text in cur buf
 nnoremap / :BLines<cr>
 nnoremap <tab> :BTags<cr>
-nnoremap <A-f> :Rg 
-inoremap <A-f> <esc>:Rg 
-vnoremap <A-f> <esc>:Rg 
-tnoremap <A-f> <C-\><C-n>:Rg 
 
 augroup FZF
     au!
@@ -635,6 +633,17 @@ call expand_region#custom_text_objects('xml', {
 
 let g:undotree_WindowLayout = 2
 let g:undotree_SplitWidth = 60
+
+" }}}
+
+" asyncrun {{{
+
+let g:asyncrun_open = 10
+nnoremap ! :AsyncRun<space>
+nnoremap <A-f> :AsyncRun! rg --vimgrep 
+inoremap <A-f> <esc>:AsyncRun! rg --vimgrep  
+vnoremap <A-f> <esc>:AsyncRun! rg --vimgrep  
+tnoremap <A-f> <C-\><C-n>:AsyncRun! rg --vimgrep  
 
 " }}}
 
