@@ -113,10 +113,6 @@ nnoremap B ^
 nnoremap E $
 vnoremap B ^
 vnoremap E $
-nnoremap H 0
-nnoremap L $
-vnoremap H 0
-vnoremap L $
 " clear search hl
 nnoremap <esc><esc> :noh<cr>
 " toggle folding
@@ -132,10 +128,20 @@ nnoremap j gjzz
 nnoremap k gkzz
 vnoremap j gjzz
 vnoremap k gkzz
+nnoremap J Lzz
+nnoremap K Hzz
+" decrease the under-cursor number
+nnoremap <A-j> <C-x>
+" increase the under-cursor number
+nnoremap <A-k> <C-a>
+" jump backword cursor position
+nnoremap <A-o> <C-o>
+" jump foreword cursor position
+nnoremap <A-i> <C-i>
 " break lines
-nnoremap J i<enter><esc>
+nnoremap L i<enter><esc>
 " join lines
-nnoremap K J
+nnoremap H J
 " redo
 nnoremap U <c-r>
 " navigate between splits and buffers
@@ -196,10 +202,6 @@ nnoremap r R
 " newline without enter inserting mode
 nnoremap o o<esc>
 nnoremap O O<esc>
-" jump to last edit position backward
-nnoremap H <C-o>
-" jump to last edit position foreward
-nnoremap L <C-i>
 " multiple cursors
 " http://www.kevinli.co/posts/2017-01-19-multiple-cursors-in-500-bytes-of-vimscript/
 nnoremap q *``cgn
@@ -332,7 +334,7 @@ Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 
 Plug 'prettier/vim-prettier', { 'do': 'npm install', 'for': ['javascript', 'css', 'json', 'markdown', 'html', 'svg', 'xml'] }
 
-Plug 'neoclide/coc.nvim', { 'tag': '*', 'branch': 'release' }
+Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 
 Plug 'Yggdroot/indentLine' 
 
@@ -391,9 +393,18 @@ function! s:align_lists(lists)
 endfunction
 
 function! s:btags_source()
-  let lines = map(split(system(printf(
-    \ 'ctags --c-types=defgpstuvl -f - --sort=no --excmd=number --language-force=%s %s',
-    \ &filetype, expand('%:S'))), "\n"), 'split(v:val, "\t")')
+  let lines = map(
+              \   split(
+              \     system(
+              \       printf(
+              \         'ctags --c-kinds=defgpstuvl -f - --sort=no --excmd=number %s',
+              \          expand('%:S')
+              \       )
+              \     ),
+              \     "\n"
+              \   ),
+              \   'split(v:val, "\t")'
+              \ )
   if v:shell_error
     throw 'failed to extract tags'
   endif
@@ -509,7 +520,7 @@ augroup end
     nmap <A-8> <Plug>BufTabLine.Go(8)
     nmap <A-9> <Plug>BufTabLine.Go(9)
     nmap <A-0> <Plug>BufTabLine.Go(10)
-    nmap <A-x> :bp<bar>sp<bar>bn<bar>bd<cr>
+    nmap <A-q> :bp<bar>sp<bar>bn<bar>bd<cr>
 
     imap <A-1> <esc><Plug>BufTabLine.Go(1)
     imap <A-2> <esc><Plug>BufTabLine.Go(2)
@@ -521,7 +532,7 @@ augroup end
     imap <A-8> <esc><Plug>BufTabLine.Go(8)
     imap <A-9> <esc><Plug>BufTabLine.Go(9)
     imap <A-0> <esc><Plug>BufTabLine.Go(10)
-    imap <A-x> <esc>:bp<bar>sp<bar>bn<bar>bd<cr>
+    imap <A-q> <esc>:bp<bar>sp<bar>bn<bar>bd<cr>
 
     vmap <A-1> <esc><Plug>BufTabLine.Go(1)
     vmap <A-2> <esc><Plug>BufTabLine.Go(2)
@@ -533,7 +544,7 @@ augroup end
     vmap <A-8> <esc><Plug>BufTabLine.Go(8)
     vmap <A-9> <esc><Plug>BufTabLine.Go(9)
     vmap <A-0> <esc><Plug>BufTabLine.Go(10)
-    vmap <A-x> <esc>:bp<bar>sp<bar>bn<bar>bd<cr>
+    vmap <A-q> <esc>:bp<bar>sp<bar>bn<bar>bd<cr>
 
     tmap <A-1> <C-\><C-n><Plug>BufTabLine.Go(1)
     tmap <A-2> <C-\><C-n><Plug>BufTabLine.Go(2)
@@ -545,6 +556,15 @@ augroup end
     tmap <A-8> <C-\><C-n><Plug>BufTabLine.Go(8)
     tmap <A-9> <C-\><C-n><Plug>BufTabLine.Go(9)
     tmap <A-0> <C-\><C-n><Plug>BufTabLine.Go(10)
+
+    nmap <A-h> :bp<cr>
+    nmap <A-l> :bn<cr>
+    imap <A-h> <esc>:bp<cr>
+    imap <A-l> <esc>:bn<cr>
+    vmap <A-h> <esc>:bp<cr>
+    vmap <A-l> <esc>:bn<cr>
+    tmap <A-h> <C-\><C-n>:bp<cr>
+    tmap <A-l> <C-\><C-n>:bn<cr>
 
     hi! link BufTabLineCurrent   Normal
     hi! link BufTabLineActive    TablineSel
@@ -640,10 +660,12 @@ let g:undotree_SplitWidth = 60
 
 let g:asyncrun_open = 10
 nnoremap ! :AsyncRun<space>
-nnoremap <A-f> :AsyncRun! rg --vimgrep 
-inoremap <A-f> <esc>:AsyncRun! rg --vimgrep  
-vnoremap <A-f> <esc>:AsyncRun! rg --vimgrep  
-tnoremap <A-f> <C-\><C-n>:AsyncRun! rg --vimgrep  
+nnoremap <A-s> :AsyncRun! rg --vimgrep 
+inoremap <A-s> <esc>:AsyncRun! rg --vimgrep  
+vnoremap <A-s> <esc>:AsyncRun! rg --vimgrep  
+tnoremap <A-s> <C-\><C-n>:AsyncRun! rg --vimgrep  
+
+nnoremap <A-f> :AsyncRun! rg --vimgrep <cword><cr>
 
 " }}}
 
