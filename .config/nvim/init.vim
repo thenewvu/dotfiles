@@ -12,7 +12,8 @@ set autoread " autoreload files on change
 set backspace=indent,eol,start " make backspace work like most other apps
 set incsearch hlsearch noignorecase inccommand=nosplit gdefault
 set expandtab smarttab tabstop=4 shiftwidth=4 softtabstop=4 
-set wildignore+=.hg,.git,.svn
+set wildignore+=.hg,.git,.svn,*.class,*.o,*~,*.pyc,*.lock,*.out,*.exe,.*
+set wildignorecase " Ignore case when completing filenames
 set wildoptions=pum
 set nowrap breakindent linebreak breakindentopt=shift:-2
 set showbreak=↳\ 
@@ -21,27 +22,27 @@ set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
 set fillchars+=fold:\ 
 set nofoldenable
 " disable some builtin plugins
-let g:loaded_matchit            = 1
 let g:did_install_default_menus = 1
 let g:loaded_2html_plugin       = 1
 let g:loaded_getscript          = 1
 let g:loaded_getscriptPlugin    = 1
+let g:loaded_zip                = 1
+let g:loaded_zipPlugin          = 1
 let g:loaded_gzip               = 1
+let g:loaded_tar                = 1
+let g:loaded_tarPlugin          = 1
 let g:loaded_logiPat            = 1
 let g:loaded_netrw              = 1
 let g:loaded_netrwFileHandlers  = 1
 let g:loaded_netrwPlugin        = 1
 let g:loaded_netrwSettings      = 1
 let g:loaded_rrhelper           = 1
-let g:loaded_tar                = 1
-let g:loaded_tarPlugin          = 1
-let g:loaded_tutor_mode_plugin  = 1
 let g:loaded_vimball            = 1
 let g:loaded_vimballPlugin      = 1
-let g:loaded_zip                = 1
-let g:loaded_zipPlugin          = 1
-let g:loaded_netrwPlugin = 1
-let g:loaded_matchparen = 1
+let g:loaded_spellfile_plugin   = 1
+let g:loaded_tutor_mode_plugin  = 1
+let g:loaded_matchparen         = 1
+let g:loaded_matchit            = 1
 let g:c_syntax_for_h = 1
 set laststatus=2
 set statusline=%F
@@ -76,14 +77,6 @@ endfunction()
 
 augroup All
     au!
-
-    " auto resource $MYVIMRC on change
-    au BufWritePost $MYVIMRC source %
-
-    " better recognizing markdown files
-    au BufRead,BufNewFile *.markdown set filetype=markdown
-    au BufRead,BufNewFile *.md       set filetype=markdown
-    au BufRead,BufNewFile *.MD       set filetype=markdown
 
     au TermOpen * setlocal signcolumn="no"
 
@@ -128,20 +121,20 @@ nnoremap j gjzz
 nnoremap k gkzz
 vnoremap j gjzz
 vnoremap k gkzz
-nnoremap J Lzz
-nnoremap K Hzz
+nnoremap <A-j> Lzz
+nnoremap <A-k> Hzz
 " decrease the under-cursor number
-nnoremap <A-j> <C-x>
+nnoremap H <C-x>
 " increase the under-cursor number
-nnoremap <A-k> <C-a>
+nnoremap L <C-a>
 " jump backword cursor position
 nnoremap <A-o> <C-o>
 " jump foreword cursor position
 nnoremap <A-i> <C-i>
 " break lines
-nnoremap L i<enter><esc>
+nnoremap J i<enter><esc>
 " join lines
-nnoremap H J
+nnoremap K J
 " redo
 nnoremap U <c-r>
 " navigate between splits and buffers
