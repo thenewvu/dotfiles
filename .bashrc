@@ -52,13 +52,13 @@ export GEM_HOME="$HOME/.gem"
 export PATH="$GEM_HOME/bin:$PATH"
 export PATH="$GEM_HOME/ruby/2.3.0/bin:$PATH"
 
-export GREP_OPTIONS='--ignore-case --color=auto'
+export GREP_OPTIONS='--ignore-case --color=always'
 export CLICOLOR=1
 
 export FZF_COMPLETION_TRIGGER='``'
 export FZF_DEFAULT_OPTS="--reverse --color fg:7,hl:2,fg+:7,bg+:-1,hl+:2 --color info:15,prompt:2,spinner:15,pointer:2,marker:7"
-export FZF_DEFAULT_COMMAND="rg --files --hidden --follow  --glob '!.git/*'"
-export FZF_CTRL_T_COMMAND="rg --files --hidden --follow  --glob '!.git/*'"
+export FZF_DEFAULT_COMMAND="rg --files --glob '!**/node_modules/*'"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 export ANDROID_HOME="$HOME/Library/Android/sdk"
 export ANDROID_SDK_ROOT="$ANDROID_HOME"
@@ -73,18 +73,25 @@ export PATH="$ANDROID_SDK_ROOT/platform-tools:$PATH"
 export JAVA_HOME="/Applications/Android Studio.app/Contents/jre/jdk/Contents/Home"
 export PATH="$JAVA_HOME/bin:$PATH"
 
+# homebrew llvm need below
 export PATH="/usr/local/opt/llvm/bin:$PATH"
 export CC=clang
 export CXX=clang++
 export LD=ld.lld
 export AR=llvm-ar
 export RANLIB=llvm-ranlib
-export CCFLAGS="-isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/"
-export CXXFLAGS="-isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/"
-export OBJCFLAGS="-isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/"
-export LDFLAGS="-L/usr/local/opt/llvm/lib -Wl,-rpath,/usr/local/opt/llvm/lib"
+export CCFLAGS="-isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk $CCFLAGS"
+export CXXFLAGS="-isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk $CXXFLAGS"
+export OBJCFLAGS="-isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk $OBJCFLAGS"
+export LDFLAGS="-L/usr/local/opt/llvm/lib -Wl,-rpath,/usr/local/opt/llvm/lib $LDFLAGS"
 
+# homebrew gnu-sed need below
 export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
+
+# homebrew node@10 need below
+export PATH="/usr/local/opt/node@10/bin:$PATH"
+export LDFLAGS="-L/usr/local/opt/node@10/lib $LDFLAGS"
+export CPPFLAGS="-I/usr/local/opt/node@10/include $CPPFLAGS"
 
 export NNN_OPENER=~/.bin/opener
 
