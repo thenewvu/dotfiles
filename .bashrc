@@ -52,7 +52,7 @@ export GEM_HOME="$HOME/.gem"
 export PATH="$GEM_HOME/bin:$PATH"
 export PATH="$GEM_HOME/ruby/2.3.0/bin:$PATH"
 
-export GREP_OPTIONS='--ignore-case --color=always'
+export GREP_OPTIONS='--ignore-case --color=auto'
 export CLICOLOR=1
 
 export FZF_COMPLETION_TRIGGER='``'
