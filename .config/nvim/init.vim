@@ -50,7 +50,7 @@ set noshowcmd
 set noshowmode
 set noruler
 set nonumber
-set signcolumn=yes
+set signcolumn=auto:2
 set autoindent smartindent cindent
 set cinkeys=0{,0},0),0#,!^F,o,O,e
 set cinoptions=t0,j1,J1,m1,(s,{0,L0,g0
@@ -109,7 +109,7 @@ vnoremap E $
 " clear search hl
 nnoremap <esc><esc> :noh<cr>
 " toggle folding
-nnoremap <space> zxzMzvzz
+nnoremap zz zxzMzvzz
 " vertical center movement
 nnoremap G Gzz
 vnoremap G Gzz
@@ -123,10 +123,6 @@ vnoremap j gjzz
 vnoremap k gkzz
 nnoremap <A-j> Lzz
 nnoremap <A-k> Hzz
-" decrease the under-cursor number
-nnoremap H <C-x>
-" increase the under-cursor number
-nnoremap L <C-a>
 " jump backword cursor position
 nnoremap <A-o> <C-o>
 " jump foreword cursor position
@@ -224,8 +220,8 @@ function! ToggleQuickFix()
     endtry
   endif
 endfunction
-nnoremap <silent> <F12> :call ToggleQuickFix()<CR>
 
+nnoremap <silent> <A-tab> :call ToggleQuickFix()<CR>
 
 " https://github.com/kutsan/dotfiles/blob/8b243cd065b90b3d05dbbc71392f1dba1282d777/.vim/autoload/kutsan/mappings.vim#L1-L52
 function! TerminalCreateIfNot() abort
@@ -262,6 +258,8 @@ function! TerminalCreateIfNot() abort
         let g:terminal.jobid = termopen(&shell, g:terminal)
 		let g:terminal.loaded = v:true
 		let g:terminal.termbufferid = bufnr('')
+
+		silent execute 'buffer' g:terminal.originbufferid
 
 		return v:true
 	endif
@@ -327,8 +325,6 @@ Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 
 Plug 'prettier/vim-prettier', { 'do': 'npm install', 'for': ['javascript', 'css', 'json', 'markdown', 'html', 'svg', 'xml'] }
 
-Plug 'neoclide/coc.nvim', { 'branch': 'release' }
-
 Plug 'Yggdroot/indentLine' 
 
 Plug 'thenewvu/vim-colors-blueprint' 
@@ -357,14 +353,16 @@ Plug 'amadeus/vim-convert-color-to', { 'on': 'ConvertColorTo' }
 
 Plug 'skywind3000/asyncrun.vim', { 'on': 'AsyncRun' }
 
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
+
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+
+Plug 'kshenoy/vim-signature'
+
 call plug#end()
-
-" }}}
-
-" coc.nvim {{{
-
-nmap <silent> ]e <Plug>(coc-diagnostic-prev)
-nmap <silent> [e <Plug>(coc-diagnostic-next)
 
 " }}}
 
@@ -429,6 +427,7 @@ nnoremap ` :FZF<cr>
 " fuzzy search text in cur buf
 nnoremap / :BLines<cr>
 nnoremap <tab> :BTags<cr>
+nnoremap <space> '
 
 augroup FZF
     au!
@@ -455,9 +454,6 @@ augroup end
 
   set updatetime=1000
 
-  let g:gitgutter_enabled = 1
-  let g:gitgutter_signs = 1
-  let g:gitgutter_override_sign_column_highlight = 0
   let g:gitgutter_diff_args = '-w'
   let g:gitgutter_sign_added = '\ '
   let g:gitgutter_sign_modified = '\ '
@@ -627,8 +623,8 @@ let g:prettier#config#config_precedence = 'file-override'
 
 " vim-expand-region {{{
 
-map m <Plug>(expand_region_expand)
-map M <Plug>(expand_region_shrink)
+map H <Plug>(expand_region_shrink)
+map L <Plug>(expand_region_expand)
 
 call expand_region#custom_text_objects('html', {
       \ 'it' :1,
@@ -652,13 +648,76 @@ let g:undotree_SplitWidth = 60
 " asyncrun {{{
 
 let g:asyncrun_open = 10
+
 nnoremap ! :AsyncRun<space>
 nnoremap <A-s> :AsyncRun! rg --vimgrep 
 inoremap <A-s> <esc>:AsyncRun! rg --vimgrep  
-vnoremap <A-s> <esc>:AsyncRun! rg --vimgrep  
+vnoremap <A-s> y<esc>:AsyncRun! rg --vimgrep <c-r>"<cr>
 tnoremap <A-s> <C-\><C-n>:AsyncRun! rg --vimgrep  
 
 nnoremap <A-f> :AsyncRun! rg --vimgrep <cword><cr>
+vnoremap <A-f> y<esc>:AsyncRun! rg --vimgrep <c-r>"<cr>
+
+" }}}
+
+" LanguageClient-neovim {{{
+
+let g:LanguageClient_serverCommands = {
+  \ 'c': ['clangd'],
+  \ }
+let g:LanguageClient_changeThrottle = 0.5
+let g:LanguageClient_useVirtualText = 0
+let g:LanguageClient_diagnosticsDisplay = {
+  \       '1': {
+  \           'name': 'Error',
+  \           'texthl': 'Error',
+  \           'signText': '',
+  \           'signTexthl': '',
+  \           'virtualTexthl': '',
+  \       },
+  \       '2': {
+  \           'name': 'Warning',
+  \           'texthl': 'WarningMsg',
+  \           'signText': '',
+  \           'signTexthl': '',
+  \           'virtualTexthl': '',
+  \       },
+  \       '3': {
+  \           'name': 'Information',
+  \           'texthl': 'WarningMsg',
+  \           'signText': '',
+  \           'signTexthl': '',
+  \           'virtualTexthl': '',
+  \       },
+  \       '4': {
+  \           'name': 'Hint',
+  \           'texthl': 'WarningMsg',
+  \           'signText': '',
+  \           'signTexthl': '',
+  \           'virtualTexthl': '',
+  \       },
+  \  }
+
+augroup LanguageClient
+    au!
+    au BufWritePre *.c :call LanguageClient#textDocument_formatting_sync()
+augroup END
+
+nnoremap <A-i> :call LanguageClient_contextMenu()<cr>
+inoremap <A-i> <esc>:call LanguageClient_contextMenu()<cr>
+
+" }}}
+
+" deoplete {{{
+
+let g:deoplete#enable_at_startup = 1
+
+" }}}
+
+" vim-signature {{{
+
+let g:SignatureMarkTextHL = "WarningMsg"
+let g:SignatureMarkOrder = "\m█"
 
 " }}}
 
