@@ -682,14 +682,20 @@ let g:lsp_diagnostics_echo_cursor = 1
 let g:lsp_highlight_references_enabled = 0
 let g:lsp_text_edit_enabled = 0
 
-hi link LspErrorHighlight Error
-hi link LspWarningHighlight WarningMsk
-hi link LspInformationHighlight Comment
-hi link LspHintHighlight Comment
+hi link LspErrorHighlight Underlined
+hi link LspWarningHighlight Underlined
+hi link LspInformationHighlight Underlined
+hi link LspHintHighlight Underlined
 
-nnoremap <A-i> :Lsp
-nnoremap ]e :LspNextError<cr>
-nnoremap ]e :LspPreviousError<cr>
+hi link LspError Error
+hi link LspWarning WarningMsk
+hi link LspInformation Comment
+hi link LspHint Comment
+
+hi link LspErrorText Error
+hi link LspWarningText WarningMsk
+hi link LspInformationText Comment
+hi link LspHintText Comment
 
 augroup VIM_LSP
     au!
@@ -699,7 +705,10 @@ augroup VIM_LSP
             \ 'cmd': {server_info->['clangd', '-background-index']},
             \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
             \ })
-        au BufWritePre *.c LspDocumentFormat
+        au BufWritePre *.h,*.c,*.cpp LspDocumentFormat
+        au BufReadPost *.h,*.c,*.cpp nnoremap <silent> ]e :LspNextError<cr>
+        au BufReadPost *.h,*.c,*.cpp nnoremap <silent> [e :LspPreviousError<cr>
+        au BufReadPost *.h,*.c,*.cpp nnoremap <silent> <A-i> :LspHover<cr>
     endif
 augroup END
 
