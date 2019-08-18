@@ -138,7 +138,7 @@ gl() {
             --pretty=format:'%C(auto)%s %C(auto)%d %C(auto)%h%Creset'      \
             --no-merges -n 100 "$@" |
         fzf --cycle --no-sort --reverse --tiebreak=index --no-multi --ansi \
-            --preview="$fzf__git_show" --preview-window=wrap:70%           \
+            --preview="$fzf__git_show" --preview-window=wrap:50%           \
             --bind "enter:execute:$fzf__git_diff"                          \
             --bind "ctrl-y:execute:$fzf__git_hash | pbcopy"                \
             --bind "ctrl-j:preview-down"                                   \
