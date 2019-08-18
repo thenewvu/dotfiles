@@ -353,14 +353,12 @@ Plug 'amadeus/vim-convert-color-to', { 'on': 'ConvertColorTo' }
 
 Plug 'skywind3000/asyncrun.vim', { 'on': 'AsyncRun' }
 
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
-
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-
 Plug 'kshenoy/vim-signature'
+
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
 call plug#end()
 
@@ -459,6 +457,7 @@ augroup end
   let g:gitgutter_sign_modified = '\ '
   let g:gitgutter_sign_removed = '\ '
   let g:gitgutter_sign_modified_removed = '\ '
+  let g:gitgutter_sign_allow_clobber = 0
 
   hi link GitGutterAdd DiffAdd
   hi link GitGutterChange DiffText
@@ -660,64 +659,39 @@ vnoremap <A-f> y<esc>:AsyncRun! rg --vimgrep <c-r>"<cr>
 
 " }}}
 
-" LanguageClient-neovim {{{
-
-let g:LanguageClient_serverCommands = {
-  \ 'c': ['clangd'],
-  \ }
-let g:LanguageClient_changeThrottle = 0.5
-let g:LanguageClient_useVirtualText = 0
-let g:LanguageClient_diagnosticsDisplay = {
-  \       '1': {
-  \           'name': 'Error',
-  \           'texthl': 'Error',
-  \           'signText': '',
-  \           'signTexthl': '',
-  \           'virtualTexthl': '',
-  \       },
-  \       '2': {
-  \           'name': 'Warning',
-  \           'texthl': 'WarningMsg',
-  \           'signText': '',
-  \           'signTexthl': '',
-  \           'virtualTexthl': '',
-  \       },
-  \       '3': {
-  \           'name': 'Information',
-  \           'texthl': 'WarningMsg',
-  \           'signText': '',
-  \           'signTexthl': '',
-  \           'virtualTexthl': '',
-  \       },
-  \       '4': {
-  \           'name': 'Hint',
-  \           'texthl': 'WarningMsg',
-  \           'signText': '',
-  \           'signTexthl': '',
-  \           'virtualTexthl': '',
-  \       },
-  \  }
-
-augroup LanguageClient
-    au!
-    au BufWritePre *.c :call LanguageClient#textDocument_formatting_sync()
-augroup END
-
-nnoremap <A-i> :call LanguageClient_contextMenu()<cr>
-inoremap <A-i> <esc>:call LanguageClient_contextMenu()<cr>
-
-" }}}
-
-" deoplete {{{
-
-let g:deoplete#enable_at_startup = 1
-
-" }}}
-
 " vim-signature {{{
 
 let g:SignatureMarkTextHL = "WarningMsg"
 let g:SignatureMarkOrder = "\m█"
+
+" }}}
+
+" vim-lsp {{{
+
+let g:lsp_signs_enabled = 0
+let g:lsp_diagnostics_echo_cursor = 1
+let g:lsp_highlight_references_enabled = 0
+
+hi link LspErrorHighlight Error
+hi link LspWarningHighlight WarningMsk
+hi link LspInformationHighlight Comment
+hi link LspHintHighlight Comment
+
+nnoremap <A-i> :Lsp<tab>
+nnoremap ]e :LspNextError<cr>
+nnoremap ]e :LspPreviousError<cr>
+
+augroup VIM_LSP
+    au!
+    if executable('clangd')
+        au User lsp_setup call lsp#register_server({
+            \ 'name': 'clangd',
+            \ 'cmd': {server_info->['clangd', '-background-index']},
+            \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
+            \ })
+        au BufWritePre *.c LspDocumentFormat
+    endif
+augroup END
 
 " }}}
 
