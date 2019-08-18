@@ -82,6 +82,9 @@ augroup All
 
     " https://dmerej.info/blog/post/vim-cwd-and-neovim/
     au TabNewEntered * call OnTabEnter(expand("<amatch>"))
+
+    au VimEnter * delmarks A-Z
+    au BufReadPost * delmarks a-z
 augroup END
 
 " }}}
@@ -666,18 +669,25 @@ let g:SignatureMarkOrder = "\m█"
 
 " }}}
 
+" asyncomplete.vim {{{
+
+let g:asyncomplete_popup_delay = 200
+
+" }}}
+
 " vim-lsp {{{
 
 let g:lsp_signs_enabled = 0
 let g:lsp_diagnostics_echo_cursor = 1
 let g:lsp_highlight_references_enabled = 0
+let g:lsp_text_edit_enabled = 0
 
 hi link LspErrorHighlight Error
 hi link LspWarningHighlight WarningMsk
 hi link LspInformationHighlight Comment
 hi link LspHintHighlight Comment
 
-nnoremap <A-i> :Lsp<tab>
+nnoremap <A-i> :Lsp
 nnoremap ]e :LspNextError<cr>
 nnoremap ]e :LspPreviousError<cr>
 
