@@ -17,8 +17,6 @@ set wildignorecase " Ignore case when completing filenames
 set wildoptions=pum
 set nowrap breakindent linebreak breakindentopt=shift:-2
 set showbreak=↳\ 
-set foldenable foldmethod=syntax foldmarker={,} foldnestmax=1 foldlevel=0
-set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
 set fillchars+=fold:\ 
 set nofoldenable
 " disable some builtin plugins
@@ -126,10 +124,6 @@ vnoremap j gjzz
 vnoremap k gkzz
 nnoremap <A-j> Lzz
 nnoremap <A-k> Hzz
-" jump backword cursor position
-nnoremap <A-o> <C-o>
-" jump foreword cursor position
-nnoremap <A-i> <C-i>
 " break lines
 nnoremap J i<enter><esc>
 " join lines
@@ -184,11 +178,10 @@ vnoremap gP "+P
 " multiple lines multiple times with simple ppppp
 " https://sheerun.net/2014/03/21/how-to-boost-your-vim-productivity/
 vnoremap <silent> y y`]
-vnoremap <silent> p p`]
 nnoremap <silent> p p`]
 " paste in visual mode without reyanking
 " https://stackoverflow.com/a/5093286
-xnoremap p pgvy
+vnoremap p pgvy`]
 " <r> keep replacing
 nnoremap r R
 " newline without enter inserting mode
@@ -338,8 +331,10 @@ Plug 'ap/vim-buftabline'
 
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 
+" hightlight hex colors
 Plug 'RRethy/vim-hexokinase', { 'on': 'HexokinaseToggle' }
 
+" auto complete pairs () [] {} "" ''
 Plug 'kana/vim-smartinput'
 
 Plug 'terryma/vim-expand-region'
@@ -350,12 +345,14 @@ Plug 'mhinz/vim-hugefile'
 
 Plug 'terryma/vim-expand-region'
 
+" provide commands on file: Delete, Rename, ...
 Plug 'tpope/vim-eunuch'
 
 Plug 'amadeus/vim-convert-color-to', { 'on': 'ConvertColorTo' }
 
 Plug 'skywind3000/asyncrun.vim', { 'on': 'AsyncRun' }
 
+" show marks on signcolumn
 Plug 'kshenoy/vim-signature'
 
 Plug 'prabirshrestha/asyncomplete.vim'
@@ -440,7 +437,7 @@ augroup end
 
 " vim-closetab {{{
 
-  let g:closetag_filenames = "*.html,*.xml,*.js,*.jsx"
+  let g:closetag_filenames = "*.html,*.xml,*.jsx,*.svg"
 
 " }}}
 
@@ -596,13 +593,6 @@ augroup end
 
 " vim-hexokinase {{{
     let g:Hexokinase_virtualText = '██████'
-" }}}
-
-" vim-expand-region {{{
-
-    vmap = <Plug>(expand_region_expand)
-    vmap - <Plug>(expand_region_shrink)
-
 " }}}
 
 " python-syntax {{{
