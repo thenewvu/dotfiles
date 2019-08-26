@@ -89,8 +89,6 @@ augroup END
 
 " Keys {{{
 
-let mapleader = ";"
-nnoremap ;; :
 nnoremap <A-e> :e 
 vnoremap <A-e> <esc>:e 
 inoremap <A-e> <esc>:e 
@@ -111,6 +109,7 @@ vnoremap E $
 nnoremap <esc><esc> :noh<cr>
 " toggle folding
 nnoremap zz zxzMzvzz
+nnoremap <space><space> zA
 " vertical center movement
 nnoremap G Gzz
 vnoremap G Gzz
@@ -128,6 +127,12 @@ nnoremap <A-k> Hzz
 nnoremap J i<enter><esc>
 " join lines
 nnoremap K J
+" expand region by word
+nmap L ve
+vmap L e
+" shrink region by word
+nmap H vb
+vmap H b
 " redo
 nnoremap U <c-r>
 " navigate between splits and buffers
@@ -327,8 +332,6 @@ Plug 'thenewvu/vim-colors-blueprint'
 
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 
-Plug 'ap/vim-buftabline' 
-
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 
 " hightlight hex colors
@@ -337,13 +340,9 @@ Plug 'RRethy/vim-hexokinase', { 'on': 'HexokinaseToggle' }
 " auto complete pairs () [] {} "" ''
 Plug 'kana/vim-smartinput'
 
-Plug 'terryma/vim-expand-region'
-
 Plug 'tikhomirov/vim-glsl', { 'for': 'glsl' }
 
 Plug 'mhinz/vim-hugefile'
-
-Plug 'terryma/vim-expand-region'
 
 " provide commands on file: Delete, Rename, ...
 Plug 'tpope/vim-eunuch'
@@ -359,6 +358,9 @@ Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
+
+Plug 'zefei/vim-wintabs'
+Plug 'zefei/vim-wintabs-powerline'
 
 call plug#end()
 
@@ -493,71 +495,72 @@ augroup end
 
 " }}}
 
-" vim-buftabline {{{
+" vim-wintabs {{{
 
-    let g:buftabline_indicators = 1
-    let g:buftabline_numbers = 2
+    let g:wintabs_ui_buffer_name_format = ' %o %t '
 
-    nmap <A-1> <Plug>BufTabLine.Go(1)
-    nmap <A-2> <Plug>BufTabLine.Go(2)
-    nmap <A-3> <Plug>BufTabLine.Go(3)
-    nmap <A-4> <Plug>BufTabLine.Go(4)
-    nmap <A-5> <Plug>BufTabLine.Go(5)
-    nmap <A-6> <Plug>BufTabLine.Go(6)
-    nmap <A-7> <Plug>BufTabLine.Go(7)
-    nmap <A-8> <Plug>BufTabLine.Go(8)
-    nmap <A-9> <Plug>BufTabLine.Go(9)
-    nmap <A-0> <Plug>BufTabLine.Go(10)
-    nmap <A-q> :bp<bar>sp<bar>bn<bar>bd<cr>
+    hi   link   WintabsEmpty        TablineFill
+    hi   link   WintabsActive       Normal
+    hi   link   WintabsInactive     Tabline
+    hi   link   WintabsArrow        TablineFill
+    hi   link   WintabsActiveNC     Normal
+    hi   link   WintabsInactiveNC   Tabline
 
-    imap <A-1> <esc><Plug>BufTabLine.Go(1)
-    imap <A-2> <esc><Plug>BufTabLine.Go(2)
-    imap <A-3> <esc><Plug>BufTabLine.Go(3)
-    imap <A-4> <esc><Plug>BufTabLine.Go(4)
-    imap <A-5> <esc><Plug>BufTabLine.Go(5)
-    imap <A-6> <esc><Plug>BufTabLine.Go(6)
-    imap <A-7> <esc><Plug>BufTabLine.Go(7)
-    imap <A-8> <esc><Plug>BufTabLine.Go(8)
-    imap <A-9> <esc><Plug>BufTabLine.Go(9)
-    imap <A-0> <esc><Plug>BufTabLine.Go(10)
-    imap <A-q> <esc>:bp<bar>sp<bar>bn<bar>bd<cr>
+    nmap <A-1> <Plug>(wintabs_tab_1)
+    nmap <A-2> <Plug>(wintabs_tab_2)
+    nmap <A-3> <Plug>(wintabs_tab_3)
+    nmap <A-4> <Plug>(wintabs_tab_4)
+    nmap <A-5> <Plug>(wintabs_tab_5)
+    nmap <A-6> <Plug>(wintabs_tab_6)
+    nmap <A-7> <Plug>(wintabs_tab_7)
+    nmap <A-8> <Plug>(wintabs_tab_8)
+    nmap <A-9> <Plug>(wintabs_tab_9)
+    nmap <A-0> <Plug>(wintabs_tab_10)
+    nmap <A-q> <Plug>(wintabs_close)
 
-    vmap <A-1> <esc><Plug>BufTabLine.Go(1)
-    vmap <A-2> <esc><Plug>BufTabLine.Go(2)
-    vmap <A-3> <esc><Plug>BufTabLine.Go(3)
-    vmap <A-4> <esc><Plug>BufTabLine.Go(4)
-    vmap <A-5> <esc><Plug>BufTabLine.Go(5)
-    vmap <A-6> <esc><Plug>BufTabLine.Go(6)
-    vmap <A-7> <esc><Plug>BufTabLine.Go(7)
-    vmap <A-8> <esc><Plug>BufTabLine.Go(8)
-    vmap <A-9> <esc><Plug>BufTabLine.Go(9)
-    vmap <A-0> <esc><Plug>BufTabLine.Go(10)
-    vmap <A-q> <esc>:bp<bar>sp<bar>bn<bar>bd<cr>
+    imap <A-1> <esc><Plug>(wintabs_tab_1)
+    imap <A-2> <esc><Plug>(wintabs_tab_2)
+    imap <A-3> <esc><Plug>(wintabs_tab_3)
+    imap <A-4> <esc><Plug>(wintabs_tab_4)
+    imap <A-5> <esc><Plug>(wintabs_tab_5)
+    imap <A-6> <esc><Plug>(wintabs_tab_6)
+    imap <A-7> <esc><Plug>(wintabs_tab_7)
+    imap <A-8> <esc><Plug>(wintabs_tab_8)
+    imap <A-9> <esc><Plug>(wintabs_tab_9)
+    imap <A-0> <esc><Plug>(wintabs_tab_10)
+    imap <A-q> <esc><Plug>(wintabs_close)
 
-    tmap <A-1> <C-\><C-n><Plug>BufTabLine.Go(1)
-    tmap <A-2> <C-\><C-n><Plug>BufTabLine.Go(2)
-    tmap <A-3> <C-\><C-n><Plug>BufTabLine.Go(3)
-    tmap <A-4> <C-\><C-n><Plug>BufTabLine.Go(4)
-    tmap <A-5> <C-\><C-n><Plug>BufTabLine.Go(5)
-    tmap <A-6> <C-\><C-n><Plug>BufTabLine.Go(6)
-    tmap <A-7> <C-\><C-n><Plug>BufTabLine.Go(7)
-    tmap <A-8> <C-\><C-n><Plug>BufTabLine.Go(8)
-    tmap <A-9> <C-\><C-n><Plug>BufTabLine.Go(9)
-    tmap <A-0> <C-\><C-n><Plug>BufTabLine.Go(10)
+    vmap <A-1> <esc><Plug>(wintabs_tab_1)
+    vmap <A-2> <esc><Plug>(wintabs_tab_2)
+    vmap <A-3> <esc><Plug>(wintabs_tab_3)
+    vmap <A-4> <esc><Plug>(wintabs_tab_4)
+    vmap <A-5> <esc><Plug>(wintabs_tab_5)
+    vmap <A-6> <esc><Plug>(wintabs_tab_6)
+    vmap <A-7> <esc><Plug>(wintabs_tab_7)
+    vmap <A-8> <esc><Plug>(wintabs_tab_8)
+    vmap <A-9> <esc><Plug>(wintabs_tab_9)
+    vmap <A-0> <esc><Plug>(wintabs_tab_10)
+    vmap <A-q> <esc><Plug>(wintabs_close)
 
-    nmap <A-h> :bp<cr>
-    nmap <A-l> :bn<cr>
-    imap <A-h> <esc>:bp<cr>
-    imap <A-l> <esc>:bn<cr>
-    vmap <A-h> <esc>:bp<cr>
-    vmap <A-l> <esc>:bn<cr>
-    tmap <A-h> <C-\><C-n>:bp<cr>
-    tmap <A-l> <C-\><C-n>:bn<cr>
+    tmap <A-1> <C-\><C-n><Plug>(wintabs_tab_1)
+    tmap <A-2> <C-\><C-n><Plug>(wintabs_tab_2)
+    tmap <A-3> <C-\><C-n><Plug>(wintabs_tab_3)
+    tmap <A-4> <C-\><C-n><Plug>(wintabs_tab_4)
+    tmap <A-5> <C-\><C-n><Plug>(wintabs_tab_5)
+    tmap <A-6> <C-\><C-n><Plug>(wintabs_tab_6)
+    tmap <A-7> <C-\><C-n><Plug>(wintabs_tab_7)
+    tmap <A-8> <C-\><C-n><Plug>(wintabs_tab_8)
+    tmap <A-9> <C-\><C-n><Plug>(wintabs_tab_9)
+    tmap <A-0> <C-\><C-n><Plug>(wintabs_tab_10)
 
-    hi! link BufTabLineCurrent   Normal
-    hi! link BufTabLineActive    TablineSel
-    hi! link BufTabLineHidden    Tabline
-    hi! link BufTabLineFill      TablineFill
+    nmap <A-h> <Plug>(wintabs_previous)
+    nmap <A-l> <Plug>(wintabs_next)
+    imap <A-h> <esc><Plug>(wintabs_previous)
+    imap <A-l> <esc><Plug>(wintabs_next)
+    vmap <A-h> <esc><Plug>(wintabs_previous)
+    vmap <A-l> <esc><Plug>(wintabs_next)
+    tmap <A-h> <C-\><C-n><Plug>(wintabs_previous)
+    tmap <A-l> <C-\><C-n><Plug>(wintabs_next)
 
 " }}}
 
@@ -613,23 +616,6 @@ let g:prettier#config#config_precedence = 'file-override'
 
 " }}}
 
-" vim-expand-region {{{
-
-map H <Plug>(expand_region_shrink)
-map L <Plug>(expand_region_expand)
-
-call expand_region#custom_text_objects('html', {
-      \ 'it' :1,
-\ })
-call expand_region#custom_text_objects('svg', {
-      \ 'it' :1,
-\ })
-call expand_region#custom_text_objects('xml', {
-      \ 'it' :1,
-\ })
-
-" }}}
-
 " undotree {{{
 
 let g:undotree_WindowLayout = 2
@@ -656,6 +642,30 @@ vnoremap <A-f> y<esc>:AsyncRun! rg --vimgrep <c-r>"<cr>
 
 let g:SignatureMarkTextHL = "WarningMsg"
 let g:SignatureMarkOrder = "\m█"
+let g:SignatureIncludeMarks = "abcdefghijklmnopqrstuvwxyz"
+let g:SignatureMap = {
+    \ 'Leader'             :  "m",
+    \ 'PlaceNextMark'      :  "",
+    \ 'ToggleMarkAtLine'   :  "",
+    \ 'PurgeMarksAtLine'   :  "",
+    \ 'DeleteMark'         :  "",
+    \ 'PurgeMarks'         :  "m<Space>",
+    \ 'PurgeMarkers'       :  "",
+    \ 'GotoNextLineAlpha'  :  "",
+    \ 'GotoPrevLineAlpha'  :  "",
+    \ 'GotoNextSpotAlpha'  :  "",
+    \ 'GotoPrevSpotAlpha'  :  "",
+    \ 'GotoNextLineByPos'  :  "",
+    \ 'GotoPrevLineByPos'  :  "",
+    \ 'GotoNextSpotByPos'  :  "",
+    \ 'GotoPrevSpotByPos'  :  "",
+    \ 'GotoNextMarker'     :  "",
+    \ 'GotoPrevMarker'     :  "",
+    \ 'GotoNextMarkerAny'  :  "",
+    \ 'GotoPrevMarkerAny'  :  "",
+    \ 'ListBufferMarks'    :  "m/",
+    \ 'ListBufferMarkers'  :  ""
+    \ }
 
 " }}}
 
@@ -678,12 +688,12 @@ hi link LspInformationHighlight Underlined
 hi link LspHintHighlight Underlined
 
 hi link LspError Error
-hi link LspWarning WarningMsk
+hi link LspWarning WarningMsg
 hi link LspInformation Comment
 hi link LspHint Comment
 
 hi link LspErrorText Error
-hi link LspWarningText WarningMsk
+hi link LspWarningText WarningMsg
 hi link LspInformationText Comment
 hi link LspHintText Comment
 
@@ -695,10 +705,10 @@ augroup VIM_LSP
             \ 'cmd': {server_info->['clangd', '-background-index']},
             \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
             \ })
-        au BufWritePre *.h,*.c,*.cpp LspDocumentFormat
         au BufReadPost *.h,*.c,*.cpp nnoremap <silent> ]e :LspNextError<cr>
         au BufReadPost *.h,*.c,*.cpp nnoremap <silent> [e :LspPreviousError<cr>
         au BufReadPost *.h,*.c,*.cpp nnoremap <silent> <A-i> :LspHover<cr>
+        au BufReadPost *.h,*.c,*.cpp nnoremap <silent> <A-r> :LspRename<cr>
     endif
 augroup END
 
