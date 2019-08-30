@@ -89,6 +89,8 @@ augroup END
 
 " Keys {{{
 
+let mapleader = ";"
+
 nnoremap <A-e> :e 
 vnoremap <A-e> <esc>:e 
 inoremap <A-e> <esc>:e 
@@ -437,19 +439,6 @@ augroup end
 
 " }}}
 
-" vim-closetab {{{
-
-  let g:closetag_filenames = "*.html,*.xml,*.jsx,*.svg"
-
-" }}}
-
-" vim-multiple-cursors {{{
-
-  hi link multiple_cursors_cursor Cursor
-  hi link multiple_cursors_visual Search
-
-" }}}
-
 " vim-gitguter {{{
 
   set updatetime=1000
@@ -497,7 +486,7 @@ augroup end
 
 " vim-wintabs {{{
 
-    let g:wintabs_ui_buffer_name_format = ' %o %t '
+    let g:wintabs_ui_buffer_name_format = '.%o %t'
 
     hi   link   WintabsEmpty        TablineFill
     hi   link   WintabsActive       Normal
@@ -707,8 +696,9 @@ augroup VIM_LSP
             \ })
         au BufReadPost *.h,*.c,*.cpp nnoremap <silent> ]e :LspNextError<cr>
         au BufReadPost *.h,*.c,*.cpp nnoremap <silent> [e :LspPreviousError<cr>
-        au BufReadPost *.h,*.c,*.cpp nnoremap <silent> <A-i> :LspHover<cr>
-        au BufReadPost *.h,*.c,*.cpp nnoremap <silent> <A-r> :LspRename<cr>
+        au BufReadPost *.h,*.c,*.cpp nnoremap <silent> <leader>i :LspHover<cr>
+        au BufReadPost *.h,*.c,*.cpp nnoremap <silent> <leader>r :LspRename<cr>
+        au BufReadPost *.h,*.c,*.cpp nnoremap <silent> <leader>f :LspDocumentFormat<cr>
     endif
 augroup END
 
