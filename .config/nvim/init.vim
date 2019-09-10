@@ -70,8 +70,7 @@ function! OnTabEnter(path)
     let dirname = fnamemodify(a:path, ":h")
   endif
   execute "tcd ". dirname
-endfunction()
-
+endfunction
 
 augroup All
     au!
@@ -125,16 +124,14 @@ vnoremap j gjzz
 vnoremap k gkzz
 nnoremap <A-j> Lzz
 nnoremap <A-k> Hzz
+vnoremap <A-j> Lzz
+vnoremap <A-k> Hzz
 " break lines
 nnoremap J i<enter><esc>
 " join lines
 nnoremap K J
-" expand region by word
-nmap L ve
-vmap L e
-" shrink region by word
-nmap H vb
-vmap H b
+nnoremap L <c-i>zvzz
+nnoremap H <c-o>zvzz
 " redo
 nnoremap U <c-r>
 " navigate between splits and buffers
@@ -353,16 +350,16 @@ Plug 'amadeus/vim-convert-color-to', { 'on': 'ConvertColorTo' }
 
 Plug 'skywind3000/asyncrun.vim', { 'on': 'AsyncRun' }
 
-" show marks on signcolumn
-Plug 'kshenoy/vim-signature'
-
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
-Plug 'zefei/vim-wintabs'
-Plug 'zefei/vim-wintabs-powerline'
+Plug 'ap/vim-buftabline' 
+
+Plug 'endaaman/vim-case-master', { 'on': 'CaseMasterConvertToSnake' }
+
+Plug 'ForTheReallys/paste-indent'
 
 call plug#end()
 
@@ -484,72 +481,71 @@ augroup end
 
 " }}}
 
-" vim-wintabs {{{
+" vim-buftabline {{{
 
-    let g:wintabs_ui_buffer_name_format = '.%o %t'
+    let g:buftabline_indicators = 1
+    let g:buftabline_numbers = 2
 
-    hi   link   WintabsEmpty        TablineFill
-    hi   link   WintabsActive       Normal
-    hi   link   WintabsInactive     Tabline
-    hi   link   WintabsArrow        TablineFill
-    hi   link   WintabsActiveNC     Normal
-    hi   link   WintabsInactiveNC   Tabline
+    nmap <A-1> <Plug>BufTabLine.Go(1)
+    nmap <A-2> <Plug>BufTabLine.Go(2)
+    nmap <A-3> <Plug>BufTabLine.Go(3)
+    nmap <A-4> <Plug>BufTabLine.Go(4)
+    nmap <A-5> <Plug>BufTabLine.Go(5)
+    nmap <A-6> <Plug>BufTabLine.Go(6)
+    nmap <A-7> <Plug>BufTabLine.Go(7)
+    nmap <A-8> <Plug>BufTabLine.Go(8)
+    nmap <A-9> <Plug>BufTabLine.Go(9)
+    nmap <A-0> <Plug>BufTabLine.Go(10)
+    nmap <A-q> :bp<bar>sp<bar>bn<bar>bd<cr>
 
-    nmap <A-1> <Plug>(wintabs_tab_1)
-    nmap <A-2> <Plug>(wintabs_tab_2)
-    nmap <A-3> <Plug>(wintabs_tab_3)
-    nmap <A-4> <Plug>(wintabs_tab_4)
-    nmap <A-5> <Plug>(wintabs_tab_5)
-    nmap <A-6> <Plug>(wintabs_tab_6)
-    nmap <A-7> <Plug>(wintabs_tab_7)
-    nmap <A-8> <Plug>(wintabs_tab_8)
-    nmap <A-9> <Plug>(wintabs_tab_9)
-    nmap <A-0> <Plug>(wintabs_tab_10)
-    nmap <A-q> <Plug>(wintabs_close)
+    imap <A-1> <esc><Plug>BufTabLine.Go(1)
+    imap <A-2> <esc><Plug>BufTabLine.Go(2)
+    imap <A-3> <esc><Plug>BufTabLine.Go(3)
+    imap <A-4> <esc><Plug>BufTabLine.Go(4)
+    imap <A-5> <esc><Plug>BufTabLine.Go(5)
+    imap <A-6> <esc><Plug>BufTabLine.Go(6)
+    imap <A-7> <esc><Plug>BufTabLine.Go(7)
+    imap <A-8> <esc><Plug>BufTabLine.Go(8)
+    imap <A-9> <esc><Plug>BufTabLine.Go(9)
+    imap <A-0> <esc><Plug>BufTabLine.Go(10)
+    imap <A-q> <esc>:bp<bar>sp<bar>bn<bar>bd<cr>
 
-    imap <A-1> <esc><Plug>(wintabs_tab_1)
-    imap <A-2> <esc><Plug>(wintabs_tab_2)
-    imap <A-3> <esc><Plug>(wintabs_tab_3)
-    imap <A-4> <esc><Plug>(wintabs_tab_4)
-    imap <A-5> <esc><Plug>(wintabs_tab_5)
-    imap <A-6> <esc><Plug>(wintabs_tab_6)
-    imap <A-7> <esc><Plug>(wintabs_tab_7)
-    imap <A-8> <esc><Plug>(wintabs_tab_8)
-    imap <A-9> <esc><Plug>(wintabs_tab_9)
-    imap <A-0> <esc><Plug>(wintabs_tab_10)
-    imap <A-q> <esc><Plug>(wintabs_close)
+    vmap <A-1> <esc><Plug>BufTabLine.Go(1)
+    vmap <A-2> <esc><Plug>BufTabLine.Go(2)
+    vmap <A-3> <esc><Plug>BufTabLine.Go(3)
+    vmap <A-4> <esc><Plug>BufTabLine.Go(4)
+    vmap <A-5> <esc><Plug>BufTabLine.Go(5)
+    vmap <A-6> <esc><Plug>BufTabLine.Go(6)
+    vmap <A-7> <esc><Plug>BufTabLine.Go(7)
+    vmap <A-8> <esc><Plug>BufTabLine.Go(8)
+    vmap <A-9> <esc><Plug>BufTabLine.Go(9)
+    vmap <A-0> <esc><Plug>BufTabLine.Go(10)
+    vmap <A-q> <esc>:bp<bar>sp<bar>bn<bar>bd<cr>
 
-    vmap <A-1> <esc><Plug>(wintabs_tab_1)
-    vmap <A-2> <esc><Plug>(wintabs_tab_2)
-    vmap <A-3> <esc><Plug>(wintabs_tab_3)
-    vmap <A-4> <esc><Plug>(wintabs_tab_4)
-    vmap <A-5> <esc><Plug>(wintabs_tab_5)
-    vmap <A-6> <esc><Plug>(wintabs_tab_6)
-    vmap <A-7> <esc><Plug>(wintabs_tab_7)
-    vmap <A-8> <esc><Plug>(wintabs_tab_8)
-    vmap <A-9> <esc><Plug>(wintabs_tab_9)
-    vmap <A-0> <esc><Plug>(wintabs_tab_10)
-    vmap <A-q> <esc><Plug>(wintabs_close)
+    tmap <A-1> <C-\><C-n><Plug>BufTabLine.Go(1)
+    tmap <A-2> <C-\><C-n><Plug>BufTabLine.Go(2)
+    tmap <A-3> <C-\><C-n><Plug>BufTabLine.Go(3)
+    tmap <A-4> <C-\><C-n><Plug>BufTabLine.Go(4)
+    tmap <A-5> <C-\><C-n><Plug>BufTabLine.Go(5)
+    tmap <A-6> <C-\><C-n><Plug>BufTabLine.Go(6)
+    tmap <A-7> <C-\><C-n><Plug>BufTabLine.Go(7)
+    tmap <A-8> <C-\><C-n><Plug>BufTabLine.Go(8)
+    tmap <A-9> <C-\><C-n><Plug>BufTabLine.Go(9)
+    tmap <A-0> <C-\><C-n><Plug>BufTabLine.Go(10)
 
-    tmap <A-1> <C-\><C-n><Plug>(wintabs_tab_1)
-    tmap <A-2> <C-\><C-n><Plug>(wintabs_tab_2)
-    tmap <A-3> <C-\><C-n><Plug>(wintabs_tab_3)
-    tmap <A-4> <C-\><C-n><Plug>(wintabs_tab_4)
-    tmap <A-5> <C-\><C-n><Plug>(wintabs_tab_5)
-    tmap <A-6> <C-\><C-n><Plug>(wintabs_tab_6)
-    tmap <A-7> <C-\><C-n><Plug>(wintabs_tab_7)
-    tmap <A-8> <C-\><C-n><Plug>(wintabs_tab_8)
-    tmap <A-9> <C-\><C-n><Plug>(wintabs_tab_9)
-    tmap <A-0> <C-\><C-n><Plug>(wintabs_tab_10)
+    nmap <A-h> :bp<cr>
+    nmap <A-l> :bn<cr>
+    imap <A-h> <esc>:bp<cr>
+    imap <A-l> <esc>:bn<cr>
+    vmap <A-h> <esc>:bp<cr>
+    vmap <A-l> <esc>:bn<cr>
+    tmap <A-h> <C-\><C-n>:bp<cr>
+    tmap <A-l> <C-\><C-n>:bn<cr>
 
-    nmap <A-h> <Plug>(wintabs_previous)
-    nmap <A-l> <Plug>(wintabs_next)
-    imap <A-h> <esc><Plug>(wintabs_previous)
-    imap <A-l> <esc><Plug>(wintabs_next)
-    vmap <A-h> <esc><Plug>(wintabs_previous)
-    vmap <A-l> <esc><Plug>(wintabs_next)
-    tmap <A-h> <C-\><C-n><Plug>(wintabs_previous)
-    tmap <A-l> <C-\><C-n><Plug>(wintabs_next)
+    hi! link BufTabLineCurrent   Normal
+    hi! link BufTabLineActive    TablineSel
+    hi! link BufTabLineHidden    Tabline
+    hi! link BufTabLineFill      TablineFill
 
 " }}}
 
@@ -627,40 +623,9 @@ vnoremap <A-f> y<esc>:AsyncRun! rg --vimgrep <c-r>"<cr>
 
 " }}}
 
-" vim-signature {{{
-
-let g:SignatureMarkTextHL = "WarningMsg"
-let g:SignatureMarkOrder = "\m█"
-let g:SignatureIncludeMarks = "abcdefghijklmnopqrstuvwxyz"
-let g:SignatureMap = {
-    \ 'Leader'             :  "m",
-    \ 'PlaceNextMark'      :  "",
-    \ 'ToggleMarkAtLine'   :  "",
-    \ 'PurgeMarksAtLine'   :  "",
-    \ 'DeleteMark'         :  "",
-    \ 'PurgeMarks'         :  "m<Space>",
-    \ 'PurgeMarkers'       :  "",
-    \ 'GotoNextLineAlpha'  :  "",
-    \ 'GotoPrevLineAlpha'  :  "",
-    \ 'GotoNextSpotAlpha'  :  "",
-    \ 'GotoPrevSpotAlpha'  :  "",
-    \ 'GotoNextLineByPos'  :  "",
-    \ 'GotoPrevLineByPos'  :  "",
-    \ 'GotoNextSpotByPos'  :  "",
-    \ 'GotoPrevSpotByPos'  :  "",
-    \ 'GotoNextMarker'     :  "",
-    \ 'GotoPrevMarker'     :  "",
-    \ 'GotoNextMarkerAny'  :  "",
-    \ 'GotoPrevMarkerAny'  :  "",
-    \ 'ListBufferMarks'    :  "m/",
-    \ 'ListBufferMarkers'  :  ""
-    \ }
-
-" }}}
-
 " asyncomplete.vim {{{
 
-let g:asyncomplete_popup_delay = 200
+let g:asyncomplete_popup_delay = 500
 
 " }}}
 
@@ -670,6 +635,7 @@ let g:lsp_signs_enabled = 0
 let g:lsp_diagnostics_echo_cursor = 1
 let g:lsp_highlight_references_enabled = 0
 let g:lsp_text_edit_enabled = 0
+let g:lsp_signature_help_enabled = 0
 
 hi link LspErrorHighlight Underlined
 hi link LspWarningHighlight Underlined
@@ -686,6 +652,18 @@ hi link LspWarningText WarningMsg
 hi link LspInformationText Comment
 hi link LspHintText Comment
 
+function! LspDiagnosticStatus()
+    let l:count = lsp#get_buffer_diagnostics_counts()
+    let l:status = ''
+    if l:count['warning'] > 0
+        let l:status = l:count['warning'] . ' warnings '
+    endif
+    if l:count['error'] > 0
+        let l:status = l:status . l:count['error'] . ' errors '
+    endif
+    return l:status
+endfunction
+
 augroup VIM_LSP
     au!
     if executable('clangd')
@@ -697,10 +675,20 @@ augroup VIM_LSP
         au BufReadPost *.h,*.c,*.cpp nnoremap <silent> ]e :LspNextError<cr>
         au BufReadPost *.h,*.c,*.cpp nnoremap <silent> [e :LspPreviousError<cr>
         au BufReadPost *.h,*.c,*.cpp nnoremap <silent> <leader>i :LspHover<cr>
+        au BufReadPost *.h,*.c,*.cpp inoremap <silent> <A-i> <esc>:LspSignatureHelp<cr>li
         au BufReadPost *.h,*.c,*.cpp nnoremap <silent> <leader>r :LspRename<cr>
         au BufReadPost *.h,*.c,*.cpp nnoremap <silent> <leader>f :LspDocumentFormat<cr>
+        au BufReadPost *.h,*.c,*.cpp nnoremap <silent> <leader>d :LspDocumentDiagnostics<cr>
+        au BufReadPost *.h,*.c,*.cpp setlocal statusline=%F%=%{LspDiagnosticStatus()}
+        au BufReadPost *.h,*.c,*.cpp setlocal omnifunc=lsp#complete
     endif
 augroup END
+
+" }}}
+
+" vim-case-master {{{
+
+nnoremap _ :CaseMasterConvertToSnake<cr>
 
 " }}}
 
