@@ -101,12 +101,12 @@ export NNN_OPENER=~/.bin/opener
 # https://sanctum.geek.nz/arabesque/better-bash-history/
 
 # Increase the size of history maintained by BASH
-export HISTFILESIZE=10000
+export HISTFILESIZE=1000
 export HISTSIZE=${HISTFILESIZE}
 # ignore recording duplicated or space-leading commands
-export HISTCONTROL=ignoreboth
+export HISTCONTROL=ignoreboth:ignoredups:erasedups
 # ignore recording some trivial commands
-export HISTIGNORE='ls:ll:l:bg:fg:history'
+export HISTIGNORE='cd:ls:ll:l:bg:fg:history:nvim:gs:gd:gu:gca:gcd:gcr:gcm:gl:mpv'
 # When the shell exits, append to the history file instead of overwriting it
 shopt -s histappend
 # Use one command per line
@@ -146,9 +146,15 @@ gl() {
 }
 
 alias gs="git status --short"
-alias ga="git add -ip"
-alias gd="git diff --cached"
-alias gc="git commit -m"
+alias gr="git ls-files --modified --exclude-standard | fzf -m --print0 | xargs -0 -o -t git checkout -p"
+alias gd="git diff"
+
+alias gca="git add --intent-to-add . && git ls-files --modified --others --exclude-standard | fzf -m --print0 | xargs -0 -o -t git add -p"
+alias gcr="git --no-pager diff --name-only --relative --staged | fzf -m --print0 | xargs -0 -o -t git reset HEAD"
+alias gcd="git diff --cached"
+alias gcm="git commit -m"
+
+alias gp="git push"
 
 alias ctags="`brew --prefix`/bin/ctags"
 
