@@ -132,6 +132,7 @@ alias cp="cp -i"
 fzf__git_hash="echo {} | grep -o '[a-f0-9]\{7\}\$' | head -1"
 fzf__git_show="$fzf__git_hash | xargs -I % sh -c 'git show --color=always --ignore-all-space --ignore-blank-lines --diff-filter=ad % | diff-so-fancy | less -RFX --tabs=4'"
 fzf__git_diff="$fzf__git_hash | xargs -I % sh -c 'git difftool %^!'"
+fzf__git_checkout="$fzf__git_hash | xargs -I % sh -c 'git checkout %'"
 
 gl() {
     git log --abbrev-commit --date=relative --color=always                 \
@@ -141,6 +142,7 @@ gl() {
             --preview="$fzf__git_show" --preview-window=wrap:50%           \
             --bind "enter:execute:$fzf__git_diff"                          \
             --bind "ctrl-y:execute:$fzf__git_hash | pbcopy"                \
+            --bind "ctrl-g:execute:$fzf__git_checkout"                     \
             --bind "ctrl-j:preview-down"                                   \
             --bind "ctrl-k:preview-up"
 }
