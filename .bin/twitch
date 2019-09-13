@@ -3,22 +3,31 @@
 CID=~/.twitch_client_id
 
 if [ ! -f "$CID" ]; then
-    echo "$CID does not exist."
-    exit -1
+    exit;
 fi
 
-URL=` \
-    curl    -sS \
-            -H 'Accept: application/vnd.twitchtv.v3+json' \
-            -H "Client-ID: $(cat $CID)" \
-            "https://api.twitch.tv/kraken/streams?limit=20&game=$1" |
-    jq      -r '.streams[].channel | "\(.game)\t\(.status[0:96])\t\(.url)"' |
-    column  -t -s $'\t' |
-    fzf     --cycle --no-sort --reverse --tiebreak=index --no-multi --ansi |
-    grep    -o 'https://.*' \
+CID=$(cat $CID)
+
+if [ -z "$CID" ]; then
+    exit;
+fi
+
+GID=`  curl    -sS -H "Client-ID: $CID" "https://api.twitch.tv/helix/games/top" |
+        jq      -r '.data[] | "\(.id)\t\(.name)"'                               |
+        column  -t -s $'\t'                                                     |
+        fzf     --cycle --no-sort --reverse --tiebreak=index --no-multi --ansi  |
+        awk     '{print $1}'
 `
+
+URL=`   curl    -sS -H "Client-ID: $CID" "https://api.twitch.tv/helix/streams?limit=20&game_id=$GID" |
+        jq      -r '.data[] | "\(.user_name)\t\(.title)"'                                            |
+        column  -t -s $'\t'                                                                          |
+        fzf     --cycle --no-sort --reverse --tiebreak=index --no-multi --ansi                       |
+        awk     '{print $1}'
+`
+
 if [ -z "$URL" ]; then
     exit;
 fi
 
-mpv "$URL"
+mpv "https://twitch.tv/$URL"
