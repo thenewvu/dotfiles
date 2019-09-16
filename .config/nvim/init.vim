@@ -19,6 +19,7 @@ set nowrap breakindent linebreak breakindentopt=shift:-2
 set showbreak=↳\ 
 set fillchars+=fold:\ 
 set nofoldenable
+set updatetime=2000
 " disable some builtin plugins
 let g:did_install_default_menus = 1
 let g:loaded_2html_plugin       = 1
@@ -438,8 +439,6 @@ augroup end
 
 " vim-gitguter {{{
 
-  set updatetime=1000
-
   let g:gitgutter_diff_args = '-w'
   let g:gitgutter_sign_added = '\ '
   let g:gitgutter_sign_modified = '\ '
@@ -689,6 +688,13 @@ augroup END
 " vim-case-master {{{
 
 nnoremap _ :CaseMasterConvertToSnake<cr>
+
+" }}}
+
+" smartinput {{{
+
+call smartinput#define_rule({'at': '(\%#)', 'char': '<Enter>', 'input': '<Enter><Enter><BS><Up><Esc>"_S'})
+
 
 " }}}
 
