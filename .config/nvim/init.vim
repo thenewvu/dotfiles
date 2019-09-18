@@ -89,8 +89,6 @@ augroup END
 
 " Keys {{{
 
-let mapleader = ";"
-
 nnoremap <A-e> :e 
 vnoremap <A-e> <esc>:e 
 inoremap <A-e> <esc>:e 
@@ -197,6 +195,9 @@ nnoremap O O<esc>
 nnoremap q *``cgn
 let g:mc = "y/\\V\<C-r>=escape(@\", '/')\<CR>\<CR>"
 vnoremap <expr> q g:mc . "``cgn"
+" reselect last selection
+nnoremap <A-v> gv
+inoremap <A-v> <esc>gv
 
 " search without jumping
 " https://stackoverflow.com/a/4262209
@@ -222,7 +223,9 @@ function! ToggleQuickFix()
   endif
 endfunction
 
-nnoremap <silent> <A-tab> :call ToggleQuickFix()<CR>
+nnoremap <silent> <F12> :call ToggleQuickFix()<CR>
+inoremap <silent> <F12> <esc>:call ToggleQuickFix()<CR>
+vnoremap <silent> <F12> <esc>:call ToggleQuickFix()<CR>
 
 " https://github.com/kutsan/dotfiles/blob/8b243cd065b90b3d05dbbc71392f1dba1282d777/.vim/autoload/kutsan/mappings.vim#L1-L52
 function! TerminalCreateIfNot() abort
@@ -293,10 +296,6 @@ inoremap <silent> <A-`> <esc>:call TerminalToggle()<cr>
 vnoremap <silent> <A-`> <esc>:call TerminalToggle()<cr>
 tnoremap <silent> <A-`> <C-\><C-n>:call TerminalToggle()<cr>
 
-nnoremap <silent> <A-b>      :call TerminalExec('make ' . expand('%:r'))<cr>
-inoremap <silent> <A-b> <esc>:call TerminalExec('make ' . expand('%:r'))<cr>
-vnoremap <silent> <A-b> <esc>:call TerminalExec('make ' . expand('%:r'))<cr>
-
 " }}}
 
 " Plugins {{{
@@ -320,7 +319,7 @@ Plug 'alvan/vim-closetag'
 
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeEnable' }
 
-Plug 'airblade/vim-gitgutter' 
+" Plug 'airblade/vim-gitgutter' 
 
 Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 
@@ -351,10 +350,10 @@ Plug 'amadeus/vim-convert-color-to', { 'on': 'ConvertColorTo' }
 
 Plug 'skywind3000/asyncrun.vim', { 'on': 'AsyncRun' }
 
-Plug 'prabirshrestha/asyncomplete.vim'
+" Plug 'prabirshrestha/asyncomplete.vim'
+" Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
-Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
 Plug 'ap/vim-buftabline' 
 
@@ -362,72 +361,44 @@ Plug 'endaaman/vim-case-master', { 'on': 'CaseMasterConvertToSnake' }
 
 Plug 'ForTheReallys/paste-indent'
 
+" Plug 'zefei/vim-wintabs'
+" Plug 'zefei/vim-wintabs-powerline'
+
 call plug#end()
 
 " }}}
 
 " fzf {{{
 
-function! s:align_lists(lists)
-  let maxes = {}
-  for list in a:lists
-    let i = 0
-    while i < len(list)
-      let maxes[i] = max([get(maxes, i, 0), len(list[i])])
-      let i += 1
-    endwhile
-  endfor
-  for list in a:lists
-    call map(list, "printf('%-'.maxes[v:key].'s', v:val)")
-  endfor
-  return a:lists
+command! FzfQuickFix call <SID>FzfQuickFix()
+command! FzfLocList call <SID>FzfLocList()
+
+function! s:FzfQuickFix() abort
+  call s:FzfPick(getqflist(), 'cc')
 endfunction
 
-function! s:btags_source()
-  let lines = map(
-              \   split(
-              \     system(
-              \       printf(
-              \         'ctags --c-kinds=defgpstuvl -f - --sort=no --excmd=number %s',
-              \          expand('%:S')
-              \       )
-              \     ),
-              \     "\n"
-              \   ),
-              \   'split(v:val, "\t")'
-              \ )
-  if v:shell_error
-    throw 'failed to extract tags'
-  endif
-  return map(s:align_lists(lines), 'join(v:val, "\t")')
+function! s:FzfLocList() abort
+  call s:FzfPick(getloclist(0), 'll')
 endfunction
 
-function! s:btags_sink(line)
-  execute split(a:line, "\t")[2]
+function! s:FzfPick(items, jump) abort
+  let items = map(a:items, {idx, item ->
+      \ string(idx).' '.bufname(item.bufnr).' '.item.text})
+  call fzf#run({'source': items, 'sink': function('<SID>FzfJump', [a:jump]),
+      \'options': '--with-nth 2.. --reverse', 'down': '40%'})
 endfunction
 
-function! s:btags()
-  try
-    call fzf#run({
-    \ 'source':  s:btags_source(),
-    \ 'options': '-d "\t" --with-nth 1 -n 1',
-    \ 'down':    '40%',
-    \ 'sink':    function('s:btags_sink')})
-  catch
-    echohl WarningMsg
-    echom v:exception
-    echohl None
-  endtry
+function! s:FzfJump(jump, item) abort
+  let idx = split(a:item, ' ')[0]
+  execute a:jump idx + 1
 endfunction
-
-command! BTags call s:btags()
 
 " fuzzy search files in cwd
 nnoremap ` :FZF<cr>
 " fuzzy search text in cur buf
 nnoremap / :BLines<cr>
+" fuzzy search tags in cur buf
 nnoremap <tab> :BTags<cr>
-nnoremap <space> '
 
 augroup FZF
     au!
@@ -437,25 +408,25 @@ augroup end
 
 " }}}
 
-" vim-gitguter {{{
+" " vim-gitgutter {{{
 
-  let g:gitgutter_diff_args = '-w'
-  let g:gitgutter_sign_added = '\ '
-  let g:gitgutter_sign_modified = '\ '
-  let g:gitgutter_sign_removed = '\ '
-  let g:gitgutter_sign_modified_removed = '\ '
-  let g:gitgutter_sign_allow_clobber = 0
+"   let g:gitgutter_diff_args = '-w'
+"   let g:gitgutter_sign_added = '\ '
+"   let g:gitgutter_sign_modified = '\ '
+"   let g:gitgutter_sign_removed = '\ '
+"   let g:gitgutter_sign_modified_removed = '\ '
+"   let g:gitgutter_sign_allow_clobber = 0
 
-  hi link GitGutterAdd DiffAdd
-  hi link GitGutterChange DiffText
-  hi link GitGutterChangeDelete DiffText
-  hi link GitGutterDelete DiffDelete
+"   hi link GitGutterAdd DiffAdd
+"   hi link GitGutterChange DiffText
+"   hi link GitGutterChangeDelete DiffText
+"   hi link GitGutterDelete DiffDelete
 
-" }}}
+" " }}}
 
 " tabular {{{
 
-    vnoremap ga :Tabularize /
+    vnoremap <A-a> :Tabularize /
 
 " }}}
 
@@ -531,15 +502,16 @@ augroup end
     tmap <A-8> <C-\><C-n><Plug>BufTabLine.Go(8)
     tmap <A-9> <C-\><C-n><Plug>BufTabLine.Go(9)
     tmap <A-0> <C-\><C-n><Plug>BufTabLine.Go(10)
+    tmap <A-q> <C-\><C-n>:bd<cr>
 
-    nmap <A-h> :bp<cr>
-    nmap <A-l> :bn<cr>
-    imap <A-h> <esc>:bp<cr>
-    imap <A-l> <esc>:bn<cr>
-    vmap <A-h> <esc>:bp<cr>
-    vmap <A-l> <esc>:bn<cr>
-    tmap <A-h> <C-\><C-n>:bp<cr>
-    tmap <A-l> <C-\><C-n>:bn<cr>
+    nmap <A-h> gT
+    nmap <A-l> gt
+    imap <A-h> <esc>gT
+    imap <A-l> <esc>gt
+    vmap <A-h> <esc>gT
+    vmap <A-l> <esc>gt
+    tmap <A-h> <C-\><C-n>gT
+    tmap <A-l> <C-\><C-n>gt
 
     hi! link BufTabLineCurrent   Normal
     hi! link BufTabLineActive    TablineSel
@@ -547,6 +519,76 @@ augroup end
     hi! link BufTabLineFill      TablineFill
 
 " }}}
+
+" " vim-wintabs {{{
+
+"     let g:wintabs_ui_buffer_name_format = ' %o %t '
+
+"     hi   link   WintabsEmpty        TablineFill
+"     hi   link   WintabsActive       Normal
+"     hi   link   WintabsInactive     Tabline
+"     hi   link   WintabsArrow        TablineFill
+"     hi   link   WintabsActiveNC     Normal
+"     hi   link   WintabsInactiveNC   Tabline
+
+"     nmap <A-1> <Plug>(wintabs_tab_1)
+"     nmap <A-2> <Plug>(wintabs_tab_2)
+"     nmap <A-3> <Plug>(wintabs_tab_3)
+"     nmap <A-4> <Plug>(wintabs_tab_4)
+"     nmap <A-5> <Plug>(wintabs_tab_5)
+"     nmap <A-6> <Plug>(wintabs_tab_6)
+"     nmap <A-7> <Plug>(wintabs_tab_7)
+"     nmap <A-8> <Plug>(wintabs_tab_8)
+"     nmap <A-9> <Plug>(wintabs_tab_9)
+"     nmap <A-0> <Plug>(wintabs_tab_10)
+"     nmap <A-q> <Plug>(wintabs_close)
+
+"     imap <A-1> <esc><Plug>(wintabs_tab_1)
+"     imap <A-2> <esc><Plug>(wintabs_tab_2)
+"     imap <A-3> <esc><Plug>(wintabs_tab_3)
+"     imap <A-4> <esc><Plug>(wintabs_tab_4)
+"     imap <A-5> <esc><Plug>(wintabs_tab_5)
+"     imap <A-6> <esc><Plug>(wintabs_tab_6)
+"     imap <A-7> <esc><Plug>(wintabs_tab_7)
+"     imap <A-8> <esc><Plug>(wintabs_tab_8)
+"     imap <A-9> <esc><Plug>(wintabs_tab_9)
+"     imap <A-0> <esc><Plug>(wintabs_tab_10)
+"     imap <A-q> <esc><Plug>(wintabs_close)
+
+"     vmap <A-1> <esc><Plug>(wintabs_tab_1)
+"     vmap <A-2> <esc><Plug>(wintabs_tab_2)
+"     vmap <A-3> <esc><Plug>(wintabs_tab_3)
+"     vmap <A-4> <esc><Plug>(wintabs_tab_4)
+"     vmap <A-5> <esc><Plug>(wintabs_tab_5)
+"     vmap <A-6> <esc><Plug>(wintabs_tab_6)
+"     vmap <A-7> <esc><Plug>(wintabs_tab_7)
+"     vmap <A-8> <esc><Plug>(wintabs_tab_8)
+"     vmap <A-9> <esc><Plug>(wintabs_tab_9)
+"     vmap <A-0> <esc><Plug>(wintabs_tab_10)
+"     vmap <A-q> <esc><Plug>(wintabs_close)
+
+"     tmap <A-1> <C-\><C-n><Plug>(wintabs_tab_1)
+"     tmap <A-2> <C-\><C-n><Plug>(wintabs_tab_2)
+"     tmap <A-3> <C-\><C-n><Plug>(wintabs_tab_3)
+"     tmap <A-4> <C-\><C-n><Plug>(wintabs_tab_4)
+"     tmap <A-5> <C-\><C-n><Plug>(wintabs_tab_5)
+"     tmap <A-6> <C-\><C-n><Plug>(wintabs_tab_6)
+"     tmap <A-7> <C-\><C-n><Plug>(wintabs_tab_7)
+"     tmap <A-8> <C-\><C-n><Plug>(wintabs_tab_8)
+"     tmap <A-9> <C-\><C-n><Plug>(wintabs_tab_9)
+"     tmap <A-0> <C-\><C-n><Plug>(wintabs_tab_10)
+"     tmap <A-q> <C-\><C-n><Plug>(wintabs_close)
+
+"     nmap <A-h> gT
+"     nmap <A-l> gt
+"     imap <A-h> <esc>gT
+"     imap <A-l> <esc>gt
+"     vmap <A-h> <esc>gT
+"     vmap <A-l> <esc>gt
+"     tmap <A-h> <C-\><C-n>gT
+"     tmap <A-l> <C-\><C-n>gt
+
+" " }}}
 
 " vim-markdown {{{
 
@@ -620,13 +662,17 @@ tnoremap <A-s> <C-\><C-n>:AsyncRun! rg --vimgrep
 nnoremap <A-f> :AsyncRun! rg --vimgrep <cword><cr>
 vnoremap <A-f> y<esc>:AsyncRun! rg --vimgrep <c-r>"<cr>
 
-" }}}
-
-" asyncomplete.vim {{{
-
-let g:asyncomplete_popup_delay = 500
+nnoremap <silent> <A-b>      :AsyncRun! make %:r<cr>
+inoremap <silent> <A-b> <esc>:AsyncRun! make %:r<cr>
+vnoremap <silent> <A-b> <esc>:AsyncRun! make %:r<cr>
 
 " }}}
+
+" " asyncomplete.vim {{{
+
+" let g:asyncomplete_popup_delay = 500
+
+" " }}}
 
 " vim-lsp {{{
 
@@ -671,13 +717,15 @@ augroup VIM_LSP
             \ 'cmd': {server_info->['clangd', '-background-index']},
             \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
             \ })
-        au BufReadPost *.h,*.c,*.cpp nnoremap <silent> ]e :LspNextError<cr>
-        au BufReadPost *.h,*.c,*.cpp nnoremap <silent> [e :LspPreviousError<cr>
-        au BufReadPost *.h,*.c,*.cpp nnoremap <silent> <leader>i :LspHover<cr>
-        au BufReadPost *.h,*.c,*.cpp inoremap <silent> <A-i> <esc>:LspSignatureHelp<cr>li
-        au BufReadPost *.h,*.c,*.cpp nnoremap <silent> <leader>r :LspRename<cr>
-        au BufReadPost *.h,*.c,*.cpp nnoremap <silent> <leader>f :LspDocumentFormat<cr>
-        au BufReadPost *.h,*.c,*.cpp nnoremap <silent> <leader>d :LspDocumentDiagnostics<cr>
+        au BufReadPost *.h,*.c,*.cpp nnoremap <silent> <buffer> <A-e> :LspNextError<cr>
+        au BufReadPost *.h,*.c,*.cpp nnoremap <silent> <buffer> <A-E> :LspPreviousError<cr>
+        au BufReadPost *.h,*.c,*.cpp nnoremap <silent> <buffer> <A-i> :LspHover<cr>
+        au BufReadPost *.h,*.c,*.cpp nnoremap <silent> <buffer> <A-h> :LspSignatureHelp<cr>
+        au BufReadPost *.h,*.c,*.cpp nnoremap <silent> <buffer> <A-r> :LspRename<cr>
+        au BufReadPost *.h,*.c,*.cpp nnoremap <silent> <buffer> <A-p> :LspDocumentFormat<cr>
+        au BufReadPost *.h,*.c,*.cpp nnoremap <silent> <buffer> <A-l> :LspDocumentDiagnostics<cr>
+        au BufReadPost *.h,*.c,*.cpp nnoremap <silent> <buffer> <tab> :LspDocumentSymbolSync<cr>:cclose<cr>:FzfQuickFix<cr>
+        au BufReadPost *.h,*.c,*.cpp inoremap <silent> <buffer> <A-space> <C-x><C-o>
         au BufReadPost *.h,*.c,*.cpp setlocal statusline=%F%=%{LspDiagnosticStatus()}
         au BufReadPost *.h,*.c,*.cpp setlocal omnifunc=lsp#complete
     endif
