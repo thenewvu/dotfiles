@@ -108,8 +108,8 @@ vnoremap E $
 " clear search hl
 nnoremap <esc><esc> :noh<cr>
 " toggle folding
-nnoremap zz zxzMzvzz
-nnoremap <space><space> zA
+nnoremap zz zMzvzz
+nnoremap <space> zv
 " vertical center movement
 nnoremap G Gzz
 vnoremap G Gzz
@@ -372,31 +372,43 @@ call plug#end()
 
 command! FzfQuickFix call <SID>FzfQuickFix()
 command! FzfLocList call <SID>FzfLocList()
+command! FzfLines call <SID>FzfLines()
 
 function! s:FzfQuickFix() abort
-  call s:FzfPick(getqflist(), 'cc')
+    let items = map(getqflist(), {idx, item ->
+      \ string(idx).' '.bufname(item.bufnr).' '.item.text})
+    call s:FzfPick(items, 'cc')
 endfunction
 
 function! s:FzfLocList() abort
-  call s:FzfPick(getloclist(0), 'll')
+    let items = map(getloclist(0), {idx, item ->
+      \ string(idx).' '.bufname(item.bufnr).' '.item.text})
+    call s:FzfPick(items, 'll')
+endfunction
+
+function! s:FzfLines() abort
+    let items = map(getline(1, '$'), 'printf("%s %s", v:key, v:val)')
+    call s:FzfPick(items, '')
 endfunction
 
 function! s:FzfPick(items, jump) abort
-  let items = map(a:items, {idx, item ->
-      \ string(idx).' '.bufname(item.bufnr).' '.item.text})
-  call fzf#run({'source': items, 'sink': function('<SID>FzfJump', [a:jump]),
+    call fzf#run({'source': a:items, 'sink': function('<SID>FzfJump', [a:jump]),
       \'options': '--with-nth 2.. --reverse', 'down': '40%'})
 endfunction
 
 function! s:FzfJump(jump, item) abort
-  let idx = split(a:item, ' ')[0]
-  execute a:jump idx + 1
+    let idx = split(a:item, ' ')[0]
+    execute a:jump idx + 1
+    normal! zvzz
 endfunction
+
+command! -bang BTags
+  \ call fzf#vim#buffer_tags('', {'down': '40%', 'options': '--reverse'})
 
 " fuzzy search files in cwd
 nnoremap ` :FZF<cr>
 " fuzzy search text in cur buf
-nnoremap / :BLines<cr>
+nnoremap / :FzfLines<cr>
 " fuzzy search tags in cur buf
 nnoremap <tab> :BTags<cr>
 
