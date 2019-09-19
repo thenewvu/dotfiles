@@ -43,7 +43,7 @@ let g:loaded_tutor_mode_plugin  = 1
 let g:loaded_matchparen         = 1
 let g:loaded_matchit            = 1
 let g:c_syntax_for_h = 1
-set laststatus=2
+set laststatus=0
 set statusline=%F
 set noshowcmd
 set noshowmode
@@ -83,6 +83,8 @@ augroup All
 
     au VimEnter * delmarks A-Z
     au BufReadPost * delmarks a-z
+
+    au CursorHold * :echo
 augroup END
 
 " }}}
@@ -93,9 +95,10 @@ nnoremap <A-e> :e
 vnoremap <A-e> <esc>:e 
 inoremap <A-e> <esc>:e 
 tnoremap <A-e> <C-\><C-n>:e 
-nnoremap <A-w> :w<cr>
-vnoremap <A-w> <esc>:w<cr>
-inoremap <A-w> <esc>:w<cr>
+
+nnoremap <silent> <A-w> :silent w<cr>
+vnoremap <silent> <A-w> <esc>:silent w<cr>
+inoremap <silent> <A-w> <esc>:silent w<cr>
 " write current file with sudo
 cmap w! w !sudo tee > /dev/null %
 nnoremap <f1> :help 
@@ -106,7 +109,7 @@ nnoremap E $
 vnoremap B ^
 vnoremap E $
 " clear search hl
-nnoremap <esc><esc> :noh<cr>
+nnoremap <silent> <esc><esc> :noh<cr>
 " toggle folding
 nnoremap zz zMzvzz
 nnoremap <space> zv
@@ -147,25 +150,25 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 " split vertically
-nnoremap <C-d> :vsplit<cr>
-inoremap <C-d> <esc>:vsplit<cr>
-vnoremap <C-d> <esc>:vsplit<cr>
-tnoremap <C-d> <C-\><C-n>:vsplit<cr>
+nnoremap <silent> <C-d> :vsplit<cr>
+inoremap <silent> <C-d> <esc>:vsplit<cr>
+vnoremap <silent> <C-d> <esc>:vsplit<cr>
+tnoremap <silent> <C-d> <C-\><C-n>:vsplit<cr>
 " split horizontally
-nnoremap <C-s> :split<cr>
-inoremap <C-s> <esc>:split<cr>
-vnoremap <C-s> <esc>:split<cr>
-tnoremap <C-s> <C-\><C-n>:split<cr>
+nnoremap <silent> <C-s> :split<cr>
+inoremap <silent> <C-s> <esc>:split<cr>
+vnoremap <silent> <C-s> <esc>:split<cr>
+tnoremap <silent> <C-s> <C-\><C-n>:split<cr>
 " close other splits
-nnoremap <C-a> :only<cr>
-inoremap <C-a> <esc>:only<cr>
-vnoremap <C-a> <esc>:only<cr>
-tnoremap <C-a> <C-\><C-n>:only<cr>
+nnoremap <silent> <C-a> :only<cr>
+inoremap <silent> <C-a> <esc>:only<cr>
+vnoremap <silent> <C-a> <esc>:only<cr>
+tnoremap <silent> <C-a> <C-\><C-n>:only<cr>
 " close current window
-nnoremap <C-q> <C-w>c
-inoremap <C-q> <esc><C-w>c
-vnoremap <C-q> <esc><C-w>c
-tnoremap <C-q> <C-\><C-n><C-w>c
+nnoremap <silent> <C-q> <C-w>c
+inoremap <silent> <C-q> <esc><C-w>c
+vnoremap <silent> <C-q> <esc><C-w>c
+tnoremap <silent> <C-q> <C-\><C-n><C-w>c
 " move left/right one indent
 nnoremap > >>
 nnoremap < <<
@@ -244,7 +247,6 @@ function! TerminalCreateIfNot() abort
 
 	function! g:terminal.on_exit(jobid, data, event)
 		silent execute 'buffer' g:terminal.originbufferid
-		silent execute 'bdelete!' g:terminal.termbufferid
 
 		let g:terminal = {
 			\ 'loaded': v:null,
@@ -403,14 +405,14 @@ function! s:FzfJump(jump, item) abort
 endfunction
 
 command! -bang BTags
-  \ call fzf#vim#buffer_tags('', {'down': '40%', 'options': '--reverse'})
+  \ call fzf#vim#buffer_tags('', { 'down': '40%', 'options': '--reverse --prompt "> "' })
 
 " fuzzy search files in cwd
-nnoremap ` :FZF<cr>
+nnoremap <silent> ` :FZF<cr>
 " fuzzy search text in cur buf
-nnoremap / :FzfLines<cr>
+nnoremap <silent> / :FzfLines<cr>
 " fuzzy search tags in cur buf
-nnoremap <tab> :BTags<cr>
+nnoremap <silent> <tab> :BTags<cr>
 
 augroup FZF
     au!
@@ -478,7 +480,7 @@ augroup end
     nmap <A-8> <Plug>BufTabLine.Go(8)
     nmap <A-9> <Plug>BufTabLine.Go(9)
     nmap <A-0> <Plug>BufTabLine.Go(10)
-    nmap <A-q> :bp<bar>sp<bar>bn<bar>bd<cr>
+    nmap <silent> <A-q> :bp<bar>sp<bar>bn<bar>bd<cr>
 
     imap <A-1> <esc><Plug>BufTabLine.Go(1)
     imap <A-2> <esc><Plug>BufTabLine.Go(2)
@@ -490,7 +492,7 @@ augroup end
     imap <A-8> <esc><Plug>BufTabLine.Go(8)
     imap <A-9> <esc><Plug>BufTabLine.Go(9)
     imap <A-0> <esc><Plug>BufTabLine.Go(10)
-    imap <A-q> <esc>:bp<bar>sp<bar>bn<bar>bd<cr>
+    imap <silent> <A-q> <esc>:bp<bar>sp<bar>bn<bar>bd<cr>
 
     vmap <A-1> <esc><Plug>BufTabLine.Go(1)
     vmap <A-2> <esc><Plug>BufTabLine.Go(2)
@@ -502,7 +504,7 @@ augroup end
     vmap <A-8> <esc><Plug>BufTabLine.Go(8)
     vmap <A-9> <esc><Plug>BufTabLine.Go(9)
     vmap <A-0> <esc><Plug>BufTabLine.Go(10)
-    vmap <A-q> <esc>:bp<bar>sp<bar>bn<bar>bd<cr>
+    vmap <silent> <A-q> <esc>:bp<bar>sp<bar>bn<bar>bd<cr>
 
     tmap <A-1> <C-\><C-n><Plug>BufTabLine.Go(1)
     tmap <A-2> <C-\><C-n><Plug>BufTabLine.Go(2)
@@ -514,19 +516,10 @@ augroup end
     tmap <A-8> <C-\><C-n><Plug>BufTabLine.Go(8)
     tmap <A-9> <C-\><C-n><Plug>BufTabLine.Go(9)
     tmap <A-0> <C-\><C-n><Plug>BufTabLine.Go(10)
-    tmap <A-q> <C-\><C-n>:bd<cr>
+    tmap <silent> <A-q> <C-\><C-n>:bd<cr>
 
-    nmap <A-h> gT
-    nmap <A-l> gt
-    imap <A-h> <esc>gT
-    imap <A-l> <esc>gt
-    vmap <A-h> <esc>gT
-    vmap <A-l> <esc>gt
-    tmap <A-h> <C-\><C-n>gT
-    tmap <A-l> <C-\><C-n>gt
-
-    hi! link BufTabLineCurrent   Normal
-    hi! link BufTabLineActive    TablineSel
+    hi! link BufTabLineCurrent   TablineSel
+    hi! link BufTabLineActive    Tabline
     hi! link BufTabLineHidden    Tabline
     hi! link BufTabLineFill      TablineFill
 
@@ -691,7 +684,7 @@ vnoremap <silent> <A-b> <esc>:AsyncRun! make %:r<cr>
 let g:lsp_signs_enabled = 0
 let g:lsp_diagnostics_echo_cursor = 1
 let g:lsp_highlight_references_enabled = 0
-let g:lsp_text_edit_enabled = 0
+" let g:lsp_text_edit_enabled = 1
 let g:lsp_signature_help_enabled = 0
 
 hi link LspErrorHighlight Underlined
@@ -709,18 +702,6 @@ hi link LspWarningText WarningMsg
 hi link LspInformationText Comment
 hi link LspHintText Comment
 
-function! LspDiagnosticStatus()
-    let l:count = lsp#get_buffer_diagnostics_counts()
-    let l:status = ''
-    if l:count['warning'] > 0
-        let l:status = l:count['warning'] . ' warnings '
-    endif
-    if l:count['error'] > 0
-        let l:status = l:status . l:count['error'] . ' errors '
-    endif
-    return l:status
-endfunction
-
 augroup VIM_LSP
     au!
     if executable('clangd')
@@ -732,13 +713,11 @@ augroup VIM_LSP
         au BufReadPost *.h,*.c,*.cpp nnoremap <silent> <buffer> <A-e> :LspNextError<cr>
         au BufReadPost *.h,*.c,*.cpp nnoremap <silent> <buffer> <A-E> :LspPreviousError<cr>
         au BufReadPost *.h,*.c,*.cpp nnoremap <silent> <buffer> <A-i> :LspHover<cr>
-        au BufReadPost *.h,*.c,*.cpp nnoremap <silent> <buffer> <A-h> :LspSignatureHelp<cr>
+        au BufReadPost *.h,*.c,*.cpp inoremap <silent> <buffer> <A-i> <esc>:LspSignatureHelp<cr>
         au BufReadPost *.h,*.c,*.cpp nnoremap <silent> <buffer> <A-r> :LspRename<cr>
         au BufReadPost *.h,*.c,*.cpp nnoremap <silent> <buffer> <A-p> :LspDocumentFormat<cr>
         au BufReadPost *.h,*.c,*.cpp nnoremap <silent> <buffer> <A-l> :LspDocumentDiagnostics<cr>
-        au BufReadPost *.h,*.c,*.cpp nnoremap <silent> <buffer> <tab> :LspDocumentSymbolSync<cr>:cclose<cr>:FzfQuickFix<cr>
         au BufReadPost *.h,*.c,*.cpp inoremap <silent> <buffer> <A-space> <C-x><C-o>
-        au BufReadPost *.h,*.c,*.cpp setlocal statusline=%F%=%{LspDiagnosticStatus()}
         au BufReadPost *.h,*.c,*.cpp setlocal omnifunc=lsp#complete
     endif
 augroup END
