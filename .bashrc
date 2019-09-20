@@ -93,7 +93,8 @@ export PATH="/usr/local/opt/node@10/bin:$PATH"
 export LDFLAGS="-L/usr/local/opt/node@10/lib $LDFLAGS"
 export CPPFLAGS="-I/usr/local/opt/node@10/include $CPPFLAGS"
 
-export NNN_OPENER=~/.bin/opener
+export FFF_OPENER=~/.bin/opener
+export FFF_TRASH=~/.Trash
 
 # }}}
 
