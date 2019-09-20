@@ -379,23 +379,27 @@ command! FzfLines call <SID>FzfLines()
 function! s:FzfQuickFix() abort
     let items = map(getqflist(), {idx, item ->
       \ string(idx).' '.bufname(item.bufnr).' '.item.text})
-    call s:FzfPick(items, 'cc')
+    call s:FzfPick(items, 'cc', '--with-nth 2.. --reverse')
 endfunction
 
 function! s:FzfLocList() abort
     let items = map(getloclist(0), {idx, item ->
       \ string(idx).' '.bufname(item.bufnr).' '.item.text})
-    call s:FzfPick(items, 'll')
+    call s:FzfPick(items, 'll', '--with-nth 2.. --reverse')
 endfunction
 
 function! s:FzfLines() abort
     let items = map(getline(1, '$'), 'printf("%s %s", v:key, v:val)')
-    call s:FzfPick(items, '')
+    call s:FzfPick(items, '', '--with-nth 2.. --reverse -e --no-sort')
 endfunction
 
-function! s:FzfPick(items, jump) abort
-    call fzf#run({'source': a:items, 'sink': function('<SID>FzfJump', [a:jump]),
-      \'options': '--with-nth 2.. --reverse', 'down': '40%'})
+function! s:FzfPick(items, jump, options) abort
+    call fzf#run({
+                \ 'source': a:items,
+                \ 'sink': function('<SID>FzfJump',
+                \ [a:jump]),
+                \ 'options': a:options,
+                \ 'down': '40%'})
 endfunction
 
 function! s:FzfJump(jump, item) abort
@@ -405,7 +409,7 @@ function! s:FzfJump(jump, item) abort
 endfunction
 
 command! -bang BTags
-  \ call fzf#vim#buffer_tags('', { 'down': '40%', 'options': '--reverse --prompt "> "' })
+  \ call fzf#vim#buffer_tags('', { 'down': '40%', 'options': '--reverse  --prompt "> "' })
 
 " fuzzy search files in cwd
 nnoremap <silent> ` :FZF<cr>
