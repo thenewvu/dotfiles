@@ -390,7 +390,7 @@ endfunction
 
 function! s:FzfLines() abort
     let items = map(getline(1, '$'), 'printf("%s %s", v:key, v:val)')
-    call s:FzfPick(items, '', '--with-nth 2.. --reverse -e --no-sort')
+    call s:FzfPick(items, '', '--with-nth 2.. --reverse')
 endfunction
 
 function! s:FzfPick(items, jump, options) abort
@@ -409,7 +409,16 @@ function! s:FzfJump(jump, item) abort
 endfunction
 
 command! -bang BTags
-  \ call fzf#vim#buffer_tags('', { 'down': '40%', 'options': '--reverse  --prompt "> "' })
+  \ call fzf#vim#buffer_tags('', {
+  \     'down': '40%',
+  \     'options': '--with-nth 1 
+  \                 --reverse 
+  \                 --prompt "> " 
+  \                 --preview-window="80%" 
+  \                 --preview "tail 
+  \                     -n +\$(echo {} | cut -f3 | tr -d \";\\\"\") 
+  \                     \$(echo {} | cut -f2)"'
+  \ })
 
 " fuzzy search files in cwd
 nnoremap <silent> ` :FZF<cr>
