@@ -19,6 +19,10 @@ GID=`  curl    -sS -H "Client-ID: $CID" "https://api.twitch.tv/helix/games/top" 
         awk     '{print $1}'
 `
 
+if [ -z "$GID" ]; then
+    exit;
+fi
+
 URL=`   curl    -sS -H "Client-ID: $CID" "https://api.twitch.tv/helix/streams?limit=20&game_id=$GID" |
         jq      -r '.data[] | "\(.user_name)\t\(.title)"'                                            |
         column  -t -s $'\t'                                                                          |
@@ -30,4 +34,15 @@ if [ -z "$URL" ]; then
     exit;
 fi
 
-mpv "https://twitch.tv/$URL"
+
+URL="https://twitch.tv/$URL"
+
+FMT=`youtube-dl -F "$URL" | fzf`
+
+if [[ -z $FMT ]]; then
+    exit -1
+fi
+
+FMT=`echo "$FMT" | cut -d' ' -f1`
+
+mpv --ytdl-format="$FMT" "$URL"
