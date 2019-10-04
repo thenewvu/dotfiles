@@ -47,8 +47,8 @@
 	meta = 11
 	frag = 11
     func = 11
-	old = 9
-	new = 10
+	old = "#edabb8" "#a05454"
+	new = "#b8edab" "#437f43"
 	commit = 8
 	whitespace = 8
 [color "interactive"]
@@ -63,7 +63,7 @@
 [help]
 	autocorrect = 50
 [color "diff-highlight"]
-    oldNormal = "#edabb8"
-    oldHighlight = "#edabb8" "#a05454"
-    newNormal = "#b8edab"
-    newHighlight = "#b8edab" "#437f43"
+    oldNormal = "#edabb8" "#a05454"
+    oldHighlight = "#2c4e6c" "#edabb8"
+    newNormal = "#b8edab" "#437f43"
+    newHighlight = "#2c4e6c" "#b8edab"
