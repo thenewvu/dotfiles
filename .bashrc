@@ -56,7 +56,7 @@ export GREP_OPTIONS='--ignore-case --color=auto'
 export CLICOLOR=1
 
 export FZF_COMPLETION_TRIGGER='``'
-export FZF_DEFAULT_OPTS="--reverse --color fg:7,hl:2,fg+:7,bg+:-1,hl+:2 --color info:15,prompt:2,spinner:15,pointer:2,marker:7"
+export FZF_DEFAULT_OPTS="--reverse --color fg:7,hl:2,fg+:7,bg+:-1,hl+:2,info:15,prompt:2,spinner:15,pointer:2,marker:7,border:8"
 export FZF_DEFAULT_COMMAND="rg --files --glob '!**/node_modules/*'"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
@@ -80,10 +80,11 @@ export CXX=clang++
 export LD=ld.lld
 export AR=llvm-ar
 export RANLIB=llvm-ranlib
-export CCFLAGS="-isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk $CCFLAGS"
-export CXXFLAGS="-isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk $CXXFLAGS"
-export OBJCFLAGS="-isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk $OBJCFLAGS"
-export LDFLAGS="-L/usr/local/opt/llvm/lib -Wl,-rpath,/usr/local/opt/llvm/lib $LDFLAGS"
+export CFLAGS="$CCFLAGS -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk"
+export CCFLAGS="$CCFLAGS -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk"
+export CXXFLAGS="$CXXFLAGS -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk"
+export OBJCFLAGS="$OBJCFLAGS -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk"
+export LDFLAGS="$LDFLAGS -L/usr/local/opt/llvm/lib -Wl,-rpath,/usr/local/opt/llvm/lib"
 
 # homebrew gnu-sed need below
 export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
@@ -130,7 +131,7 @@ alias ..="cd .."
 alias mv="mv -i"
 alias cp="cp -i"
 
-fzf__git_hash="echo {} | grep -o '[a-f0-9]\{7\}\$' | head -1"
+fzf__git_hash="echo {} | grep -o '[a-f0-9]\{7,\}\$' | head -1"
 fzf__git_show="$fzf__git_hash | xargs -I % sh -c 'git show --color=always --ignore-all-space --ignore-blank-lines --diff-filter=ad % | diff-so-fancy | less -RFX --tabs=4'"
 fzf__git_diff="$fzf__git_hash | xargs -I % sh -c 'git difftool %^!'"
 fzf__git_checkout="$fzf__git_hash | xargs -I % sh -c 'git checkout %'"
@@ -139,7 +140,7 @@ gl() {
     git log --abbrev-commit --date=relative --color=always                 \
             --pretty=format:'%C(auto)%s %C(auto)%d %C(auto)%h%Creset'      \
             --no-merges -n 100 "$@" |
-        fzf --cycle --no-sort --reverse --tiebreak=index --no-multi --ansi \
+        fzf --no-sort --reverse --tiebreak=index --no-multi --ansi         \
             --preview="$fzf__git_show" --preview-window=wrap:50%           \
             --bind "enter:execute:$fzf__git_diff"                          \
             --bind "ctrl-y:execute:$fzf__git_hash | pbcopy"                \
@@ -150,11 +151,11 @@ gl() {
 
 alias gs="git status --short"
 alias gr="git ls-files --modified --exclude-standard | fzf -m --print0 | xargs -0 -o -t git checkout -p"
-alias gd="git diff"
+alias gd="git diff -b"
 
 alias gca="git add --intent-to-add . && git ls-files --modified --others --exclude-standard | fzf -m --print0 | xargs -0 -o -t git add -p"
 alias gcr="git --no-pager diff --name-only --relative --staged | fzf -m --print0 | xargs -0 -o -t git reset HEAD"
-alias gcd="git diff --cached"
+alias gcd="git diff --cached -b"
 alias gcm="git commit -m"
 
 alias gp="git push"
