@@ -1,6 +1,5 @@
 setlocal foldmethod=marker foldmarker={,} foldtext=FoldRust()
 setlocal commentstring=//%s
-setlocal expandtab smarttab tabstop=4 shiftwidth=4 softtabstop=4
 
 function! FoldRust()
     let l:start = substitute(getline(v:foldstart), '^\s*', '', '')

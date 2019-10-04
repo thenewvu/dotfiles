@@ -11,8 +11,8 @@ set encoding=utf-8
 set autoread " autoreload files on change
 set backspace=indent,eol,start " make backspace work like most other apps
 set incsearch hlsearch noignorecase inccommand=nosplit gdefault
-set expandtab smarttab tabstop=4 shiftwidth=4 softtabstop=4 
-set wildignore+=.hg,.git,.svn,*.class,*.o,*~,*.pyc,*.lock,*.out,*.exe,.*
+set noexpandtab smarttab tabstop=4 shiftwidth=4 softtabstop=4 
+set wildignore+=.hg,.git,.svn,*.class,*.o,*~,*.pyc,*.lock,*.out,*.exe
 set wildignorecase " Ignore case when completing filenames
 set wildoptions=pum
 set nowrap breakindent linebreak breakindentopt=shift:-2
@@ -56,7 +56,7 @@ set cinoptions=t0,j1,J1,m1,(s,{0,L0,g0
 set lazyredraw
 set synmaxcol=320
 set diffopt+=algorithm:patience,iwhiteall,iblank,iwhiteeol
-set nolist listchars=tab:\│\ ,trail:␣
+set list listchars=tab:\│\ ,trail:␣
 set shortmess+=c
 set splitbelow splitright
 
@@ -81,9 +81,7 @@ augroup All
     " https://dmerej.info/blog/post/vim-cwd-and-neovim/
     au TabNewEntered * call OnTabEnter(expand("<amatch>"))
 
-    au VimEnter * delmarks A-Z
-    au BufReadPost * delmarks a-z
-
+	" clear message below statusline after CursorHold time
     au CursorHold * :echo
 augroup END
 
@@ -111,8 +109,9 @@ vnoremap E $
 " clear search hl
 nnoremap <silent> <esc><esc> :noh<cr>
 " toggle folding
-nnoremap zz zMzvzz
-nnoremap <space> zv
+nnoremap <space> zA
+nnoremap z zMzvzz
+nnoremap Z zxzz
 " vertical center movement
 nnoremap G Gzz
 vnoremap G Gzz
@@ -201,6 +200,9 @@ vnoremap <expr> q g:mc . "``cgn"
 " reselect last selection
 nnoremap <A-v> gv
 inoremap <A-v> <esc>gv
+nnoremap v9 vi]
+nnoremap v0 vi)
+nnoremap v8 vi}
 
 " search without jumping
 " https://stackoverflow.com/a/4262209
@@ -327,7 +329,7 @@ Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 
 Plug 'prettier/vim-prettier', { 'do': 'npm install', 'for': ['javascript', 'css', 'json', 'markdown', 'html', 'svg', 'xml'] }
 
-Plug 'Yggdroot/indentLine' 
+" Plug 'Yggdroot/indentLine' 
 
 Plug 'thenewvu/vim-colors-blueprint' 
 
@@ -350,7 +352,7 @@ Plug 'tpope/vim-eunuch'
 
 Plug 'amadeus/vim-convert-color-to', { 'on': 'ConvertColorTo' }
 
-Plug 'skywind3000/asyncrun.vim', { 'on': 'AsyncRun' }
+Plug 'skywind3000/asyncrun.vim', { 'on': ['AsyncRun', 'AsyncStop'] }
 
 " Plug 'prabirshrestha/asyncomplete.vim'
 " Plug 'prabirshrestha/asyncomplete-lsp.vim'
@@ -361,10 +363,14 @@ Plug 'ap/vim-buftabline'
 
 Plug 'endaaman/vim-case-master', { 'on': 'CaseMasterConvertToSnake' }
 
-Plug 'ForTheReallys/paste-indent'
+" Plug 'ForTheReallys/paste-indent'
 
 " Plug 'zefei/vim-wintabs'
 " Plug 'zefei/vim-wintabs-powerline'
+
+Plug 'dahu/vim-fanfingtastic'
+
+Plug 'terryma/vim-expand-region'
 
 call plug#end()
 
@@ -390,7 +396,7 @@ endfunction
 
 function! s:FzfLines() abort
     let items = map(getline(1, '$'), 'printf("%s %s", v:key, v:val)')
-    call s:FzfPick(items, '', '--with-nth 2.. --reverse')
+    call s:FzfPick(items, '', '--with-nth 2.. --reverse --prompt "> "')
 endfunction
 
 function! s:FzfPick(items, jump, options) abort
@@ -415,9 +421,9 @@ command! -bang BTags
   \                 --reverse 
   \                 --prompt "> " 
   \                 --preview-window="80%" 
-  \                 --preview "tail 
-  \                     -n +\$(echo {} | cut -f3 | tr -d \";\\\"\") 
-  \                     \$(echo {} | cut -f2)"'
+  \                 --preview "
+  \                     tail -n +\$(echo {3} | tr -d \";\\\"\") {2} |
+  \                     head -n 16"'
   \ })
 
 " fuzzy search files in cwd
@@ -457,17 +463,17 @@ augroup end
 
 " }}}
 
-" indentLine {{{
+" " indentLine {{{
 
-  let g:indentLine_enabled = 1
-  let g:indentLine_faster = 1
-  let g:indentLine_bufTypeExclude = ['help', 'terminal']
-  let g:indentLine_fileTypeExclude = ['markdown', 'git', 'json']
-  let g:indentLine_char = '│'
-  let g:indentLine_color_gui = '#2c4e6c'
-  let g:indentLine_bgcolor_gui = 'none'
+"   let g:indentLine_enabled = 1
+"   let g:indentLine_faster = 1
+"   let g:indentLine_bufTypeExclude = ['help', 'terminal']
+"   let g:indentLine_fileTypeExclude = ['markdown', 'git', 'json']
+"   let g:indentLine_char = '│'
+"   let g:indentLine_color_gui = '#2c4e6c'
+"   let g:indentLine_bgcolor_gui = 'none'
 
-" }}}
+" " }}}
 
 " vim-colors-blueprint {{{
 
@@ -494,6 +500,8 @@ augroup end
     nmap <A-9> <Plug>BufTabLine.Go(9)
     nmap <A-0> <Plug>BufTabLine.Go(10)
     nmap <silent> <A-q> :bp<bar>sp<bar>bn<bar>bd<cr>
+    nmap <silent> <A-n> :bn<cr>
+    nmap <silent> <A-p> :bp<cr>
 
     imap <A-1> <esc><Plug>BufTabLine.Go(1)
     imap <A-2> <esc><Plug>BufTabLine.Go(2)
@@ -506,6 +514,8 @@ augroup end
     imap <A-9> <esc><Plug>BufTabLine.Go(9)
     imap <A-0> <esc><Plug>BufTabLine.Go(10)
     imap <silent> <A-q> <esc>:bp<bar>sp<bar>bn<bar>bd<cr>
+    imap <silent> <A-n> <esc>:bn<cr>
+    imap <silent> <A-p> <esc>:bp<cr>
 
     vmap <A-1> <esc><Plug>BufTabLine.Go(1)
     vmap <A-2> <esc><Plug>BufTabLine.Go(2)
@@ -518,6 +528,8 @@ augroup end
     vmap <A-9> <esc><Plug>BufTabLine.Go(9)
     vmap <A-0> <esc><Plug>BufTabLine.Go(10)
     vmap <silent> <A-q> <esc>:bp<bar>sp<bar>bn<bar>bd<cr>
+    vmap <silent> <A-n> <esc>:bn<cr>
+    vmap <silent> <A-p> <esc>:bp<cr>
 
     tmap <A-1> <C-\><C-n><Plug>BufTabLine.Go(1)
     tmap <A-2> <C-\><C-n><Plug>BufTabLine.Go(2)
@@ -530,6 +542,8 @@ augroup end
     tmap <A-9> <C-\><C-n><Plug>BufTabLine.Go(9)
     tmap <A-0> <C-\><C-n><Plug>BufTabLine.Go(10)
     tmap <silent> <A-q> <C-\><C-n>:bd<cr>
+    tmap <silent> <A-n> <C-\><C-n>:bn<cr>
+    tmap <silent> <A-p> <C-\><C-n>:bp<cr>
 
     hi! link BufTabLineCurrent   TablineSel
     hi! link BufTabLineActive    Tabline
@@ -639,7 +653,10 @@ augroup end
 " }}}
 
 " vim-hexokinase {{{
-    let g:Hexokinase_virtualText = '██████'
+
+let g:Hexokinase_highlighters = ['foregroundfull']
+let Hexokinase_v2 = 0
+
 " }}}
 
 " python-syntax {{{
@@ -680,9 +697,9 @@ tnoremap <A-s> <C-\><C-n>:AsyncRun! rg --vimgrep
 nnoremap <A-f> :AsyncRun! rg --vimgrep <cword><cr>
 vnoremap <A-f> y<esc>:AsyncRun! rg --vimgrep <c-r>"<cr>
 
-nnoremap <silent> <A-b>      :AsyncRun! make %:r<cr>
-inoremap <silent> <A-b> <esc>:AsyncRun! make %:r<cr>
-vnoremap <silent> <A-b> <esc>:AsyncRun! make %:r<cr>
+nnoremap <silent> <A-b>      :AsyncStop!<cr>:AsyncRun! make<cr>
+inoremap <silent> <A-b> <esc>:AsyncStop!<cr>:AsyncRun! make<cr>
+vnoremap <silent> <A-b> <esc>:AsyncStop!<cr>:AsyncRun! make<cr>
 
 " }}}
 
@@ -720,18 +737,18 @@ augroup VIM_LSP
     if executable('clangd')
         au User lsp_setup call lsp#register_server({
             \ 'name': 'clangd',
-            \ 'cmd': {server_info->['clangd', '-background-index']},
-            \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
+            \ 'cmd': {server_info->['clangd', '-background-index', '-limit-results=20']},
+            \ 'whitelist': ['c'],
             \ })
-        au BufReadPost *.h,*.c,*.cpp nnoremap <silent> <buffer> <A-e> :LspNextError<cr>
-        au BufReadPost *.h,*.c,*.cpp nnoremap <silent> <buffer> <A-E> :LspPreviousError<cr>
-        au BufReadPost *.h,*.c,*.cpp nnoremap <silent> <buffer> <A-i> :LspHover<cr>
-        au BufReadPost *.h,*.c,*.cpp inoremap <silent> <buffer> <A-i> <esc>:LspSignatureHelp<cr>
-        au BufReadPost *.h,*.c,*.cpp nnoremap <silent> <buffer> <A-r> :LspRename<cr>
-        au BufReadPost *.h,*.c,*.cpp nnoremap <silent> <buffer> <A-p> :LspDocumentFormat<cr>
-        au BufReadPost *.h,*.c,*.cpp nnoremap <silent> <buffer> <A-l> :LspDocumentDiagnostics<cr>
-        au BufReadPost *.h,*.c,*.cpp inoremap <silent> <buffer> <A-space> <C-x><C-o>
-        au BufReadPost *.h,*.c,*.cpp setlocal omnifunc=lsp#complete
+        au BufReadPost *.h,*.c nnoremap <silent> <buffer> <A-e> :LspNextError<cr>
+        au BufReadPost *.h,*.c nnoremap <silent> <buffer> <A-E> :LspPreviousError<cr>
+        au BufReadPost *.h,*.c nnoremap <silent> <buffer> <A-i> :LspHover<cr>
+        au BufReadPost *.h,*.c inoremap <silent> <buffer> <A-i> <esc>:LspSignatureHelp<cr>
+        au BufReadPost *.h,*.c nnoremap <silent> <buffer> <A-r> :LspRename<cr>
+        au BufReadPost *.h,*.c nnoremap <silent> <buffer> <A-y> :LspDocumentFormat<cr>
+        au BufReadPost *.h,*.c nnoremap <silent> <buffer> <A-t> :LspDocumentDiagnostics<cr>
+        au BufReadPost *.h,*.c inoremap <silent> <buffer> <A-space> <C-x><C-o>
+        au BufReadPost *.h,*.c setlocal omnifunc=lsp#complete
     endif
 augroup END
 
@@ -747,6 +764,31 @@ nnoremap _ :CaseMasterConvertToSnake<cr>
 
 call smartinput#define_rule({'at': '(\%#)', 'char': '<Enter>', 'input': '<Enter><Enter><BS><Up><Esc>"_S'})
 
+
+" }}}
+
+" vim-commentary {{{
+
+nnoremap <A-c> :Commentary<cr>
+vnoremap <A-c> :'<,'>Commentary<cr>
+
+" }}}
+
+" vim-expand-region {{{
+
+map vv <Plug>(expand_region_expand)
+map vV <Plug>(expand_region_shrink)
+
+let g:expand_region_text_objects = {
+      \ 'i"'  :0,
+      \ 'i''' :0,
+      \ 't,'  :0,
+      \ 't]'  :0,
+      \ 't)'  :0,
+      \ 'i]'  :1,
+      \ 'i)'  :1,
+      \ 'i}'  :1,
+      \ }
 
 " }}}
 
