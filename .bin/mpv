@@ -11,7 +11,7 @@ if [[ "$URL" == http://* || "$URL" == https://* ]]; then
 
     FMT=`echo "$FMT" | cut -d' ' -f1`
     
-    /usr/local/bin/mpv --ytdl-format="$FMT" "$URL"
+    /usr/local/bin/mpv --ytdl-format="$FMT" "$@"
 else
-    /usr/local/bin/mpv "$URL"
+    /usr/local/bin/mpv "$@"
 fi
