@@ -2,22 +2,22 @@
 
 case $1 in
     http*://*youtube.com/*|http*://youtu.be/*)
-        /usr/local/bin/mpv --force-window=yes --ytdl-format="bestvideo[height<=720][ext=webm]+bestaudio[ext=webm]/best" "$1"
+        /usr/local/bin/mpv --ytdl-format="bestvideo[height<=720][ext=webm]+bestaudio[ext=webm]/best" "$1"
     ;;
     http*://clips.twitch.tv/*)
-        /usr/local/bin/mpv --force-window=yes --ytdl-format="720p/best" "$1"
+        /usr/local/bin/mpv --ytdl-format="720p/best" "$1"
     ;;
     http*://gfycat.com/*)
-        /usr/local/bin/mpv --force-window=yes "$1"
+        /usr/local/bin/mpv "$1"
     ;;
     http*://v.redd.it/*)
-        /usr/local/bin/mpv --force-window=yes --loop=inf --autofit 640x480 "$1"
+        /usr/local/bin/mpv --autofit 640x480 "$1"
     ;;
     *.jpg*|*.png*|*.webp*)
-        /usr/local/bin/mpv --force-window=yes --pause --autofit 640x480 "$1"
+        /usr/local/bin/mpv --pause --autofit 640x480 "$1"
     ;;
     *.gif*|*.gifv*|*.webm*|*.mp4*|*.wmv*|*.mp3*|*.flac*|*.mkv*|*.m4a*)
-        /usr/local/bin/mpv --force-window=yes --loop=inf --autofit 640x480 "$1"
+        /usr/local/bin/mpv --autofit 640x480 "$1"
     ;;
     *)
         open -a /Applications/Firefox.app "$1"
