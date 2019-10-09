@@ -1,4 +1,4 @@
-setlocal foldenable foldmethod=marker foldmarker={,} foldtext=FoldC()
+setlocal foldenable foldmethod=marker foldmarker={,} foldtext=FoldC() foldnestmax=1
 setlocal commentstring=//%s
 setlocal nowrap breakat=, breakindentopt=shift:0
 

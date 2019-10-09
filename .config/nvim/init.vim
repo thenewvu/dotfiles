@@ -109,9 +109,8 @@ vnoremap E $
 " clear search hl
 nnoremap <silent> <esc><esc> :noh<cr>
 " toggle folding
-nnoremap <space> zA
-nnoremap z zMzvzz
-nnoremap Z zxzz
+nnoremap <space> zMzOzz
+nnoremap z zx
 " vertical center movement
 nnoremap G Gzz
 vnoremap G Gzz
@@ -691,15 +690,15 @@ let g:asyncrun_open = 10
 nnoremap ! :AsyncRun<space>
 nnoremap <A-s> :AsyncRun! rg --vimgrep 
 inoremap <A-s> <esc>:AsyncRun! rg --vimgrep  
-vnoremap <A-s> y<esc>:AsyncRun! rg --vimgrep <c-r>"<cr>
+vnoremap <A-s> y<esc>:AsyncRun! rg --vimgrep --fixed-strings "<c-r>""<cr>
 tnoremap <A-s> <C-\><C-n>:AsyncRun! rg --vimgrep  
 
 nnoremap <A-f> :AsyncRun! rg --vimgrep <cword><cr>
-vnoremap <A-f> y<esc>:AsyncRun! rg --vimgrep <c-r>"<cr>
+vnoremap <A-f> y<esc>:AsyncRun! rg --vimgrep --fixed-strings "<c-r>""<cr>
 
-nnoremap <silent> <A-b>      :AsyncStop!<cr>:AsyncRun! make<cr>
-inoremap <silent> <A-b> <esc>:AsyncStop!<cr>:AsyncRun! make<cr>
-vnoremap <silent> <A-b> <esc>:AsyncStop!<cr>:AsyncRun! make<cr>
+nnoremap <silent> <A-b>      :AsyncStop!<cr>:AsyncRun! make -j4<cr>
+inoremap <silent> <A-b> <esc>:AsyncStop!<cr>:AsyncRun! make -j4<cr>
+vnoremap <silent> <A-b> <esc>:AsyncStop!<cr>:AsyncRun! make -j4<cr>
 
 " }}}
 
