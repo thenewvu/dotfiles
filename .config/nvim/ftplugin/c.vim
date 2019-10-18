@@ -16,7 +16,3 @@ function! FoldC()
 
     return l:indent . l:start . '▾' . l:end
 endfunction 
-
-let g:c_no_if0 = 0
-let g:c_no_utf = 0
-let g:c_no_bsd = 0

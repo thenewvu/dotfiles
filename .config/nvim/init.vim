@@ -82,7 +82,7 @@ augroup All
     au TabNewEntered * call OnTabEnter(expand("<amatch>"))
 
 	" clear message below statusline after CursorHold time
-    au CursorHold * :echo
+    au CursorHold * echo
 augroup END
 
 " }}}
@@ -371,6 +371,8 @@ Plug 'dahu/vim-fanfingtastic'
 
 Plug 'terryma/vim-expand-region'
 
+Plug 'rhysd/clever-f.vim'
+
 call plug#end()
 
 " }}}
@@ -433,7 +435,7 @@ nnoremap <silent> / :FzfLines<cr>
 nnoremap <silent> <tab> :BTags<cr>
 
 augroup FZF
-    au!
+au!
     " <esc> to close fzf window
     au TermOpen term://*FZF tnoremap <silent> <buffer><nowait> <esc> <c-c>
 augroup end
@@ -739,15 +741,15 @@ augroup VIM_LSP
             \ 'cmd': {server_info->['clangd', '-background-index', '-limit-results=20']},
             \ 'whitelist': ['c'],
             \ })
-        au BufReadPost *.h,*.c nnoremap <silent> <buffer> <A-e> :LspNextError<cr>
-        au BufReadPost *.h,*.c nnoremap <silent> <buffer> <A-E> :LspPreviousError<cr>
-        au BufReadPost *.h,*.c nnoremap <silent> <buffer> <A-i> :LspHover<cr>
-        au BufReadPost *.h,*.c inoremap <silent> <buffer> <A-i> <esc>:LspSignatureHelp<cr>
-        au BufReadPost *.h,*.c nnoremap <silent> <buffer> <A-r> :LspRename<cr>
-        au BufReadPost *.h,*.c nnoremap <silent> <buffer> <A-y> :LspDocumentFormat<cr>
-        au BufReadPost *.h,*.c nnoremap <silent> <buffer> <A-t> :LspDocumentDiagnostics<cr>
-        au BufReadPost *.h,*.c inoremap <silent> <buffer> <A-space> <C-x><C-o>
-        au BufReadPost *.h,*.c setlocal omnifunc=lsp#complete
+        au BufReadPost *.h,*.c,*.m nnoremap <silent> <buffer> <A-e> :LspNextError<cr>
+        au BufReadPost *.h,*.c,*.m nnoremap <silent> <buffer> <A-E> :LspPreviousError<cr>
+        au BufReadPost *.h,*.c,*.m nnoremap <silent> <buffer> <A-i> :LspHover<cr>
+        au BufReadPost *.h,*.c,*.m inoremap <silent> <buffer> <A-i> <esc>:LspSignatureHelp<cr>
+        au BufReadPost *.h,*.c,*.m nnoremap <silent> <buffer> <A-r> :LspRename<cr>
+        au BufReadPost *.h,*.c,*.m nnoremap <silent> <buffer> <A-y> :!clang-format -style=file -i %<cr>:edit<cr>
+        au BufReadPost *.h,*.c,*.m nnoremap <silent> <buffer> <A-t> :LspDocumentDiagnostics<cr>
+        au BufReadPost *.h,*.c,*.m inoremap <silent> <buffer> <A-space> <C-x><C-o>
+        au BufReadPost *.h,*.c,*.m setlocal omnifunc=lsp#complete
     endif
 augroup END
 
@@ -788,6 +790,12 @@ let g:expand_region_text_objects = {
       \ 'i)'  :1,
       \ 'i}'  :1,
       \ }
+
+" }}}
+
+" clever-f {{{
+
+let g:clever_f_ignore_case = 1
 
 " }}}
 
