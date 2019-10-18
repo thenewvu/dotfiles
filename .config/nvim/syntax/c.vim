@@ -49,7 +49,11 @@ syn match Delimiter "\]"
 syn match Delimiter "\["
 syn match Delimiter "\."
 
+syn match Number "\d*\.\d\+"
+
 syn region Comment start="//" skip="\\$" end="$" keepend
-syn region Comment	start="/\*" end="\*/" extend
+syn region Comment start="/\*" end="\*/" extend
+
+syn region String start="\"" skip="\\." end="\"" keepend
 
 let b:current_syntax = "c"
