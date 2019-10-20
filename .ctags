@@ -1,4 +1,4 @@
 --exclude=.git
 --sort=no
 --excmd=number
---c-kinds=cdefvgmstu
+--c-kinds=cdefvgmpstu
