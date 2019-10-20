@@ -2,19 +2,12 @@ if exists("b:current_syntax")
 	finish
 endif
 
-syn match PreProc "#def"
-syn match PreProc "#define"
-syn match PreProc "#include"
-syn match PreProc "#if"
-syn match PreProc "#ifndef"
-syn match PreProc "#else"
-syn match PreProc "#endif"
-syn match PreProc "#pragma once"
+syn match PreProc /\v\#[a-z]+>/ 
 
 syn keyword StorageClass extern const static inline restrict
 syn keyword StorageClass auto volatile register __attribute__
 syn keyword Structure struct enum
-syn keyword Keyword continue break return typedef case label
+syn keyword Keyword continue break return typedef case label default
 syn keyword Conditional if else switch
 syn keyword Repeat do while for
 syn match Keyword "?"
@@ -38,6 +31,7 @@ syn match Operator "<"
 syn match Operator ">"
 syn match Operator "="
 syn match Operator "!"
+syn match Operator "\."
 
 syn match Delimiter ")"
 syn match Delimiter "("
@@ -47,7 +41,6 @@ syn match Delimiter ";"
 syn match Delimiter ","
 syn match Delimiter "\]"
 syn match Delimiter "\["
-syn match Delimiter "\."
 
 syn match Number "\d*\.\d\+"
 
