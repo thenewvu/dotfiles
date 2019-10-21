@@ -48,5 +48,6 @@ syn region Comment start="//" skip="\\$" end="$" keepend
 syn region Comment start="/\*" end="\*/" extend
 
 syn region String start="\"" skip="\\." end="\"" keepend
+syn match String /\v(#include\s+)@<=\<.+\>/
 
 let b:current_syntax = "c"

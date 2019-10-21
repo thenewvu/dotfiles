@@ -11,7 +11,6 @@ syn keyword Keyword super self
 
 syn keyword Type BOOL id
 
-syn match String /\v(#include\s+)@<=\<.+\>/
 syn match String /\v(#import\s+)@<=\<.+\>/
 
 " [[self openGLContext] flushBuffer];
