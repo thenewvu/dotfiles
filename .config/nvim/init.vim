@@ -86,22 +86,15 @@ augroup All
 	au BufRead *.frag set syntax=glsl
 augroup END
 
-set foldexpr=FoldBraces() 
-
-" SRC: https://www.mail-archive.com/vim-dev@vim.org/msg01436.html
+" SRC: https://github.com/ryankuczka/vim-pyfold/blob/7a6627ef043d417a806dec90282a948292245840/ftplugin/python/pyfold.vim
 function! FoldBraces()
-	let line_text = getline(v:lnum)
+	let text = getline(v:lnum)
 
-	let left_idx = (stridx(line_text, '{') >= 0)
-	let right_idx = (stridx(line_text, '}') >= 0)
-
-	if left_idx
-		if ! right_idx
-			return 'a1'
-		endif
-	elseif right_idx
-		return 's1'
-	endif
+    if text =~# '^.\{-}{[^}]*$'
+      return 'a1'
+    elseif text =~# '^[^{]\{-}}.*$'
+      return 's1'
+    endif
 
 	return '='
 endfunction
@@ -110,11 +103,18 @@ function! FoldText()
     let l:start = trim(getline(v:foldstart))
     let l:end = trim(getline(v:foldend))
     let l:indent = repeat(' ', indent(v:foldstart))
-    return l:indent . l:start . '▾' . l:end
+    return l:indent . l:start . ' … ' . l:end
 endfunction 
+
+set foldtext=FoldText()
 
 augroup FastFold
 	au!
+
+	au FileType c,cpp,objc,go,java,javascript,json,rust,css,glsl
+				\ setlocal	foldmethod=expr
+				\			foldexpr=FoldBraces()
+				\			foldtext=FoldText()
 
 	let g:fastfold_method = &foldmethod
 
@@ -122,11 +122,6 @@ augroup FastFold
 				\	 setlocal foldmethod=manual
 
 	au Insertleave * exec "setlocal foldmethod=" . g:fastfold_method
-
-	au FileType c,cpp,objc,go,java,javascript,json,rust,css,glsl
-				\ setlocal	foldmethod=expr
-				\			foldexpr=FoldBraces()
-				\			foldtext=FoldText()
 augroup end
 
 " }}}
@@ -413,8 +408,6 @@ Plug 'dahu/vim-fanfingtastic'
 Plug 'terryma/vim-expand-region'
 
 Plug 'rhysd/clever-f.vim'
-
-Plug 'jreybert/vimagit'
 
 call plug#end()
 
