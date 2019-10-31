@@ -1,7 +1,6 @@
  " vim:fileencoding=utf-8:foldmethod=marker:foldmarker={{{,}}}
 
 " General {{{
-
 set nobackup nowritebackup noswapfile
 set undofile undolevels=5000 undoreload=5000
 set confirm " ask to confirm closing an unsaved file
@@ -17,8 +16,7 @@ set wildignorecase " Ignore case when completing filenames
 set wildoptions=pum
 set nowrap breakindent linebreak breakindentopt=shift:-2
 set showbreak=↳\ 
-set fillchars+=fold:\ 
-set nofoldenable
+set fillchars+=fold:\ ,diff:\ 
 set updatetime=2000
 " disable some builtin plugins
 let g:did_install_default_menus = 1
@@ -55,7 +53,7 @@ set cinkeys=0{,0},0),0#,!^F,o,O,e
 set cinoptions=t0,j1,J1,m1,(s,{0,L0,g0
 set lazyredraw
 set synmaxcol=320
-set diffopt+=algorithm:patience,iwhiteall,iblank,iwhiteeol
+set diffopt=filler,algorithm:patience,iwhite,context:999
 set list listchars=tab:\│\ ,trail:␣
 set shortmess+=c
 set splitbelow splitright
@@ -83,7 +81,53 @@ augroup All
 
 	" clear message below statusline after CursorHold time
     au CursorHold * echo
+
+	au BufRead *.vert set syntax=glsl
+	au BufRead *.frag set syntax=glsl
 augroup END
+
+set foldexpr=FoldBraces() 
+
+" SRC: https://www.mail-archive.com/vim-dev@vim.org/msg01436.html
+function! FoldBraces()
+	let line_text = getline(v:lnum)
+
+	let left_idx = (stridx(line_text, '{') >= 0)
+	let right_idx = (stridx(line_text, '}') >= 0)
+
+	if left_idx
+		if ! right_idx
+			return 'a1'
+		endif
+	elseif right_idx
+		return 's1'
+	endif
+
+	return '='
+endfunction
+
+function! FoldText()
+    let l:start = trim(getline(v:foldstart))
+    let l:end = trim(getline(v:foldend))
+    let l:indent = repeat(' ', indent(v:foldstart))
+    return l:indent . l:start . '▾' . l:end
+endfunction 
+
+augroup FastFold
+	au!
+
+	let g:fastfold_method = &foldmethod
+
+	au InsertEnter * let g:fastfold_method = &foldmethod |
+				\	 setlocal foldmethod=manual
+
+	au Insertleave * exec "setlocal foldmethod=" . g:fastfold_method
+
+	au FileType c,cpp,objc,go,java,javascript,json,rust,css,glsl
+				\ setlocal	foldmethod=expr
+				\			foldexpr=FoldBraces()
+				\			foldtext=FoldText()
+augroup end
 
 " }}}
 
@@ -336,9 +380,6 @@ Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 
-" hightlight hex colors
-Plug 'RRethy/vim-hexokinase', { 'on': 'HexokinaseToggle' }
-
 " auto complete pairs () [] {} "" ''
 Plug 'kana/vim-smartinput'
 
@@ -373,7 +414,19 @@ Plug 'terryma/vim-expand-region'
 
 Plug 'rhysd/clever-f.vim'
 
+Plug 'jreybert/vimagit'
+
 call plug#end()
+
+" }}}
+
+" vim-commentary {{{
+
+augroup COMMENTARY
+	au!
+	au FileType c,cpp,objc,go,java,javascript,json,rust,css,glsl
+				\ setlocal	commentstring=//%s
+augroup end
 
 " }}}
 
@@ -653,13 +706,6 @@ augroup end
 
 " }}}
 
-" vim-hexokinase {{{
-
-let g:Hexokinase_highlighters = ['foregroundfull']
-let Hexokinase_v2 = 0
-
-" }}}
-
 " python-syntax {{{
 
     let g:python_highlight_operators = 1
@@ -712,6 +758,7 @@ vnoremap <silent> <A-b> <esc>:AsyncStop!<cr>:AsyncRun! make -j4<cr>
 
 " vim-lsp {{{
 
+let g:lsp_auto_enable = 0
 let g:lsp_signs_enabled = 0
 let g:lsp_diagnostics_echo_cursor = 1
 let g:lsp_highlight_references_enabled = 0
@@ -739,17 +786,41 @@ augroup VIM_LSP
         au User lsp_setup call lsp#register_server({
             \ 'name': 'clangd',
             \ 'cmd': {server_info->['clangd', '-background-index', '-limit-results=20']},
-            \ 'whitelist': ['c'],
+            \ 'whitelist': ['c', 'cpp', 'objc'],
             \ })
-        au BufReadPost *.h,*.c,*.m nnoremap <silent> <buffer> <A-e> :LspNextError<cr>
-        au BufReadPost *.h,*.c,*.m nnoremap <silent> <buffer> <A-E> :LspPreviousError<cr>
-        au BufReadPost *.h,*.c,*.m nnoremap <silent> <buffer> <A-i> :LspHover<cr>
-        au BufReadPost *.h,*.c,*.m inoremap <silent> <buffer> <A-i> <esc>:LspSignatureHelp<cr>
-        au BufReadPost *.h,*.c,*.m nnoremap <silent> <buffer> <A-r> :LspRename<cr>
-        au BufReadPost *.h,*.c,*.m nnoremap <silent> <buffer> <A-y> :!clang-format -style=file -i %<cr>:edit<cr>
-        au BufReadPost *.h,*.c,*.m nnoremap <silent> <buffer> <A-t> :LspDocumentDiagnostics<cr>
-        au BufReadPost *.h,*.c,*.m inoremap <silent> <buffer> <A-space> <C-x><C-o>
-        au BufReadPost *.h,*.c,*.m setlocal omnifunc=lsp#complete
+		au FileType c,cpp,objc	if !&diff |
+				\					call lsp#enable() |
+				\				endif
+		au FileType c,cpp,objc	if !&diff |
+				\					nnoremap <silent> <buffer> <A-e> :LspNextError<cr> |
+				\				endif
+        au FileType c,cpp,objc	if !&diff |
+				\			   	 	nnoremap <silent> <buffer> <A-e> :LspNextError<cr> |
+				\				endif
+        au FileType c,cpp,objc 	if !&diff |
+				\					nnoremap <silent> <buffer> <A-E> :LspPreviousError<cr> |
+				\				endif
+        au FileType c,cpp,objc 	if !&diff |
+				\					noremap <silent> <buffer> <A-i> :LspHover<cr> |
+				\				endif
+        au FileType c,cpp,objc 	if !&diff |
+				\					noremap <silent> <buffer> <A-i> <esc>:LspSignatureHelp<cr> |
+				\				endif
+        au FileType c,cpp,objc 	if !&diff |
+				\					noremap <silent> <buffer> <A-r> :LspRename<cr> |
+				\				endif
+        au FileType c,cpp,objc 	if !&diff |
+				\					noremap <silent> <buffer> <A-y> :!clang-format -style=file -i %<cr>:edit<cr> |
+				\				endif
+        au FileType c,cpp,objc 	if !&diff |
+				\					noremap <silent> <buffer> <A-t> :LspDocumentDiagnostics<cr> |
+				\				endif
+        au FileType c,cpp,objc 	if !&diff |
+				\					noremap <silent> <buffer> <A-space> <C-x><C-o> |
+				\				endif
+        au FileType c,cpp,objc 	if !&diff |
+				\					setlocal omnifunc=lsp#complete |
+				\				endif
     endif
 augroup END
 
@@ -765,13 +836,6 @@ nnoremap _ :CaseMasterConvertToSnake<cr>
 
 call smartinput#define_rule({'at': '(\%#)', 'char': '<Enter>', 'input': '<Enter><Enter><BS><Up><Esc>"_S'})
 
-
-" }}}
-
-" vim-commentary {{{
-
-nnoremap <A-c> :Commentary<cr>
-vnoremap <A-c> :'<,'>Commentary<cr>
 
 " }}}
 
