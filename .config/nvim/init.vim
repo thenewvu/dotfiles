@@ -64,11 +64,11 @@ cabbr <expr> %% fnamemodify(resolve(expand('%:p')), ':h')
 
 function! OnTabEnter(path)
   if isdirectory(a:path)
-    let dirname = a:path
+    let l:dirname = a:path
   else
-    let dirname = fnamemodify(a:path, ":h")
+    let l:dirname = fnamemodify(a:path, ":h")
   endif
-  execute "tcd ". dirname
+  execute "tcd ". l:dirname
 endfunction
 
 augroup All
@@ -88,11 +88,11 @@ augroup END
 
 " SRC: https://github.com/ryankuczka/vim-pyfold/blob/7a6627ef043d417a806dec90282a948292245840/ftplugin/python/pyfold.vim
 function! FoldBraces()
-	let text = getline(v:lnum)
+	let l:text = getline(v:lnum)
 
-    if text =~# '^.\{-}{[^}]*$'
+    if l:text =~# '^.\{-}{[^}]*$'
       return 'a1'
-    elseif text =~# '^[^{]\{-}}.*$'
+    elseif l:text =~# '^[^{]\{-}}.*$'
       return 's1'
     endif
 
@@ -112,15 +112,11 @@ augroup FastFold
 	au!
 
 	au FileType c,cpp,objc,go,java,javascript,json,rust,css,glsl
-				\ setlocal	foldmethod=expr
-				\			foldexpr=FoldBraces()
-				\			foldtext=FoldText()
+		\ setlocal	foldmethod=expr foldexpr=FoldBraces() foldtext=FoldText()
 
 	let g:fastfold_method = &foldmethod
 
-	au InsertEnter * let g:fastfold_method = &foldmethod |
-				\	 setlocal foldmethod=manual
-
+	au InsertEnter * let g:fastfold_method = &foldmethod | setlocal foldmethod=manual
 	au Insertleave * exec "setlocal foldmethod=" . g:fastfold_method
 augroup end
 
@@ -777,43 +773,54 @@ augroup VIM_LSP
     au!
     if executable('clangd')
         au User lsp_setup call lsp#register_server({
-            \ 'name': 'clangd',
-            \ 'cmd': {server_info->['clangd', '-background-index', '-limit-results=20']},
-            \ 'whitelist': ['c', 'cpp', 'objc'],
-            \ })
-		au FileType c,cpp,objc	if !&diff |
-				\					call lsp#enable() |
-				\				endif
-		au FileType c,cpp,objc	if !&diff |
-				\					nnoremap <silent> <buffer> <A-e> :LspNextError<cr> |
-				\				endif
-        au FileType c,cpp,objc	if !&diff |
-				\			   	 	nnoremap <silent> <buffer> <A-e> :LspNextError<cr> |
-				\				endif
-        au FileType c,cpp,objc 	if !&diff |
-				\					nnoremap <silent> <buffer> <A-E> :LspPreviousError<cr> |
-				\				endif
-        au FileType c,cpp,objc 	if !&diff |
-				\					noremap <silent> <buffer> <A-i> :LspHover<cr> |
-				\				endif
-        au FileType c,cpp,objc 	if !&diff |
-				\					noremap <silent> <buffer> <A-i> <esc>:LspSignatureHelp<cr> |
-				\				endif
-        au FileType c,cpp,objc 	if !&diff |
-				\					noremap <silent> <buffer> <A-r> :LspRename<cr> |
-				\				endif
-        au FileType c,cpp,objc 	if !&diff |
-				\					noremap <silent> <buffer> <A-y> :!clang-format -style=file -i %<cr>:edit<cr> |
-				\				endif
-        au FileType c,cpp,objc 	if !&diff |
-				\					noremap <silent> <buffer> <A-t> :LspDocumentDiagnostics<cr> |
-				\				endif
-        au FileType c,cpp,objc 	if !&diff |
-				\					noremap <silent> <buffer> <A-space> <C-x><C-o> |
-				\				endif
-        au FileType c,cpp,objc 	if !&diff |
-				\					setlocal omnifunc=lsp#complete |
-				\				endif
+			\ 'name': 'clangd',
+			\ 'cmd': {server_info->['clangd', '-background-index', '-limit-results=20']},
+			\ 'whitelist': ['c', 'cpp', 'objc'],
+			\ })
+		au FileType c,cpp,objc
+			\ if !&diff |
+			\	call lsp#enable() |
+			\ endif
+		au FileType c,cpp,objc
+			\ if !&diff |
+			\	nnoremap <silent> <buffer> <A-e> :LspNextError<cr> |
+			\ endif
+        au FileType c,cpp,objc
+			\ if !&diff |
+			\ 	nnoremap <silent> <buffer> <A-e> :LspNextError<cr> |
+			\ endif
+        au FileType c,cpp,objc
+			\ if !&diff |
+			\	nnoremap <silent> <buffer> <A-E> :LspPreviousError<cr> |
+			\ endif
+        au FileType c,cpp,objc
+			\ if !&diff |
+			\	noremap <silent> <buffer> <A-i> :LspHover<cr> |
+			\ endif
+        au FileType c,cpp,objc 
+			\ if !&diff |
+			\	noremap <silent> <buffer> <A-i> <esc>:LspSignatureHelp<cr> |
+			\ endif
+        au FileType c,cpp,objc
+			\ if !&diff |
+			\	noremap <silent> <buffer> <A-r> :LspRename<cr> |
+			\ endif
+        au FileType c,cpp,objc
+			\ if !&diff |
+			\	noremap <silent> <buffer> <A-y> :!clang-format -style=file -i %<cr>:edit<cr> |
+			\ endif
+        au FileType c,cpp,objc
+			\ if !&diff |
+			\	noremap <silent> <buffer> <A-t> :LspDocumentDiagnostics<cr> |
+			\ endif
+        au FileType c,cpp,objc
+			\ if !&diff |
+			\	noremap <silent> <buffer> <A-space> <C-x><C-o> |
+			\ endif
+        au FileType c,cpp,objc
+			\ if !&diff |
+			\	setlocal omnifunc=lsp#complete |
+			\ endif
     endif
 augroup END
 
@@ -827,8 +834,11 @@ nnoremap _ :CaseMasterConvertToSnake<cr>
 
 " smartinput {{{
 
-call smartinput#define_rule({'at': '(\%#)', 'char': '<Enter>', 'input': '<Enter><Enter><BS><Up><Esc>"_S'})
-
+call smartinput#define_rule({
+	\ 'at': '(\%#)',
+	\ 'char': '<Enter>',
+	\ 'input': '<Enter><Enter><BS><Up><Esc>"_S'
+	\ })
 
 " }}}
 
@@ -857,5 +867,3 @@ let g:clever_f_ignore_case = 1
 " }}}
 
 " }}}
-
-
