@@ -150,11 +150,11 @@ gl() {
 }
 
 alias gs="git status --short"
-alias gr="git ls-files --modified --exclude-standard | fzf -m --print0 | xargs -0 -o -t git checkout -p"
+alias gr="git checkout -p"
 alias gd="git diff -b"
 
-alias gca="git add --intent-to-add . && git ls-files --modified --others --exclude-standard | fzf -m --print0 | xargs -0 -o -t git add -p"
-alias gcr="git --no-pager diff --name-only --relative --staged | fzf -m --print0 | xargs -0 -o -t git reset HEAD"
+alias gca="git add"
+alias gcr="git reset HEAD"
 alias gcd="git diff --cached -b"
 alias gcm="git commit -m"
 
