@@ -71,27 +71,17 @@ function! OnTabEnter(path)
   execute "tcd ". l:dirname
 endfunction
 
-augroup All
-    au!
-
-    au TermOpen * setlocal signcolumn="no"
-
-    " https://dmerej.info/blog/post/vim-cwd-and-neovim/
-    au TabNewEntered * call OnTabEnter(expand("<amatch>"))
-
-	" clear message below statusline after CursorHold time
-    au CursorHold * echo
-
-	au BufRead *.vert set syntax=glsl
-	au BufRead *.frag set syntax=glsl
-augroup END
-
 " SRC: https://github.com/ryankuczka/vim-pyfold/blob/7a6627ef043d417a806dec90282a948292245840/ftplugin/python/pyfold.vim
 function! FoldBraces()
 	let l:text = getline(v:lnum)
 
-    if l:text =~# '^.\{-}{[^}]*$'
+	" both opening and closing
+    if l:text =~# '^[^{]\{-}}.\{-}{[^}]*$'
+      return -1
+	" opening
+    elseif l:text =~# '^.\{-}{[^}]*$'
       return 'a1'
+	" closing
     elseif l:text =~# '^[^{]\{-}}.*$'
       return 's1'
     endif
@@ -108,17 +98,23 @@ endfunction
 
 set foldtext=FoldText()
 
-augroup FastFold
-	au!
+augroup All
+    au!
+
+    au TermOpen * setlocal signcolumn="no"
+
+    " https://dmerej.info/blog/post/vim-cwd-and-neovim/
+    au TabNewEntered * call OnTabEnter(expand("<amatch>"))
+
+	" clear message below statusline after CursorHold time
+    au CursorHold * echo
+
+	au BufRead *.vert set syntax=glsl
+	au BufRead *.frag set syntax=glsl
 
 	au FileType c,cpp,objc,go,java,javascript,json,rust,css,glsl
-		\ setlocal	foldmethod=expr foldexpr=FoldBraces() foldtext=FoldText()
-
-	let g:fastfold_method = &foldmethod
-
-	au InsertEnter * let g:fastfold_method = &foldmethod | setlocal foldmethod=manual
-	au Insertleave * exec "setlocal foldmethod=" . g:fastfold_method
-augroup end
+		\ setlocal foldmethod=expr foldexpr=FoldBraces() foldtext=FoldText()
+augroup END
 
 " }}}
 
@@ -404,6 +400,8 @@ Plug 'dahu/vim-fanfingtastic'
 Plug 'terryma/vim-expand-region'
 
 Plug 'rhysd/clever-f.vim'
+
+Plug 'Konfekt/FastFold'
 
 call plug#end()
 
@@ -863,6 +861,14 @@ let g:expand_region_text_objects = {
 " clever-f {{{
 
 let g:clever_f_ignore_case = 1
+
+" }}}
+
+" fastfold {{{
+
+let g:fastfold_fold_command_suffixes = []
+let g:fastfold_fold_movement_commands = []
+let g:fastfold_skip_filetypes = [ 'git', 'diff' ]
 
 " }}}
 
