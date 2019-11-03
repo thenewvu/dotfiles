@@ -20,27 +20,28 @@ syn match Function "\v[a-zA-Z_][a-zA-Z0-9_]*\s*(\()@="
 
 syn keyword Operator sizeof typeof auto_type __typeof __auto_type
 
-syn match Operator "+"
-syn match Operator "-"
-syn match Operator "*"
-syn match Operator "/"
-syn match Operator "%"
-syn match Operator "&"
-syn match Operator "|"
-syn match Operator "<"
-syn match Operator ">"
-syn match Operator "="
-syn match Operator "!"
-syn match Operator "\."
-syn match Operator "\]"
-syn match Operator "\["
+syn match Operator "+"  display
+syn match Operator "-"  display
+syn match Operator "*"  display
+syn match Operator "/"  display
+syn match Operator "%"  display
+syn match Operator "&"  display
+syn match Operator "|"  display
+syn match Operator "<"  display
+syn match Operator ">"  display
+syn match Operator "="  display
+syn match Operator "!"  display
+syn match Operator "\." display
+syn match Operator "\]" display
+syn match Operator "\[" display
 
-syn match Delimiter ")"
-syn match Delimiter "("
-syn match Delimiter "}"
-syn match Delimiter "{"
-syn match Delimiter ";"
-syn match Delimiter ","
+syn match Delimiter ")" display
+syn match Delimiter "(" display
+syn match Delimiter "}" display
+syn match Delimiter "{" display
+syn match Delimiter ";" display
+syn match Delimiter "," display
+syn match Delimiter "\\" display
 
 syn match Number "\d*\.\d\+"
 
