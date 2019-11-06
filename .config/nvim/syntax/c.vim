@@ -6,7 +6,7 @@ syn match PreProc /\v\#\s*[a-z]+>/
 
 syn keyword StorageClass extern const static inline restrict
 syn keyword StorageClass auto volatile register __attribute__
-syn keyword Structure struct enum
+syn keyword Structure struct enum union
 syn keyword Keyword continue break return typedef case label default
 syn keyword Conditional if else switch
 syn keyword Repeat do while for

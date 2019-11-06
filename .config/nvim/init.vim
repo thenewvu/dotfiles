@@ -53,7 +53,7 @@ set cinkeys=0{,0},0),0#,!^F,o,O,e
 set cinoptions=t0,j1,J1,m1,(s,{0,L0,g0
 set lazyredraw
 set synmaxcol=320
-set diffopt=filler,algorithm:patience,iwhite,context:999
+set diffopt=filler,indent-heuristic,algorithm:histogram,iwhite,context:999
 set list listchars=tab:\│\ ,trail:␣
 set shortmess+=c
 set splitbelow splitright
@@ -233,6 +233,7 @@ inoremap <A-v> <esc>gv
 nnoremap v9 vi]
 nnoremap v0 vi)
 nnoremap v8 vi}
+inoremap <A-space> <C-x><C-o>
 
 " search without jumping
 " https://stackoverflow.com/a/4262209
@@ -353,13 +354,9 @@ Plug 'alvan/vim-closetag'
 
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeEnable' }
 
-" Plug 'airblade/vim-gitgutter' 
-
 Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 
 Plug 'prettier/vim-prettier', { 'do': 'npm install', 'for': ['javascript', 'css', 'json', 'markdown', 'html', 'svg', 'xml'] }
-
-" Plug 'Yggdroot/indentLine' 
 
 Plug 'thenewvu/vim-colors-blueprint' 
 
@@ -381,19 +378,12 @@ Plug 'amadeus/vim-convert-color-to', { 'on': 'ConvertColorTo' }
 
 Plug 'skywind3000/asyncrun.vim', { 'on': ['AsyncRun', 'AsyncStop'] }
 
-" Plug 'prabirshrestha/asyncomplete.vim'
-" Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
 
 Plug 'ap/vim-buftabline' 
 
 Plug 'endaaman/vim-case-master', { 'on': 'CaseMasterConvertToSnake' }
-
-" Plug 'ForTheReallys/paste-indent'
-
-" Plug 'zefei/vim-wintabs'
-" Plug 'zefei/vim-wintabs-powerline'
 
 Plug 'dahu/vim-fanfingtastic'
 
@@ -402,6 +392,8 @@ Plug 'terryma/vim-expand-region'
 Plug 'rhysd/clever-f.vim'
 
 Plug 'Konfekt/FastFold'
+
+Plug 'norcalli/nvim-colorizer.lua'
 
 call plug#end()
 
@@ -482,39 +474,11 @@ augroup end
 
 " }}}
 
-" " vim-gitgutter {{{
-
-"   let g:gitgutter_diff_args = '-w'
-"   let g:gitgutter_sign_added = '\ '
-"   let g:gitgutter_sign_modified = '\ '
-"   let g:gitgutter_sign_removed = '\ '
-"   let g:gitgutter_sign_modified_removed = '\ '
-"   let g:gitgutter_sign_allow_clobber = 0
-
-"   hi link GitGutterAdd DiffAdd
-"   hi link GitGutterChange DiffText
-"   hi link GitGutterChangeDelete DiffText
-"   hi link GitGutterDelete DiffDelete
-
-" " }}}
-
 " tabular {{{
 
     vnoremap <A-a> :Tabularize /
 
 " }}}
-
-" " indentLine {{{
-
-"   let g:indentLine_enabled = 1
-"   let g:indentLine_faster = 1
-"   let g:indentLine_bufTypeExclude = ['help', 'terminal']
-"   let g:indentLine_fileTypeExclude = ['markdown', 'git', 'json']
-"   let g:indentLine_char = '│'
-"   let g:indentLine_color_gui = '#2c4e6c'
-"   let g:indentLine_bgcolor_gui = 'none'
-
-" " }}}
 
 " vim-colors-blueprint {{{
 
@@ -593,76 +557,6 @@ augroup end
 
 " }}}
 
-" " vim-wintabs {{{
-
-"     let g:wintabs_ui_buffer_name_format = ' %o %t '
-
-"     hi   link   WintabsEmpty        TablineFill
-"     hi   link   WintabsActive       Normal
-"     hi   link   WintabsInactive     Tabline
-"     hi   link   WintabsArrow        TablineFill
-"     hi   link   WintabsActiveNC     Normal
-"     hi   link   WintabsInactiveNC   Tabline
-
-"     nmap <A-1> <Plug>(wintabs_tab_1)
-"     nmap <A-2> <Plug>(wintabs_tab_2)
-"     nmap <A-3> <Plug>(wintabs_tab_3)
-"     nmap <A-4> <Plug>(wintabs_tab_4)
-"     nmap <A-5> <Plug>(wintabs_tab_5)
-"     nmap <A-6> <Plug>(wintabs_tab_6)
-"     nmap <A-7> <Plug>(wintabs_tab_7)
-"     nmap <A-8> <Plug>(wintabs_tab_8)
-"     nmap <A-9> <Plug>(wintabs_tab_9)
-"     nmap <A-0> <Plug>(wintabs_tab_10)
-"     nmap <A-q> <Plug>(wintabs_close)
-
-"     imap <A-1> <esc><Plug>(wintabs_tab_1)
-"     imap <A-2> <esc><Plug>(wintabs_tab_2)
-"     imap <A-3> <esc><Plug>(wintabs_tab_3)
-"     imap <A-4> <esc><Plug>(wintabs_tab_4)
-"     imap <A-5> <esc><Plug>(wintabs_tab_5)
-"     imap <A-6> <esc><Plug>(wintabs_tab_6)
-"     imap <A-7> <esc><Plug>(wintabs_tab_7)
-"     imap <A-8> <esc><Plug>(wintabs_tab_8)
-"     imap <A-9> <esc><Plug>(wintabs_tab_9)
-"     imap <A-0> <esc><Plug>(wintabs_tab_10)
-"     imap <A-q> <esc><Plug>(wintabs_close)
-
-"     vmap <A-1> <esc><Plug>(wintabs_tab_1)
-"     vmap <A-2> <esc><Plug>(wintabs_tab_2)
-"     vmap <A-3> <esc><Plug>(wintabs_tab_3)
-"     vmap <A-4> <esc><Plug>(wintabs_tab_4)
-"     vmap <A-5> <esc><Plug>(wintabs_tab_5)
-"     vmap <A-6> <esc><Plug>(wintabs_tab_6)
-"     vmap <A-7> <esc><Plug>(wintabs_tab_7)
-"     vmap <A-8> <esc><Plug>(wintabs_tab_8)
-"     vmap <A-9> <esc><Plug>(wintabs_tab_9)
-"     vmap <A-0> <esc><Plug>(wintabs_tab_10)
-"     vmap <A-q> <esc><Plug>(wintabs_close)
-
-"     tmap <A-1> <C-\><C-n><Plug>(wintabs_tab_1)
-"     tmap <A-2> <C-\><C-n><Plug>(wintabs_tab_2)
-"     tmap <A-3> <C-\><C-n><Plug>(wintabs_tab_3)
-"     tmap <A-4> <C-\><C-n><Plug>(wintabs_tab_4)
-"     tmap <A-5> <C-\><C-n><Plug>(wintabs_tab_5)
-"     tmap <A-6> <C-\><C-n><Plug>(wintabs_tab_6)
-"     tmap <A-7> <C-\><C-n><Plug>(wintabs_tab_7)
-"     tmap <A-8> <C-\><C-n><Plug>(wintabs_tab_8)
-"     tmap <A-9> <C-\><C-n><Plug>(wintabs_tab_9)
-"     tmap <A-0> <C-\><C-n><Plug>(wintabs_tab_10)
-"     tmap <A-q> <C-\><C-n><Plug>(wintabs_close)
-
-"     nmap <A-h> gT
-"     nmap <A-l> gt
-"     imap <A-h> <esc>gT
-"     imap <A-l> <esc>gt
-"     vmap <A-h> <esc>gT
-"     vmap <A-l> <esc>gt
-"     tmap <A-h> <C-\><C-n>gT
-"     tmap <A-l> <C-\><C-n>gt
-
-" " }}}
-
 " vim-markdown {{{
 
     let g:vim_markdown_conceal = 2
@@ -737,12 +631,6 @@ vnoremap <silent> <A-b> <esc>:AsyncStop!<cr>:AsyncRun! make -j4<cr>
 
 " }}}
 
-" " asyncomplete.vim {{{
-
-" let g:asyncomplete_popup_delay = 500
-
-" " }}}
-
 " vim-lsp {{{
 
 let g:lsp_auto_enable = 0
@@ -781,39 +669,31 @@ augroup VIM_LSP
 			\ endif
 		au FileType c,cpp,objc
 			\ if !&diff |
-			\	nnoremap <silent> <buffer> <A-e> :LspNextError<cr> |
+			\	noremap <silent> <buffer> <A-e> :LspNextError<cr> |
 			\ endif
         au FileType c,cpp,objc
 			\ if !&diff |
-			\ 	nnoremap <silent> <buffer> <A-e> :LspNextError<cr> |
+			\	noremap <silent> <buffer> <A-E> :LspPreviousError<cr> |
 			\ endif
         au FileType c,cpp,objc
 			\ if !&diff |
-			\	nnoremap <silent> <buffer> <A-E> :LspPreviousError<cr> |
-			\ endif
-        au FileType c,cpp,objc
-			\ if !&diff |
-			\	noremap <silent> <buffer> <A-i> :LspHover<cr> |
+			\	nnoremap <silent> <buffer> <A-i> :LspHover<cr> |
 			\ endif
         au FileType c,cpp,objc 
 			\ if !&diff |
-			\	noremap <silent> <buffer> <A-i> <esc>:LspSignatureHelp<cr> |
+			\	inoremap <silent> <buffer> <A-i> <esc>:LspSignatureHelp<cr> |
 			\ endif
         au FileType c,cpp,objc
 			\ if !&diff |
-			\	noremap <silent> <buffer> <A-r> :LspRename<cr> |
+			\	nnoremap <silent> <buffer> <A-r> :LspRename<cr> |
 			\ endif
         au FileType c,cpp,objc
 			\ if !&diff |
-			\	noremap <silent> <buffer> <A-y> :!clang-format -style=file -i %<cr>:edit<cr> |
+			\	nnoremap <silent> <buffer> <A-y> :!clang-format -style=file -i %<cr>:edit<cr> |
 			\ endif
         au FileType c,cpp,objc
 			\ if !&diff |
-			\	noremap <silent> <buffer> <A-t> :LspDocumentDiagnostics<cr> |
-			\ endif
-        au FileType c,cpp,objc
-			\ if !&diff |
-			\	noremap <silent> <buffer> <A-space> <C-x><C-o> |
+			\	nnoremap <silent> <buffer> <A-t> :LspDocumentDiagnostics<cr> |
 			\ endif
         au FileType c,cpp,objc
 			\ if !&diff |
@@ -848,9 +728,6 @@ map vV <Plug>(expand_region_shrink)
 let g:expand_region_text_objects = {
       \ 'i"'  :0,
       \ 'i''' :0,
-      \ 't,'  :0,
-      \ 't]'  :0,
-      \ 't)'  :0,
       \ 'i]'  :1,
       \ 'i)'  :1,
       \ 'i}'  :1,
