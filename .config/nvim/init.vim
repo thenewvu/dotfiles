@@ -77,7 +77,7 @@ function! FoldBraces()
 
 	" both opening and closing
     if l:text =~# '^[^{]\{-}}.\{-}{[^}]*$'
-      return -1
+      return '='
 	" opening
     elseif l:text =~# '^.\{-}{[^}]*$'
       return 'a1'
@@ -331,6 +331,23 @@ inoremap <silent> <A-`> <esc>:call TerminalToggle()<cr>
 vnoremap <silent> <A-`> <esc>:call TerminalToggle()<cr>
 tnoremap <silent> <A-`> <C-\><C-n>:call TerminalToggle()<cr>
 
+augroup FORMATER
+	au!
+
+	au FileType c,cpp,objc,javascript
+		\ if !&diff |
+		\	nnoremap <silent> <buffer> gq :!clang-format -style=file -i %<cr> |
+		\ endif
+	au FileType json
+		\ if !&diff |
+		\	nnoremap <silent> <buffer> gq :%!python -m json.tool<cr> |
+		\ endif
+	au FileType html
+		\ if !&diff |
+		\	nnoremap <silent> <buffer> gq :!tidy -q -i --show-errors 0<CR> |
+		\ endif
+augroup end
+
 " }}}
 
 " Plugins {{{
@@ -393,7 +410,7 @@ Plug 'rhysd/clever-f.vim'
 
 Plug 'Konfekt/FastFold'
 
-Plug 'norcalli/nvim-colorizer.lua'
+Plug 'norcalli/nvim-colorizer.lua', { 'on': 'ColorizerAttachToBuffer' }
 
 call plug#end()
 
@@ -686,10 +703,6 @@ augroup VIM_LSP
         au FileType c,cpp,objc
 			\ if !&diff |
 			\	nnoremap <silent> <buffer> <A-r> :LspRename<cr> |
-			\ endif
-        au FileType c,cpp,objc
-			\ if !&diff |
-			\	nnoremap <silent> <buffer> <A-y> :!clang-format -style=file -i %<cr>:edit<cr> |
 			\ endif
         au FileType c,cpp,objc
 			\ if !&diff |
