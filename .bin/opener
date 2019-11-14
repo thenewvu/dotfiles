@@ -20,6 +20,6 @@ case $1 in
         /usr/local/bin/mpv --autofit 640x480 "$1"
     ;;
     *)
-        open -a /Applications/Firefox.app "$1"
+        /usr/local/bin/mpv --autofit 640x480 "$1"
     ;;
 esac 
