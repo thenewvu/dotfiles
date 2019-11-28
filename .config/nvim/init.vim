@@ -72,8 +72,11 @@ function! OnTabEnter(path)
 endfunction
 
 " SRC: https://github.com/ryankuczka/vim-pyfold/blob/7a6627ef043d417a806dec90282a948292245840/ftplugin/python/pyfold.vim
-function! FoldBraces()
+function! FoldExprBraces()
 	let l:text = getline(v:lnum)
+
+	" remove all strings
+	let l:text = substitute(l:text, '\v([''"`])((\\\1|.){-})\1', "", "g")
 
 	" both opening and closing
     if l:text =~# '^[^{]\{-}}.\{-}{[^}]*$'
@@ -93,7 +96,13 @@ function! FoldText()
     let l:start = trim(getline(v:foldstart))
     let l:end = trim(getline(v:foldend))
     let l:indent = repeat(' ', indent(v:foldstart))
-    return l:indent . l:start . ' … ' . l:end
+    return l:indent . l:start . '…' . l:end
+endfunction 
+
+function! FoldTextPy()
+    let l:start = trim(getline(v:foldstart))
+    let l:indent = repeat(' ', indent(v:foldstart))
+    return l:indent . l:start . '⤸'
 endfunction 
 
 set foldtext=FoldText()
@@ -113,7 +122,9 @@ augroup All
 	au BufRead *.frag set syntax=glsl
 
 	au FileType c,cpp,objc,go,java,javascript,json,rust,css,glsl
-		\ setlocal foldmethod=expr foldexpr=FoldBraces() foldtext=FoldText()
+		\ setlocal foldtext=FoldText() foldmethod=expr foldexpr=FoldExprBraces()
+
+	au FileType python setlocal foldtext=FoldTextPy()
 augroup END
 
 " }}}
@@ -686,27 +697,31 @@ augroup VIM_LSP
 			\ endif
 		au FileType c,cpp,objc
 			\ if !&diff |
-			\	noremap <silent> <buffer> <A-e> :LspNextError<cr> |
+			\	noremap <buffer> <A-e> :LspNextError<cr> |
 			\ endif
         au FileType c,cpp,objc
 			\ if !&diff |
-			\	noremap <silent> <buffer> <A-E> :LspPreviousError<cr> |
+			\	noremap <buffer> <A-E> :LspPreviousError<cr> |
 			\ endif
         au FileType c,cpp,objc
 			\ if !&diff |
-			\	nnoremap <silent> <buffer> <A-i> :LspHover<cr> |
+			\	nnoremap <buffer> <A-i> :LspHover<cr> |
 			\ endif
         au FileType c,cpp,objc 
 			\ if !&diff |
-			\	inoremap <silent> <buffer> <A-i> <esc>:LspSignatureHelp<cr> |
+			\	inoremap <buffer> <A-i> <esc>:LspSignatureHelp<cr> |
 			\ endif
         au FileType c,cpp,objc
 			\ if !&diff |
-			\	nnoremap <silent> <buffer> <A-r> :LspRename<cr> |
+			\	nnoremap <buffer> <A-r> :LspRename<cr> |
 			\ endif
         au FileType c,cpp,objc
 			\ if !&diff |
-			\	nnoremap <silent> <buffer> <A-t> :LspDocumentDiagnostics<cr> |
+			\	nnoremap <buffer> <A-t> :LspDocumentDiagnostics<cr> |
+			\ endif
+        au FileType c,cpp,objc
+			\ if !&diff |
+			\	nnoremap <buffer> <A-T> :let g:lsp_diagnostics_enabled = 0<cr> |
 			\ endif
         au FileType c,cpp,objc
 			\ if !&diff |
