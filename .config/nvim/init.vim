@@ -75,7 +75,16 @@ endfunction
 function! FoldExprBraces()
 	let l:text = getline(v:lnum)
 
-	" remove all strings
+	" remove comments
+    let l:text = substitute(l:text, '\v\/\*.*\*\/', "", "g")
+    let l:text = substitute(l:text, '\v\/\/.*$', "", "g")
+
+	if &filetype == 'javascript'
+	  " remove regex
+      let l:text = substitute(l:text, '\v(\/)((\\\1|.){-})\1', "", "g")
+	endif
+
+	" remove strings
 	let l:text = substitute(l:text, '\v([''"`])((\\\1|.){-})\1', "", "g")
 
 	" both opening and closing
@@ -93,10 +102,16 @@ function! FoldExprBraces()
 endfunction
 
 function! FoldText()
-    let l:start = trim(getline(v:foldstart))
-    let l:end = trim(getline(v:foldend))
+    let l:start = getline(v:foldstart)
+    let l:end = getline(v:foldend)
     let l:indent = repeat(' ', indent(v:foldstart))
-    return l:indent . l:start . '…' . l:end
+	" remove comments
+    let l:start = substitute(l:start, '\v\/\*.*\*\/', "", "g")
+    let l:start = substitute(l:start, '\v\/\/.*$', "", "g")
+	" remove comments
+	let l:end = substitute(l:end, '\v\/\*.*\*\/', "", "g")
+	let l:end = substitute(l:end, '\v\/\/.*$', "", "g")
+    return l:indent . trim(l:start) . '…' . trim(l:end)
 endfunction 
 
 function! FoldTextPy()
@@ -345,18 +360,10 @@ tnoremap <silent> <A-`> <C-\><C-n>:call TerminalToggle()<cr>
 augroup FORMATER
 	au!
 
-	au FileType c,cpp,objc,javascript
-		\ if !&diff |
-		\	nnoremap <silent> <buffer> gq :!clang-format -style=file -i %<cr> |
-		\ endif
-	au FileType json
-		\ if !&diff |
-		\	nnoremap <silent> <buffer> gq :%!python -m json.tool<cr> |
-		\ endif
-	au FileType html
-		\ if !&diff |
-		\	nnoremap <silent> <buffer> gq :!tidy -q -i --show-errors 0<CR> |
-		\ endif
+	au FileType javascript,json,css,html,xml
+		\ nnoremap <buffer> gq :PrettierAsync<cr>
+	au FileType c,cpp,objc
+		\ nnoremap <buffer> gq :!clang-format -style=file -i %<cr>
 augroup end
 
 " }}}
@@ -717,7 +724,7 @@ augroup VIM_LSP
 			\ endif
         au FileType c,cpp,objc
 			\ if !&diff |
-			\	nnoremap <buffer> <A-t> :LspDocumentDiagnostics<cr> |
+			\	nnoremap <buffer> <A-t> :let g:lsp_diagnostics_enabled = 1<cr>:LspDocumentDiagnostics<cr> |
 			\ endif
         au FileType c,cpp,objc
 			\ if !&diff |
