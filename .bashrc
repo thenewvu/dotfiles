@@ -5,6 +5,8 @@
 # enable vi-liked key bindings
 set -o vi
 
+tabs -4
+
 bind 'TAB: menu-complete'
 bind 'set completion-ignore-case on'
 
