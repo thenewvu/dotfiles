@@ -10,7 +10,7 @@ set encoding=utf-8
 set autoread " autoreload files on change
 set backspace=indent,eol,start " make backspace work like most other apps
 set incsearch hlsearch noignorecase inccommand=nosplit gdefault
-set noexpandtab smarttab tabstop=4 shiftwidth=4 softtabstop=4 
+set expandtab smarttab tabstop=4 shiftwidth=4 softtabstop=4 
 set wildignore+=.hg,.git,.svn,*.class,*.o,*~,*.pyc,*.lock,*.out,*.exe
 set wildignorecase " Ignore case when completing filenames
 set wildoptions=pum
@@ -18,6 +18,7 @@ set nowrap breakindent linebreak breakindentopt=shift:-2
 set showbreak=↳\ 
 set fillchars+=fold:\ ,diff:\ 
 set updatetime=2000
+set nofoldenable
 " disable some builtin plugins
 let g:did_install_default_menus = 1
 let g:loaded_2html_plugin       = 1
@@ -119,11 +120,17 @@ function! FoldTextPy()
     let l:indent = repeat(' ', indent(v:foldstart))
     return l:indent . l:start . '⤸'
 endfunction 
-
+ 
 set foldtext=FoldText()
 
 augroup All
     au!
+
+	" dont highlight searching matches during inserting
+	au InsertEnter * :setlocal nohlsearch
+	au InsertLeave * :setlocal hlsearch
+	au TermEnter * :setlocal nohlsearch
+	au TermLeave * :setlocal hlsearch
 
     au TermOpen * setlocal signcolumn="no"
 
@@ -360,11 +367,19 @@ tnoremap <silent> <A-`> <C-\><C-n>:call TerminalToggle()<cr>
 augroup FORMATER
 	au!
 
-	au FileType javascript,json,css,html,xml
+	au FileType json,css,html,xml
 		\ nnoremap <buffer> gq :PrettierAsync<cr>
-	au FileType c,cpp,objc
-		\ nnoremap <buffer> gq :!clang-format -style=file -i %<cr>
 augroup end
+
+function ToggleFolding()
+    if &foldenable
+        set nofoldenable
+    else
+        set foldenable
+    endif
+endfunction
+
+nnoremap <F3> :call ToggleFolding()<cr>
 
 " }}}
 
@@ -429,6 +444,8 @@ Plug 'rhysd/clever-f.vim'
 Plug 'Konfekt/FastFold'
 
 Plug 'norcalli/nvim-colorizer.lua', { 'on': 'ColorizerAttachToBuffer' }
+
+Plug 'Yggdroot/indentLine'
 
 call plug#end()
 
@@ -781,6 +798,19 @@ let g:clever_f_ignore_case = 1
 let g:fastfold_fold_command_suffixes = []
 let g:fastfold_fold_movement_commands = []
 let g:fastfold_skip_filetypes = [ 'git', 'diff' ]
+
+" }}}
+
+" indentLine {{{
+
+let g:indentLine_enabled = 0
+let g:indentLine_color_gui = '#2c4e6c'
+let g:indentLine_char = '│'
+
+augroup IndentLine
+    au!
+    au FileType c,cpp,objc,javascript,java :IndentLinesEnable
+augroup end
 
 " }}}
 
