@@ -99,6 +99,8 @@ export CPPFLAGS="-I/usr/local/opt/node@10/include $CPPFLAGS"
 export FFF_OPENER=~/.bin/opener
 export FFF_TRASH=~/.Trash
 
+export MAKEFLAGS='-j8'
+
 # }}}
 
 # Command history {{{
@@ -155,12 +157,13 @@ alias gs="git status --short"
 alias gr="git checkout -p"
 alias gd="git diff -b"
 
-alias gca="git add"
+alias gca="git add -i"
 alias gcr="git reset HEAD"
 alias gcd="git diff --cached -b"
 alias gcm="git commit -m"
 
-alias gp="git push"
+alias gcp="git push"
+alias gp="git pull"
 
 alias ctags="`brew --prefix`/bin/ctags"
 
