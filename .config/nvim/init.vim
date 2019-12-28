@@ -1,4 +1,4 @@
- " vim:fileencoding=utf-8:foldmethod=marker:foldmarker={{{,}}}
+" vim:fileencoding=utf-8:foldmethod=marker:foldmarker={{{,}}}
 
 " General {{{
 set nobackup nowritebackup noswapfile
@@ -64,54 +64,54 @@ set splitbelow splitright
 cabbr <expr> %% fnamemodify(resolve(expand('%:p')), ':h')
 
 function! OnTabEnter(path)
-  if isdirectory(a:path)
-    let l:dirname = a:path
-  else
-    let l:dirname = fnamemodify(a:path, ":h")
-  endif
-  execute "tcd ". l:dirname
+    if isdirectory(a:path)
+        let l:dirname = a:path
+    else
+        let l:dirname = fnamemodify(a:path, ":h")
+    endif
+    execute "tcd ". l:dirname
 endfunction
 
 " SRC: https://github.com/ryankuczka/vim-pyfold/blob/7a6627ef043d417a806dec90282a948292245840/ftplugin/python/pyfold.vim
 function! FoldExprBraces()
-	let l:text = getline(v:lnum)
+    let l:text = getline(v:lnum)
 
-	" remove comments
+    " remove comments
     let l:text = substitute(l:text, '\v\/\*.*\*\/', "", "g")
     let l:text = substitute(l:text, '\v\/\/.*$', "", "g")
 
-	if &filetype == 'javascript'
-	  " remove regex
-      let l:text = substitute(l:text, '\v(\/)((\\\1|.){-})\1', "", "g")
-	endif
-
-	" remove strings
-	let l:text = substitute(l:text, '\v([''"`])((\\\1|.){-})\1', "", "g")
-
-	" both opening and closing
-    if l:text =~# '^[^{]\{-}}.\{-}{[^}]*$'
-      return '='
-	" opening
-    elseif l:text =~# '^.\{-}{[^}]*$'
-      return 'a1'
-	" closing
-    elseif l:text =~# '^[^{]\{-}}.*$'
-      return 's1'
+    if &filetype == 'javascript'
+        " remove regex
+        let l:text = substitute(l:text, '\v(\/)((\\\1|.){-})\1', "", "g")
     endif
 
-	return '='
+    " remove strings
+    let l:text = substitute(l:text, '\v([''"`])((\\\1|.){-})\1', "", "g")
+
+    " both opening and closing
+    if l:text =~# '^[^{]\{-}}.\{-}{[^}]*$'
+        return '='
+        " opening
+    elseif l:text =~# '^.\{-}{[^}]*$'
+        return 'a1'
+        " closing
+    elseif l:text =~# '^[^{]\{-}}.*$'
+        return 's1'
+    endif
+
+    return '='
 endfunction
 
 function! FoldText()
     let l:start = getline(v:foldstart)
     let l:end = getline(v:foldend)
     let l:indent = repeat(' ', indent(v:foldstart))
-	" remove comments
+    " remove comments
     let l:start = substitute(l:start, '\v\/\*.*\*\/', "", "g")
     let l:start = substitute(l:start, '\v\/\/.*$', "", "g")
-	" remove comments
-	let l:end = substitute(l:end, '\v\/\*.*\*\/', "", "g")
-	let l:end = substitute(l:end, '\v\/\/.*$', "", "g")
+    " remove comments
+    let l:end = substitute(l:end, '\v\/\*.*\*\/', "", "g")
+    let l:end = substitute(l:end, '\v\/\/.*$', "", "g")
     return l:indent . trim(l:start) . '…' . trim(l:end)
 endfunction 
 
@@ -120,33 +120,33 @@ function! FoldTextPy()
     let l:indent = repeat(' ', indent(v:foldstart))
     return l:indent . l:start . '⤸'
 endfunction 
- 
+
 set foldtext=FoldText()
 
 augroup All
     au!
 
-	" dont highlight searching matches during inserting
-	au InsertEnter * :setlocal nohlsearch
-	au InsertLeave * :setlocal hlsearch
-	au TermEnter * :setlocal nohlsearch
-	au TermLeave * :setlocal hlsearch
+    " dont highlight searching matches during inserting
+    au InsertEnter * :setlocal nohlsearch
+    au InsertLeave * :setlocal hlsearch
+    au TermEnter * :setlocal nohlsearch
+    au TermLeave * :setlocal hlsearch
 
     au TermOpen * setlocal signcolumn="no"
 
     " https://dmerej.info/blog/post/vim-cwd-and-neovim/
     au TabNewEntered * call OnTabEnter(expand("<amatch>"))
 
-	" clear message below statusline after CursorHold time
+    " clear message below statusline after CursorHold time
     au CursorHold * echo
 
-	au BufRead *.vert set syntax=glsl
-	au BufRead *.frag set syntax=glsl
+    au BufRead *.vert set syntax=glsl
+    au BufRead *.frag set syntax=glsl
 
-	au FileType c,cpp,objc,go,java,javascript,json,rust,css,glsl
-		\ setlocal foldtext=FoldText() foldmethod=expr foldexpr=FoldExprBraces()
+    au FileType c,cpp,objc,go,java,javascript,json,rust,css,glsl
+                \ setlocal foldtext=FoldText() foldmethod=expr foldexpr=FoldExprBraces()
 
-	au FileType python setlocal foldtext=FoldTextPy()
+    au FileType python setlocal foldtext=FoldTextPy()
 augroup END
 
 " }}}
@@ -272,24 +272,24 @@ inoremap <A-space> <C-x><C-o>
 " https://stackoverflow.com/a/4262209
 nnoremap <silent> * :let @/='\<<C-R>=expand("<cword>")<CR>\>'<CR>:set hls<CR>
 vnoremap <silent> * :<C-U>
-  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
-  \gvy:let @/=substitute(
-  \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR>
-  \gV:call setreg('"', old_reg, old_regtype)<CR>:set hls<CR>
+            \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+            \gvy:let @/=substitute(
+            \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR>
+            \gV:call setreg('"', old_reg, old_regtype)<CR>:set hls<CR>
 
 
 function! ToggleQuickFix()
-  if exists("g:qwindow")
-    cclose
-    unlet g:qwindow
-  else
-    try
-      bot copen 10
-      let g:qwindow = 1
-    catch 
-      echo "No Errors found!"
-    endtry
-  endif
+    if exists("g:qwindow")
+        cclose
+        unlet g:qwindow
+    else
+        try
+            bot copen 10
+            let g:qwindow = 1
+        catch 
+            echo "No Errors found!"
+        endtry
+    endif
 endfunction
 
 nnoremap <silent> <F12> :call ToggleQuickFix()<CR>
@@ -298,58 +298,58 @@ vnoremap <silent> <F12> <esc>:call ToggleQuickFix()<CR>
 
 " https://github.com/kutsan/dotfiles/blob/8b243cd065b90b3d05dbbc71392f1dba1282d777/.vim/autoload/kutsan/mappings.vim#L1-L52
 function! TerminalCreateIfNot() abort
-	if !has('nvim')
-		return v:false
-	endif
+    if !has('nvim')
+        return v:false
+    endif
 
-	if !exists('g:terminal')
-		let g:terminal = {
-			\ 'loaded': v:null,
-			\ 'termbufferid': v:null,
-			\ 'originbufferid': v:null,
-			\ 'jobid': v:null
-		\ }
-	endif
+    if !exists('g:terminal')
+        let g:terminal = {
+                    \ 'loaded': v:null,
+                    \ 'termbufferid': v:null,
+                    \ 'originbufferid': v:null,
+                    \ 'jobid': v:null
+                    \ }
+    endif
 
-	function! g:terminal.on_exit(jobid, data, event)
-		silent execute 'buffer' g:terminal.originbufferid
+    function! g:terminal.on_exit(jobid, data, event)
+        silent execute 'buffer' g:terminal.originbufferid
 
-		let g:terminal = {
-			\ 'loaded': v:null,
-			\ 'termbufferid': v:null,
-			\ 'originbufferid': v:null,
-			\ 'jobid': v:null
-		\ }
-	endfunction
+        let g:terminal = {
+                    \ 'loaded': v:null,
+                    \ 'termbufferid': v:null,
+                    \ 'originbufferid': v:null,
+                    \ 'jobid': v:null
+                    \ }
+    endfunction
 
-	" Create terminal and finish.
-	if !g:terminal.loaded
-		let g:terminal.originbufferid = bufnr('')
+    " Create terminal and finish.
+    if !g:terminal.loaded
+        let g:terminal.originbufferid = bufnr('')
 
-		enew
+        enew
         let g:terminal.jobid = termopen(&shell, g:terminal)
-		let g:terminal.loaded = v:true
-		let g:terminal.termbufferid = bufnr('')
+        let g:terminal.loaded = v:true
+        let g:terminal.termbufferid = bufnr('')
 
-		silent execute 'buffer' g:terminal.originbufferid
+        silent execute 'buffer' g:terminal.originbufferid
 
-		return v:true
-	endif
+        return v:true
+    endif
 endfunction
 
 function! TerminalToggle() abort
     call TerminalCreateIfNot()
 
-	" Go back to origin buffer if current buffer is terminal.
-	if g:terminal.termbufferid ==# bufnr('')
-		silent execute 'buffer' g:terminal.originbufferid
+    " Go back to origin buffer if current buffer is terminal.
+    if g:terminal.termbufferid ==# bufnr('')
+        silent execute 'buffer' g:terminal.originbufferid
 
-	" Launch terminal buffer and start insert mode.
-	else
-		let g:terminal.originbufferid = bufnr('')
-		silent execute 'buffer' g:terminal.termbufferid
-		startinsert
-	endif
+        " Launch terminal buffer and start insert mode.
+    else
+        let g:terminal.originbufferid = bufnr('')
+        silent execute 'buffer' g:terminal.termbufferid
+        startinsert
+    endif
 endfunction
 
 " https://gist.github.com/ram535/b1b7af6cd7769ec0481eb2eed549ea23
@@ -365,10 +365,10 @@ vnoremap <silent> <A-`> <esc>:call TerminalToggle()<cr>
 tnoremap <silent> <A-`> <C-\><C-n>:call TerminalToggle()<cr>
 
 augroup FORMATER
-	au!
+    au!
 
-	au FileType json,css,html,xml
-		\ nnoremap <buffer> gq :PrettierAsync<cr>
+    au FileType json,css,html,xml
+                \ nnoremap <buffer> gq :PrettierAsync<cr>
 augroup end
 
 function ToggleFolding()
@@ -454,9 +454,9 @@ call plug#end()
 " vim-commentary {{{
 
 augroup COMMENTARY
-	au!
-	au FileType c,cpp,objc,go,java,javascript,json,rust,css,glsl
-				\ setlocal	commentstring=//%s
+    au!
+    au FileType c,cpp,objc,go,java,javascript,json,rust,css,glsl
+                \ setlocal	commentstring=//%s
 augroup end
 
 " }}}
@@ -469,13 +469,13 @@ command! FzfLines call <SID>FzfLines()
 
 function! s:FzfQuickFix() abort
     let items = map(getqflist(), {idx, item ->
-      \ string(idx).' '.bufname(item.bufnr).' '.item.text})
+                \ string(idx).' '.bufname(item.bufnr).' '.item.text})
     call s:FzfPick(items, 'cc', '--with-nth 2.. --reverse')
 endfunction
 
 function! s:FzfLocList() abort
     let items = map(getloclist(0), {idx, item ->
-      \ string(idx).' '.bufname(item.bufnr).' '.item.text})
+                \ string(idx).' '.bufname(item.bufnr).' '.item.text})
     call s:FzfPick(items, 'll', '--with-nth 2.. --reverse')
 endfunction
 
@@ -500,16 +500,16 @@ function! s:FzfJump(jump, item) abort
 endfunction
 
 command! -bang BTags
-  \ call fzf#vim#buffer_tags('', {
-  \     'down': '40%',
-  \     'options': '--with-nth 1 
-  \                 --reverse 
-  \                 --prompt "> " 
-  \                 --preview-window="80%" 
-  \                 --preview "
-  \                     tail -n +\$(echo {3} | tr -d \";\\\"\") {2} |
-  \                     head -n 16"'
-  \ })
+            \ call fzf#vim#buffer_tags('', {
+            \     'down': '40%',
+            \     'options': '--with-nth 1 
+            \                 --reverse 
+            \                 --prompt "> " 
+            \                 --preview-window="80%" 
+            \                 --preview "
+            \                     tail -n +\$(echo {3} | tr -d \";\\\"\") {2} |
+            \                     head -n 16"'
+            \ })
 
 " fuzzy search files in cwd
 nnoremap <silent> ` :FZF<cr>
@@ -519,7 +519,7 @@ nnoremap <silent> / :FzfLines<cr>
 nnoremap <silent> <tab> :BTags<cr>
 
 augroup FZF
-au!
+    au!
     " <esc> to close fzf window
     au TermOpen term://*FZF tnoremap <silent> <buffer><nowait> <esc> <c-c>
 augroup end
@@ -528,120 +528,120 @@ augroup end
 
 " tabular {{{
 
-    vnoremap <A-a> :Tabularize /
+vnoremap <A-a> :Tabularize /
 
 " }}}
 
 " vim-colors-blueprint {{{
 
-  " set rtp+=~/.config/nvim/plugged/vim-colors-blueprint
-  set termguicolors
-  set background=dark
-  colorscheme blueprint
+" set rtp+=~/.config/nvim/plugged/vim-colors-blueprint
+set termguicolors
+set background=dark
+colorscheme blueprint
 
 " }}}
 
 " vim-buftabline {{{
 
-    let g:buftabline_indicators = 1
-    let g:buftabline_numbers = 2
+let g:buftabline_indicators = 1
+let g:buftabline_numbers = 2
 
-    nmap <A-1> <Plug>BufTabLine.Go(1)
-    nmap <A-2> <Plug>BufTabLine.Go(2)
-    nmap <A-3> <Plug>BufTabLine.Go(3)
-    nmap <A-4> <Plug>BufTabLine.Go(4)
-    nmap <A-5> <Plug>BufTabLine.Go(5)
-    nmap <A-6> <Plug>BufTabLine.Go(6)
-    nmap <A-7> <Plug>BufTabLine.Go(7)
-    nmap <A-8> <Plug>BufTabLine.Go(8)
-    nmap <A-9> <Plug>BufTabLine.Go(9)
-    nmap <A-0> <Plug>BufTabLine.Go(10)
-    nmap <silent> <A-q> :bp<bar>sp<bar>bn<bar>bd<cr>
-    nmap <silent> <A-n> :bn<cr>
-    nmap <silent> <A-p> :bp<cr>
+nmap <A-1> <Plug>BufTabLine.Go(1)
+nmap <A-2> <Plug>BufTabLine.Go(2)
+nmap <A-3> <Plug>BufTabLine.Go(3)
+nmap <A-4> <Plug>BufTabLine.Go(4)
+nmap <A-5> <Plug>BufTabLine.Go(5)
+nmap <A-6> <Plug>BufTabLine.Go(6)
+nmap <A-7> <Plug>BufTabLine.Go(7)
+nmap <A-8> <Plug>BufTabLine.Go(8)
+nmap <A-9> <Plug>BufTabLine.Go(9)
+nmap <A-0> <Plug>BufTabLine.Go(10)
+nmap <silent> <A-q> :bp<bar>sp<bar>bn<bar>bd<cr>
+nmap <silent> <A-n> :bn<cr>
+nmap <silent> <A-p> :bp<cr>
 
-    imap <A-1> <esc><Plug>BufTabLine.Go(1)
-    imap <A-2> <esc><Plug>BufTabLine.Go(2)
-    imap <A-3> <esc><Plug>BufTabLine.Go(3)
-    imap <A-4> <esc><Plug>BufTabLine.Go(4)
-    imap <A-5> <esc><Plug>BufTabLine.Go(5)
-    imap <A-6> <esc><Plug>BufTabLine.Go(6)
-    imap <A-7> <esc><Plug>BufTabLine.Go(7)
-    imap <A-8> <esc><Plug>BufTabLine.Go(8)
-    imap <A-9> <esc><Plug>BufTabLine.Go(9)
-    imap <A-0> <esc><Plug>BufTabLine.Go(10)
-    imap <silent> <A-q> <esc>:bp<bar>sp<bar>bn<bar>bd<cr>
-    imap <silent> <A-n> <esc>:bn<cr>
-    imap <silent> <A-p> <esc>:bp<cr>
+imap <A-1> <esc><Plug>BufTabLine.Go(1)
+imap <A-2> <esc><Plug>BufTabLine.Go(2)
+imap <A-3> <esc><Plug>BufTabLine.Go(3)
+imap <A-4> <esc><Plug>BufTabLine.Go(4)
+imap <A-5> <esc><Plug>BufTabLine.Go(5)
+imap <A-6> <esc><Plug>BufTabLine.Go(6)
+imap <A-7> <esc><Plug>BufTabLine.Go(7)
+imap <A-8> <esc><Plug>BufTabLine.Go(8)
+imap <A-9> <esc><Plug>BufTabLine.Go(9)
+imap <A-0> <esc><Plug>BufTabLine.Go(10)
+imap <silent> <A-q> <esc>:bp<bar>sp<bar>bn<bar>bd<cr>
+imap <silent> <A-n> <esc>:bn<cr>
+imap <silent> <A-p> <esc>:bp<cr>
 
-    vmap <A-1> <esc><Plug>BufTabLine.Go(1)
-    vmap <A-2> <esc><Plug>BufTabLine.Go(2)
-    vmap <A-3> <esc><Plug>BufTabLine.Go(3)
-    vmap <A-4> <esc><Plug>BufTabLine.Go(4)
-    vmap <A-5> <esc><Plug>BufTabLine.Go(5)
-    vmap <A-6> <esc><Plug>BufTabLine.Go(6)
-    vmap <A-7> <esc><Plug>BufTabLine.Go(7)
-    vmap <A-8> <esc><Plug>BufTabLine.Go(8)
-    vmap <A-9> <esc><Plug>BufTabLine.Go(9)
-    vmap <A-0> <esc><Plug>BufTabLine.Go(10)
-    vmap <silent> <A-q> <esc>:bp<bar>sp<bar>bn<bar>bd<cr>
-    vmap <silent> <A-n> <esc>:bn<cr>
-    vmap <silent> <A-p> <esc>:bp<cr>
+vmap <A-1> <esc><Plug>BufTabLine.Go(1)
+vmap <A-2> <esc><Plug>BufTabLine.Go(2)
+vmap <A-3> <esc><Plug>BufTabLine.Go(3)
+vmap <A-4> <esc><Plug>BufTabLine.Go(4)
+vmap <A-5> <esc><Plug>BufTabLine.Go(5)
+vmap <A-6> <esc><Plug>BufTabLine.Go(6)
+vmap <A-7> <esc><Plug>BufTabLine.Go(7)
+vmap <A-8> <esc><Plug>BufTabLine.Go(8)
+vmap <A-9> <esc><Plug>BufTabLine.Go(9)
+vmap <A-0> <esc><Plug>BufTabLine.Go(10)
+vmap <silent> <A-q> <esc>:bp<bar>sp<bar>bn<bar>bd<cr>
+vmap <silent> <A-n> <esc>:bn<cr>
+vmap <silent> <A-p> <esc>:bp<cr>
 
-    tmap <A-1> <C-\><C-n><Plug>BufTabLine.Go(1)
-    tmap <A-2> <C-\><C-n><Plug>BufTabLine.Go(2)
-    tmap <A-3> <C-\><C-n><Plug>BufTabLine.Go(3)
-    tmap <A-4> <C-\><C-n><Plug>BufTabLine.Go(4)
-    tmap <A-5> <C-\><C-n><Plug>BufTabLine.Go(5)
-    tmap <A-6> <C-\><C-n><Plug>BufTabLine.Go(6)
-    tmap <A-7> <C-\><C-n><Plug>BufTabLine.Go(7)
-    tmap <A-8> <C-\><C-n><Plug>BufTabLine.Go(8)
-    tmap <A-9> <C-\><C-n><Plug>BufTabLine.Go(9)
-    tmap <A-0> <C-\><C-n><Plug>BufTabLine.Go(10)
-    tmap <silent> <A-q> <C-\><C-n>:bd<cr>
-    tmap <silent> <A-n> <C-\><C-n>:bn<cr>
-    tmap <silent> <A-p> <C-\><C-n>:bp<cr>
+tmap <A-1> <C-\><C-n><Plug>BufTabLine.Go(1)
+tmap <A-2> <C-\><C-n><Plug>BufTabLine.Go(2)
+tmap <A-3> <C-\><C-n><Plug>BufTabLine.Go(3)
+tmap <A-4> <C-\><C-n><Plug>BufTabLine.Go(4)
+tmap <A-5> <C-\><C-n><Plug>BufTabLine.Go(5)
+tmap <A-6> <C-\><C-n><Plug>BufTabLine.Go(6)
+tmap <A-7> <C-\><C-n><Plug>BufTabLine.Go(7)
+tmap <A-8> <C-\><C-n><Plug>BufTabLine.Go(8)
+tmap <A-9> <C-\><C-n><Plug>BufTabLine.Go(9)
+tmap <A-0> <C-\><C-n><Plug>BufTabLine.Go(10)
+tmap <silent> <A-q> <C-\><C-n>:bd<cr>
+tmap <silent> <A-n> <C-\><C-n>:bn<cr>
+tmap <silent> <A-p> <C-\><C-n>:bp<cr>
 
-    hi! link BufTabLineCurrent   TablineSel
-    hi! link BufTabLineActive    Tabline
-    hi! link BufTabLineHidden    Tabline
-    hi! link BufTabLineFill      TablineFill
+hi! link BufTabLineCurrent   TablineSel
+hi! link BufTabLineActive    Tabline
+hi! link BufTabLineHidden    Tabline
+hi! link BufTabLineFill      TablineFill
 
 " }}}
 
 " vim-markdown {{{
 
-    let g:vim_markdown_conceal = 2
-    let g:vim_markdown_folding_disabled = 1
-    let g:vim_markdown_no_default_key_mappings = 1
+let g:vim_markdown_conceal = 2
+let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_no_default_key_mappings = 1
 
-    hi! link mkdString        Normal
-    hi! link mkdCode          Keyword
-    hi! link mkdCodeDelimiter Delimiter
-    hi! link mkdCodeStart     Delimiter
-    hi! link mkdCodeEnd       Delimiter
-    hi! link mkdFootnote      Normal
-    hi! link mkdBlockquote    Normal
-    hi! link mkdListItem      Normal
-    hi! link mkdRule          Normal
-    hi! link mkdLineBreak     Delimiter
-    hi! link mkdFootnotes     Normal
-    hi! link mkdLink          Keyword
-    hi! link mkdURL           Comment
-    hi! link mkdInlineURL     Comment
-    hi! link mkdID            Normal
-    hi! link mkdLinkDef       Normal
-    hi! link mkdLinkDefTarget Normal
-    hi! link mkdLinkTitle     Keyword
-    hi! link mkdDelimiter     Delimiter
-    hi! link mkdHeading       Delimiter
-    hi! link htmlH1           Keyword
+hi! link mkdString        Normal
+hi! link mkdCode          Keyword
+hi! link mkdCodeDelimiter Delimiter
+hi! link mkdCodeStart     Delimiter
+hi! link mkdCodeEnd       Delimiter
+hi! link mkdFootnote      Normal
+hi! link mkdBlockquote    Normal
+hi! link mkdListItem      Normal
+hi! link mkdRule          Normal
+hi! link mkdLineBreak     Delimiter
+hi! link mkdFootnotes     Normal
+hi! link mkdLink          Keyword
+hi! link mkdURL           Comment
+hi! link mkdInlineURL     Comment
+hi! link mkdID            Normal
+hi! link mkdLinkDef       Normal
+hi! link mkdLinkDefTarget Normal
+hi! link mkdLinkTitle     Keyword
+hi! link mkdDelimiter     Delimiter
+hi! link mkdHeading       Delimiter
+hi! link htmlH1           Keyword
 
 " }}}
 
 " python-syntax {{{
 
-    let g:python_highlight_operators = 1
+let g:python_highlight_operators = 1
 
 " }}}
 
@@ -685,11 +685,14 @@ vnoremap <silent> <A-b> <esc>:AsyncStop!<cr>:AsyncRun! make -j4<cr>
 
 " vim-lsp {{{
 
+" let g:lsp_log_file = expand('/tmp/vim-lsp.log')
+let g:lsp_text_document_did_save_delay = 0
+let g:lsp_semantic_enabled = 0
 let g:lsp_auto_enable = 0
 let g:lsp_signs_enabled = 0
 let g:lsp_diagnostics_echo_cursor = 1
 let g:lsp_highlight_references_enabled = 0
-" let g:lsp_text_edit_enabled = 1
+let g:lsp_text_edit_enabled = 0
 let g:lsp_signature_help_enabled = 0
 
 hi link LspErrorHighlight Underlined
@@ -711,46 +714,46 @@ augroup VIM_LSP
     au!
     if executable('clangd')
         au User lsp_setup call lsp#register_server({
-			\ 'name': 'clangd',
-			\ 'cmd': {server_info->['clangd', '-background-index', '-limit-results=20']},
-			\ 'whitelist': ['c', 'cpp', 'objc'],
-			\ })
-		au FileType c,cpp,objc
-			\ if !&diff |
-			\	call lsp#enable() |
-			\ endif
-		au FileType c,cpp,objc
-			\ if !&diff |
-			\	noremap <buffer> <A-e> :LspNextError<cr> |
-			\ endif
+                    \ 'name': 'clangd',
+                    \ 'cmd': {server_info->['clangd', '-background-index', '-limit-results=20']},
+                    \ 'whitelist': ['c', 'cpp', 'objc'],
+                    \ })
         au FileType c,cpp,objc
-			\ if !&diff |
-			\	noremap <buffer> <A-E> :LspPreviousError<cr> |
-			\ endif
+                    \ if !&diff |
+                    \	call lsp#enable() |
+                    \ endif
         au FileType c,cpp,objc
-			\ if !&diff |
-			\	nnoremap <buffer> <A-i> :LspHover<cr> |
-			\ endif
+                    \ if !&diff |
+                    \	noremap <buffer> <A-e> :LspNextError<cr> |
+                    \ endif
+        au FileType c,cpp,objc
+                    \ if !&diff |
+                    \	noremap <buffer> <A-E> :LspPreviousError<cr> |
+                    \ endif
+        au FileType c,cpp,objc
+                    \ if !&diff |
+                    \	nnoremap <buffer> <A-i> :LspHover<cr> |
+                    \ endif
         au FileType c,cpp,objc 
-			\ if !&diff |
-			\	inoremap <buffer> <A-i> <esc>:LspSignatureHelp<cr> |
-			\ endif
+                    \ if !&diff |
+                    \	inoremap <buffer> <A-i> <esc>:LspSignatureHelp<cr> |
+                    \ endif
         au FileType c,cpp,objc
-			\ if !&diff |
-			\	nnoremap <buffer> <A-r> :LspRename<cr> |
-			\ endif
+                    \ if !&diff |
+                    \	nnoremap <buffer> <A-r> :LspRename<cr> |
+                    \ endif
         au FileType c,cpp,objc
-			\ if !&diff |
-			\	nnoremap <buffer> <A-t> :let g:lsp_diagnostics_enabled = 1<cr>:LspDocumentDiagnostics<cr> |
-			\ endif
+                    \ if !&diff |
+                    \	nnoremap <buffer> <A-t> :let g:lsp_diagnostics_enabled = 1<cr>:LspDocumentDiagnostics<cr> |
+                    \ endif
         au FileType c,cpp,objc
-			\ if !&diff |
-			\	nnoremap <buffer> <A-T> :let g:lsp_diagnostics_enabled = 0<cr> |
-			\ endif
+                    \ if !&diff |
+                    \	nnoremap <buffer> <A-T> :let g:lsp_diagnostics_enabled = 0<cr> |
+                    \ endif
         au FileType c,cpp,objc
-			\ if !&diff |
-			\	setlocal omnifunc=lsp#complete |
-			\ endif
+                    \ if !&diff |
+                    \	setlocal omnifunc=lsp#complete |
+                    \ endif
     endif
 augroup END
 
@@ -765,10 +768,10 @@ nnoremap _ :CaseMasterConvertToSnake<cr>
 " smartinput {{{
 
 call smartinput#define_rule({
-	\ 'at': '(\%#)',
-	\ 'char': '<Enter>',
-	\ 'input': '<Enter><Enter><BS><Up><Esc>"_S'
-	\ })
+            \ 'at': '(\%#)',
+            \ 'char': '<Enter>',
+            \ 'input': '<Enter><Enter><BS><Up><Esc>"_S'
+            \ })
 
 " }}}
 
@@ -778,12 +781,12 @@ map vv <Plug>(expand_region_expand)
 map vV <Plug>(expand_region_shrink)
 
 let g:expand_region_text_objects = {
-      \ 'i"'  :0,
-      \ 'i''' :0,
-      \ 'i]'  :1,
-      \ 'i)'  :1,
-      \ 'i}'  :1,
-      \ }
+            \ 'i"'  :0,
+            \ 'i''' :0,
+            \ 'i]'  :1,
+            \ 'i)'  :1,
+            \ 'i}'  :1,
+            \ }
 
 " }}}
 
