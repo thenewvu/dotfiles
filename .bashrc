@@ -1,5 +1,7 @@
 # vim:fileencoding=utf-8:foldmethod=marker
 
+shopt -s extglob
+
 # Key mappings {{{
 
 # enable vi-liked key bindings
@@ -42,8 +44,8 @@ PROMPT_COMMAND=prompt
 
 # Environment variables {{{
 
-export VISUAL="nvim"
-export EDITOR="nvim"
+export VISUAL="vi"
+export EDITOR="vi"
 
 export PATH="$HOME/.bin/:$PATH"
 
@@ -99,7 +101,7 @@ export CPPFLAGS="-I/usr/local/opt/node@10/include $CPPFLAGS"
 export FFF_OPENER=~/.bin/opener
 export FFF_TRASH=~/.Trash
 
-export MAKEFLAGS='-j8'
+export MAKEFLAGS='-j8 --warn-undefined-variables --no-builtin-rules'
 
 # }}}
 
