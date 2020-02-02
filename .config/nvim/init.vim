@@ -140,14 +140,34 @@ augroup All
     " clear message below statusline after CursorHold time
     au CursorHold * echo
 
-    au BufRead *.vert set syntax=glsl
-    au BufRead *.frag set syntax=glsl
-
     au FileType c,cpp,objc,go,java,javascript,json,rust,css,glsl
                 \ setlocal foldtext=FoldText() foldmethod=expr foldexpr=FoldExprBraces()
 
     au FileType python setlocal foldtext=FoldTextPy()
 augroup END
+
+function! FileRename()
+    let old_name = expand('%')
+    let new_name = input('New file name: ', expand('%'), 'file')
+    if new_name != '' && new_name != old_name
+        exec ':saveas ' . new_name
+        exec ':silent !rm ' . old_name
+        redraw!
+    endif
+endfunction
+
+command! FileRename call FileRename()
+
+function! FileDelete()
+    let filepath = expand('%')
+    let answer = input('Are you sure to delete ' . filepath . '? ')
+    if answer == 'y'
+        exec ':bd'
+        exec ':silent !rm ' . filepath
+    endif
+endfunction
+
+command! FileDelete call FileDelete()
 
 " }}}
 
@@ -421,9 +441,6 @@ Plug 'tikhomirov/vim-glsl', { 'for': 'glsl' }
 
 Plug 'mhinz/vim-hugefile'
 
-" provide commands on file: Delete, Rename, ...
-Plug 'tpope/vim-eunuch'
-
 Plug 'amadeus/vim-convert-color-to', { 'on': 'ConvertColorTo' }
 
 Plug 'skywind3000/asyncrun.vim', { 'on': ['AsyncRun', 'AsyncStop'] }
@@ -677,9 +694,9 @@ tnoremap <A-s> <C-\><C-n>:AsyncRun! rg --vimgrep
 nnoremap <A-f> :AsyncRun! rg --vimgrep <cword><cr>
 vnoremap <A-f> y<esc>:AsyncRun! rg --vimgrep --fixed-strings "<c-r>""<cr>
 
-nnoremap <silent> <A-b>      :AsyncStop!<cr>:AsyncRun! make -j4<cr>
-inoremap <silent> <A-b> <esc>:AsyncStop!<cr>:AsyncRun! make -j4<cr>
-vnoremap <silent> <A-b> <esc>:AsyncStop!<cr>:AsyncRun! make -j4<cr>
+nnoremap <silent> <A-b>      :AsyncStop!<cr>:AsyncRun! make<cr>
+inoremap <silent> <A-b> <esc>:AsyncStop!<cr>:AsyncRun! make<cr>
+vnoremap <silent> <A-b> <esc>:AsyncStop!<cr>:AsyncRun! make<cr>
 
 " }}}
 
@@ -700,15 +717,10 @@ hi link LspWarningHighlight Underlined
 hi link LspInformationHighlight Underlined
 hi link LspHintHighlight Underlined
 
-hi link LspError Error
-hi link LspWarning WarningMsg
-hi link LspInformation Comment
-hi link LspHint Comment
-
 hi link LspErrorText Error
 hi link LspWarningText WarningMsg
-hi link LspInformationText Comment
-hi link LspHintText Comment
+hi link LspInformationText Search
+hi link LspHintText Search
 
 augroup VIM_LSP
     au!
@@ -814,6 +826,16 @@ augroup IndentLine
     au!
     au FileType c,cpp,objc,javascript,java :IndentLinesEnable
 augroup end
+
+" }}}
+
+" vim-glsl {{{
+
+augroup GLSL
+    au!
+    au BufRead *.vert set syntax=glsl
+    au BufRead *.frag set syntax=glsl
+augroup END
 
 " }}}
 

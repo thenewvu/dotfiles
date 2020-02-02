@@ -2,7 +2,7 @@ if exists("b:current_syntax")
 	finish
 endif
 
-syn keyword Keyword return async await function class case default break continue
+syn keyword Keyword return async await function class case default break continue throw
 syn keyword StorageClass const var let new
 syn keyword PreProc export import from
 syn keyword Conditional if else switch
