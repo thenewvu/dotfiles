@@ -44,8 +44,8 @@ PROMPT_COMMAND=prompt
 
 # Environment variables {{{
 
-export VISUAL="vi"
-export EDITOR="vi"
+export VISUAL="nvim"
+export EDITOR="nvim"
 
 export PATH="$HOME/.bin/:$PATH"
 
@@ -89,6 +89,9 @@ export CCFLAGS="$CCFLAGS -isysroot /Applications/Xcode.app/Contents/Developer/Pl
 export CXXFLAGS="$CXXFLAGS -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk"
 export OBJCFLAGS="$OBJCFLAGS -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk"
 export LDFLAGS="$LDFLAGS -L/usr/local/opt/llvm/lib -Wl,-rpath,/usr/local/opt/llvm/lib"
+
+# so cmake can find qt
+export CMAKE_PREFIX_PATH=/usr/local/opt/qt
 
 # homebrew gnu-sed need below
 export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
@@ -149,10 +152,10 @@ gl() {
         fzf --no-sort --reverse --tiebreak=index --no-multi --ansi         \
             --preview="$fzf__git_show" --preview-window=wrap:50%           \
             --bind "enter:execute:$fzf__git_diff"                          \
-            --bind "ctrl-y:execute:$fzf__git_hash | pbcopy"                \
-            --bind "ctrl-g:execute:$fzf__git_checkout"                     \
-            --bind "ctrl-j:preview-down"                                   \
-            --bind "ctrl-k:preview-up"
+            --bind "alt-y:execute:$fzf__git_hash | pbcopy"                \
+            --bind "alt-g:execute:$fzf__git_checkout"                     \
+            --bind "alt-j:preview-down"                                   \
+            --bind "alt-k:preview-up"
 }
 
 alias gs="git status --short"
@@ -167,7 +170,7 @@ alias gcm="git commit -m"
 alias gcp="git push"
 alias gp="git pull"
 
-alias ctags="`brew --prefix`/bin/ctags"
+alias ctags="/usr/local/opt/ctags/bin/ctags"
 
 # }}}
 
