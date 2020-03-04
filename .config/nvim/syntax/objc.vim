@@ -9,8 +9,6 @@ syn match Keyword /\v\@[a-z]+>/
 
 syn keyword Keyword super self
 
-syn keyword Type BOOL id
-
 syn match String /\v(#import\s+)@<=\<.+\>/
 
 " [[self openGLContext] flushBuffer];

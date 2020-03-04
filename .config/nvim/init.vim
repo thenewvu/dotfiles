@@ -55,7 +55,6 @@ set cinoptions=t0,j1,J1,m1,(s,{0,L0,g0
 set lazyredraw
 set synmaxcol=320
 set diffopt=filler,indent-heuristic,algorithm:histogram,iwhite,context:999
-set list listchars=tab:\│\ ,trail:␣
 set shortmess+=c
 set splitbelow splitright
 
@@ -63,7 +62,7 @@ set splitbelow splitright
 " http://vim.wikia.com/wiki/Easy_edit_of_files_in_the_same_directory
 cabbr <expr> %% fnamemodify(resolve(expand('%:p')), ':h')
 
-function! OnTabEnter(path)
+function! TabCD(path)
     if isdirectory(a:path)
         let l:dirname = a:path
     else
@@ -72,56 +71,8 @@ function! OnTabEnter(path)
     execute "tcd ". l:dirname
 endfunction
 
-" SRC: https://github.com/ryankuczka/vim-pyfold/blob/7a6627ef043d417a806dec90282a948292245840/ftplugin/python/pyfold.vim
-function! FoldExprBraces()
-    let l:text = getline(v:lnum)
-
-    " remove comments
-    let l:text = substitute(l:text, '\v\/\*.*\*\/', "", "g")
-    let l:text = substitute(l:text, '\v\/\/.*$', "", "g")
-
-    if &filetype == 'javascript'
-        " remove regex
-        let l:text = substitute(l:text, '\v(\/)((\\\1|.){-})\1', "", "g")
-    endif
-
-    " remove strings
-    let l:text = substitute(l:text, '\v([''"`])((\\\1|.){-})\1', "", "g")
-
-    " both opening and closing
-    if l:text =~# '^[^{]\{-}}.\{-}{[^}]*$'
-        return '='
-        " opening
-    elseif l:text =~# '^.\{-}{[^}]*$'
-        return 'a1'
-        " closing
-    elseif l:text =~# '^[^{]\{-}}.*$'
-        return 's1'
-    endif
-
-    return '='
-endfunction
-
-function! FoldText()
-    let l:start = getline(v:foldstart)
-    let l:end = getline(v:foldend)
-    let l:indent = repeat(' ', indent(v:foldstart))
-    " remove comments
-    let l:start = substitute(l:start, '\v\/\*.*\*\/', "", "g")
-    let l:start = substitute(l:start, '\v\/\/.*$', "", "g")
-    " remove comments
-    let l:end = substitute(l:end, '\v\/\*.*\*\/', "", "g")
-    let l:end = substitute(l:end, '\v\/\/.*$', "", "g")
-    return l:indent . trim(l:start) . '…' . trim(l:end)
-endfunction 
-
-function! FoldTextPy()
-    let l:start = trim(getline(v:foldstart))
-    let l:indent = repeat(' ', indent(v:foldstart))
-    return l:indent . l:start . '⤸'
-endfunction 
-
-set foldtext=FoldText()
+set foldtext=repeat('\ ',indent(v:foldstart)).'…'
+set foldmethod=indent
 
 augroup All
     au!
@@ -135,20 +86,20 @@ augroup All
     au TermOpen * setlocal signcolumn="no"
 
     " https://dmerej.info/blog/post/vim-cwd-and-neovim/
-    au TabNewEntered * call OnTabEnter(expand("<amatch>"))
+    au TabNewEntered * call TabCD(expand("<amatch>"))
 
     " clear message below statusline after CursorHold time
     au CursorHold * echo
 
-    au FileType c,cpp,objc,go,java,javascript,json,rust,css,glsl
-                \ setlocal foldtext=FoldText() foldmethod=expr foldexpr=FoldExprBraces()
+    " au FileType c,cpp,objc,go,java,javascript,json,rust,css,glsl
+    "             \ setlocal foldtext=FoldText() foldmethod=expr foldexpr=FoldExprBraces()
 
-    au FileType python setlocal foldtext=FoldTextPy()
+    " au FileType python setlocal foldtext=FoldTextPy()
 augroup END
 
 function! FileRename()
     let old_name = expand('%')
-    let new_name = input('New file name: ', expand('%'), 'file')
+    let new_name = input('FileRename: ', expand('%'), 'file')
     if new_name != '' && new_name != old_name
         exec ':saveas ' . new_name
         exec ':silent !rm ' . old_name
@@ -193,8 +144,8 @@ vnoremap E $
 " clear search hl
 nnoremap <silent> <esc><esc> :noh<cr>
 " toggle folding
-nnoremap <space> zMzOzz
-nnoremap z zx
+nnoremap <space> zMzvzz
+" nnoremap z zx
 " vertical center movement
 nnoremap G Gzz
 vnoremap G Gzz
@@ -259,14 +210,18 @@ vnoremap > >gv
 " copy/paste to/from system clipboard
 " https://sheerun.net/2014/03/21/how-to-boost-your-vim-productivity/
 vnoremap gy "+y
-nnoremap gp "+p
-nnoremap gP "+P
+nnoremap gp "+p`[v`]=`]
+nnoremap gP "+P`[v`]=`]
 vnoremap gp "+p
 vnoremap gP "+P
 " multiple lines multiple times with simple ppppp
 " https://sheerun.net/2014/03/21/how-to-boost-your-vim-productivity/
+" `[v`] to select pasted text
+" = to reindent selecting
+" `] to put cursor at the end of pasted text
 vnoremap <silent> y y`]
-nnoremap <silent> p p`]
+nnoremap <silent> p p`[v`]=`]
+nnoremap <silent> P P`[v`]=
 " paste in visual mode without reyanking
 " https://stackoverflow.com/a/5093286
 vnoremap p pgvy`]
@@ -277,15 +232,12 @@ nnoremap o o<esc>
 nnoremap O O<esc>
 " multiple cursors
 " http://www.kevinli.co/posts/2017-01-19-multiple-cursors-in-500-bytes-of-vimscript/
-nnoremap q *``cgn
 let g:mc = "y/\\V\<C-r>=escape(@\", '/')\<CR>\<CR>"
+nnoremap q *``cgn
 vnoremap <expr> q g:mc . "``cgn"
 " reselect last selection
-nnoremap <A-v> gv
-inoremap <A-v> <esc>gv
-nnoremap v9 vi]
-nnoremap v0 vi)
-nnoremap v8 vi}
+nnoremap v. gv
+" trigger completion
 inoremap <A-space> <C-x><C-o>
 
 " search without jumping
@@ -347,6 +299,7 @@ function! TerminalCreateIfNot() abort
         let g:terminal.originbufferid = bufnr('')
 
         enew
+        setlocal nobuflisted
         let g:terminal.jobid = termopen(&shell, g:terminal)
         let g:terminal.loaded = v:true
         let g:terminal.termbufferid = bufnr('')
@@ -448,7 +401,8 @@ Plug 'skywind3000/asyncrun.vim', { 'on': ['AsyncRun', 'AsyncStop'] }
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
 
-Plug 'ap/vim-buftabline' 
+" Plug 'ap/vim-buftabline' 
+Plug 'pacha/vem-tabline' 
 
 Plug 'endaaman/vim-case-master', { 'on': 'CaseMasterConvertToSnake' }
 
@@ -558,71 +512,152 @@ colorscheme blueprint
 
 " }}}
 
-" vim-buftabline {{{
+" " vim-buftabline {{{
 
-let g:buftabline_indicators = 1
-let g:buftabline_numbers = 2
+" let g:buftabline_indicators = 1
+" let g:buftabline_numbers = 2
 
-nmap <A-1> <Plug>BufTabLine.Go(1)
-nmap <A-2> <Plug>BufTabLine.Go(2)
-nmap <A-3> <Plug>BufTabLine.Go(3)
-nmap <A-4> <Plug>BufTabLine.Go(4)
-nmap <A-5> <Plug>BufTabLine.Go(5)
-nmap <A-6> <Plug>BufTabLine.Go(6)
-nmap <A-7> <Plug>BufTabLine.Go(7)
-nmap <A-8> <Plug>BufTabLine.Go(8)
-nmap <A-9> <Plug>BufTabLine.Go(9)
-nmap <A-0> <Plug>BufTabLine.Go(10)
-nmap <silent> <A-q> :bp<bar>sp<bar>bn<bar>bd<cr>
-nmap <silent> <A-n> :bn<cr>
-nmap <silent> <A-p> :bp<cr>
+" nmap <A-1> <Plug>BufTabLine.Go(1)
+" nmap <A-2> <Plug>BufTabLine.Go(2)
+" nmap <A-3> <Plug>BufTabLine.Go(3)
+" nmap <A-4> <Plug>BufTabLine.Go(4)
+" nmap <A-5> <Plug>BufTabLine.Go(5)
+" nmap <A-6> <Plug>BufTabLine.Go(6)
+" nmap <A-7> <Plug>BufTabLine.Go(7)
+" nmap <A-8> <Plug>BufTabLine.Go(8)
+" nmap <A-9> <Plug>BufTabLine.Go(9)
+" nmap <A-0> <Plug>BufTabLine.Go(10)
+" nmap <silent> <A-q> :bp<bar>sp<bar>bn<bar>bd<cr>
+" nmap <silent> <A-n> :bn<cr>
+" nmap <silent> <A-p> :bp<cr>
+" nmap <silent> <A-tab> :b#<cr>
 
-imap <A-1> <esc><Plug>BufTabLine.Go(1)
-imap <A-2> <esc><Plug>BufTabLine.Go(2)
-imap <A-3> <esc><Plug>BufTabLine.Go(3)
-imap <A-4> <esc><Plug>BufTabLine.Go(4)
-imap <A-5> <esc><Plug>BufTabLine.Go(5)
-imap <A-6> <esc><Plug>BufTabLine.Go(6)
-imap <A-7> <esc><Plug>BufTabLine.Go(7)
-imap <A-8> <esc><Plug>BufTabLine.Go(8)
-imap <A-9> <esc><Plug>BufTabLine.Go(9)
-imap <A-0> <esc><Plug>BufTabLine.Go(10)
-imap <silent> <A-q> <esc>:bp<bar>sp<bar>bn<bar>bd<cr>
-imap <silent> <A-n> <esc>:bn<cr>
-imap <silent> <A-p> <esc>:bp<cr>
+" imap <A-1> <esc><Plug>BufTabLine.Go(1)
+" imap <A-2> <esc><Plug>BufTabLine.Go(2)
+" imap <A-3> <esc><Plug>BufTabLine.Go(3)
+" imap <A-4> <esc><Plug>BufTabLine.Go(4)
+" imap <A-5> <esc><Plug>BufTabLine.Go(5)
+" imap <A-6> <esc><Plug>BufTabLine.Go(6)
+" imap <A-7> <esc><Plug>BufTabLine.Go(7)
+" imap <A-8> <esc><Plug>BufTabLine.Go(8)
+" imap <A-9> <esc><Plug>BufTabLine.Go(9)
+" imap <A-0> <esc><Plug>BufTabLine.Go(10)
+" imap <silent> <A-q> <esc>:bp<bar>sp<bar>bn<bar>bd<cr>
+" imap <silent> <A-n> <esc>:bn<cr>
+" imap <silent> <A-p> <esc>:bp<cr>
+" imap <silent> <A-tab> <esc>:b#<cr>
 
-vmap <A-1> <esc><Plug>BufTabLine.Go(1)
-vmap <A-2> <esc><Plug>BufTabLine.Go(2)
-vmap <A-3> <esc><Plug>BufTabLine.Go(3)
-vmap <A-4> <esc><Plug>BufTabLine.Go(4)
-vmap <A-5> <esc><Plug>BufTabLine.Go(5)
-vmap <A-6> <esc><Plug>BufTabLine.Go(6)
-vmap <A-7> <esc><Plug>BufTabLine.Go(7)
-vmap <A-8> <esc><Plug>BufTabLine.Go(8)
-vmap <A-9> <esc><Plug>BufTabLine.Go(9)
-vmap <A-0> <esc><Plug>BufTabLine.Go(10)
-vmap <silent> <A-q> <esc>:bp<bar>sp<bar>bn<bar>bd<cr>
-vmap <silent> <A-n> <esc>:bn<cr>
-vmap <silent> <A-p> <esc>:bp<cr>
+" vmap <A-1> <esc><Plug>BufTabLine.Go(1)
+" vmap <A-2> <esc><Plug>BufTabLine.Go(2)
+" vmap <A-3> <esc><Plug>BufTabLine.Go(3)
+" vmap <A-4> <esc><Plug>BufTabLine.Go(4)
+" vmap <A-5> <esc><Plug>BufTabLine.Go(5)
+" vmap <A-6> <esc><Plug>BufTabLine.Go(6)
+" vmap <A-7> <esc><Plug>BufTabLine.Go(7)
+" vmap <A-8> <esc><Plug>BufTabLine.Go(8)
+" vmap <A-9> <esc><Plug>BufTabLine.Go(9)
+" vmap <A-0> <esc><Plug>BufTabLine.Go(10)
+" vmap <silent> <A-q> <esc>:bp<bar>sp<bar>bn<bar>bd<cr>
+" vmap <silent> <A-n> <esc>:bn<cr>
+" vmap <silent> <A-p> <esc>:bp<cr>
+" vmap <silent> <A-tab> <esc>:b#<cr>
 
-tmap <A-1> <C-\><C-n><Plug>BufTabLine.Go(1)
-tmap <A-2> <C-\><C-n><Plug>BufTabLine.Go(2)
-tmap <A-3> <C-\><C-n><Plug>BufTabLine.Go(3)
-tmap <A-4> <C-\><C-n><Plug>BufTabLine.Go(4)
-tmap <A-5> <C-\><C-n><Plug>BufTabLine.Go(5)
-tmap <A-6> <C-\><C-n><Plug>BufTabLine.Go(6)
-tmap <A-7> <C-\><C-n><Plug>BufTabLine.Go(7)
-tmap <A-8> <C-\><C-n><Plug>BufTabLine.Go(8)
-tmap <A-9> <C-\><C-n><Plug>BufTabLine.Go(9)
-tmap <A-0> <C-\><C-n><Plug>BufTabLine.Go(10)
-tmap <silent> <A-q> <C-\><C-n>:bd<cr>
-tmap <silent> <A-n> <C-\><C-n>:bn<cr>
-tmap <silent> <A-p> <C-\><C-n>:bp<cr>
+" tmap <A-1> <C-\><C-n><Plug>BufTabLine.Go(1)
+" tmap <A-2> <C-\><C-n><Plug>BufTabLine.Go(2)
+" tmap <A-3> <C-\><C-n><Plug>BufTabLine.Go(3)
+" tmap <A-4> <C-\><C-n><Plug>BufTabLine.Go(4)
+" tmap <A-5> <C-\><C-n><Plug>BufTabLine.Go(5)
+" tmap <A-6> <C-\><C-n><Plug>BufTabLine.Go(6)
+" tmap <A-7> <C-\><C-n><Plug>BufTabLine.Go(7)
+" tmap <A-8> <C-\><C-n><Plug>BufTabLine.Go(8)
+" tmap <A-9> <C-\><C-n><Plug>BufTabLine.Go(9)
+" tmap <A-0> <C-\><C-n><Plug>BufTabLine.Go(10)
+" tmap <silent> <A-q> <C-\><C-n>:bd<cr>
+" tmap <silent> <A-n> <C-\><C-n>:bn<cr>
+" tmap <silent> <A-p> <C-\><C-n>:bp<cr>
+" tmap <silent> <A-tab> <C-\><C-n>:b#<cr>
 
-hi! link BufTabLineCurrent   TablineSel
-hi! link BufTabLineActive    Tabline
-hi! link BufTabLineHidden    Tabline
-hi! link BufTabLineFill      TablineFill
+" hi! link BufTabLineCurrent   TablineSel
+" hi! link BufTabLineActive    Tabline
+" hi! link BufTabLineHidden    Tabline
+" hi! link BufTabLineFill      TablineFill
+
+" " }}}
+
+" vem-tabline {{{
+
+let g:vem_tabline_show_number = 'index'
+let g:vem_tabline_show = 2 " always show
+
+nmap <silent><A-1> :VemTablineGo 1<cr>
+nmap <silent><A-2> :VemTablineGo 2<cr>
+nmap <silent><A-3> :VemTablineGo 3<cr>
+nmap <silent><A-4> :VemTablineGo 4<cr>
+nmap <silent><A-5> :VemTablineGo 5<cr>
+nmap <silent><A-6> :VemTablineGo 6<cr>
+nmap <silent><A-7> :VemTablineGo 7<cr>
+nmap <silent><A-8> :VemTablineGo 8<cr>
+nmap <silent><A-9> :VemTablineGo 9<cr>
+nmap <silent><A-q> :bp<bar>bd#<cr>
+nmap <silent><A-n> <Plug>vem_next_buffer-
+nmap <silent><A-p> <Plug>vem_prev_buffer-
+nmap <silent><A-tab> :b#<cr>
+nmap <silent><A-P> <Plug>vem_move_buffer_left-
+nmap <silent><A-N> <Plug>vem_move_buffer_right-
+nmap <silent><A-C-p> gT
+nmap <silent><A-C-n> gt
+nmap <silent><A-C-q> :tabclose<cr>
+
+imap <silent><A-1> <esc>:VemTablineGo 1<cr>
+imap <silent><A-2> <esc>:VemTablineGo 2<cr>
+imap <silent><A-3> <esc>:VemTablineGo 3<cr>
+imap <silent><A-4> <esc>:VemTablineGo 4<cr>
+imap <silent><A-5> <esc>:VemTablineGo 5<cr>
+imap <silent><A-6> <esc>:VemTablineGo 6<cr>
+imap <silent><A-7> <esc>:VemTablineGo 7<cr>
+imap <silent><A-8> <esc>:VemTablineGo 8<cr>
+imap <silent><A-9> <esc>:VemTablineGo 9<cr>
+imap <silent><A-q> <esc>:bp<bar>bd#<cr>
+imap <silent><A-n> <esc><Plug>vem_next_buffer-
+imap <silent><A-p> <esc><Plug>vem_prev_buffer-
+imap <silent><A-tab> <esc>:b#<cr>
+imap <silent><A-C-p> <esc>gT
+imap <silent><A-C-n> <esc>gt
+imap <silent><A-C-q> <esc>:tabclose<cr>
+
+vmap <silent><A-1> <esc>:VemTablineGo 1<cr>
+vmap <silent><A-2> <esc>:VemTablineGo 2<cr>
+vmap <silent><A-3> <esc>:VemTablineGo 3<cr>
+vmap <silent><A-4> <esc>:VemTablineGo 4<cr>
+vmap <silent><A-5> <esc>:VemTablineGo 5<cr>
+vmap <silent><A-6> <esc>:VemTablineGo 6<cr>
+vmap <silent><A-7> <esc>:VemTablineGo 7<cr>
+vmap <silent><A-8> <esc>:VemTablineGo 8<cr>
+vmap <silent><A-9> <esc>:VemTablineGo 9<cr>
+vmap <silent><A-q> <esc>:bp<bar>bd#<cr>
+vmap <silent><A-n> <esc><Plug>vem_next_buffer-
+vmap <silent><A-p> <esc><Plug>vem_prev_buffer-
+vmap <silent><A-tab> <esc>:b#<cr>
+vmap <silent><A-C-p> <esc>gT
+vmap <silent><A-C-n> <esc>gt
+vmap <silent><A-C-q> <esc>:tabclose<cr>
+
+tmap <silent><A-1> <C-\><C-n>:VemTablineGo 1<cr>
+tmap <silent><A-2> <C-\><C-n>:VemTablineGo 2<cr>
+tmap <silent><A-3> <C-\><C-n>:VemTablineGo 3<cr>
+tmap <silent><A-4> <C-\><C-n>:VemTablineGo 4<cr>
+tmap <silent><A-5> <C-\><C-n>:VemTablineGo 5<cr>
+tmap <silent><A-6> <C-\><C-n>:VemTablineGo 6<cr>
+tmap <silent><A-7> <C-\><C-n>:VemTablineGo 7<cr>
+tmap <silent><A-8> <C-\><C-n>:VemTablineGo 8<cr>
+tmap <silent><A-9> <C-\><C-n>:VemTablineGo 9<cr>
+tmap <silent><A-q> <C-\><C-n>:bp<bar>bd#<cr>
+tmap <silent><A-n> <C-\><C-n><Plug>vem_next_buffer-
+tmap <silent><A-p> <C-\><C-n><Plug>vem_prev_buffer-
+tmap <silent><A-tab> <C-\><C-n>:b#<cr>
+tmap <silent><A-C-p> <C-\><C-n>gT
+tmap <silent><A-C-n> <C-\><C-n>gt
+tmap <silent><A-C-q> <C-\><C-n>:tabclose<cr>
 
 " }}}
 
@@ -664,7 +699,7 @@ let g:python_highlight_operators = 1
 
 " vim-hugefile {{{
 
-let g:hugefile_trigger_size = 1
+let g:hugefile_trigger_size = 0.4
 
 " }}}
 
@@ -694,9 +729,9 @@ tnoremap <A-s> <C-\><C-n>:AsyncRun! rg --vimgrep
 nnoremap <A-f> :AsyncRun! rg --vimgrep <cword><cr>
 vnoremap <A-f> y<esc>:AsyncRun! rg --vimgrep --fixed-strings "<c-r>""<cr>
 
-nnoremap <silent> <A-b>      :AsyncStop!<cr>:AsyncRun! make<cr>
-inoremap <silent> <A-b> <esc>:AsyncStop!<cr>:AsyncRun! make<cr>
-vnoremap <silent> <A-b> <esc>:AsyncStop!<cr>:AsyncRun! make<cr>
+nnoremap <silent> <A-b>      :AsyncStop!<cr>:AsyncRun! make $(VIM_RELDIR)/<cr>
+inoremap <silent> <A-b> <esc>:AsyncStop!<cr>:AsyncRun! make $(VIM_RELDIR)/<cr>
+vnoremap <silent> <A-b> <esc>:AsyncStop!<cr>:AsyncRun! make $(VIM_RELDIR)/<cr>
 
 " }}}
 

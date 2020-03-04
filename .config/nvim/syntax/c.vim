@@ -25,6 +25,7 @@ syn match Operator "[\+\-\*\/\%\&\|\<\>\=\!\.\]\[]" display
 syn match Delimiter "[\)\(\}\{\;\,\\]" display
 
 syn match Number "\d*\.\d\+"
+syn match Label "^\s*[a-zA-Z_][a-zA-Z0-9_]*:$"
 
 syn region Comment start="//" skip="\\$" end="$" keepend
 syn region Comment start="/\*" end="\*/" extend
