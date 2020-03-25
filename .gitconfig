@@ -22,7 +22,8 @@
 	indentHeuristic = true
     wordRegex = [A-Z0-9]+|[A-Z0-9]?[a-z0-9]+|[^[:space:]]
 	tool = vimdiff
-	algorithm = histogram
+    algorithm = histogram
+    context = 10
 [difftool]
 	prompt = false
 [difftool "vimdiff"]
@@ -47,15 +48,15 @@
 	meta = 11
 	frag = 11
     func = 11
-	old = "#edabb8" "#a05454"
-	new = "#b8edab" "#437f43"
+	old = 9
+	new = 10
 	commit = 8
 	whitespace = 8
 [color "interactive"]
     prompt = 11
-    header = 11
-    help = 11
-    error = 11
+    header = 15
+    help = 15
+    error = 9
 [color "status"]
 	added = 10
 	changed = 11
@@ -63,7 +64,9 @@
 [help]
 	autocorrect = 50
 [color "diff-highlight"]
-    oldNormal = "#edabb8" "#a05454"
-    oldHighlight = "#2c4e6c" "#edabb8"
-    newNormal = "#b8edab" "#437f43"
-    newHighlight = "#2c4e6c" "#b8edab"
+    oldNormal = 9
+    oldHighlight = 9 1
+    newNormal = 10
+    newHighlight = 10 2
+[diff-so-fancy]
+    markEmptyLines = false
