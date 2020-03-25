@@ -73,6 +73,7 @@ endfunction
 
 set foldtext=repeat('\ ',indent(v:foldstart)).'…'
 set foldmethod=indent
+set foldminlines=3
 
 augroup All
     au!
@@ -90,11 +91,6 @@ augroup All
 
     " clear message below statusline after CursorHold time
     au CursorHold * echo
-
-    " au FileType c,cpp,objc,go,java,javascript,json,rust,css,glsl
-    "             \ setlocal foldtext=FoldText() foldmethod=expr foldexpr=FoldExprBraces()
-
-    " au FileType python setlocal foldtext=FoldTextPy()
 augroup END
 
 function! FileRename()
@@ -221,7 +217,7 @@ vnoremap gP "+P
 " `] to put cursor at the end of pasted text
 vnoremap <silent> y y`]
 nnoremap <silent> p p`[v`]=`]
-nnoremap <silent> P P`[v`]=
+nnoremap <silent> P P`[v`]=`]
 " paste in visual mode without reyanking
 " https://stackoverflow.com/a/5093286
 vnoremap p pgvy`]
@@ -406,7 +402,7 @@ Plug 'pacha/vem-tabline'
 
 Plug 'endaaman/vim-case-master', { 'on': 'CaseMasterConvertToSnake' }
 
-Plug 'dahu/vim-fanfingtastic'
+" Plug 'dahu/vim-fanfingtastic'
 
 Plug 'terryma/vim-expand-region'
 
@@ -417,6 +413,11 @@ Plug 'Konfekt/FastFold'
 Plug 'norcalli/nvim-colorizer.lua', { 'on': 'ColorizerAttachToBuffer' }
 
 Plug 'Yggdroot/indentLine'
+
+" for more pleasant editing on commit messages
+Plug 'rhysd/committia.vim'
+
+Plug 'tpope/vim-fugitive'
 
 call plug#end()
 
@@ -738,14 +739,16 @@ vnoremap <silent> <A-b> <esc>:AsyncStop!<cr>:AsyncRun! make $(VIM_RELDIR)/<cr>
 " vim-lsp {{{
 
 " let g:lsp_log_file = expand('/tmp/vim-lsp.log')
+let g:lsp_auto_enable = 0
 let g:lsp_text_document_did_save_delay = 0
 let g:lsp_semantic_enabled = 0
 let g:lsp_auto_enable = 0
 let g:lsp_signs_enabled = 0
-let g:lsp_diagnostics_echo_cursor = 1
-let g:lsp_highlight_references_enabled = 0
 let g:lsp_text_edit_enabled = 0
 let g:lsp_signature_help_enabled = 0
+let g:lsp_diagnostics_echo_cursor = 0
+let g:lsp_diagnostics_float_cursor = 0
+let g:lsp_highlight_references_enabled = 0
 
 hi link LspErrorHighlight Underlined
 hi link LspWarningHighlight Underlined
@@ -765,42 +768,14 @@ augroup VIM_LSP
                     \ 'cmd': {server_info->['clangd', '-background-index', '-limit-results=20']},
                     \ 'whitelist': ['c', 'cpp', 'objc'],
                     \ })
-        au FileType c,cpp,objc
-                    \ if !&diff |
-                    \	call lsp#enable() |
-                    \ endif
-        au FileType c,cpp,objc
-                    \ if !&diff |
-                    \	noremap <buffer> <A-e> :LspNextError<cr> |
-                    \ endif
-        au FileType c,cpp,objc
-                    \ if !&diff |
-                    \	noremap <buffer> <A-E> :LspPreviousError<cr> |
-                    \ endif
-        au FileType c,cpp,objc
-                    \ if !&diff |
-                    \	nnoremap <buffer> <A-i> :LspHover<cr> |
-                    \ endif
-        au FileType c,cpp,objc 
-                    \ if !&diff |
-                    \	inoremap <buffer> <A-i> <esc>:LspSignatureHelp<cr> |
-                    \ endif
-        au FileType c,cpp,objc
-                    \ if !&diff |
-                    \	nnoremap <buffer> <A-r> :LspRename<cr> |
-                    \ endif
-        au FileType c,cpp,objc
-                    \ if !&diff |
-                    \	nnoremap <buffer> <A-t> :let g:lsp_diagnostics_enabled = 1<cr>:LspDocumentDiagnostics<cr> |
-                    \ endif
-        au FileType c,cpp,objc
-                    \ if !&diff |
-                    \	nnoremap <buffer> <A-T> :let g:lsp_diagnostics_enabled = 0<cr> |
-                    \ endif
-        au FileType c,cpp,objc
-                    \ if !&diff |
-                    \	setlocal omnifunc=lsp#complete |
-                    \ endif
+        au FileType c,cpp,objc call lsp#enable()
+        au FileType c,cpp,objc noremap <buffer> <A-e> :LspNextError<cr>
+        au FileType c,cpp,objc noremap <buffer> <A-E> :LspPreviousError<cr>
+        au FileType c,cpp,objc nnoremap <buffer> <A-i> :LspHover<cr>
+        au FileType c,cpp,objc inoremap <buffer> <A-i> <esc>:LspSignatureHelp<cr>
+        au FileType c,cpp,objc nnoremap <buffer> <A-r> :LspRename<cr>
+        au FileType c,cpp,objc nnoremap <buffer> <A-t> :LspDocumentDiagnostics<cr>
+        au FileType c,cpp,objc setlocal omnifunc=lsp#complete
     endif
 augroup END
 
@@ -840,6 +815,12 @@ let g:expand_region_text_objects = {
 " clever-f {{{
 
 let g:clever_f_ignore_case = 1
+let g:clever_f_across_no_line = 0
+let g:clever_f_fix_key_direction = 1
+
+nmap <Esc> <Plug>(clever-f-reset)
+
+hi! link CleverFDefaultLabel SpellBad
 
 " }}}
 
@@ -874,4 +855,19 @@ augroup END
 
 " }}}
 
+" committia.vim {{{
+
+    augroup Committia
+        au!
+        au FileType git set foldenable foldmethod=syntax foldtext=getline(v:foldstart)
+    augroup END
+
 " }}}
+
+" }}}
+
+if &diff
+    syntax off
+    filetype off
+endif
+

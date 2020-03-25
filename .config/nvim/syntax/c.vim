@@ -10,25 +10,23 @@ syn keyword Structure struct enum union
 syn keyword Keyword continue break return typedef case default goto
 syn keyword Conditional if else switch
 syn keyword Repeat do while for
-syn match Keyword "?"
-syn match Keyword ":"
 
 syn keyword Type int long short char void signed unsigned float double bool
-syn match Type "\v<[a-zA-Z_][a-zA-Z0-9_]*_t>"
+syn match Type "\v<[a-zA-Z_][a-zA-Z0-9_]{-}_t>"
 
-syn match Function "\v[a-zA-Z_][a-zA-Z0-9_]*\s*(\()@="
+syn match Function "\v[a-zA-Z_][a-zA-Z0-9_]{-}\s*(\()@="
 
 syn keyword Operator sizeof typeof typeof
+syn match Operator "[\+\-\*\/\%\?\:\&\|\<\>\=\!\.\]\[]"
 
-syn match Operator "[\+\-\*\/\%\&\|\<\>\=\!\.\]\[]" display
+syn match Delimiter "[\)\(\}\{\;\,\\]"
 
-syn match Delimiter "[\)\(\}\{\;\,\\]" display
-
-syn match Number "\d*\.\d\+"
-syn match Label "^\s*[a-zA-Z_][a-zA-Z0-9_]*:$"
+syn match Number "\d{-}\.\d\+"
+syn match Label "^\s*[a-zA-Z_][a-zA-Z0-9_]{-}:$"
 
 syn region Comment start="//" skip="\\$" end="$" keepend
 syn region Comment start="/\*" end="\*/" extend
+syn match Todo "\v\s{-}\/\/\s{-}[A-Z]+\:.{-}$"
 
 syn match String /\v([''"`])((\\\1|.){-})\1/
 syn match String /\v(#include\s+)@<=\<.+\>/
