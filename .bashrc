@@ -58,7 +58,6 @@ export PATH="$GEM_HOME/ruby/2.3.0/bin:$PATH"
 
 export GREP_OPTIONS='--ignore-case --color=auto'
 export CLICOLOR=1
-export LSCOLORS=xGxFxCxDxBxgxdxbxgxcxd
 
 export FZF_COMPLETION_TRIGGER='``'
 export FZF_DEFAULT_OPTS="--reverse --color fg:15,hl:10,fg+:-1,bg+:-1,hl+:10,info:15,prompt:9,spinner:15,pointer:9,marker:14,border:15"

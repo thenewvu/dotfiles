@@ -41,32 +41,32 @@
     showbranch = auto
 	ui = true
 [color "branch"]
-	current = yellow reverse
-	local = yellow
-	remote = green
+	current = "#ede0ab" reverse
+	local = "#ede0ab"
+	remote = "#b8edab"
 [color "diff"]
-	meta = 11
-	frag = 11
-    func = 11
-	old = 9
-	new = 10
-	commit = 8
-	whitespace = 8
+	meta = "#ede0ab"
+	frag = "#ede0ab"
+    func = "#ede0ab"
+	old = "#edabb8"
+	new = "#b8edab"
+	commit = "#2c4e6c"
+	whitespace = "#2c4e6c"
 [color "interactive"]
-    prompt = 11
-    header = 15
-    help = 15
-    error = 9
+    prompt = "#ede0ab"
+    header = "#ffffff"
+    help = "#ffffff"
+    error = "#edabb8"
 [color "status"]
-	added = 10
-	changed = 11
-    untracked = 15
+	added = "#b8edab"
+	changed = "#ede0ab"
+    untracked = "#ffffff"
 [help]
 	autocorrect = 50
 [color "diff-highlight"]
-    oldNormal = 9
-    oldHighlight = 9 1
-    newNormal = 10
-    newHighlight = 10 2
+    oldNormal = "#edabb8"
+    oldHighlight = "#edabb8" "#a05454"
+    newNormal = "#b8edab"
+    newHighlight = "#b8edab" "#437f43"
 [diff-so-fancy]
     markEmptyLines = false
