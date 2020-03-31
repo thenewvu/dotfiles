@@ -141,8 +141,7 @@ alias mv="mv -i"
 alias cp="cp -i"
 
 fzf__git_hash="echo {} | grep -o '[a-f0-9]\{7,\}\$' | head -1"
-fzf__git_show="$fzf__git_hash | xargs -I % sh -c 'git show --color=always --ignore-all-space --ignore-blank-lines --diff-filter=ad % | diff-so-fancy | less -RFX --tabs=4'"
-fzf__git_diff="$fzf__git_hash | xargs -I % sh -c 'git difftool %^!'"
+fzf__git_show="$fzf__git_hash | xargs -I % sh -c 'git show --ignore-all-space --ignore-blank-lines --diff-filter=ad % | ydiff -s -c always -w100'"
 fzf__git_checkout="$fzf__git_hash | xargs -I % sh -c 'git checkout %'"
 
 gl() {
@@ -150,21 +149,20 @@ gl() {
             --pretty=format:'%C(auto)%s %C(auto)%d %C(auto)%h%Creset'      \
             --no-merges -n 100 "$@" |
         fzf --no-sort --reverse --tiebreak=index --no-multi --ansi         \
-            --preview="$fzf__git_show" --preview-window=wrap:50%           \
-            --bind "enter:execute:$fzf__git_diff"                          \
-            --bind "alt-y:execute:$fzf__git_hash | pbcopy"                \
-            --bind "alt-g:execute:$fzf__git_checkout"                     \
-            --bind "alt-j:preview-down"                                   \
-            --bind "alt-k:preview-up"
+            --preview="$fzf__git_show" --preview-window=bottom:80%       \
+            --bind "ctrl-y:execute:$fzf__git_hash | pbcopy"                \
+            --bind "ctrl-g:execute:$fzf__git_checkout"                     \
+            --bind "ctrl-j:preview-down"                                   \
+            --bind "ctrl-k:preview-up"
 }
 
 alias gs="git status --short"
 alias gr="git checkout -p"
-alias gd="git diff -b"
+alias gd="ydiff -s --wrap -w100"
 
 alias gca="git add -i"
 alias gcr="git reset HEAD"
-alias gcd="git diff --cached -b"
+alias gcd="ydiff -s --wrap -w100 --cached"
 alias gcm="git commit -m"
 
 alias gcp="git push"
