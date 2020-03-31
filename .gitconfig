@@ -6,10 +6,6 @@
 	excludesfile = ~/.gitexcludes
 [credential]
 	helper = cache --timeout 360000
-[pager]
-    diff = diff-so-fancy | less -R --tabs=4 --pattern '^(Date|added|deleted|modified): '
-    log = diff-so-fancy | less -R --tabs=4 --pattern '^(Date|added|deleted|modified): '
-    show = diff-so-fancy | less -R --tabs=4 --pattern '^(Date|added|deleted|modified): '
 [interactive]
 	diffFilter = diff-highlight
 [gc]
@@ -21,13 +17,10 @@
 [diff]
 	indentHeuristic = true
     wordRegex = [A-Z0-9]+|[A-Z0-9]?[a-z0-9]+|[^[:space:]]
-	tool = vimdiff
     algorithm = histogram
     context = 10
 [difftool]
 	prompt = false
-[difftool "vimdiff"]
-	cmd = nvim -d $LOCAL $REMOTE
 [merge]
 	tool = nvim
 [mergetool]
@@ -63,10 +56,3 @@
     untracked = "#ffffff"
 [help]
 	autocorrect = 50
-[color "diff-highlight"]
-    oldNormal = "#edabb8"
-    oldHighlight = "#edabb8" "#a05454"
-    newNormal = "#b8edab"
-    newHighlight = "#b8edab" "#437f43"
-[diff-so-fancy]
-    markEmptyLines = false
