@@ -138,7 +138,7 @@ nnoremap E $
 vnoremap B ^
 vnoremap E $
 " clear search hl
-nnoremap <silent> <esc><esc> :noh<cr>
+nnoremap <silent> <esc> :noh<cr>
 " toggle folding
 nnoremap <space> zMzvzz
 " nnoremap z zx
@@ -231,8 +231,6 @@ nnoremap O O<esc>
 let g:mc = "y/\\V\<C-r>=escape(@\", '/')\<CR>\<CR>"
 nnoremap q *``cgn
 vnoremap <expr> q g:mc . "``cgn"
-" reselect last selection
-nnoremap v. gv
 " trigger completion
 inoremap <A-space> <C-x><C-o>
 
@@ -332,6 +330,14 @@ nnoremap <silent> <A-`> :call TerminalToggle()<cr>
 inoremap <silent> <A-`> <esc>:call TerminalToggle()<cr>
 vnoremap <silent> <A-`> <esc>:call TerminalToggle()<cr>
 tnoremap <silent> <A-`> <C-\><C-n>:call TerminalToggle()<cr>
+
+function! TerminalExecMake()
+    call TerminalExec('make ' . fnamemodify(expand("%:p:h"), ":~:.") . '/')
+endfunction
+
+nnoremap <silent> <A-b> :call TerminalExecMake()<cr>
+inoremap <silent> <A-b> <esc>:call TerminalExecMake()<cr>
+vnoremap <silent> <A-b> <esc>:call TerminalExecMake()<cr>
 
 augroup FORMATER
     au!
@@ -730,10 +736,6 @@ tnoremap <A-s> <C-\><C-n>:AsyncRun! rg --vimgrep
 nnoremap <A-f> :AsyncRun! rg --vimgrep <cword><cr>
 vnoremap <A-f> y<esc>:AsyncRun! rg --vimgrep --fixed-strings "<c-r>""<cr>
 
-nnoremap <silent> <A-b>      :AsyncStop!<cr>:AsyncRun! make $(VIM_RELDIR)/<cr>
-inoremap <silent> <A-b> <esc>:AsyncStop!<cr>:AsyncRun! make $(VIM_RELDIR)/<cr>
-vnoremap <silent> <A-b> <esc>:AsyncStop!<cr>:AsyncRun! make $(VIM_RELDIR)/<cr>
-
 " }}}
 
 " vim-lsp {{{
@@ -818,7 +820,7 @@ let g:clever_f_ignore_case = 1
 let g:clever_f_across_no_line = 0
 let g:clever_f_fix_key_direction = 1
 
-nmap <Esc> <Plug>(clever-f-reset)
+nnoremap <esc><esc> <Plug>(clever-f-reset)
 
 hi! link CleverFDefaultLabel SpellBad
 
