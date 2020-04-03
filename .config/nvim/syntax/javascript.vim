@@ -2,19 +2,18 @@ if exists("b:current_syntax")
 	finish
 endif
 
-syn keyword Keyword return async await function class case default break continue throw
-syn keyword StorageClass const var let new
+syn keyword Keyword return async await function class case default break continue throw new delete try catch finally
+syn keyword StorageClass const var let
 syn keyword PreProc export import from
 syn keyword Conditional if else switch
 syn keyword Repeat do while for foreach of in
 syn keyword Operator typeof instanceof
-syn match Keyword "[\?\:]"
 
 syn match Function "\v[a-zA-Z_][a-zA-Z0-9_]*\s*(\()@="
 
 syn keyword Operator instantof
 
-syn match Operator "[\+\-\*\/\%\&\|\<\>\=\!\.\]\[]" display
+syn match Operator "[\?\:\+\-\*\/\%\&\|\<\>\=\!\.\]\[]" display
 
 syn match Delimiter "[\)\(\}\{\;\,\\]" display
 
