@@ -56,3 +56,5 @@
     untracked = "#ffffff"
 [help]
 	autocorrect = 50
+[icdiff]
+	options = --cols=200
