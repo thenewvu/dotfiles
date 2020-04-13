@@ -51,3 +51,8 @@
 --langdef=json
 --langmap=json:.json
 --regex-json=/^[ \t]*"(.*)":/\1/k,key,keys/
+
+--langdef=dlang
+--langmap=dlang:.d
+--regex-dlang=/[ \t]*(final)?[ \t]*(class|interface)[ \t]+([a-zA-Z0-9_]+)/\3/c,classes/
+--regex-dlang=/[ \t]*(private|public|static|auto|final|const[ \t])*([a-zA-Z0-9_\.\*]*[ \t])([a-zA-Z0-9_]+)[ \s]*\(.*/\3/m,members/
