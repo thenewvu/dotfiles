@@ -51,7 +51,7 @@ set nonumber
 set signcolumn=auto:2
 set autoindent smartindent cindent
 set cinkeys=0{,0},0),0#,!^F,o,O,e
-set cinoptions=t0,j1,J1,m1,(s,{0,L0,g0
+set cinoptions=t0,j1,J1,m1,(0,{0,L0,g0
 set lazyredraw
 set synmaxcol=320
 set diffopt=filler,indent-heuristic,algorithm:histogram,iwhite,context:999
@@ -206,18 +206,16 @@ vnoremap > >gv
 " copy/paste to/from system clipboard
 " https://sheerun.net/2014/03/21/how-to-boost-your-vim-productivity/
 vnoremap gy "+y
-nnoremap gp "+p`[v`]=`]
-nnoremap gP "+P`[v`]=`]
+nnoremap gp "+p`]
+nnoremap gP "+P`]
 vnoremap gp "+p
 vnoremap gP "+P
 " multiple lines multiple times with simple ppppp
 " https://sheerun.net/2014/03/21/how-to-boost-your-vim-productivity/
-" `[v`] to select pasted text
-" = to reindent selecting
 " `] to put cursor at the end of pasted text
 vnoremap <silent> y y`]
-nnoremap <silent> p p`[v`]=`]
-nnoremap <silent> P P`[v`]=`]
+nnoremap <silent> p p`]
+nnoremap <silent> P P`]
 " paste in visual mode without reyanking
 " https://stackoverflow.com/a/5093286
 vnoremap p pgvy`]
@@ -229,15 +227,24 @@ nnoremap O O<esc>
 " multiple cursors
 " http://www.kevinli.co/posts/2017-01-19-multiple-cursors-in-500-bytes-of-vimscript/
 let g:mc = "y/\\V\<C-r>=escape(@\", '/')\<CR>\<CR>"
-nnoremap q *``cgn
-vnoremap <expr> q g:mc . "``cgn"
+nnoremap r *``cgn
+vnoremap <expr> r g:mc . "``cgn"
 " trigger completion
 inoremap <A-space> <C-x><C-o>
+nnoremap q qw
+nnoremap Q @w
 
 " search without jumping
 " https://stackoverflow.com/a/4262209
 nnoremap <silent> * :let @/='\<<C-R>=expand("<cword>")<CR>\>'<CR>:set hls<CR>
 vnoremap <silent> * :<C-U>
+            \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+            \gvy:let @/=substitute(
+            \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR>
+            \gV:call setreg('"', old_reg, old_regtype)<CR>:set hls<CR>
+
+nnoremap <silent> ' :let @/='\<<C-R>=expand("<cword>")<CR>\>'<CR>:set hls<CR>
+vnoremap <silent> ' :<C-U>
             \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
             \gvy:let @/=substitute(
             \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR>
@@ -354,7 +361,7 @@ function ToggleFolding()
     endif
 endfunction
 
-nnoremap <F3> :call ToggleFolding()<cr>
+nnoremap <F3> :call ToggleFolding()<cr>zz
 
 " }}}
 
