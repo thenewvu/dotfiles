@@ -141,7 +141,7 @@ alias mv="mv -i"
 alias cp="cp -i"
 
 fzf__git_hash="echo {} | grep -o '[a-f0-9]\{7,\}\$' | head -1"
-fzf__git_show="$fzf__git_hash | xargs -I % sh -c 'git show --ignore-blank-lines --diff-filter=ad % | ydiff -s -c always -w100'"
+fzf__git_show="$fzf__git_hash | xargs -I % sh -c 'git-icdiff %~1 %'"
 fzf__git_checkout="$fzf__git_hash | xargs -I % sh -c 'git checkout %'"
 
 gl() {
@@ -160,11 +160,11 @@ gl() {
 
 alias gs="git status --short"
 alias gr="git checkout -p"
-alias gd="ydiff -s --wrap -w100"
+alias gd="git-icdiff"
 
 alias gca="git add -i"
 alias gcr="git reset HEAD"
-alias gcd="ydiff -s --wrap -w100 --cached"
+alias gcd="git-icdiff --cached"
 alias gcm="git commit -m"
 
 alias gcp="git push"
