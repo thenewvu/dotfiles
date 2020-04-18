@@ -57,6 +57,7 @@ set synmaxcol=320
 set diffopt=filler,indent-heuristic,algorithm:histogram,iwhite,context:999
 set shortmess+=c
 set splitbelow splitright
+set foldmethod=syntax
 
 " Set %% to the dir that contains the current file
 " http://vim.wikia.com/wiki/Easy_edit_of_files_in_the_same_directory
@@ -71,9 +72,9 @@ function! TabCD(path)
     execute "tcd ". l:dirname
 endfunction
 
-set foldtext=repeat('\ ',indent(v:foldstart)).'…'
-set foldmethod=indent
-set foldminlines=3
+function! FoldTextBraces()
+    return repeat(' ', indent(v:foldstart)) . trim(getline(v:foldstart)) . '…' . trim(getline(v:foldend))
+endfunction
 
 augroup All
     au!
@@ -91,6 +92,8 @@ augroup All
 
     " clear message below statusline after CursorHold time
     au CursorHold * echo
+
+    au FileType c,cpp,javascript,java,go setlocal foldmethod=marker foldmarker={,} foldtext=FoldTextBraces() foldlevel=2
 augroup END
 
 function! FileRename()
@@ -448,60 +451,29 @@ augroup end
 
 " fzf {{{
 
-command! FzfQuickFix call <SID>FzfQuickFix()
-command! FzfLocList call <SID>FzfLocList()
-command! FzfLines call <SID>FzfLines()
+command! -bang FzfBufTags
+    \ call fzf#vim#buffer_tags('', {
+    \     'down': '40%',
+    \     'options': '--bind change:top
+    \                 --with-nth 1 
+    \                 --reverse 
+    \                 --prompt "> " 
+    \                 --preview-window="80%" 
+    \                 --preview "~/.config/nvim/plugged/fzf.vim/bin/preview.sh {2}:\$(echo {3} | tr -d \";\\\"\")"'
+    \ })
 
-function! s:FzfQuickFix() abort
-    let items = map(getqflist(), {idx, item ->
-                \ string(idx).' '.bufname(item.bufnr).' '.item.text})
-    call s:FzfPick(items, 'cc', '--with-nth 2.. --reverse')
-endfunction
-
-function! s:FzfLocList() abort
-    let items = map(getloclist(0), {idx, item ->
-                \ string(idx).' '.bufname(item.bufnr).' '.item.text})
-    call s:FzfPick(items, 'll', '--with-nth 2.. --reverse')
-endfunction
-
-function! s:FzfLines() abort
-    let items = map(getline(1, '$'), 'printf("%s %s", v:key, v:val)')
-    call s:FzfPick(items, '', '--with-nth 2.. --reverse --prompt "> "')
-endfunction
-
-function! s:FzfPick(items, jump, options) abort
-    call fzf#run({
-                \ 'source': a:items,
-                \ 'sink': function('<SID>FzfJump',
-                \ [a:jump]),
-                \ 'options': a:options,
-                \ 'down': '40%'})
-endfunction
-
-function! s:FzfJump(jump, item) abort
-    let idx = split(a:item, ' ')[0]
-    execute a:jump idx + 1
-    normal! zvzz
-endfunction
-
-command! -bang BTags
-            \ call fzf#vim#buffer_tags('', {
-            \     'down': '40%',
-            \     'options': '--with-nth 1 
-            \                 --reverse 
-            \                 --prompt "> " 
-            \                 --preview-window="80%" 
-            \                 --preview "
-            \                     tail -n +\$(echo {3} | tr -d \";\\\"\") {2} |
-            \                     head -n 16"'
-            \ })
+command! -bang -nargs=* FzfBufLines
+    \ call fzf#vim#grep(
+    \   'rg --with-filename --line-number --no-heading . '.fnameescape(expand('%')), 1,
+    \   fzf#vim#with_preview({'down': '40%', 'options': '--bind change:top --delimiter : --with-nth 3..'}),
+    \   <bang>0)
 
 " fuzzy search files in cwd
 nnoremap <silent> ` :FZF<cr>
 " fuzzy search text in cur buf
-nnoremap <silent> / :FzfLines<cr>
+nnoremap <silent> / :FzfBufLines<cr>
 " fuzzy search tags in cur buf
-nnoremap <silent> <tab> :BTags<cr>
+nnoremap <silent> <tab> :FzfBufTags<cr>
 
 augroup FZF
     au!

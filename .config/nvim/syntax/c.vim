@@ -12,14 +12,14 @@ syn keyword Conditional if else switch
 syn keyword Repeat do while for
 
 " syn keyword Structure struct enum union
-syn match Structure "\v\s*(struct|enum|union)(\s*[a-zA-Z0-9_]*\s*\{)@="
+syn match Structure "\v\s*(struct|enum|union)(\s*[a-zA-Z0-9_]*\_s*\{)@="
 
 " syn keyword Type auto_type __auto_type
 
 " syn keyword Type int long short char void signed unsigned float double bool
 " syn match Type "\v<[a-zA-Z_][a-zA-Z0-9_]{-}_t>"
 
-syn match Function "\v[a-zA-Z_#][#a-zA-Z0-9_]{-}\s*(\((\s*[^\*]|$))@="
+syn match Function "\v[a-zA-Z_#][#a-zA-Z0-9_]{-}\s*(\()@="
 
 " syn keyword Function sizeof typeof typeof
 " syn match Operator "[\+\-\*\/\%\?\:\&\|\<\>\=\!\.\]\[]"
