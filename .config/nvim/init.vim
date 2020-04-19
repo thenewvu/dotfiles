@@ -399,7 +399,6 @@ Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 
-" auto complete pairs () [] {} "" ''
 Plug 'kana/vim-smartinput'
 
 Plug 'tikhomirov/vim-glsl', { 'for': 'glsl' }
@@ -464,9 +463,9 @@ command! -bang FzfBufTags
 
 command! -bang -nargs=* FzfBufLines
     \ call fzf#vim#grep(
-    \   'rg --with-filename --line-number --no-heading . '.fnameescape(expand('%')), 1,
+    \   'grep --with-filename --line-number . '.fnameescape(expand('%')), 0,
     \   fzf#vim#with_preview({'down': '40%', 'options': '--bind change:top --delimiter : --with-nth 3..'}),
-    \   <bang>0)
+    \   0)
 
 " fuzzy search files in cwd
 nnoremap <silent> ` :FZF<cr>
