@@ -172,5 +172,7 @@ alias gp="git pull"
 
 alias ctags="/usr/local/opt/ctags/bin/ctags"
 
+alias dnsflush="sudo killall -HUP mDNSResponder; sudo killall mDNSResponderHelper; sudo dscacheutil -flushcache"
+
 # }}}
 
