@@ -3,14 +3,13 @@
 --excmd=number
 --c-kinds=cdefvgmpstu
 
---langmap=c:+.h.c.m.mm
+--langmap=c:+.m
+--langmap=c:+.mm
 --regex-c=/\@interface[[:space:]]+([[:alnum:]_]+)/\1/i,interface/
 --regex-c=/\@implementation[[:space:]]+([[:alnum:]_]+)/\1/I,implementation/
 --regex-c=/\@protocol[[:space:]]+([[:alnum:]_]+)/\1/P,protocol/
 --regex-c=/\@property[[:space:]]+\([[:alnum:],[:space:]]+\)[[:space:]]+[[:alnum:]_]+[[:space:]]+\*?([[:alnum:]_]+)/\1/p,property/
 --regex-c=/([-+])[[:space:]]*\([[:alpha:]_][^)]*\)[[:space:]]*([[:alpha:]_][^:;{]+).*/\1\2/M,method definition/
---regex-c=/^[^#@[:space:]][^=]*[[:space:]]([[:alpha:]_][[:alnum:]_]*)[[:space:]]*=/\1/c,constant/
---regex-c=/^[[:space:]]*typedef[[:space:]][^;]+[[:space:]]([[:alpha:]_][[:alnum:]]*)[[:space:]]*;/\1/t,typedef/
 --regex-c=/^[[:space:]]*NS_ENUM\([[:alnum:]]+[[:space:]]*,[[:space:]]([[:alnum:]]+)\)/\1/e,enum/
 --regex-c=/^#pragma[[:space:]]+mark[[:space:]]+-?[[:space:]]+([[:alnum:][:space:]]+)/\1/g,pragma/
 
