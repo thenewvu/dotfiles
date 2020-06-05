@@ -51,7 +51,7 @@ set nonumber
 set signcolumn=auto:2
 set autoindent smartindent cindent
 set cinkeys=0{,0},0),0#,!^F,o,O,e
-set cinoptions=t0,j1,J1,m1,(0,{0,L0,g0
+set cinoptions=t0,j1,J1,m1,(s,{0,L0,g0
 set lazyredraw
 set synmaxcol=320
 set diffopt=filler,indent-heuristic,algorithm:histogram,iwhite,context:999
@@ -76,6 +76,35 @@ function! FoldTextBraces()
     return repeat(' ', indent(v:foldstart)) . trim(getline(v:foldstart)) . '…' . trim(getline(v:foldend))
 endfunction
 
+function! FoldExprBraces()
+    let l:text = getline(v:lnum)
+
+    " remove comments
+    let l:text = substitute(l:text, '\v\/\*.*\*\/', "", "g")
+    let l:text = substitute(l:text, '\v\/\/.*$', "", "g")
+
+    if &filetype == 'javascript'
+        " remove regex
+        let l:text = substitute(l:text, '\v(\/)((\\\1|.){-})\1', "", "g")
+    endif
+
+    " remove strings
+    let l:text = substitute(l:text, '\v([''"`])((\\\1|.){-})\1', "", "g")
+
+    " both opening and closing
+    if l:text =~# '^[^{]\{-}}.\{-}{[^}]*$'
+        return '='
+        " opening
+    elseif l:text =~# '^.\{-}{[^}]*$'
+        return 'a1'
+        " closing
+    elseif l:text =~# '^[^{]\{-}}.*$'
+        return 's1'
+    endif
+
+    return '='
+endfunction
+
 augroup All
     au!
 
@@ -93,7 +122,21 @@ augroup All
     " clear message below statusline after CursorHold time
     au CursorHold * echo
 
-    au FileType c,cpp,javascript,java,go setlocal foldmethod=marker foldmarker={,} foldtext=FoldTextBraces() foldlevel=2
+    au FileType c,cpp,javascript,java,go,objc,objcpp
+                \ setlocal foldmethod=expr
+                \ foldexpr=FoldExprBraces()
+                \ foldtext=FoldTextBraces()
+
+    " https://vi.stackexchange.com/a/169
+    let g:large_file = 1024 * 512 " 512KB
+    au BufReadPre *
+            \ let f=expand("<afile>") |
+            \ if getfsize(f) > g:large_file |
+                    \ set eventignore+=FileType |
+                    \ setlocal undolevels=-1 |
+            \ else |
+                    \ set eventignore-=FileType |
+            \ endif
 augroup END
 
 function! FileRename()
@@ -123,14 +166,13 @@ command! FileDelete call FileDelete()
 
 " Keys {{{
 
-nnoremap <A-e> :e 
-vnoremap <A-e> <esc>:e 
-inoremap <A-e> <esc>:e 
-tnoremap <A-e> <C-\><C-n>:e 
+nnoremap m %
+vnoremap m %
 
 nnoremap <silent> <A-w> :silent w<cr>
 vnoremap <silent> <A-w> <esc>:silent w<cr>
 inoremap <silent> <A-w> <esc>:silent w<cr>
+
 " write current file with sudo
 cmap w! w !sudo tee > /dev/null %
 nnoremap <f1> :help 
@@ -345,10 +387,6 @@ function! TerminalExecMake()
     call TerminalExec('make ' . fnamemodify(expand("%:p:h"), ":~:.") . '/')
 endfunction
 
-nnoremap <silent> <A-b> :call TerminalExecMake()<cr>
-inoremap <silent> <A-b> <esc>:call TerminalExecMake()<cr>
-vnoremap <silent> <A-b> <esc>:call TerminalExecMake()<cr>
-
 augroup FORMATER
     au!
 
@@ -403,8 +441,6 @@ Plug 'kana/vim-smartinput'
 
 Plug 'tikhomirov/vim-glsl', { 'for': 'glsl' }
 
-Plug 'mhinz/vim-hugefile'
-
 Plug 'amadeus/vim-convert-color-to', { 'on': 'ConvertColorTo' }
 
 Plug 'skywind3000/asyncrun.vim', { 'on': ['AsyncRun', 'AsyncStop'] }
@@ -412,12 +448,9 @@ Plug 'skywind3000/asyncrun.vim', { 'on': ['AsyncRun', 'AsyncStop'] }
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
 
-" Plug 'ap/vim-buftabline' 
 Plug 'pacha/vem-tabline' 
 
 Plug 'endaaman/vim-case-master', { 'on': 'CaseMasterConvertToSnake' }
-
-" Plug 'dahu/vim-fanfingtastic'
 
 Plug 'terryma/vim-expand-region'
 
@@ -428,9 +461,6 @@ Plug 'Konfekt/FastFold'
 Plug 'norcalli/nvim-colorizer.lua', { 'on': 'ColorizerAttachToBuffer' }
 
 Plug 'Yggdroot/indentLine'
-
-" for more pleasant editing on commit messages
-Plug 'rhysd/committia.vim'
 
 Plug 'tpope/vim-fugitive'
 
@@ -496,78 +526,6 @@ set background=dark
 colorscheme blueprint
 
 " }}}
-
-" " vim-buftabline {{{
-
-" let g:buftabline_indicators = 1
-" let g:buftabline_numbers = 2
-
-" nmap <A-1> <Plug>BufTabLine.Go(1)
-" nmap <A-2> <Plug>BufTabLine.Go(2)
-" nmap <A-3> <Plug>BufTabLine.Go(3)
-" nmap <A-4> <Plug>BufTabLine.Go(4)
-" nmap <A-5> <Plug>BufTabLine.Go(5)
-" nmap <A-6> <Plug>BufTabLine.Go(6)
-" nmap <A-7> <Plug>BufTabLine.Go(7)
-" nmap <A-8> <Plug>BufTabLine.Go(8)
-" nmap <A-9> <Plug>BufTabLine.Go(9)
-" nmap <A-0> <Plug>BufTabLine.Go(10)
-" nmap <silent> <A-q> :bp<bar>sp<bar>bn<bar>bd<cr>
-" nmap <silent> <A-n> :bn<cr>
-" nmap <silent> <A-p> :bp<cr>
-" nmap <silent> <A-tab> :b#<cr>
-
-" imap <A-1> <esc><Plug>BufTabLine.Go(1)
-" imap <A-2> <esc><Plug>BufTabLine.Go(2)
-" imap <A-3> <esc><Plug>BufTabLine.Go(3)
-" imap <A-4> <esc><Plug>BufTabLine.Go(4)
-" imap <A-5> <esc><Plug>BufTabLine.Go(5)
-" imap <A-6> <esc><Plug>BufTabLine.Go(6)
-" imap <A-7> <esc><Plug>BufTabLine.Go(7)
-" imap <A-8> <esc><Plug>BufTabLine.Go(8)
-" imap <A-9> <esc><Plug>BufTabLine.Go(9)
-" imap <A-0> <esc><Plug>BufTabLine.Go(10)
-" imap <silent> <A-q> <esc>:bp<bar>sp<bar>bn<bar>bd<cr>
-" imap <silent> <A-n> <esc>:bn<cr>
-" imap <silent> <A-p> <esc>:bp<cr>
-" imap <silent> <A-tab> <esc>:b#<cr>
-
-" vmap <A-1> <esc><Plug>BufTabLine.Go(1)
-" vmap <A-2> <esc><Plug>BufTabLine.Go(2)
-" vmap <A-3> <esc><Plug>BufTabLine.Go(3)
-" vmap <A-4> <esc><Plug>BufTabLine.Go(4)
-" vmap <A-5> <esc><Plug>BufTabLine.Go(5)
-" vmap <A-6> <esc><Plug>BufTabLine.Go(6)
-" vmap <A-7> <esc><Plug>BufTabLine.Go(7)
-" vmap <A-8> <esc><Plug>BufTabLine.Go(8)
-" vmap <A-9> <esc><Plug>BufTabLine.Go(9)
-" vmap <A-0> <esc><Plug>BufTabLine.Go(10)
-" vmap <silent> <A-q> <esc>:bp<bar>sp<bar>bn<bar>bd<cr>
-" vmap <silent> <A-n> <esc>:bn<cr>
-" vmap <silent> <A-p> <esc>:bp<cr>
-" vmap <silent> <A-tab> <esc>:b#<cr>
-
-" tmap <A-1> <C-\><C-n><Plug>BufTabLine.Go(1)
-" tmap <A-2> <C-\><C-n><Plug>BufTabLine.Go(2)
-" tmap <A-3> <C-\><C-n><Plug>BufTabLine.Go(3)
-" tmap <A-4> <C-\><C-n><Plug>BufTabLine.Go(4)
-" tmap <A-5> <C-\><C-n><Plug>BufTabLine.Go(5)
-" tmap <A-6> <C-\><C-n><Plug>BufTabLine.Go(6)
-" tmap <A-7> <C-\><C-n><Plug>BufTabLine.Go(7)
-" tmap <A-8> <C-\><C-n><Plug>BufTabLine.Go(8)
-" tmap <A-9> <C-\><C-n><Plug>BufTabLine.Go(9)
-" tmap <A-0> <C-\><C-n><Plug>BufTabLine.Go(10)
-" tmap <silent> <A-q> <C-\><C-n>:bd<cr>
-" tmap <silent> <A-n> <C-\><C-n>:bn<cr>
-" tmap <silent> <A-p> <C-\><C-n>:bp<cr>
-" tmap <silent> <A-tab> <C-\><C-n>:b#<cr>
-
-" hi! link BufTabLineCurrent   TablineSel
-" hi! link BufTabLineActive    Tabline
-" hi! link BufTabLineHidden    Tabline
-" hi! link BufTabLineFill      TablineFill
-
-" " }}}
 
 " vem-tabline {{{
 
@@ -682,12 +640,6 @@ let g:python_highlight_operators = 1
 
 " }}}
 
-" vim-hugefile {{{
-
-let g:hugefile_trigger_size = 0.4
-
-" }}}
-
 " vim-prettier {{{
 
 let g:prettier#config#config_precedence = 'file-override'
@@ -718,17 +670,17 @@ vnoremap <A-f> y<esc>:AsyncRun! rg --vimgrep --fixed-strings "<c-r>""<cr>
 
 " vim-lsp {{{
 
-" let g:lsp_log_file = expand('/tmp/vim-lsp.log')
-let g:lsp_auto_enable = 0
+let g:lsp_auto_enable = 1
+let g:lsp_fold_enabled = 0
 let g:lsp_text_document_did_save_delay = 0
 let g:lsp_semantic_enabled = 0
-let g:lsp_auto_enable = 0
 let g:lsp_signs_enabled = 0
 let g:lsp_text_edit_enabled = 0
 let g:lsp_signature_help_enabled = 0
 let g:lsp_diagnostics_echo_cursor = 0
 let g:lsp_diagnostics_float_cursor = 0
 let g:lsp_highlight_references_enabled = 0
+" let g:lsp_log_file = expand('/tmp/vim-lsp.log')
 
 hi link LspErrorHighlight Underlined
 hi link LspWarningHighlight Underlined
@@ -740,23 +692,29 @@ hi link LspWarningText WarningMsg
 hi link LspInformationText Search
 hi link LspHintText Search
 
+if executable('clangd')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'clangd',
+        \ 'cmd': {server_info->['clangd', '-background-index']},
+        \ 'whitelist': ['c', 'cpp', 'objc'],
+        \ })
+endif
+
+function! s:on_lsp_buffer_enabled() abort
+    setlocal omnifunc=lsp#complete
+    if exists('+tagfunc') 
+        setlocal tagfunc=lsp#tagfunc
+    endif
+    nnoremap <buffer> <A-]> :LspNextDiagnostic<cr>
+    nnoremap <buffer> <A-[> :LspPreviousDiagnostic<cr>
+    nnoremap <buffer> <A-i> :LspHover<cr>
+    inoremap <buffer> <A-i> <esc>:LspSignatureHelp<cr>
+    nnoremap <buffer> <A-t> :LspDocumentDiagnostics<cr>
+endfunction
+
 augroup VIM_LSP
     au!
-    if executable('clangd')
-        au User lsp_setup call lsp#register_server({
-                    \ 'name': 'clangd',
-                    \ 'cmd': {server_info->['clangd', '-background-index', '-limit-results=20']},
-                    \ 'whitelist': ['c', 'cpp', 'objc'],
-                    \ })
-        au FileType c,cpp,objc call lsp#enable()
-        au FileType c,cpp,objc noremap <buffer> <A-e> :LspNextError<cr>
-        au FileType c,cpp,objc noremap <buffer> <A-E> :LspPreviousError<cr>
-        au FileType c,cpp,objc nnoremap <buffer> <A-i> :LspHover<cr>
-        au FileType c,cpp,objc inoremap <buffer> <A-i> <esc>:LspSignatureHelp<cr>
-        au FileType c,cpp,objc nnoremap <buffer> <A-r> :LspRename<cr>
-        au FileType c,cpp,objc nnoremap <buffer> <A-t> :LspDocumentDiagnostics<cr>
-        au FileType c,cpp,objc setlocal omnifunc=lsp#complete
-    endif
+    au User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
 
 " }}}
@@ -798,7 +756,7 @@ let g:clever_f_ignore_case = 1
 let g:clever_f_across_no_line = 0
 let g:clever_f_fix_key_direction = 1
 
-nnoremap <esc><esc> <Plug>(clever-f-reset)
+nmap <esc><esc> <Plug>(clever-f-reset)
 
 hi! link CleverFDefaultLabel SpellBad
 
@@ -806,9 +764,10 @@ hi! link CleverFDefaultLabel SpellBad
 
 " fastfold {{{
 
-let g:fastfold_fold_command_suffixes = []
-let g:fastfold_fold_movement_commands = []
 let g:fastfold_skip_filetypes = [ 'git', 'diff' ]
+let g:fastfold_force = 1
+let g:fastfold_savehook = 0
+let g:fastfold_minlines = 0
 
 " }}}
 
@@ -835,12 +794,14 @@ augroup END
 
 " }}}
 
-" committia.vim {{{
+" wordmotion {{{
 
-    augroup Committia
-        au!
-        au FileType git set foldenable foldmethod=syntax foldtext=getline(v:foldstart)
-    augroup END
+	let g:wordmotion_prefix = '_wm'
+	let g:wordmotion_mappings = {
+	\ 'w' : 'w',
+	\ 'b' : 'b',
+	\ 'e' : 'e',
+	\ }
 
 " }}}
 

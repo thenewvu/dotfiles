@@ -21,7 +21,7 @@ syn match Structure "\v\s*(struct|enum|union)(\s*[a-zA-Z0-9_]*\_s*\{)@="
 
 syn match Function "\v[a-zA-Z_#][#a-zA-Z0-9_]{-}\s*(\()@="
 
-" syn keyword Function sizeof typeof typeof
+" syn keyword Operator sizeof typeof typeof assert __typeof
 " syn match Operator "[\+\-\*\/\%\?\:\&\|\<\>\=\!\.\]\[]"
 
 syn match Delimiter "[\}\{\;\,\\]"
