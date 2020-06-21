@@ -689,8 +689,8 @@ hi link LspHintHighlight Underlined
 
 hi link LspErrorText Error
 hi link LspWarningText WarningMsg
-hi link LspInformationText Search
-hi link LspHintText Search
+hi link LspInformationText WarningMsg
+hi link LspHintText WarningMsg
 
 if executable('clangd')
     au User lsp_setup call lsp#register_server({
