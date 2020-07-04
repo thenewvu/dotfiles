@@ -55,3 +55,8 @@
 --langmap=dlang:.d
 --regex-dlang=/[ \t]*(final)?[ \t]*(class|interface)[ \t]+([a-zA-Z0-9_]+)/\3/c,classes/
 --regex-dlang=/[ \t]*(private|public|static|auto|final|const[ \t])*([a-zA-Z0-9_\.\*]*[ \t])([a-zA-Z0-9_]+)[ \s]*\(.*/\3/m,members/
+
+--langdef=Dart                                                                                                         
+--langmap=dart:.dart                                                                                                   
+--regex-dart=/^[ \t]*class[ \t]*([a-zA-Z0-9_]+)/\1/c,classes/                                                          
+--regex-dart=/^[ \t]*([a-zA-Z0-9_]+)[ \t]+([a-zA-Z0-9_]+)[ \t]*\(/\2/f,function/
