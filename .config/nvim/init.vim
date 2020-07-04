@@ -9,7 +9,9 @@ set completeopt=menu,menuone,noselect,noinsert
 set encoding=utf-8
 set autoread " autoreload files on change
 set backspace=indent,eol,start " make backspace work like most other apps
-set incsearch hlsearch noignorecase inccommand=nosplit gdefault
+set incsearch hlsearch noignorecase
+set inccommand=nosplit " live substitution
+set gdefault " %s//g by default
 set expandtab smarttab tabstop=4 shiftwidth=4 softtabstop=4 
 set wildignore+=.hg,.git,.svn,*.class,*.o,*~,*.pyc,*.lock,*.out,*.exe
 set wildignorecase " Ignore case when completing filenames
@@ -80,8 +82,8 @@ function! FoldExprBraces()
     let l:text = getline(v:lnum)
 
     " remove comments
-    let l:text = substitute(l:text, '\v\/\*.*\*\/', "", "g")
-    let l:text = substitute(l:text, '\v\/\/.*$', "", "g")
+    " let l:text = substitute(l:text, '\v\/\*.*\*\/', "", "g")
+    " let l:text = substitute(l:text, '\v\/\/.*$', "", "g")
 
     if &filetype == 'javascript'
         " remove regex
@@ -122,7 +124,7 @@ augroup All
     " clear message below statusline after CursorHold time
     au CursorHold * echo
 
-    au FileType c,cpp,javascript,java,go,objc,objcpp
+    au FileType c,cpp,javascript,java,go,objc,objcpp,dart
                 \ setlocal foldmethod=expr
                 \ foldexpr=FoldExprBraces()
                 \ foldtext=FoldTextBraces()
@@ -278,6 +280,11 @@ vnoremap <expr> r g:mc . "``cgn"
 inoremap <A-space> <C-x><C-o>
 nnoremap q qw
 nnoremap Q @w
+
+nnoremap <silent><A-q> :bp<bar>bd#<cr> " close buffer if not the last
+nnoremap <silent><A-C-p> gT
+nnoremap <silent><A-C-n> gt
+nnoremap <silent><A-C-q> :tabclose<cr>
 
 " search without jumping
 " https://stackoverflow.com/a/4262209
@@ -445,10 +452,11 @@ Plug 'amadeus/vim-convert-color-to', { 'on': 'ConvertColorTo' }
 
 Plug 'skywind3000/asyncrun.vim', { 'on': ['AsyncRun', 'AsyncStop'] }
 
-Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
 
-Plug 'pacha/vem-tabline' 
+Plug 'thosakwe/vim-flutter'
+
+" Plug 'neovim/nvim-lsp'
 
 Plug 'endaaman/vim-case-master', { 'on': 'CaseMasterConvertToSnake' }
 
@@ -458,11 +466,13 @@ Plug 'rhysd/clever-f.vim'
 
 Plug 'Konfekt/FastFold'
 
-Plug 'norcalli/nvim-colorizer.lua', { 'on': 'ColorizerAttachToBuffer' }
+Plug 'chrisbra/Colorizer'
 
 Plug 'Yggdroot/indentLine'
 
 Plug 'tpope/vim-fugitive'
+
+Plug 'dart-lang/dart-vim-plugin'
 
 call plug#end()
 
@@ -497,12 +507,10 @@ command! -bang -nargs=* FzfBufLines
     \   fzf#vim#with_preview({'down': '40%', 'options': '--bind change:top --delimiter : --with-nth 3..'}),
     \   0)
 
-" fuzzy search files in cwd
 nnoremap <silent> ` :FZF<cr>
-" fuzzy search text in cur buf
 nnoremap <silent> / :FzfBufLines<cr>
-" fuzzy search tags in cur buf
 nnoremap <silent> <tab> :FzfBufTags<cr>
+nnoremap <silent> <A-tab> :Buffers<cr>
 
 augroup FZF
     au!
@@ -524,83 +532,6 @@ vnoremap <A-a> :Tabularize /
 set termguicolors
 set background=dark
 colorscheme blueprint
-
-" }}}
-
-" vem-tabline {{{
-
-let g:vem_tabline_show_number = 'index'
-let g:vem_tabline_show = 2 " always show
-
-nmap <silent><A-1> :VemTablineGo 1<cr>
-nmap <silent><A-2> :VemTablineGo 2<cr>
-nmap <silent><A-3> :VemTablineGo 3<cr>
-nmap <silent><A-4> :VemTablineGo 4<cr>
-nmap <silent><A-5> :VemTablineGo 5<cr>
-nmap <silent><A-6> :VemTablineGo 6<cr>
-nmap <silent><A-7> :VemTablineGo 7<cr>
-nmap <silent><A-8> :VemTablineGo 8<cr>
-nmap <silent><A-9> :VemTablineGo 9<cr>
-nmap <silent><A-q> :bp<bar>bd#<cr>
-nmap <silent><A-n> <Plug>vem_next_buffer-
-nmap <silent><A-p> <Plug>vem_prev_buffer-
-nmap <silent><A-tab> :b#<cr>
-nmap <silent><A-P> <Plug>vem_move_buffer_left-
-nmap <silent><A-N> <Plug>vem_move_buffer_right-
-nmap <silent><A-C-p> gT
-nmap <silent><A-C-n> gt
-nmap <silent><A-C-q> :tabclose<cr>
-
-imap <silent><A-1> <esc>:VemTablineGo 1<cr>
-imap <silent><A-2> <esc>:VemTablineGo 2<cr>
-imap <silent><A-3> <esc>:VemTablineGo 3<cr>
-imap <silent><A-4> <esc>:VemTablineGo 4<cr>
-imap <silent><A-5> <esc>:VemTablineGo 5<cr>
-imap <silent><A-6> <esc>:VemTablineGo 6<cr>
-imap <silent><A-7> <esc>:VemTablineGo 7<cr>
-imap <silent><A-8> <esc>:VemTablineGo 8<cr>
-imap <silent><A-9> <esc>:VemTablineGo 9<cr>
-imap <silent><A-q> <esc>:bp<bar>bd#<cr>
-imap <silent><A-n> <esc><Plug>vem_next_buffer-
-imap <silent><A-p> <esc><Plug>vem_prev_buffer-
-imap <silent><A-tab> <esc>:b#<cr>
-imap <silent><A-C-p> <esc>gT
-imap <silent><A-C-n> <esc>gt
-imap <silent><A-C-q> <esc>:tabclose<cr>
-
-vmap <silent><A-1> <esc>:VemTablineGo 1<cr>
-vmap <silent><A-2> <esc>:VemTablineGo 2<cr>
-vmap <silent><A-3> <esc>:VemTablineGo 3<cr>
-vmap <silent><A-4> <esc>:VemTablineGo 4<cr>
-vmap <silent><A-5> <esc>:VemTablineGo 5<cr>
-vmap <silent><A-6> <esc>:VemTablineGo 6<cr>
-vmap <silent><A-7> <esc>:VemTablineGo 7<cr>
-vmap <silent><A-8> <esc>:VemTablineGo 8<cr>
-vmap <silent><A-9> <esc>:VemTablineGo 9<cr>
-vmap <silent><A-q> <esc>:bp<bar>bd#<cr>
-vmap <silent><A-n> <esc><Plug>vem_next_buffer-
-vmap <silent><A-p> <esc><Plug>vem_prev_buffer-
-vmap <silent><A-tab> <esc>:b#<cr>
-vmap <silent><A-C-p> <esc>gT
-vmap <silent><A-C-n> <esc>gt
-vmap <silent><A-C-q> <esc>:tabclose<cr>
-
-tmap <silent><A-1> <C-\><C-n>:VemTablineGo 1<cr>
-tmap <silent><A-2> <C-\><C-n>:VemTablineGo 2<cr>
-tmap <silent><A-3> <C-\><C-n>:VemTablineGo 3<cr>
-tmap <silent><A-4> <C-\><C-n>:VemTablineGo 4<cr>
-tmap <silent><A-5> <C-\><C-n>:VemTablineGo 5<cr>
-tmap <silent><A-6> <C-\><C-n>:VemTablineGo 6<cr>
-tmap <silent><A-7> <C-\><C-n>:VemTablineGo 7<cr>
-tmap <silent><A-8> <C-\><C-n>:VemTablineGo 8<cr>
-tmap <silent><A-9> <C-\><C-n>:VemTablineGo 9<cr>
-tmap <silent><A-q> <C-\><C-n>:bp<bar>bd#<cr>
-tmap <silent><A-n> <C-\><C-n><Plug>vem_next_buffer-
-tmap <silent><A-p> <C-\><C-n><Plug>vem_prev_buffer-
-tmap <silent><A-tab> <C-\><C-n>:b#<cr>
-tmap <silent><A-C-p> <C-\><C-n>gT
-tmap <silent><A-C-n> <C-\><C-n>gt
-tmap <silent><A-C-q> <C-\><C-n>:tabclose<cr>
 
 " }}}
 
@@ -656,15 +587,16 @@ let g:undotree_SplitWidth = 60
 " asyncrun {{{
 
 let g:asyncrun_open = 10
+let g:asyncrun_local = 0
 
 nnoremap ! :AsyncRun<space>
-nnoremap <A-s> :AsyncRun! rg --vimgrep 
-inoremap <A-s> <esc>:AsyncRun! rg --vimgrep  
-vnoremap <A-s> y<esc>:AsyncRun! rg --vimgrep --fixed-strings "<c-r>""<cr>
-tnoremap <A-s> <C-\><C-n>:AsyncRun! rg --vimgrep  
-
-nnoremap <A-f> :AsyncRun! rg --vimgrep <cword><cr>
+nnoremap <A-f> :AsyncRun! rg --vimgrep 
+inoremap <A-f> <esc>:AsyncRun! rg --vimgrep  
 vnoremap <A-f> y<esc>:AsyncRun! rg --vimgrep --fixed-strings "<c-r>""<cr>
+tnoremap <A-f> <C-\><C-n>:AsyncRun! rg --vimgrep  
+
+nnoremap <A-r> :AsyncRun! rg --vimgrep <cword><cr>
+vnoremap <A-r> y<esc>:AsyncRun! rg --vimgrep --fixed-strings "<c-r>""<cr>
 
 " }}}
 
@@ -678,7 +610,8 @@ let g:lsp_signs_enabled = 0
 let g:lsp_text_edit_enabled = 0
 let g:lsp_signature_help_enabled = 0
 let g:lsp_diagnostics_echo_cursor = 0
-let g:lsp_diagnostics_float_cursor = 0
+let g:lsp_diagnostics_float_cursor = 1
+let g:lsp_virtual_text_enabled = 0
 let g:lsp_highlight_references_enabled = 0
 " let g:lsp_log_file = expand('/tmp/vim-lsp.log')
 
@@ -692,14 +625,6 @@ hi link LspWarningText WarningMsg
 hi link LspInformationText WarningMsg
 hi link LspHintText WarningMsg
 
-if executable('clangd')
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'clangd',
-        \ 'cmd': {server_info->['clangd', '-background-index']},
-        \ 'whitelist': ['c', 'cpp', 'objc'],
-        \ })
-endif
-
 function! s:on_lsp_buffer_enabled() abort
     setlocal omnifunc=lsp#complete
     if exists('+tagfunc') 
@@ -709,13 +634,75 @@ function! s:on_lsp_buffer_enabled() abort
     nnoremap <buffer> <A-[> :LspPreviousDiagnostic<cr>
     nnoremap <buffer> <A-i> :LspHover<cr>
     inoremap <buffer> <A-i> <esc>:LspSignatureHelp<cr>
-    nnoremap <buffer> <A-t> :LspDocumentDiagnostics<cr>
+    nnoremap <buffer> <A-\> :LspDocumentDiagnostics<cr>
 endfunction
 
 augroup VIM_LSP
     au!
     au User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+
+    if executable('clangd')
+        au User lsp_setup call lsp#register_server({
+            \ 'name': 'clangd',
+            \ 'cmd': {server_info->['clangd', '-background-index']},
+            \ 'whitelist': ['c', 'cpp', 'objc'],
+            \ })
+    endif
+
+    if executable('flutter')
+        let s:flutter_bin_path = fnamemodify(system('which flutter'), ':p:h')
+        au User lsp_setup call lsp#register_server({
+            \   'name': 'flutter-dart',
+            \   'cmd': {server_info->[
+            \         s:flutter_bin_path . '/cache/dart-sdk/bin/dart',
+            \         s:flutter_bin_path . '/cache/dart-sdk/bin/snapshots/analysis_server.dart.snapshot',
+            \         '--lsp'
+            \     ]},
+            \   'whitelist': ['dart'],
+            \   'config': {
+            \     'onlyAnalyzeProjectsWithOpenFiles': v:true,
+            \     'suggestFromUnimportedLibraries': v:false
+            \   },
+            \ })
+    endif
+
 augroup END
+
+" }}}
+
+"" nvim-lsp {{{
+
+"lua << EOF
+"  local lsp = require 'nvim_lsp'
+
+"  lsp.dartls.setup{
+"    cmd = {
+"      "/Users/vu/Works/projects/flutter/bin/cache/dart-sdk/bin/dart",
+"      "/Users/vu/Works/projects/flutter/bin/cache/dart-sdk/bin/snapshots/analysis_server.dart.snapshot",
+"      "--lsp"
+"    },
+"  }
+"EOF
+
+"function! s:lsp_buf_setup() abort
+"    nnoremap <silent> <A-i> <cmd>lua vim.lsp.buf.hover()<CR>
+"    inoremap <silent> <A-i> <cmd>lua vim.lsp.buf.signature_help()<CR>
+"    setlocal omnifunc=v:lua.vim.lsp.omnifunc
+"endfunction
+
+"augroup LSP
+"    au!
+"    au Filetype dart call s:lsp_buf_setup()
+"augroup END
+
+"" }}}
+
+" dart-lang/dart-vim-plugin {{{
+
+" augroup DART
+"     au!
+"     au BufWritePre *.dart :DartFmt<cr>
+" augroup END
 
 " }}}
 
@@ -779,7 +766,7 @@ let g:indentLine_char = '│'
 
 augroup IndentLine
     au!
-    au FileType c,cpp,objc,javascript,java :IndentLinesEnable
+    au FileType c,cpp,objc,javascript,java,dart :IndentLinesEnable
 augroup end
 
 " }}}

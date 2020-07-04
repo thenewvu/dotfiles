@@ -12,7 +12,7 @@ let s:cpo_save = &cpo
 set cpo&vim
 
 syn keyword Keyword return async await function class case default break continue throw new delete try catch finally
-" syn keyword StorageClass const var let
+syn keyword StorageClass const var let
 syn keyword PreProc export import from
 syn keyword Conditional if else switch
 syn keyword Repeat do while for foreach of in
