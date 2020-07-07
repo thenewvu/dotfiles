@@ -126,7 +126,7 @@ augroup All
     " clear message below statusline after CursorHold time
     au CursorHold * echo
 
-    au FileType c,cpp,javascript,java,go,objc,objcpp,dart
+    au FileType c,cpp,javascript,java,go,objc,objcpp,dart,rust
                 \ setlocal foldmethod=expr
                 \ foldexpr=FoldExprBraces()
                 \ foldtext=FoldTextBraces()
@@ -456,7 +456,7 @@ Plug 'skywind3000/asyncrun.vim', { 'on': ['AsyncRun', 'AsyncStop'] }
 
 Plug 'prabirshrestha/vim-lsp'
 
-Plug 'thosakwe/vim-flutter'
+Plug 'thosakwe/vim-flutter', { 'on': 'FlutterRun' }
 
 " Plug 'neovim/nvim-lsp'
 
@@ -468,13 +468,11 @@ Plug 'rhysd/clever-f.vim'
 
 Plug 'Konfekt/FastFold'
 
-Plug 'chrisbra/Colorizer'
+Plug 'chrisbra/Colorizer', { 'on': ['ColorToggle','ColorHighlight'] }
 
 Plug 'Yggdroot/indentLine'
 
-Plug 'tpope/vim-fugitive'
-
-Plug 'dart-lang/dart-vim-plugin'
+Plug 'dart-lang/dart-vim-plugin', { 'for': 'dart' }
 
 call plug#end()
 
@@ -509,10 +507,16 @@ command! -bang -nargs=* FzfBufLines
     \   fzf#vim#with_preview({'down': '40%', 'options': '--bind change:top --delimiter : --with-nth 3..'}),
     \   0)
 
-nnoremap <silent> ` :FZF<cr>
 nnoremap <silent> / :FzfBufLines<cr>
 nnoremap <silent> <tab> :FzfBufTags<cr>
+
+nnoremap <silent> ` :FZF<cr>
+inoremap <silent> ` <esc>:FZF<cr>
+tnoremap <silent> ` <C-\><C-n>:FZF<cr>
+
 nnoremap <silent> <A-tab> :Buffers<cr>
+tnoremap <silent> <A-tab> <C-\><C-n>:Buffers<cr>
+inoremap <silent> <A-tab> <esc>:Buffers<cr>
 
 augroup FZF
     au!
