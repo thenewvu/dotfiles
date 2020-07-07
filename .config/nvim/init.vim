@@ -93,6 +93,8 @@ function! FoldExprBraces()
     " remove strings
     let l:text = substitute(l:text, '\v([''"`])((\\\1|.){-})\1', "", "g")
 
+    let l:text = substitute(l:text, '\v\{[^\{\}]*\}', "", "g")
+
     " both opening and closing
     if l:text =~# '^[^{]\{-}}.\{-}{[^}]*$'
         return '='
