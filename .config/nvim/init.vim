@@ -44,7 +44,6 @@ let g:loaded_tutor_mode_plugin  = 1
 let g:loaded_matchparen         = 1
 let g:loaded_matchit            = 1
 let g:c_syntax_for_h = 1
-set laststatus=0
 set statusline=%F
 set noshowcmd
 set noshowmode
@@ -547,6 +546,8 @@ let g:vim_markdown_conceal = 2
 let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_no_default_key_mappings = 1
 
+let g:vim_markdown_fenced_languages = ['js=javascript']
+
 hi! link mkdString        Normal
 hi! link mkdCode          Keyword
 hi! link mkdCodeDelimiter Delimiter
@@ -621,6 +622,7 @@ let g:lsp_virtual_text_enabled = 0
 let g:lsp_highlight_references_enabled = 0
 " let g:lsp_log_file = expand('/tmp/vim-lsp.log')
 
+
 hi link LspErrorHighlight Underlined
 hi link LspWarningHighlight Underlined
 hi link LspInformationHighlight Underlined
@@ -633,6 +635,11 @@ hi link LspHintText WarningMsg
 
 function! s:on_lsp_buffer_enabled() abort
     setlocal omnifunc=lsp#complete
+    setlocal statusline=%F
+    setlocal statusline+=%=
+    setlocal statusline+=%{lsp#get_buffer_diagnostics_counts().warning}W
+    setlocal statusline+=:
+    setlocal statusline+=%{lsp#get_buffer_diagnostics_counts().error}E
     if exists('+tagfunc') 
         setlocal tagfunc=lsp#tagfunc
     endif
@@ -640,6 +647,8 @@ function! s:on_lsp_buffer_enabled() abort
     nnoremap <buffer> <A-[> :LspPreviousDiagnostic<cr>
     nnoremap <buffer> <A-i> :LspHover<cr>
     inoremap <buffer> <A-i> <esc>:LspSignatureHelp<cr>
+    nnoremap <buffer> <A-o> :LspDefinition<cr>
+    inoremap <buffer> <A-o> <esc>:LspDefinition<cr>
     nnoremap <buffer> <A-\> :LspDocumentDiagnostics<cr>
 endfunction
 
@@ -651,7 +660,7 @@ augroup VIM_LSP
         au User lsp_setup call lsp#register_server({
             \ 'name': 'clangd',
             \ 'cmd': {server_info->['clangd', '-background-index']},
-            \ 'whitelist': ['c', 'cpp', 'objc'],
+            \ 'allowlist': ['c', 'cpp', 'objc'],
             \ })
     endif
 
@@ -664,12 +673,21 @@ augroup VIM_LSP
             \         s:flutter_bin_path . '/cache/dart-sdk/bin/snapshots/analysis_server.dart.snapshot',
             \         '--lsp'
             \     ]},
-            \   'whitelist': ['dart'],
+            \   'allowlist': ['dart'],
             \   'config': {
             \     'onlyAnalyzeProjectsWithOpenFiles': v:true,
             \     'suggestFromUnimportedLibraries': v:false
             \   },
             \ })
+    endif
+
+    if executable('typescript-language-server')
+      au User lsp_setup call lsp#register_server({
+        \ 'name': 'typescript-language-server',
+        \ 'cmd': {server_info->['typescript-language-server', '--stdio']},
+        \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'package.json'))},
+        \ 'allowlist': ['javascript', 'javascript.jsx'],
+        \ })
     endif
 
 augroup END
@@ -766,6 +784,7 @@ let g:fastfold_minlines = 0
 
 " indentLine {{{
 
+let g:indentLine_concealcursor=0
 let g:indentLine_enabled = 0
 let g:indentLine_color_gui = '#2c4e6c'
 let g:indentLine_char = '│'
