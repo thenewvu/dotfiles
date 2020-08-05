@@ -56,3 +56,21 @@
     untracked = "#ffffff"
 [help]
 	autocorrect = 50
+
+[core]
+    pager = delta
+
+[delta]
+    navigate = true
+    hunk-header-style = omit
+    minus-style = 'syntax "#a05454"'
+    minus-emph-style = 'syntax ul "#a05454"'
+    plus-style = 'syntax "#437f43"'
+    plus-emph-style = 'syntax ul "#437f43"'
+    side-by-side = true
+    syntax-theme = none
+    line-numbers-zero-style = 'black'
+    line-numbers-left-style = 'black'
+    line-numbers-right-style = 'black'
+    line-numbers-plus-style = '"#437f43"'
+    line-numbers-minus-style = '"#a05454"'
