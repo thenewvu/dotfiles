@@ -44,7 +44,7 @@ let g:loaded_tutor_mode_plugin  = 1
 let g:loaded_matchparen         = 1
 let g:loaded_matchit            = 1
 let g:c_syntax_for_h = 1
-set statusline=%F
+set statusline=%F%m
 set noshowcmd
 set noshowmode
 set noruler
@@ -635,7 +635,7 @@ hi link LspHintText WarningMsg
 
 function! s:on_lsp_buffer_enabled() abort
     setlocal omnifunc=lsp#complete
-    setlocal statusline=%F
+    setlocal statusline=%F%m
     setlocal statusline+=%=
     setlocal statusline+=%{lsp#get_buffer_diagnostics_counts().warning}W
     setlocal statusline+=:
@@ -778,7 +778,7 @@ hi! link CleverFDefaultLabel SpellBad
 let g:fastfold_skip_filetypes = [ 'git', 'diff' ]
 let g:fastfold_force = 1
 let g:fastfold_savehook = 0
-let g:fastfold_minlines = 0
+let g:fastfold_minlines = 2
 
 " }}}
 
