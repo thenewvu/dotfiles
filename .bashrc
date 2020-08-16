@@ -71,11 +71,15 @@ export ANDROID_NDK_ROOT="$ANDROID_NDK_HOME"
 export ANDROID_NDK_CLANG="$ANDROID_NDK_ROOT/toolchains/llvm/prebuilt/darwin-x86_64"
 export ANDROID_NDK_ARM="$ANDROID_NDK_ROOT/toolchains/arm-linux-androideabi-4.9/prebuilt/darwin-x86_64"
 export ANDROID_NDK_X86="$ANDROID_NDK_ROOT/toolchains/x86-4.9/prebuilt/darwin-x86_64"
-export PATH="$ANDROID_SDK_ROOT/tools:$PATH"
+export PATH="$ANDROID_SDK_ROOT/tools:$ANDROID_SDK_ROOT/tools/bin:$PATH"
 export PATH="$ANDROID_SDK_ROOT/platform-tools:$PATH"
 
 export JAVA_HOME="/Applications/Android Studio.app/Contents/jre/jdk/Contents/Home"
 export PATH="$JAVA_HOME/bin:$PATH"
+
+export FLUTTER_ROOT=~/Works/projects/flutter
+export PATH="$FLUTTER_ROOT/bin:$PATH"
+export PATH="/usr/local/opt/libpq/bin:$PATH"
 
 # homebrew llvm need below
 export PATH="/usr/local/opt/llvm/bin:$PATH"
@@ -84,10 +88,10 @@ export CXX=clang++
 export LD=ld.lld
 export AR=llvm-ar
 export RANLIB=llvm-ranlib
-export CFLAGS="$CCFLAGS -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk"
-export CCFLAGS="$CCFLAGS -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk"
-export CXXFLAGS="$CXXFLAGS -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk"
-export OBJCFLAGS="$OBJCFLAGS -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk"
+export CFLAGS="$CFLAGS -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk"
+export CCFLAGS="$CCFLAGS -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk"
+export CXXFLAGS="$CXXFLAGS -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk"
+export OBJCFLAGS="$OBJCFLAGS -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk"
 export LDFLAGS="$LDFLAGS -L/usr/local/opt/llvm/lib -Wl,-rpath,/usr/local/opt/llvm/lib"
 
 # so cmake can find qt
@@ -112,12 +116,10 @@ export MAKEFLAGS='-j8 --warn-undefined-variables --no-builtin-rules'
 # https://sanctum.geek.nz/arabesque/better-bash-history/
 
 # Increase the size of history maintained by BASH
-export HISTFILESIZE=1000
+export HISTFILESIZE=10000
 export HISTSIZE=${HISTFILESIZE}
 # ignore recording duplicated or space-leading commands
 export HISTCONTROL=ignoreboth:ignoredups:erasedups
-# ignore recording some trivial commands
-export HISTIGNORE='cd:ls:ll:l:bg:fg:history:nvim:gs:gd:gu:gca:gcd:gcr:gcm:gl:mpv'
 # When the shell exits, append to the history file instead of overwriting it
 shopt -s histappend
 # Use one command per line
@@ -151,11 +153,7 @@ gl() {
         fzf --no-sort --reverse --tiebreak=index --no-multi --ansi    \
             --preview="$fzf__git_show" --preview-window=bottom:80%    \
             --bind "ctrl-y:execute:$fzf__git_hash | pbcopy"           \
-            --bind "ctrl-g:execute:$fzf__git_checkout"                \
-            --bind "ctrl-j:preview-down"                              \
-            --bind "ctrl-k:preview-up"                                \
-            --bind "down:preview-down"                                \
-            --bind "up:preview-up"
+            --bind "ctrl-g:execute:$fzf__git_checkout"
 }
 
 alias gs="git status --short"
