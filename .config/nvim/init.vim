@@ -489,25 +489,16 @@ augroup end
 
 " fzf {{{
 
-command! -bang FzfBufTags
-    \ call fzf#vim#buffer_tags('', {
-    \     'down': '40%',
-    \     'options': '--bind change:top
-    \                 --with-nth 1 
-    \                 --reverse 
-    \                 --prompt "> " 
-    \                 --preview-window="80%" 
-    \                 --preview "~/.config/nvim/plugged/fzf.vim/bin/preview.sh {2}:\$(echo {3} | tr -d \";\\\"\")"'
-    \ })
-
 command! -bang -nargs=* FzfBufLines
-    \ call fzf#vim#grep(
-    \   'grep --with-filename --line-number . '.fnameescape(expand('%')), 0,
-    \   fzf#vim#with_preview({'down': '40%', 'options': '--bind change:top --delimiter : --with-nth 3..'}),
+    \ call fzf#vim#grep('grep --with-filename --line-number . '.fnameescape(expand('%')), 0,
+    \   fzf#vim#with_preview({
+    \       'down': '40%',
+    \       'options': '--bind change:top --delimiter : --with-nth 3..'
+    \       }),
     \   0)
 
 nnoremap <silent> / :FzfBufLines<cr>
-nnoremap <silent> <tab> :FzfBufTags<cr>
+nnoremap <silent> <tab> :BTags<cr>
 
 nnoremap <silent> ` :FZF<cr>
 inoremap <silent> ` <esc>:FZF<cr>
