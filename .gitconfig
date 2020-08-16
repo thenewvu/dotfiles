@@ -19,14 +19,13 @@
     wordRegex = [A-Z0-9]+|[A-Z0-9]?[a-z0-9]+|[^[:space:]]
     algorithm = histogram
     context = 10
-[difftool]
-	prompt = false
-[merge]
-	tool = nvim
-[mergetool]
-	prompt = false
-[mergetool "nvim"]
-	cmd = nvim -f -c \"Gvdiff\" \"$MERGED\"
+    tool = kittydiff
+[difftool "nvimdiff"]
+	prompt = true
+    cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
+[difftool "kittydiff"]
+	prompt = true
+    cmd = "kitty +kitten diff \"$LOCAL\" \"$REMOTE\""
 [color]
 	branch = auto
 	diff = auto
@@ -62,13 +61,15 @@
 
 [delta]
     navigate = true
-    hunk-header-style = omit
-    minus-style = 'syntax "#a05454"'
-    minus-emph-style = 'syntax ul "#a05454"'
-    plus-style = 'syntax "#437f43"'
-    plus-emph-style = 'syntax ul "#437f43"'
     side-by-side = true
     syntax-theme = none
+    hunk-header-style = omit
+    minus-style = 'syntax "#a05454"'
+    minus-emph-style = 'syntax reverse "#a05454"'
+    minus-empty-line-marker-style = 'syntax "#a05454"'
+    plus-style = 'syntax "#437f43"'
+    plus-emph-style = 'syntax reverse "#437f43"'
+    plus-empty-line-marker-style = 'syntax "#a05454"'
     line-numbers-zero-style = 'black'
     line-numbers-left-style = 'black'
     line-numbers-right-style = 'black'
