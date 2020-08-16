@@ -55,23 +55,3 @@
     untracked = "#ffffff"
 [help]
 	autocorrect = 50
-
-[core]
-    pager = delta
-
-[delta]
-    navigate = true
-    side-by-side = true
-    syntax-theme = none
-    hunk-header-style = omit
-    minus-style = 'syntax "#a05454"'
-    minus-emph-style = 'syntax reverse "#a05454"'
-    minus-empty-line-marker-style = 'syntax "#a05454"'
-    plus-style = 'syntax "#437f43"'
-    plus-emph-style = 'syntax reverse "#437f43"'
-    plus-empty-line-marker-style = 'syntax "#a05454"'
-    line-numbers-zero-style = 'black'
-    line-numbers-left-style = 'black'
-    line-numbers-right-style = 'black'
-    line-numbers-plus-style = '"#437f43"'
-    line-numbers-minus-style = '"#a05454"'
