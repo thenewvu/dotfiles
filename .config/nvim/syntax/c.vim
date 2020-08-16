@@ -6,7 +6,6 @@ syn match PreProc /\v^\s*\#\s*[a-z]+>/
 syn keyword PreProc __attribute__
 syn keyword StorageClass extern static inline const restrict volatile register
 syn keyword Keyword continue break return case default goto typedef
-syn keyword Debug assert
 syn keyword Conditional if else switch
 syn keyword Repeat do while for
 syn keyword Type void unsigned signed long int short char double float

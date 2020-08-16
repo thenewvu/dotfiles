@@ -277,8 +277,6 @@ nnoremap O O<esc>
 let g:mc = "y/\\V\<C-r>=escape(@\", '/')\<CR>\<CR>"
 nnoremap r *``cgn
 vnoremap <expr> r g:mc . "``cgn"
-" trigger completion
-inoremap <A-space> <C-x><C-o>
 nnoremap q qw
 nnoremap Q @w
 
@@ -626,6 +624,8 @@ hi link LspHintText WarningMsg
 
 function! s:on_lsp_buffer_enabled() abort
     setlocal omnifunc=lsp#complete
+    inoremap <A-space> <C-x><C-o>
+
     setlocal statusline=%F%m
     setlocal statusline+=%=
     setlocal statusline+=%{lsp#get_buffer_diagnostics_counts().warning}W
@@ -652,6 +652,15 @@ augroup VIM_LSP
             \ 'name': 'clangd',
             \ 'cmd': {server_info->['clangd', '-background-index']},
             \ 'allowlist': ['c', 'cpp', 'objc'],
+            \ 'initialization_options': {
+            \   'fallbackFlags': [
+            \       '-Wall',
+            \       '-Wextra',
+            \       '-Wno-missing-braces',
+            \       '-Wno-initializer-overrides',
+            \       '-Wunused-parameter'
+            \   ]
+            \ },
             \ })
     endif
 
