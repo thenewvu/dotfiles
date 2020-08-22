@@ -596,7 +596,7 @@ augroup VIM_LSP
             \       '-Wextra',
             \       '-Wno-missing-braces',
             \       '-Wno-initializer-overrides',
-            \       '-Wunused-parameter'
+            \       '-Wno-unused-parameter'
             \   ]
             \ },
             \ })
