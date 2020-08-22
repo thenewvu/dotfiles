@@ -398,18 +398,22 @@ Plug 'Yggdroot/indentLine'
 
 Plug 'dart-lang/dart-vim-plugin', { 'for': 'dart' }
 
-Plug 'caenrique/nvim-toggle-terminal'
+Plug 'kassio/neoterm'
 
 call plug#end()
 
 " }}}
 
-" caenrique/nvim-toggle-terminal {{{
+" kassio/neoterm {{{
 
-nnoremap <silent> <A-`> :ToggleTerminal<cr>
-inoremap <silent> <A-`> <esc>:ToggleTerminal<cr>
-vnoremap <silent> <A-`> <esc>:ToggleTerminal<cr>
-tnoremap <silent> <A-`> <C-\><C-n>:ToggleTerminal<cr>
+let g:neoterm_default_mod = 'botright'
+let g:neoterm_autoinsert = 1
+let g:neoterm_size = 1000
+
+nnoremap <silent> <A-`> :Ttoggle<cr>
+inoremap <silent> <A-`> <esc>:Ttoggle<cr>
+vnoremap <silent> <A-`> <esc>:Ttoggle<cr>
+tnoremap <silent> <A-`> <C-\><C-n>:Ttoggle<cr>
 
 " }}}
 
