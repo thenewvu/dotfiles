@@ -320,79 +320,6 @@ nnoremap <silent> <F12> :call ToggleQuickFix()<CR>
 inoremap <silent> <F12> <esc>:call ToggleQuickFix()<CR>
 vnoremap <silent> <F12> <esc>:call ToggleQuickFix()<CR>
 
-" https://github.com/kutsan/dotfiles/blob/8b243cd065b90b3d05dbbc71392f1dba1282d777/.vim/autoload/kutsan/mappings.vim#L1-L52
-function! TerminalCreateIfNot() abort
-    if !has('nvim')
-        return v:false
-    endif
-
-    if !exists('g:terminal')
-        let g:terminal = {
-                    \ 'loaded': v:null,
-                    \ 'termbufferid': v:null,
-                    \ 'originbufferid': v:null,
-                    \ 'jobid': v:null
-                    \ }
-    endif
-
-    function! g:terminal.on_exit(jobid, data, event)
-        silent execute 'buffer' g:terminal.originbufferid
-
-        let g:terminal = {
-                    \ 'loaded': v:null,
-                    \ 'termbufferid': v:null,
-                    \ 'originbufferid': v:null,
-                    \ 'jobid': v:null
-                    \ }
-    endfunction
-
-    " Create terminal and finish.
-    if !g:terminal.loaded
-        let g:terminal.originbufferid = bufnr('')
-
-        enew
-        setlocal nobuflisted
-        let g:terminal.jobid = termopen(&shell, g:terminal)
-        let g:terminal.loaded = v:true
-        let g:terminal.termbufferid = bufnr('')
-
-        silent execute 'buffer' g:terminal.originbufferid
-
-        return v:true
-    endif
-endfunction
-
-function! TerminalToggle() abort
-    call TerminalCreateIfNot()
-
-    " Go back to origin buffer if current buffer is terminal.
-    if g:terminal.termbufferid ==# bufnr('')
-        silent execute 'buffer' g:terminal.originbufferid
-
-        " Launch terminal buffer and start insert mode.
-    else
-        let g:terminal.originbufferid = bufnr('')
-        silent execute 'buffer' g:terminal.termbufferid
-        startinsert
-    endif
-endfunction
-
-" https://gist.github.com/ram535/b1b7af6cd7769ec0481eb2eed549ea23
-function! TerminalExec(cmd)
-    call TerminalCreateIfNot()
-
-    call jobsend(g:terminal.jobid, a:cmd . "\n")
-endfunction
-
-nnoremap <silent> <A-`> :call TerminalToggle()<cr>
-inoremap <silent> <A-`> <esc>:call TerminalToggle()<cr>
-vnoremap <silent> <A-`> <esc>:call TerminalToggle()<cr>
-tnoremap <silent> <A-`> <C-\><C-n>:call TerminalToggle()<cr>
-
-function! TerminalExecMake()
-    call TerminalExec('make ' . fnamemodify(expand("%:p:h"), ":~:.") . '/')
-endfunction
-
 augroup FORMATER
     au!
 
@@ -471,7 +398,18 @@ Plug 'Yggdroot/indentLine'
 
 Plug 'dart-lang/dart-vim-plugin', { 'for': 'dart' }
 
+Plug 'caenrique/nvim-toggle-terminal'
+
 call plug#end()
+
+" }}}
+
+" caenrique/nvim-toggle-terminal {{{
+
+nnoremap <silent> <A-`> :ToggleTerminal<cr>
+inoremap <silent> <A-`> <esc>:ToggleTerminal<cr>
+vnoremap <silent> <A-`> <esc>:ToggleTerminal<cr>
+tnoremap <silent> <A-`> <C-\><C-n>:ToggleTerminal<cr>
 
 " }}}
 
