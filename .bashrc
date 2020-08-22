@@ -158,11 +158,11 @@ gl() {
 
 alias gs="git status --short"
 alias gr="git checkout -p"
-alias gd="git difftool"
+alias gd="git difftool --diff-filter=M"
 
 alias gca="git add -i"
 alias gcr="git reset HEAD"
-alias gcd="git difftool --cached"
+alias gcd="git difftool --cached --diff-filter=M"
 alias gcm="git commit -m"
 
 alias gcp="git push"
