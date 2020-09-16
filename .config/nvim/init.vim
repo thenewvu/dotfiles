@@ -320,13 +320,6 @@ nnoremap <silent> <F12> :call ToggleQuickFix()<CR>
 inoremap <silent> <F12> <esc>:call ToggleQuickFix()<CR>
 vnoremap <silent> <F12> <esc>:call ToggleQuickFix()<CR>
 
-augroup FORMATER
-    au!
-
-    au FileType json,css,html,xml
-                \ nnoremap <buffer> gq :PrettierAsync<cr>
-augroup end
-
 function ToggleFolding()
     if &foldenable
         set nofoldenable
@@ -361,8 +354,6 @@ Plug 'alvan/vim-closetag'
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeEnable' }
 
 Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
-
-Plug 'prettier/vim-prettier', { 'do': 'npm install', 'for': ['javascript', 'css', 'json', 'markdown', 'html', 'svg', 'xml'] }
 
 Plug 'thenewvu/vim-colors-blueprint' 
 
@@ -432,21 +423,36 @@ augroup end
 command! -bang -nargs=* FzfBufLines
     \ call fzf#vim#grep('grep --with-filename --line-number . '.fnameescape(expand('%')), 0,
     \   fzf#vim#with_preview({
-    \       'down': '40%',
     \       'options': '--bind change:top --delimiter : --with-nth 3..'
     \       }),
     \   0)
 
-nnoremap <silent> / :FzfBufLines<cr>
-nnoremap <silent> <tab> :BTags<cr>
+command! -bang -nargs=* FzfTodos
+    \ call fzf#vim#grep('grep -e "\(TODO\|FIXME\|NOTE\)" --with-filename --line-number '.fnameescape(expand('%')), 0,
+    \   fzf#vim#with_preview({
+    \       'options': '--bind change:top --delimiter : --with-nth 3..'
+    \       }),
+    \   0)
 
+command! -bang FzfBufTags
+    \ call fzf#vim#buffer_tags('', {
+    \     'options': '--bind change:top
+    \                 --with-nth 1
+    \                 --reverse
+    \                 --prompt "> "
+    \                 --preview-window="80%"
+    \                 --preview "~/.config/nvim/plugged/fzf.vim/bin/preview.sh {2}:\$(echo {3} | tr -d \";\\\"\")"'
+    \ })
+
+nnoremap <silent> / :FzfBufLines<cr>
+nnoremap <silent> <tab> :FzfBufTags<cr>
 nnoremap <silent> ` :FZF<cr>
-inoremap <silent> ` <esc>:FZF<cr>
-tnoremap <silent> ` <C-\><C-n>:FZF<cr>
 
 nnoremap <silent> <A-tab> :Buffers<cr>
 tnoremap <silent> <A-tab> <C-\><C-n>:Buffers<cr>
 inoremap <silent> <A-tab> <esc>:Buffers<cr>
+
+nnoremap ; :Commands<cr>
 
 augroup FZF
     au!
@@ -509,12 +515,6 @@ let g:python_highlight_operators = 1
 
 " }}}
 
-" vim-prettier {{{
-
-let g:prettier#config#config_precedence = 'file-override'
-
-" }}}
-
 " undotree {{{
 
 let g:undotree_WindowLayout = 2
@@ -532,9 +532,6 @@ nnoremap <A-f> :AsyncRun! rg --vimgrep
 inoremap <A-f> <esc>:AsyncRun! rg --vimgrep  
 vnoremap <A-f> y<esc>:AsyncRun! rg --vimgrep --fixed-strings "<c-r>""<cr>
 tnoremap <A-f> <C-\><C-n>:AsyncRun! rg --vimgrep  
-
-nnoremap <A-r> :AsyncRun! rg --vimgrep <cword><cr>
-vnoremap <A-r> y<esc>:AsyncRun! rg --vimgrep --fixed-strings "<c-r>""<cr>
 
 " }}}
 
@@ -573,9 +570,6 @@ function! s:on_lsp_buffer_enabled() abort
     setlocal statusline+=%{lsp#get_buffer_diagnostics_counts().warning}W
     setlocal statusline+=:
     setlocal statusline+=%{lsp#get_buffer_diagnostics_counts().error}E
-    if exists('+tagfunc') 
-        setlocal tagfunc=lsp#tagfunc
-    endif
     nnoremap <buffer> <A-]> :LspNextDiagnostic<cr>
     nnoremap <buffer> <A-[> :LspPreviousDiagnostic<cr>
     nnoremap <buffer> <A-i> :LspHover<cr>
@@ -596,6 +590,7 @@ augroup VIM_LSP
             \ 'allowlist': ['c', 'cpp', 'objc'],
             \ 'initialization_options': {
             \   'fallbackFlags': [
+            \       '-xcpp-output',
             \       '-Wall',
             \       '-Wextra',
             \       '-Wno-missing-braces',

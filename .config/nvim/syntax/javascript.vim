@@ -13,11 +13,11 @@ set cpo&vim
 
 syn keyword Keyword return async await function class case default
 syn keyword Keyword break continue throw try catch finally
-syn keyword StorageClass const
+syn keyword StorageClass const var let 
 syn keyword PreProc export import from
 syn keyword Conditional if else switch
 syn keyword Repeat do while for foreach of in
-syn keyword Operator typeof instanceof var let new delete
+syn keyword Operator typeof instanceof new delete
 syn match Function "\v[a-zA-Z_][a-zA-Z0-9_]*\s*(\()@="
 syn match Operator "[\?\:\+\-\*\/\%\&\|\<\>\=\!\.]"
 syn match Delimiter "[\}\{\;\,\\\(\)\[\]]" display

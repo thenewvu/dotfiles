@@ -3,7 +3,6 @@ if exists("b:current_syntax")
 endif
 
 syn match PreProc /\v^\s*\#\s*[a-z]+>/ 
-syn keyword PreProc __attribute__ Generic
 syn keyword StorageClass extern static inline const restrict volatile register
 syn keyword Keyword continue break return case default goto typedef
 syn keyword Conditional if else switch
@@ -22,6 +21,7 @@ syn match Type "\v_?_?typeof\(.{-}\)"
 
 syn match Delimiter "[\)\(\}\{\;\,\\]"
 syn match Delimiter "\vassert\(.{-}\)"
+syn match Delimiter "\v__attribute__\(.*\)" 
 
 syn match Number "\v\d{-}\.\d+"
 syn match Label "\v^\s*[a-zA-Z0-9_]{-}\s*:\s*$"
