@@ -122,9 +122,6 @@ augroup All
     " https://dmerej.info/blog/post/vim-cwd-and-neovim/
     au TabNewEntered * call TabCD(expand("<amatch>"))
 
-    " clear message below statusline after CursorHold time
-    au CursorHold * echo
-
     au FileType c,cpp,javascript,java,go,objc,objcpp,dart,rust
                 \ setlocal foldmethod=expr
                 \ foldexpr=MyFoldExprC()
@@ -177,6 +174,7 @@ nnoremap <f10> :e ~/.config/nvim/init.vim<cr>
 " write current file with sudo
 cmap w! w !sudo tee > /dev/null %
 
+nnoremap = V=
 nnoremap m %
 vnoremap m %
 " switch to last active buffer before closing the current one
@@ -188,7 +186,7 @@ nnoremap E $
 vnoremap B ^
 vnoremap E $
 " clear search hl
-nnoremap <silent> <esc> :noh<cr>
+nnoremap <silent> <esc> :echo<cr>:noh<cr>
 " toggle folding
 nnoremap <space> zMzvzz
 " nnoremap z zx
@@ -203,10 +201,6 @@ nnoremap j gjzz
 nnoremap k gkzz
 vnoremap j gjzz
 vnoremap k gkzz
-nnoremap L Lzz
-nnoremap H Hzz
-vnoremap L Lzz
-vnoremap H Hzz
 nnoremap K i<enter><esc>
 " redo
 nnoremap U <c-r>
@@ -225,9 +219,9 @@ vnoremap gP "+P
 " multiple lines multiple times with simple ppppp
 " https://sheerun.net/2014/03/21/how-to-boost-your-vim-productivity/
 " `] to put cursor at the end of pasted text
-vnoremap <silent> y y`]
-nnoremap <silent> p p`]
-nnoremap <silent> P P`]
+vnoremap y y`]
+nnoremap p p`]
+nnoremap P P`]
 " paste in visual mode without reyanking
 " https://stackoverflow.com/a/5093286
 vnoremap p pgvy`]
@@ -245,14 +239,14 @@ nnoremap z qw
 nnoremap Z @w
 " search without jumping
 " https://stackoverflow.com/a/4262209
-nnoremap <silent> * :let @/='\<<C-R>=expand("<cword>")<CR>\>'<CR>:set hls<CR>
-vnoremap <silent> * :<C-U>
+nnoremap * :let @/='\<<C-R>=expand("<cword>")<CR>\>'<CR>:set hls<CR>
+vnoremap * :<C-U>
             \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
             \gvy:let @/=substitute(
             \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR>
             \gV:call setreg('"', old_reg, old_regtype)<CR>:set hls<CR>
 
-nnoremap <silent> g\ :call ToggleQuickFix()<CR>
+nnoremap g\ :call ToggleQuickFix()<CR>
 nnoremap M :call ToggleFolding()<cr>zz
 
 " faster scrolling
@@ -261,8 +255,8 @@ nnoremap <A-k> Hzz
 vnoremap <A-j> Lzz
 vnoremap <A-k> Hzz
 " jump back/forward last cursor pos
-nnoremap <A-l> <c-i>zvzz
-nnoremap <A-h> <c-o>zvzz
+nnoremap L <c-i>zvzz
+nnoremap H <c-o>zvzz
 " navigate between splits and buffers
 tnoremap <C-h> <C-\><C-N><C-w>h
 tnoremap <C-j> <C-\><C-N><C-w>j
@@ -277,20 +271,20 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 " split vertically
-nnoremap <silent> <C-d> :vsplit<cr>
-inoremap <silent> <C-d> <esc>:vsplit<cr>
-vnoremap <silent> <C-d> <esc>:vsplit<cr>
-tnoremap <silent> <C-d> <C-\><C-n>:vsplit<cr>
+nnoremap <C-d> :vsplit<cr>
+inoremap <C-d> <esc>:vsplit<cr>
+vnoremap <C-d> <esc>:vsplit<cr>
+tnoremap <C-d> <C-\><C-n>:vsplit<cr>
 " close other splits
-nnoremap <silent> <C-a> :only<cr>
-inoremap <silent> <C-a> <esc>:only<cr>
-vnoremap <silent> <C-a> <esc>:only<cr>
-tnoremap <silent> <C-a> <C-\><C-n>:only<cr>
+nnoremap <C-a> :only<cr>
+inoremap <C-a> <esc>:only<cr>
+vnoremap <C-a> <esc>:only<cr>
+tnoremap <C-a> <C-\><C-n>:only<cr>
 " close current window
-nnoremap <silent> <C-q> <C-w>c
-inoremap <silent> <C-q> <esc><C-w>c
-vnoremap <silent> <C-q> <esc><C-w>c
-tnoremap <silent> <C-q> <C-\><C-n><C-w>c
+nnoremap <C-q> <C-w>c
+inoremap <C-q> <esc><C-w>c
+vnoremap <C-q> <esc><C-w>c
+tnoremap <C-q> <C-\><C-n><C-w>c
 
 function! ToggleQuickFix()
     if exists("g:qwindow")
@@ -398,10 +392,10 @@ let g:neoterm_default_mod = 'botright'
 let g:neoterm_autoinsert = 1
 let g:neoterm_size = 1000
 
-nnoremap <silent> <A-`> :Ttoggle<cr>
-inoremap <silent> <A-`> <esc>:Ttoggle<cr>
-vnoremap <silent> <A-`> <esc>:Ttoggle<cr>
-tnoremap <silent> <A-`> <C-\><C-n>:Ttoggle<cr>
+nnoremap <A-`> :Ttoggle<cr>
+inoremap <A-`> <esc>:Ttoggle<cr>
+vnoremap <A-`> <esc>:Ttoggle<cr>
+tnoremap <A-`> <C-\><C-n>:Ttoggle<cr>
 
 " }}}
 
@@ -441,20 +435,20 @@ command! -bang FzfBufTags
     \                 --preview "~/.config/nvim/plugged/fzf.vim/bin/preview.sh {2}:\$(echo {3} | tr -d \";\\\"\")"'
     \ })
 
-nnoremap <silent> / :FzfBufLines<cr>
-nnoremap <silent> <tab> :FzfBufTags<cr>
-nnoremap <silent> ` :FZF<cr>
+nnoremap / :FzfBufLines<cr>
+nnoremap <tab> :FzfBufTags<cr>
+nnoremap ` :FZF<cr>
 
-nnoremap <silent> <A-tab> :Buffers<cr>
-tnoremap <silent> <A-tab> <C-\><C-n>:Buffers<cr>
-inoremap <silent> <A-tab> <esc>:Buffers<cr>
+nnoremap <A-tab> :Buffers<cr>
+tnoremap <A-tab> <C-\><C-n>:Buffers<cr>
+inoremap <A-tab> <esc>:Buffers<cr>
 
 nnoremap ; :Commands<cr>
 
 augroup FZF
     au!
     " <esc> to close fzf window
-    au TermOpen term://*FZF tnoremap <silent> <buffer><nowait> <esc> <c-c>
+    au TermOpen term://*FZF tnoremap <buffer><nowait> <esc> <c-c>
 augroup end
 
 " }}}
@@ -646,13 +640,13 @@ lua << EOF
 EOF
 
 function! LspBufSetup() abort
-    nnoremap <silent> gi <cmd>lua vim.lsp.buf.hover()<CR>
-    nnoremap <silent> gd <cmd>lua vim.lsp.buf.declaration()<CR>
-    inoremap <silent> <A-space> <cmd>lua vim.lsp.buf.signature_help()<CR>
-    nnoremap <silent> gD <cmd>lua vim.lsp.buf.implementation()<CR>
-    nnoremap <silent> g] <cmd>NextDiagnosticCycle<CR>zz
-    nnoremap <silent> g[ <cmd>PrevDiagnosticCycle<CR>zz
-    nnoremap <silent> g\ <cmd>OpenDiagnostic<CR>
+    nnoremap <A-i> <cmd>lua vim.lsp.buf.hover()<CR>
+    inoremap <A-i> <cmd>lua vim.lsp.buf.signature_help()<CR>
+    nnoremap <A-d> <cmd>lua vim.lsp.buf.declaration()<CR>
+    nnoremap <A-D> <cmd>lua vim.lsp.buf.implementation()<CR>
+    nnoremap <A-l> <cmd>NextDiagnosticCycle<CR>zz
+    nnoremap <A-h> <cmd>PrevDiagnosticCycle<CR>zz
+    nnoremap <A-\> <cmd>OpenDiagnostic<CR>
     
     augroup LSP_BUF
         au!
