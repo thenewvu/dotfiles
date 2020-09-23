@@ -20,7 +20,7 @@ syn keyword Type auto_type __auto_type
 syn match Type "\v_?_?typeof\(.{-}\)"
 
 syn match Delimiter "[\)\(\}\{\;\,\\]"
-syn match Delimiter "\vassert\(.{-}\)"
+syn match Delimiter "\vassert\(.*\)"
 syn match Delimiter "\v__attribute__\(.*\)" 
 
 syn match Number "\v\d{-}\.\d+"

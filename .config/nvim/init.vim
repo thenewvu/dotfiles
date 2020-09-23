@@ -2,7 +2,7 @@
 
 " General {{{
 set nobackup nowritebackup noswapfile
-set undofile undolevels=5000 undoreload=5000
+set undofile undolevels=10000 undoreload=10000
 set confirm " ask to confirm closing an unsaved file
 set hidden " switch between buffers without saving
 set completeopt=menu,menuone,noselect,noinsert
@@ -19,7 +19,7 @@ set wildoptions=pum
 set nowrap breakindent linebreak breakindentopt=shift:-2
 set showbreak=↳\ 
 set fillchars+=fold:\ ,diff:\ 
-set updatetime=2000
+set updatetime=500
 set nofoldenable
 " disable some builtin plugins
 let g:did_install_default_menus = 1
@@ -73,11 +73,11 @@ function! TabCD(path)
     execute "tcd ". l:dirname
 endfunction
 
-function! FoldTextBraces()
+function! MyFoldText()
     return repeat(' ', indent(v:foldstart)) . trim(getline(v:foldstart)) . '…' . trim(getline(v:foldend))
 endfunction
 
-function! FoldExprBraces()
+function! MyFoldExprC()
     let l:text = getline(v:lnum)
 
     " remove comments
@@ -127,8 +127,12 @@ augroup All
 
     au FileType c,cpp,javascript,java,go,objc,objcpp,dart,rust
                 \ setlocal foldmethod=expr
-                \ foldexpr=FoldExprBraces()
-                \ foldtext=FoldTextBraces()
+                \ foldexpr=MyFoldExprC()
+                \ foldtext=MyFoldText()
+
+    au FileType json
+                \ setlocal foldmethod=syntax
+                \ foldtext=MyFoldText()
 
     " https://vi.stackexchange.com/a/169
     let g:large_file = 1024 * 512 " 512KB
@@ -169,17 +173,15 @@ command! FileDelete call FileDelete()
 
 " Keys {{{
 
-nnoremap m %
-vnoremap m %
-
-nnoremap <silent> <A-w> :silent w<cr>
-vnoremap <silent> <A-w> <esc>:silent w<cr>
-inoremap <silent> <A-w> <esc>:silent w<cr>
-
+nnoremap <f10> :e ~/.config/nvim/init.vim<cr>
 " write current file with sudo
 cmap w! w !sudo tee > /dev/null %
-nnoremap <f1> :help 
-nnoremap <f2> :e ~/.config/nvim/init.vim<cr>
+
+nnoremap m %
+vnoremap m %
+" switch to last active buffer before closing the current one
+" to avoid changing window layout
+nnoremap q :bp<bar>bd#<cr> 
 " jump to begin/end of a line
 nnoremap B ^
 nnoremap E $
@@ -201,51 +203,13 @@ nnoremap j gjzz
 nnoremap k gkzz
 vnoremap j gjzz
 vnoremap k gkzz
-nnoremap <A-j> Lzz
-nnoremap <A-k> Hzz
-vnoremap <A-j> Lzz
-vnoremap <A-k> Hzz
-" break lines
-nnoremap J i<enter><esc>
-" join lines
-nnoremap K J
-nnoremap L <c-i>zvzz
-nnoremap H <c-o>zvzz
+nnoremap L Lzz
+nnoremap H Hzz
+vnoremap L Lzz
+vnoremap H Hzz
+nnoremap K i<enter><esc>
 " redo
 nnoremap U <c-r>
-" navigate between splits and buffers
-tnoremap <C-h> <C-\><C-N><C-w>h
-tnoremap <C-j> <C-\><C-N><C-w>j
-tnoremap <C-k> <C-\><C-N><C-w>k
-tnoremap <C-l> <C-\><C-N><C-w>l
-inoremap <C-h> <C-w>h
-inoremap <C-j> <C-w>j
-inoremap <C-k> <C-w>k
-inoremap <C-l> <C-w>l
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
-" split vertically
-nnoremap <silent> <C-d> :vsplit<cr>
-inoremap <silent> <C-d> <esc>:vsplit<cr>
-vnoremap <silent> <C-d> <esc>:vsplit<cr>
-tnoremap <silent> <C-d> <C-\><C-n>:vsplit<cr>
-" split horizontally
-nnoremap <silent> <C-s> :split<cr>
-inoremap <silent> <C-s> <esc>:split<cr>
-vnoremap <silent> <C-s> <esc>:split<cr>
-tnoremap <silent> <C-s> <C-\><C-n>:split<cr>
-" close other splits
-nnoremap <silent> <C-a> :only<cr>
-inoremap <silent> <C-a> <esc>:only<cr>
-vnoremap <silent> <C-a> <esc>:only<cr>
-tnoremap <silent> <C-a> <C-\><C-n>:only<cr>
-" close current window
-nnoremap <silent> <C-q> <C-w>c
-inoremap <silent> <C-q> <esc><C-w>c
-vnoremap <silent> <C-q> <esc><C-w>c
-tnoremap <silent> <C-q> <C-\><C-n><C-w>c
 " move left/right one indent
 nnoremap > >>
 nnoremap < <<
@@ -267,8 +231,6 @@ nnoremap <silent> P P`]
 " paste in visual mode without reyanking
 " https://stackoverflow.com/a/5093286
 vnoremap p pgvy`]
-" <r> keep replacing
-nnoremap r R
 " newline without enter inserting mode
 nnoremap o o<esc>
 nnoremap O O<esc>
@@ -277,14 +239,10 @@ nnoremap O O<esc>
 let g:mc = "y/\\V\<C-r>=escape(@\", '/')\<CR>\<CR>"
 nnoremap r *``cgn
 vnoremap <expr> r g:mc . "``cgn"
-nnoremap q qw
-nnoremap Q @w
-
-nnoremap <silent><A-q> :bp<bar>bd#<cr> " close buffer if not the last
-nnoremap <silent><A-C-p> gT
-nnoremap <silent><A-C-n> gt
-nnoremap <silent><A-C-q> :tabclose<cr>
-
+" record macro to w register
+nnoremap z qw
+" replay macro from w register
+nnoremap Z @w
 " search without jumping
 " https://stackoverflow.com/a/4262209
 nnoremap <silent> * :let @/='\<<C-R>=expand("<cword>")<CR>\>'<CR>:set hls<CR>
@@ -294,13 +252,45 @@ vnoremap <silent> * :<C-U>
             \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR>
             \gV:call setreg('"', old_reg, old_regtype)<CR>:set hls<CR>
 
-nnoremap <silent> ' :let @/='\<<C-R>=expand("<cword>")<CR>\>'<CR>:set hls<CR>
-vnoremap <silent> ' :<C-U>
-            \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
-            \gvy:let @/=substitute(
-            \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR>
-            \gV:call setreg('"', old_reg, old_regtype)<CR>:set hls<CR>
+nnoremap <silent> g\ :call ToggleQuickFix()<CR>
+nnoremap M :call ToggleFolding()<cr>zz
 
+" faster scrolling
+nnoremap <A-j> Lzz
+nnoremap <A-k> Hzz
+vnoremap <A-j> Lzz
+vnoremap <A-k> Hzz
+" jump back/forward last cursor pos
+nnoremap <A-l> <c-i>zvzz
+nnoremap <A-h> <c-o>zvzz
+" navigate between splits and buffers
+tnoremap <C-h> <C-\><C-N><C-w>h
+tnoremap <C-j> <C-\><C-N><C-w>j
+tnoremap <C-k> <C-\><C-N><C-w>k
+tnoremap <C-l> <C-\><C-N><C-w>l
+inoremap <C-h> <C-w>h
+inoremap <C-j> <C-w>j
+inoremap <C-k> <C-w>k
+inoremap <C-l> <C-w>l
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+" split vertically
+nnoremap <silent> <C-d> :vsplit<cr>
+inoremap <silent> <C-d> <esc>:vsplit<cr>
+vnoremap <silent> <C-d> <esc>:vsplit<cr>
+tnoremap <silent> <C-d> <C-\><C-n>:vsplit<cr>
+" close other splits
+nnoremap <silent> <C-a> :only<cr>
+inoremap <silent> <C-a> <esc>:only<cr>
+vnoremap <silent> <C-a> <esc>:only<cr>
+tnoremap <silent> <C-a> <C-\><C-n>:only<cr>
+" close current window
+nnoremap <silent> <C-q> <C-w>c
+inoremap <silent> <C-q> <esc><C-w>c
+vnoremap <silent> <C-q> <esc><C-w>c
+tnoremap <silent> <C-q> <C-\><C-n><C-w>c
 
 function! ToggleQuickFix()
     if exists("g:qwindow")
@@ -316,10 +306,6 @@ function! ToggleQuickFix()
     endif
 endfunction
 
-nnoremap <silent> <F12> :call ToggleQuickFix()<CR>
-inoremap <silent> <F12> <esc>:call ToggleQuickFix()<CR>
-vnoremap <silent> <F12> <esc>:call ToggleQuickFix()<CR>
-
 function ToggleFolding()
     if &foldenable
         set nofoldenable
@@ -327,8 +313,6 @@ function ToggleFolding()
         set foldenable
     endif
 endfunction
-
-nnoremap <F3> :call ToggleFolding()<cr>zz
 
 " }}}
 
@@ -369,11 +353,13 @@ Plug 'amadeus/vim-convert-color-to', { 'on': 'ConvertColorTo' }
 
 Plug 'skywind3000/asyncrun.vim', { 'on': ['AsyncRun', 'AsyncStop'] }
 
-Plug 'prabirshrestha/vim-lsp'
+" Plug 'prabirshrestha/vim-lsp'
 
 Plug 'thosakwe/vim-flutter', { 'on': 'FlutterRun' }
 
-" Plug 'neovim/nvim-lsp'
+Plug 'neovim/nvim-lsp'
+Plug 'nvim-lua/diagnostic-nvim'
+Plug 'nvim-lua/completion-nvim'
 
 Plug 'endaaman/vim-case-master', { 'on': 'CaseMasterConvertToSnake' }
 
@@ -391,7 +377,18 @@ Plug 'dart-lang/dart-vim-plugin', { 'for': 'dart' }
 
 Plug 'kassio/neoterm'
 
+Plug '907th/vim-auto-save'
+
 call plug#end()
+
+" }}}
+
+" 907th/vim-auto-save {{{
+
+let g:auto_save = 1
+let g:auto_save_events = ["CursorHold", "CursorHoldI"]
+let g:auto_save_write_all_buffers = 1
+let g:auto_save_silent = 1
 
 " }}}
 
@@ -464,7 +461,7 @@ augroup end
 
 " tabular {{{
 
-vnoremap <A-a> :Tabularize /
+vnoremap ga :Tabularize /
 
 " }}}
 
@@ -528,135 +525,152 @@ let g:asyncrun_open = 10
 let g:asyncrun_local = 0
 
 nnoremap ! :AsyncRun<space>
-nnoremap <A-f> :AsyncRun! rg --vimgrep 
-inoremap <A-f> <esc>:AsyncRun! rg --vimgrep  
-vnoremap <A-f> y<esc>:AsyncRun! rg --vimgrep --fixed-strings "<c-r>""<cr>
-tnoremap <A-f> <C-\><C-n>:AsyncRun! rg --vimgrep  
+nnoremap <A-s> :AsyncRun! rg --vimgrep 
+inoremap <A-s> <esc>:AsyncRun! rg --vimgrep  
+vnoremap <A-s> y<esc>:AsyncRun! rg --vimgrep --fixed-strings "<c-r>""
+tnoremap <A-s> <C-\><C-n>:AsyncRun! rg --vimgrep  
 
 " }}}
 
-" vim-lsp {{{
+" " vim-lsp {{{
 
-let g:lsp_auto_enable = 1
-let g:lsp_fold_enabled = 0
-let g:lsp_text_document_did_save_delay = 0
-let g:lsp_semantic_enabled = 0
-let g:lsp_signs_enabled = 0
-let g:lsp_text_edit_enabled = 0
-let g:lsp_signature_help_enabled = 0
-let g:lsp_diagnostics_echo_cursor = 0
-let g:lsp_diagnostics_float_cursor = 1
-let g:lsp_virtual_text_enabled = 0
-let g:lsp_highlight_references_enabled = 0
-" let g:lsp_log_file = expand('/tmp/vim-lsp.log')
+" let g:lsp_auto_enable = 1
+" let g:lsp_fold_enabled = 0
+" let g:lsp_text_document_did_save_delay = 0
+" let g:lsp_semantic_enabled = 0
+" let g:lsp_signs_enabled = 0
+" " let g:lsp_text_edit_enabled = 0
+" let g:lsp_signature_help_enabled = 0
+" let g:lsp_diagnostics_echo_cursor = 0
+" let g:lsp_diagnostics_float_cursor = 1
+" let g:lsp_virtual_text_enabled = 0
+" let g:lsp_highlight_references_enabled = 0
+" " let g:lsp_log_file = expand('/tmp/vim-lsp.log')
 
 
-hi link LspErrorHighlight Underlined
-hi link LspWarningHighlight Underlined
-hi link LspInformationHighlight Underlined
-hi link LspHintHighlight Underlined
+" hi link LspErrorHighlight Underlined
+" hi link LspWarningHighlight Underlined
+" hi link LspInformationHighlight Underlined
+" hi link LspHintHighlight Underlined
 
-hi link LspErrorText Error
-hi link LspWarningText WarningMsg
-hi link LspInformationText WarningMsg
-hi link LspHintText WarningMsg
+" hi link LspErrorText Error
+" hi link LspWarningText WarningMsg
+" hi link LspInformationText WarningMsg
+" hi link LspHintText WarningMsg
 
-function! s:on_lsp_buffer_enabled() abort
-    setlocal omnifunc=lsp#complete
-    inoremap <A-space> <C-x><C-o>
+" function! s:on_lsp_buffer_enabled() abort
+"     setlocal omnifunc=lsp#complete
+"     inoremap <A-space> <C-x><C-o>
 
-    setlocal statusline=%F%m
-    setlocal statusline+=%=
-    setlocal statusline+=%{lsp#get_buffer_diagnostics_counts().warning}W
-    setlocal statusline+=:
-    setlocal statusline+=%{lsp#get_buffer_diagnostics_counts().error}E
-    nnoremap <buffer> <A-]> :LspNextDiagnostic<cr>
-    nnoremap <buffer> <A-[> :LspPreviousDiagnostic<cr>
-    nnoremap <buffer> <A-i> :LspHover<cr>
-    inoremap <buffer> <A-i> <esc>:LspSignatureHelp<cr>
-    nnoremap <buffer> <A-o> :LspDefinition<cr>
-    inoremap <buffer> <A-o> <esc>:LspDefinition<cr>
-    nnoremap <buffer> <A-\> :LspDocumentDiagnostics<cr>
+"     setlocal statusline=%F%m
+"     setlocal statusline+=%=
+"     setlocal statusline+=%{lsp#get_buffer_diagnostics_counts().warning}W
+"     setlocal statusline+=:
+"     setlocal statusline+=%{lsp#get_buffer_diagnostics_counts().error}E
+"     nnoremap <buffer> <A-]> :LspNextDiagnostic<cr>
+"     nnoremap <buffer> <A-[> :LspPreviousDiagnostic<cr>
+"     nnoremap <buffer> <A-i> :LspHover<cr>
+"     inoremap <buffer> <A-i> <esc>:LspSignatureHelp<cr>
+"     nnoremap <buffer> <A-o> :LspDefinition<cr>
+"     inoremap <buffer> <A-o> <esc>:LspDefinition<cr>
+"     nnoremap <buffer> <A-\> :LspDocumentDiagnostics<cr>
+" endfunction
+
+" augroup VIM_LSP
+"     au!
+"     au User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+
+"     if executable('clangd')
+"         au User lsp_setup call lsp#register_server({
+"             \ 'name': 'clangd',
+"             \ 'cmd': {server_info->['clangd', '-background-index']},
+"             \ 'allowlist': ['c', 'cpp', 'objc'],
+"             \ 'initialization_options': {
+"             \   'fallbackFlags': [
+"             \       '-xcpp-output',
+"             \       '-Wall',
+"             \       '-Wextra',
+"             \       '-Wno-missing-braces',
+"             \       '-Wno-initializer-overrides',
+"             \       '-Wno-unused-parameter'
+"             \   ]
+"             \ },
+"             \ })
+"     endif
+
+"     if executable('flutter')
+"         let s:flutter_bin_path = fnamemodify(system('which flutter'), ':p:h')
+"         au User lsp_setup call lsp#register_server({
+"             \   'name': 'flutter-dart',
+"             \   'cmd': {server_info->[
+"             \         s:flutter_bin_path . '/cache/dart-sdk/bin/dart',
+"             \         s:flutter_bin_path . '/cache/dart-sdk/bin/snapshots/analysis_server.dart.snapshot',
+"             \         '--lsp'
+"             \     ]},
+"             \   'allowlist': ['dart'],
+"             \   'config': {
+"             \     'onlyAnalyzeProjectsWithOpenFiles': v:true,
+"             \     'suggestFromUnimportedLibraries': v:false
+"             \   },
+"             \ })
+"     endif
+
+"     if executable('typescript-language-server')
+"       au User lsp_setup call lsp#register_server({
+"         \ 'name': 'typescript-language-server',
+"         \ 'cmd': {server_info->['typescript-language-server', '--stdio']},
+"         \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'package.json'))},
+"         \ 'allowlist': ['javascript', 'javascript.jsx'],
+"         \ })
+"     endif
+
+" augroup END
+
+" " }}}
+
+" nvim-lsp {{{
+
+lua << EOF
+  local lsp = require 'nvim_lsp'
+  local diagnostic = require 'diagnostic'
+  local completion = require 'completion'
+
+  local on_attach = function(client, bufnr)
+    completion.on_attach(client, bufnr)
+    diagnostic.on_attach(client, bufnr)
+  end
+
+  lsp.clangd.setup{
+    on_attach=on_attach,
+  }
+EOF
+
+function! LspBufSetup() abort
+    nnoremap <silent> gi <cmd>lua vim.lsp.buf.hover()<CR>
+    nnoremap <silent> gd <cmd>lua vim.lsp.buf.declaration()<CR>
+    inoremap <silent> <A-space> <cmd>lua vim.lsp.buf.signature_help()<CR>
+    nnoremap <silent> gD <cmd>lua vim.lsp.buf.implementation()<CR>
+    nnoremap <silent> g] <cmd>NextDiagnosticCycle<CR>zz
+    nnoremap <silent> g[ <cmd>PrevDiagnosticCycle<CR>zz
+    nnoremap <silent> g\ <cmd>OpenDiagnostic<CR>
+    
+    augroup LSP_BUF
+        au!
+        au CursorHold * lua vim.lsp.util.show_line_diagnostics()
+    augroup END
 endfunction
 
-augroup VIM_LSP
+augroup LSP
     au!
-    au User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
-
-    if executable('clangd')
-        au User lsp_setup call lsp#register_server({
-            \ 'name': 'clangd',
-            \ 'cmd': {server_info->['clangd', '-background-index']},
-            \ 'allowlist': ['c', 'cpp', 'objc'],
-            \ 'initialization_options': {
-            \   'fallbackFlags': [
-            \       '-xcpp-output',
-            \       '-Wall',
-            \       '-Wextra',
-            \       '-Wno-missing-braces',
-            \       '-Wno-initializer-overrides',
-            \       '-Wno-unused-parameter'
-            \   ]
-            \ },
-            \ })
-    endif
-
-    if executable('flutter')
-        let s:flutter_bin_path = fnamemodify(system('which flutter'), ':p:h')
-        au User lsp_setup call lsp#register_server({
-            \   'name': 'flutter-dart',
-            \   'cmd': {server_info->[
-            \         s:flutter_bin_path . '/cache/dart-sdk/bin/dart',
-            \         s:flutter_bin_path . '/cache/dart-sdk/bin/snapshots/analysis_server.dart.snapshot',
-            \         '--lsp'
-            \     ]},
-            \   'allowlist': ['dart'],
-            \   'config': {
-            \     'onlyAnalyzeProjectsWithOpenFiles': v:true,
-            \     'suggestFromUnimportedLibraries': v:false
-            \   },
-            \ })
-    endif
-
-    if executable('typescript-language-server')
-      au User lsp_setup call lsp#register_server({
-        \ 'name': 'typescript-language-server',
-        \ 'cmd': {server_info->['typescript-language-server', '--stdio']},
-        \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'package.json'))},
-        \ 'allowlist': ['javascript', 'javascript.jsx'],
-        \ })
-    endif
-
+    au Filetype dart call LspBufSetup()
+    au Filetype c,cpp,objc,objcpp call LspBufSetup()
 augroup END
 
+let g:diagnostic_insert_delay = 1
+let g:diagnostic_show_sign = 0
+let g:diagnostic_enable_virtual_text = 0
+
 " }}}
-
-"" nvim-lsp {{{
-
-"lua << EOF
-"  local lsp = require 'nvim_lsp'
-
-"  lsp.dartls.setup{
-"    cmd = {
-"      "/Users/vu/Works/projects/flutter/bin/cache/dart-sdk/bin/dart",
-"      "/Users/vu/Works/projects/flutter/bin/cache/dart-sdk/bin/snapshots/analysis_server.dart.snapshot",
-"      "--lsp"
-"    },
-"  }
-"EOF
-
-"function! s:lsp_buf_setup() abort
-"    nnoremap <silent> <A-i> <cmd>lua vim.lsp.buf.hover()<CR>
-"    inoremap <silent> <A-i> <cmd>lua vim.lsp.buf.signature_help()<CR>
-"    setlocal omnifunc=v:lua.vim.lsp.omnifunc
-"endfunction
-
-"augroup LSP
-"    au!
-"    au Filetype dart call s:lsp_buf_setup()
-"augroup END
-
-"" }}}
 
 " dart-lang/dart-vim-plugin {{{
 
