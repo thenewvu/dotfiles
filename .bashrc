@@ -59,6 +59,15 @@ export PATH="$GEM_HOME/ruby/2.3.0/bin:$PATH"
 export GREP_OPTIONS='--ignore-case --color=auto'
 export CLICOLOR=1
 
+# color highlight for manpage
+export LESS_TERMCAP_mb=$'\e[1;32m'
+export LESS_TERMCAP_md=$'\e[1;32m'
+export LESS_TERMCAP_me=$'\e[0m'
+export LESS_TERMCAP_se=$'\e[0m'
+export LESS_TERMCAP_so=$'\e[01;33m'
+export LESS_TERMCAP_ue=$'\e[0m'
+export LESS_TERMCAP_us=$'\e[1;4;31m'
+
 export FZF_COMPLETION_TRIGGER='``'
 export FZF_DEFAULT_OPTS="--reverse --color fg:15,hl:10,fg+:-1,bg+:-1,hl+:10,info:15,prompt:9,spinner:15,pointer:9,marker:14,border:15"
 export FZF_DEFAULT_COMMAND="rg --files --glob '!**/node_modules/*'"
@@ -157,16 +166,10 @@ gl() {
 }
 
 alias gs="git status --short"
-alias gr="git checkout -p"
+alias gr="git restore -p"
 alias gd="git difftool --diff-filter=M"
-
-alias gca="git add -i"
-alias gcr="git reset HEAD"
-alias gcd="git difftool --cached --diff-filter=M"
-alias gcm="git commit -m"
-
-alias gcp="git push"
-alias gp="git pull"
+alias ga="git add -i"
+alias gc="git commit -m"
 
 alias ctags="/usr/local/opt/ctags/bin/ctags"
 
