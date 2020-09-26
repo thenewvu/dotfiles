@@ -168,12 +168,20 @@ gl() {
 alias gs="git status --short"
 alias gr="git restore -p"
 alias gd="git difftool --diff-filter=M"
-alias ga="git add -i"
+alias ga="git add"
 alias gc="git commit -m"
 
 alias ctags="/usr/local/opt/ctags/bin/ctags"
 
 alias dnsflush="sudo killall -HUP mDNSResponder; sudo killall mDNSResponderHelper; sudo dscacheutil -flushcache"
+
+7z-fast() {
+    7z a -t7z -m0=LZMA2:d64k:fb32 -ms=8m -mmt=30 -mx=1 "$1.7z" "$1"
+}
+
+7z-slow() {
+    7z a -t7z -m0=LZMA2:d64k:fb32 -ms=8m -mmt=30 -mx=9 "$1.7z" "$1"
+}
 
 # }}}
 
