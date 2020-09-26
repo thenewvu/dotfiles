@@ -170,16 +170,9 @@ command! FileDelete call FileDelete()
 
 " Keys {{{
 
-nnoremap <f10> :e ~/.config/nvim/init.vim<cr>
-" write current file with sudo
-cmap w! w !sudo tee > /dev/null %
-
 nnoremap = V=
 nnoremap m %
 vnoremap m %
-" switch to last active buffer before closing the current one
-" to avoid changing window layout
-nnoremap q :bp<bar>bd#<cr> 
 " jump to begin/end of a line
 nnoremap B ^
 nnoremap E $
@@ -201,7 +194,8 @@ nnoremap j gjzz
 nnoremap k gkzz
 vnoremap j gjzz
 vnoremap k gkzz
-nnoremap K i<enter><esc>
+nnoremap K J
+nnoremap J i<enter><esc>
 " redo
 nnoremap U <c-r>
 " move left/right one indent
@@ -234,9 +228,9 @@ let g:mc = "y/\\V\<C-r>=escape(@\", '/')\<CR>\<CR>"
 nnoremap r *``cgn
 vnoremap <expr> r g:mc . "``cgn"
 " record macro to w register
-nnoremap z qw
+nnoremap q qw
 " replay macro from w register
-nnoremap Z @w
+nnoremap Q @w
 " search without jumping
 " https://stackoverflow.com/a/4262209
 nnoremap * :let @/='\<<C-R>=expand("<cword>")<CR>\>'<CR>:set hls<CR>
@@ -245,18 +239,20 @@ vnoremap * :<C-U>
             \gvy:let @/=substitute(
             \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR>
             \gV:call setreg('"', old_reg, old_regtype)<CR>:set hls<CR>
+" jump back/forward last cursor pos
+nnoremap L <c-i>zvzz
+nnoremap H <c-o>zvzz
+nnoremap \\ :call ToggleQuickFix()<CR>
+nnoremap M :call ToggleFolding()<CR>zz
 
-nnoremap g\ :call ToggleQuickFix()<CR>
-nnoremap M :call ToggleFolding()<cr>zz
-
+" switch to last active buffer before closing the current one
+" to avoid changing window layout
+nnoremap <A-q> :bp<bar>bd#<cr> 
 " faster scrolling
 nnoremap <A-j> Lzz
 nnoremap <A-k> Hzz
 vnoremap <A-j> Lzz
 vnoremap <A-k> Hzz
-" jump back/forward last cursor pos
-nnoremap L <c-i>zvzz
-nnoremap H <c-o>zvzz
 " navigate between splits and buffers
 tnoremap <C-h> <C-\><C-N><C-w>h
 tnoremap <C-j> <C-\><C-N><C-w>j
@@ -270,12 +266,11 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
-" split vertically
 nnoremap <C-d> :vsplit<cr>
 inoremap <C-d> <esc>:vsplit<cr>
 vnoremap <C-d> <esc>:vsplit<cr>
 tnoremap <C-d> <C-\><C-n>:vsplit<cr>
-" close other splits
+" close other windows
 nnoremap <C-a> :only<cr>
 inoremap <C-a> <esc>:only<cr>
 vnoremap <C-a> <esc>:only<cr>
@@ -285,6 +280,11 @@ nnoremap <C-q> <C-w>c
 inoremap <C-q> <esc><C-w>c
 vnoremap <C-q> <esc><C-w>c
 tnoremap <C-q> <C-\><C-n><C-w>c
+
+" write current file with sudo
+cmap w! w !sudo tee > /dev/null %
+
+nnoremap <F2> :e ~/.config/nvim/init.vim<cr>
 
 function! ToggleQuickFix()
     if exists("g:qwindow")
@@ -331,7 +331,7 @@ Plug 'alvan/vim-closetag'
 
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeEnable' }
 
-Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
+Plug 'junegunn/vim-easy-align'
 
 Plug 'thenewvu/vim-colors-blueprint' 
 
@@ -373,7 +373,15 @@ Plug 'kassio/neoterm'
 
 Plug '907th/vim-auto-save'
 
+Plug 'airblade/vim-gitgutter'
+
 call plug#end()
+
+" }}}
+
+" airblade/vim-gitgutter {{{
+
+let g:gitgutter_preview_win_floating = 1
 
 " }}}
 
@@ -388,14 +396,12 @@ let g:auto_save_silent = 1
 
 " kassio/neoterm {{{
 
-let g:neoterm_default_mod = 'botright'
 let g:neoterm_autoinsert = 1
-let g:neoterm_size = 1000
 
-nnoremap <A-`> :Ttoggle<cr>
-inoremap <A-`> <esc>:Ttoggle<cr>
-vnoremap <A-`> <esc>:Ttoggle<cr>
-tnoremap <A-`> <C-\><C-n>:Ttoggle<cr>
+nnoremap <A-`> :vert Ttoggle<cr>
+inoremap <A-`> <esc>:vert Ttoggle<cr>
+vnoremap <A-`> <esc>:vert Ttoggle<cr>
+tnoremap <A-`> <C-\><C-n>:vert Ttoggle<cr>
 
 " }}}
 
@@ -443,6 +449,7 @@ nnoremap <A-tab> :Buffers<cr>
 tnoremap <A-tab> <C-\><C-n>:Buffers<cr>
 inoremap <A-tab> <esc>:Buffers<cr>
 
+nnoremap <F1> :Help<cr>
 nnoremap ; :Commands<cr>
 
 augroup FZF
@@ -453,9 +460,9 @@ augroup end
 
 " }}}
 
-" tabular {{{
+" junegunn/vim-easy-align {{{
 
-vnoremap ga :Tabularize /
+xmap a <Plug>(EasyAlign)
 
 " }}}
 
@@ -520,9 +527,9 @@ let g:asyncrun_local = 0
 
 nnoremap ! :AsyncRun<space>
 nnoremap <A-s> :AsyncRun! rg --vimgrep 
-inoremap <A-s> <esc>:AsyncRun! rg --vimgrep  
+inoremap <A-s> <esc>:AsyncRun! rg --vimgrep 
 vnoremap <A-s> y<esc>:AsyncRun! rg --vimgrep --fixed-strings "<c-r>""
-tnoremap <A-s> <C-\><C-n>:AsyncRun! rg --vimgrep  
+tnoremap <A-s> <C-\><C-n>:AsyncRun! rg --vimgrep 
 
 " }}}
 
@@ -635,18 +642,37 @@ lua << EOF
   end
 
   lsp.clangd.setup{
-    on_attach=on_attach,
+    on_attach = on_attach,
+    init_options = {
+      fallbackFlags = {
+        '-xcpp-output',
+        '-Wall',
+        '-Wextra',
+        '-Wno-missing-braces',
+        '-Wno-initializer-overrides',
+        '-Wno-unused-parameter'
+      }
+    }
   }
 EOF
 
+command! LspDeclaration :lua vim.lsp.buf.declaration()
+command! LspDefinition :lua vim.lsp.buf.definition()
+command! LspTypeDefinition :lua vim.lsp.buf.type_definition()
+command! LspImplementation :lua vim.lsp.buf.implementation()
+command! LspHover :lua vim.lsp.buf.hover()
+command! LspSignatureHelp :lua vim.lsp.buf.signature_help()
+command! LspReferences :lua vim.lsp.buf.references()
+command! LspDocumentSymbol :lua vim.lsp.buf.document_symbol()
+command! LspWorkspaceSymbol :lua vim.lsp.buf.workspace_symbol()
+command! LspFormat :lua vim.lsp.buf.formatting_sync(nil, 1000)
+
 function! LspBufSetup() abort
-    nnoremap <A-i> <cmd>lua vim.lsp.buf.hover()<CR>
-    inoremap <A-i> <cmd>lua vim.lsp.buf.signature_help()<CR>
-    nnoremap <A-d> <cmd>lua vim.lsp.buf.declaration()<CR>
-    nnoremap <A-D> <cmd>lua vim.lsp.buf.implementation()<CR>
-    nnoremap <A-l> <cmd>NextDiagnosticCycle<CR>zz
-    nnoremap <A-h> <cmd>PrevDiagnosticCycle<CR>zz
-    nnoremap <A-\> <cmd>OpenDiagnostic<CR>
+    nnoremap <A-space> <cmd>lua vim.lsp.buf.hover()<CR>
+    inoremap <A-space> <cmd>lua vim.lsp.buf.signature_help()<CR>
+    nnoremap ]e <cmd>NextDiagnosticCycle<CR>zz
+    nnoremap [e <cmd>PrevDiagnosticCycle<CR>zz
+    nnoremap \e <cmd>OpenDiagnostic<CR>
     
     augroup LSP_BUF
         au!
@@ -672,12 +698,6 @@ let g:diagnostic_enable_virtual_text = 0
 "     au!
 "     au BufWritePre *.dart :DartFmt<cr>
 " augroup END
-
-" }}}
-
-" vim-case-master {{{
-
-nnoremap _ :CaseMasterConvertToSnake<cr>
 
 " }}}
 
