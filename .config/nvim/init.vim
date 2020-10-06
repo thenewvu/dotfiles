@@ -19,7 +19,7 @@ set wildoptions=pum
 set nowrap breakindent linebreak breakindentopt=shift:-2
 set showbreak=↳\ 
 set fillchars+=fold:\ ,diff:\ 
-set updatetime=500
+set updatetime=1000
 set nofoldenable
 " disable some builtin plugins
 let g:did_install_default_menus = 1
@@ -59,6 +59,7 @@ set diffopt=filler,indent-heuristic,algorithm:histogram,iwhite,context:999
 set shortmess+=c
 set splitbelow splitright
 set foldmethod=syntax
+set regexpengine=1
 
 " Set %% to the dir that contains the current file
 " http://vim.wikia.com/wiki/Easy_edit_of_files_in_the_same_directory
@@ -83,15 +84,10 @@ function! MyFoldExprC()
     " remove comments
     " let l:text = substitute(l:text, '\v\/\*.*\*\/', "", "g")
     " let l:text = substitute(l:text, '\v\/\/.*$', "", "g")
-
-    if &filetype == 'javascript'
-        " remove regex
-        let l:text = substitute(l:text, '\v(\/)((\\\1|.){-})\1', "", "g")
-    endif
-
-    " remove strings
-    let l:text = substitute(l:text, '\v([''"`])((\\\1|.){-})\1', "", "g")
-
+    
+    " remove strings and regexs
+    let l:text = substitute(l:text, '\v([''"`\/])((\\\1|.){-})\1', '', 'g')
+    " remove after last opening {
     let l:text = substitute(l:text, '\v\{[^\{\}]*\}', "", "g")
 
     " both opening and closing
@@ -203,8 +199,17 @@ nnoremap > >>
 nnoremap < <<
 vnoremap < <gv
 vnoremap > >gv
+" reselect pasted text
+nnoremap vp `[v`]
+" reselect last selected text
+nnoremap vv gv
+" start replacing in selected text
+vnoremap s :s/
+" reselect last selected text then start replacing
+nnoremap vs gv:s/
 " copy/paste to/from system clipboard
 " https://sheerun.net/2014/03/21/how-to-boost-your-vim-productivity/
+nnoremap gy V"+y
 vnoremap gy "+y
 nnoremap gp "+p`]
 nnoremap gP "+P`]
@@ -353,7 +358,7 @@ Plug 'thosakwe/vim-flutter', { 'on': 'FlutterRun' }
 
 Plug 'neovim/nvim-lsp'
 Plug 'nvim-lua/diagnostic-nvim'
-Plug 'nvim-lua/completion-nvim'
+" Plug 'nvim-lua/completion-nvim'
 
 Plug 'endaaman/vim-case-master', { 'on': 'CaseMasterConvertToSnake' }
 
@@ -373,17 +378,20 @@ Plug 'kassio/neoterm'
 
 Plug '907th/vim-auto-save'
 
-Plug 'airblade/vim-gitgutter'
+" Plug 'airblade/vim-gitgutter'
+
+Plug 'FooSoft/vim-argwrap'
 
 call plug#end()
 
 " }}}
 
-" airblade/vim-gitgutter {{{
+" " airblade/vim-gitgutter {{{
 
-let g:gitgutter_preview_win_floating = 1
+" let g:gitgutter_preview_win_floating = 1
+" let g:gitgutter_diff_args = '-w --ignore-blank-lines'
 
-" }}}
+" " }}}
 
 " 907th/vim-auto-save {{{
 
@@ -634,10 +642,8 @@ tnoremap <A-s> <C-\><C-n>:AsyncRun! rg --vimgrep
 lua << EOF
   local lsp = require 'nvim_lsp'
   local diagnostic = require 'diagnostic'
-  local completion = require 'completion'
 
   local on_attach = function(client, bufnr)
-    completion.on_attach(client, bufnr)
     diagnostic.on_attach(client, bufnr)
   end
 
@@ -668,8 +674,11 @@ command! LspWorkspaceSymbol :lua vim.lsp.buf.workspace_symbol()
 command! LspFormat :lua vim.lsp.buf.formatting_sync(nil, 1000)
 
 function! LspBufSetup() abort
-    nnoremap <A-space> <cmd>lua vim.lsp.buf.hover()<CR>
-    inoremap <A-space> <cmd>lua vim.lsp.buf.signature_help()<CR>
+    setlocal omnifunc=v:lua.vim.lsp.omnifunc
+
+    nnoremap <A-i> <cmd>lua vim.lsp.buf.hover()<CR>
+    inoremap <A-i> <cmd>lua vim.lsp.buf.signature_help()<CR>
+    inoremap <A-space> <C-x><C-o>
     nnoremap ]e <cmd>NextDiagnosticCycle<CR>zz
     nnoremap [e <cmd>PrevDiagnosticCycle<CR>zz
     nnoremap \e <cmd>OpenDiagnostic<CR>
@@ -713,8 +722,8 @@ call smartinput#define_rule({
 
 " vim-expand-region {{{
 
-map vv <Plug>(expand_region_expand)
-map vV <Plug>(expand_region_shrink)
+map vo <Plug>(expand_region_expand)
+map vi <Plug>(expand_region_shrink)
 
 let g:expand_region_text_objects = {
             \ 'i"'  :0,

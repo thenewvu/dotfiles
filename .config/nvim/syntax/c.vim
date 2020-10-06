@@ -12,9 +12,8 @@ syn match Type /\vstruct\s+[a-zA-Z0-9_]+>/
 syn match Type /\venum\s+[a-zA-Z0-9_]+>/
 syn match Structure "\v^\s*(struct|enum|union)(\s*[a-zA-Z0-9_]*\_s*\{)@="
 
-syn keyword Operator sizeof __sizeof
-syn match Operator "[\+\-\*\/\%\?\:\&\|\<\>\=\!\.]"
-syn match Operator "\v[a-zA-Z_#][#a-zA-Z0-9_]{-}\s*(\()@="
+syn match Operator "[\+\-\*\/\%\?\:\&\|\<\>\=\!\.\[\]]"
+syn match Function "\v\k{-}\s*\ze\("
 syn match Type /\v<[a-zA-Z0-9_]+_t>/
 syn keyword Type auto_type __auto_type
 syn match Type "\v_?_?typeof\(.{-}\)"

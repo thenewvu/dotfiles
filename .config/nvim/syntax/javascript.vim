@@ -22,10 +22,10 @@ syn match Function "\v[a-zA-Z_][a-zA-Z0-9_]*\s*(\()@="
 syn match Operator "[\?\:\+\-\*\/\%\&\|\<\>\=\!\.]"
 syn match Delimiter "[\}\{\;\,\\\(\)\[\]]" display
 syn match Number "\d*\.\d\+"
+syn match Todo "\v\s{-}\/\/\s{-}(TODO|NOTE|FIXME)\:.{-}$"
+syn match String /\v([''"`\/])((\\\1|.){-})\1/
 syn region Comment start="//" skip="\\$" end="$" keepend
 syn region Comment start="/\*" end="\*/" extend
-syn match Todo "\v\s{-}\/\/\s{-}(TODO|NOTE|FIXME)\:.{-}$"
-syn match String /\v([''"`])((\\\1|.){-})\1/
 
 let b:current_syntax = "javascript"
 
