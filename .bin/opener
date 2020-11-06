@@ -11,15 +11,15 @@ case $1 in
         /usr/local/bin/mpv "$1"
     ;;
     http*://v.redd.it/*)
-        /usr/local/bin/mpv --autofit 640x480 "$1"
+        /usr/local/bin/mpv "$1"
     ;;
     *.jpg*|*.png*|*.webp*)
-        /usr/local/bin/mpv --pause --autofit 640x480 "$1"
+        open "$1"
     ;;
     *.gif*|*.gifv*|*.webm*|*.mp4*|*.wmv*|*.mp3*|*.flac*|*.mkv*|*.m4a*|*.4pm*)
-        /usr/local/bin/mpv --autofit 640x480 "$1"
+        /usr/local/bin/mpv "$1"
     ;;
     *)
-        /usr/local/bin/mpv --autofit 640x480 "$1"
+        echo "Could not open $1"
     ;;
 esac 
