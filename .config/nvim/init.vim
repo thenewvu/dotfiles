@@ -59,13 +59,14 @@ set diffopt=filler,indent-heuristic,algorithm:histogram,iwhite,context:999
 set shortmess+=c
 set splitbelow splitright
 set foldmethod=syntax
+set foldtext=MyFoldText()
 set regexpengine=1
 
 " Set %% to the dir that contains the current file
 " http://vim.wikia.com/wiki/Easy_edit_of_files_in_the_same_directory
 cabbr <expr> %% fnamemodify(resolve(expand('%:p')), ':h')
 
-function! TabCD(path)
+function! TabCD(path) abort
     if isdirectory(a:path)
         let l:dirname = a:path
     else
@@ -74,17 +75,12 @@ function! TabCD(path)
     execute "tcd ". l:dirname
 endfunction
 
-function! MyFoldText()
+function! MyFoldText() abort
     return repeat(' ', indent(v:foldstart)) . trim(getline(v:foldstart)) . '…' . trim(getline(v:foldend))
 endfunction
 
-function! MyFoldExprC()
+function! MyFoldExprC() abort
     let l:text = getline(v:lnum)
-
-    " remove comments
-    " let l:text = substitute(l:text, '\v\/\*.*\*\/', "", "g")
-    " let l:text = substitute(l:text, '\v\/\/.*$', "", "g")
-    
     " remove strings and regexs
     let l:text = substitute(l:text, '\v([''"`\/])((\\\1|.){-})\1', '', 'g')
     " remove after last opening {
@@ -121,17 +117,12 @@ augroup All
     au FileType c,cpp,javascript,java,go,objc,objcpp,dart,rust
                 \ setlocal foldmethod=expr
                 \ foldexpr=MyFoldExprC()
-                \ foldtext=MyFoldText()
-
-    au FileType json
-                \ setlocal foldmethod=syntax
-                \ foldtext=MyFoldText()
 
     " https://vi.stackexchange.com/a/169
-    let g:large_file = 1024 * 512 " 512KB
+    let g:huge_file_size = 1024 * 512 " 512KB
     au BufReadPre *
             \ let f=expand("<afile>") |
-            \ if getfsize(f) > g:large_file |
+            \ if getfsize(f) > g:huge_file_size |
                     \ set eventignore+=FileType |
                     \ setlocal undolevels=-1 |
             \ else |
@@ -139,7 +130,7 @@ augroup All
             \ endif
 augroup END
 
-function! FileRename()
+function! FileRename() abort
     let old_name = expand('%')
     let new_name = input('FileRename: ', expand('%'), 'file')
     if new_name != '' && new_name != old_name
@@ -151,7 +142,7 @@ endfunction
 
 command! FileRename call FileRename()
 
-function! FileDelete()
+function! FileDelete() abort
     let filepath = expand('%')
     let answer = input('Are you sure to delete ' . filepath . '? ')
     if answer == 'y'
@@ -291,7 +282,7 @@ cmap w! w !sudo tee > /dev/null %
 
 nnoremap <F2> :e ~/.config/nvim/init.vim<cr>
 
-function! ToggleQuickFix()
+function! ToggleQuickFix() abort
     if exists("g:qwindow")
         cclose
         unlet g:qwindow
@@ -305,7 +296,7 @@ function! ToggleQuickFix()
     endif
 endfunction
 
-function ToggleFolding()
+function ToggleFolding() abort
     if &foldenable
         set nofoldenable
     else
@@ -672,6 +663,7 @@ command! LspReferences :lua vim.lsp.buf.references()
 command! LspDocumentSymbol :lua vim.lsp.buf.document_symbol()
 command! LspWorkspaceSymbol :lua vim.lsp.buf.workspace_symbol()
 command! LspFormat :lua vim.lsp.buf.formatting_sync(nil, 1000)
+command! LspDocumentDiagnostics :OpenDiagnostic
 
 function! LspBufSetup() abort
     setlocal omnifunc=v:lua.vim.lsp.omnifunc
