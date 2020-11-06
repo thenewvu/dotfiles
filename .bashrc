@@ -60,13 +60,20 @@ export GREP_OPTIONS='--ignore-case --color=auto'
 export CLICOLOR=1
 
 # color highlight for manpage
-export LESS_TERMCAP_mb=$'\e[1;32m'
-export LESS_TERMCAP_md=$'\e[1;32m'
-export LESS_TERMCAP_me=$'\e[0m'
-export LESS_TERMCAP_se=$'\e[0m'
-export LESS_TERMCAP_so=$'\e[01;33m'
-export LESS_TERMCAP_ue=$'\e[0m'
-export LESS_TERMCAP_us=$'\e[1;4;31m'
+# https://stealthefish.com/blog/2014/better-bash-man-pages/
+export LESS_TERMCAP_mb=$'\E[0;103m' # begin blinking
+export LESS_TERMCAP_md=$'\E[0;93m' # begin bold
+export LESS_TERMCAP_me=$'\E[0m' # end mode
+export LESS_TERMCAP_se=$'\E[0m' # end standout-mode
+export LESS_TERMCAP_so=$(tput bold; tput setaf 8; tput setab 3) # begin standout-mode - info box
+export LESS_TERMCAP_ue=$'\E[0m' # end underline
+export LESS_TERMCAP_us=$'\E[04;32m' # begin underline
+export LESS_TERMCAP_mr=$(tput rev)
+export LESS_TERMCAP_mh=$(tput dim)
+export LESS_TERMCAP_ZN=$(tput ssubm)
+export LESS_TERMCAP_ZV=$(tput rsubm)
+export LESS_TERMCAP_ZO=$(tput ssupm)
+export LESS_TERMCAP_ZW=$(tput rsupm)
 
 export FZF_COMPLETION_TRIGGER='``'
 export FZF_DEFAULT_OPTS="--reverse --color fg:15,hl:10,fg+:-1,bg+:-1,hl+:10,info:15,prompt:9,spinner:15,pointer:9,marker:14,border:15"
@@ -131,10 +138,8 @@ export HISTSIZE=${HISTFILESIZE}
 export HISTCONTROL=ignoreboth:ignoredups:erasedups
 # When the shell exits, append to the history file instead of overwriting it
 shopt -s histappend
-# Use one command per line
+# Store multi-line commands in one history entry:
 shopt -s cmdhist
-
-export PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 
 # }}}
 
