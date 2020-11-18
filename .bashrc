@@ -172,7 +172,7 @@ gl() {
 
 alias gs="git status --short"
 alias gr="git restore -p"
-alias gd="git difftool --diff-filter=M"
+alias gd="git diff --diff-filter=M"
 alias ga="git add"
 alias gc="git commit -m"
 

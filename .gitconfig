@@ -55,3 +55,29 @@
     untracked = "#ffffff"
 [help]
 	autocorrect = 50
+
+
+[core]
+    pager = delta
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    features = side-by-side line-numbers decorations
+    whitespace-error-style = 22 reverse
+
+[delta "decorations"]
+    syntax-theme = none
+    hunk-header-style = omit
+    plus-style = syntax "#437f43"
+    minus-style = syntax "#a05454"
+    plus-emph-style = "#2c4e6c" "#b8edab"
+    minus-emph-style = "#2c4e6c" "#edabb8"
+    line-numbers-left-style = "#2c4e6c"
+    line-numbers-right-style = "#2c4e6c"
+    line-numbers-zero-style = "#2c4e6c"
+    line-numbers-plus-style = "#437f43"
+    line-numbers-minus-style = "#a05454"
+    file-style = "#ede0ab"
+    file-decoration-style = "#ede0ab" ul
