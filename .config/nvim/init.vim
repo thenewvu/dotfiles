@@ -388,10 +388,10 @@ let g:auto_save_silent = 1
 
 let g:neoterm_autoinsert = 1
 
-nnoremap <A-`> :vert Ttoggle<cr>
-inoremap <A-`> <esc>:vert Ttoggle<cr>
-vnoremap <A-`> <esc>:vert Ttoggle<cr>
-tnoremap <A-`> <C-\><C-n>:vert Ttoggle<cr>
+nnoremap <A-`> :botright Ttoggle<cr>
+inoremap <A-`> <esc>:botright Ttoggle<cr>
+vnoremap <A-`> <esc>:botright Ttoggle<cr>
+tnoremap <A-`> <C-\><C-n>:botright Ttoggle<cr>
 
 " }}}
 
