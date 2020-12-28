@@ -713,16 +713,6 @@ EOF
 
 " }}}
 
-" smartinput {{{
-
-call smartinput#define_rule({
-            \ 'at': '(\%#)',
-            \ 'char': '<Enter>',
-            \ 'input': '<Enter><Enter><BS><Up><Esc>"_S'
-            \ })
-
-" }}}
-
 " vim-expand-region {{{
 
 map vo <Plug>(expand_region_expand)
