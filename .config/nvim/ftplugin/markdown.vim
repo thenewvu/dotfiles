@@ -6,6 +6,7 @@ setlocal nolist
 setlocal nonumber
 setlocal conceallevel=2 concealcursor=
 setlocal nofoldenable
+setlocal spell
 
 " underline markdown headers
 " Ref: https://goo.gl/6zf93B
