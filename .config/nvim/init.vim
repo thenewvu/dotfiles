@@ -44,6 +44,7 @@ let g:loaded_tutor_mode_plugin  = 1
 let g:loaded_matchparen         = 1
 let g:loaded_matchit            = 1
 let g:c_syntax_for_h = 1
+let g:sh_no_error=1
 set statusline=%F%m
 set noshowcmd
 set noshowmode
