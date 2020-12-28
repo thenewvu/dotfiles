@@ -349,7 +349,6 @@ Plug 'skywind3000/asyncrun.vim', { 'on': ['AsyncRun', 'AsyncStop'] }
 Plug 'thosakwe/vim-flutter', { 'on': 'FlutterRun' }
 
 Plug 'neovim/nvim-lsp'
-Plug 'nvim-lua/diagnostic-nvim'
 " Plug 'nvim-lua/completion-nvim'
 
 Plug 'endaaman/vim-case-master', { 'on': 'CaseMasterConvertToSnake' }
@@ -623,12 +622,7 @@ tnoremap <A-s> <C-\><C-n>:AsyncRun! rg --vimgrep
 " nvim-lsp {{{
 
 lua << EOF
-  local lsp = require 'nvim_lsp'
-  local diagnostic = require 'diagnostic'
-
-  local on_attach = function(client, bufnr)
-    diagnostic.on_attach(client, bufnr)
-  end
+  local lsp = require 'lspconfig'
 
   lsp.clangd.setup{
     on_attach = on_attach,
@@ -657,19 +651,34 @@ command! LspWorkspaceSymbol :lua vim.lsp.buf.workspace_symbol()
 command! LspFormat :lua vim.lsp.buf.formatting_sync(nil, 1000)
 command! LspDocumentDiagnostics :OpenDiagnostic
 
+" https://github.com/pyrho/rc/blob/caf1a22d5c333416873336e71d2fbfcbae96d14b/nvim/conf/50-lightline.vim
+function! LspStatus() abort
+    if luaeval('not vim.tbl_isempty(vim.lsp.buf_get_clients(0))')
+       let errors = luaeval("vim.lsp.diagnostic.get_count(0, 'Error')")
+       let warnings = luaeval("vim.lsp.diagnostic.get_count(0, 'Warning')")
+       let info = luaeval("vim.lsp.diagnostic.get_count(0, 'Hint')")
+       if errors == 0 && warnings == 0
+           return ''
+       endif
+       return '⚠ E' .errors . ' W' . warnings . ' I' . info
+    endif
+    return ''
+endfunction
+
 function! LspBufSetup() abort
     setlocal omnifunc=v:lua.vim.lsp.omnifunc
+    setlocal statusline=%F%m%=%{LspStatus()}
 
     nnoremap <A-i> <cmd>lua vim.lsp.buf.hover()<CR>
     inoremap <A-i> <cmd>lua vim.lsp.buf.signature_help()<CR>
     inoremap <A-space> <C-x><C-o>
-    nnoremap ]e <cmd>NextDiagnosticCycle<CR>zz
-    nnoremap [e <cmd>PrevDiagnosticCycle<CR>zz
-    nnoremap \e <cmd>OpenDiagnostic<CR>
+    nnoremap ]e <cmd>lua vim.lsp.diagnostic.goto_next()<CR>zz
+    nnoremap [e <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>zz
+    nnoremap \e <cmd>vim.lsp.diagnostic.set_loclist()<CR>
     
     augroup LSP_BUF
         au!
-        au CursorHold * lua vim.lsp.util.show_line_diagnostics()
+        au CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()
     augroup END
 endfunction
 
@@ -679,9 +688,17 @@ augroup LSP
     au Filetype c,cpp,objc,objcpp call LspBufSetup()
 augroup END
 
-let g:diagnostic_insert_delay = 1
-let g:diagnostic_show_sign = 0
-let g:diagnostic_enable_virtual_text = 0
+lua << EOF
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+  vim.lsp.diagnostic.on_publish_diagnostics, {
+    underline = true,
+    virtual_text = false,
+    signs = false,
+    update_in_insert = false,
+  }
+)
+EOF
+
 
 " }}}
 
