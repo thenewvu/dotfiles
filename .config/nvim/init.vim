@@ -370,20 +370,11 @@ Plug 'kassio/neoterm'
 
 Plug '907th/vim-auto-save'
 
-" Plug 'airblade/vim-gitgutter'
-
 Plug 'FooSoft/vim-argwrap'
 
 call plug#end()
 
 " }}}
-
-" " airblade/vim-gitgutter {{{
-
-" let g:gitgutter_preview_win_floating = 1
-" let g:gitgutter_diff_args = '-w --ignore-blank-lines'
-
-" " }}}
 
 " 907th/vim-auto-save {{{
 
