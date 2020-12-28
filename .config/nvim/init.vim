@@ -371,6 +371,8 @@ Plug '907th/vim-auto-save'
 
 Plug 'FooSoft/vim-argwrap'
 
+Plug 'neoclide/vim-jsx-improve'
+
 call plug#end()
 
 " }}}
