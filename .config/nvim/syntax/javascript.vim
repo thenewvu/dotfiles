@@ -11,10 +11,12 @@ endif
 let s:cpo_save = &cpo
 set cpo&vim
 
-syn keyword Keyword return async await function class case default
-syn keyword Keyword break continue throw try catch finally
-syn keyword StorageClass const var let 
-syn keyword PreProc export import from
+syn keyword Keyword async await
+syn keyword Keyword function class extends
+syn keyword Keyword return break continue 
+syn keyword Exception throw try finally
+syn keyword StorageClass const var let
+syn keyword PreProc export import from case default
 syn keyword Conditional if else switch
 syn keyword Repeat do while for foreach of in
 syn keyword Operator typeof instanceof new delete
@@ -26,6 +28,8 @@ syn match Todo "\v\s{-}\/\/\s{-}(TODO|NOTE|FIXME)\:.{-}$"
 syn match String /\v([''"`\/])((\\\1|.){-})\1/
 syn region Comment start="//" skip="\\$" end="$" keepend
 syn region Comment start="/\*" end="\*/" extend
+" highlight only catch in try-catch, not obj.catch()
+syn match Exception /\v[^\.]\_s*\zscatch/
 
 let b:current_syntax = "javascript"
 
