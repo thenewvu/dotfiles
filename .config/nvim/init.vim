@@ -634,6 +634,8 @@ lua << EOF
       }
     }
   }
+
+  lsp.tsserver.setup{}
 EOF
 
 command! LspDeclaration :lua vim.lsp.buf.declaration()
@@ -683,6 +685,8 @@ augroup LSP
     au!
     au Filetype dart call LspBufSetup()
     au Filetype c,cpp,objc,objcpp call LspBufSetup()
+    au Filetype typescript,typescriptreact call LspBufSetup()
+    au Filetype javascript,javascriptreact call LspBufSetup()
 augroup END
 
 lua << EOF
