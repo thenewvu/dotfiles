@@ -369,10 +369,6 @@ Plug 'kassio/neoterm'
 
 Plug '907th/vim-auto-save'
 
-Plug 'FooSoft/vim-argwrap'
-
-Plug 'neoclide/vim-jsx-improve'
-
 call plug#end()
 
 " }}}
@@ -627,7 +623,6 @@ lua << EOF
   local lsp = require 'lspconfig'
 
   lsp.clangd.setup{
-    on_attach = on_attach,
     init_options = {
       fallbackFlags = {
         '-xcpp-output',
