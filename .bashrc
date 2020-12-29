@@ -80,15 +80,14 @@ export FZF_DEFAULT_OPTS="--reverse --color fg:15,hl:10,fg+:-1,bg+:-1,hl+:10,info
 export FZF_DEFAULT_COMMAND="rg --files --glob '!**/node_modules/*'"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
-export ANDROID_HOME="$HOME/Library/Android/sdk"
-export ANDROID_SDK_ROOT="$ANDROID_HOME"
-export ANDROID_NDK_HOME="$HOME/Library/Android/ndk/r14b"
-export ANDROID_NDK_ROOT="$ANDROID_NDK_HOME"
-export ANDROID_NDK_CLANG="$ANDROID_NDK_ROOT/toolchains/llvm/prebuilt/darwin-x86_64"
-export ANDROID_NDK_ARM="$ANDROID_NDK_ROOT/toolchains/arm-linux-androideabi-4.9/prebuilt/darwin-x86_64"
-export ANDROID_NDK_X86="$ANDROID_NDK_ROOT/toolchains/x86-4.9/prebuilt/darwin-x86_64"
-export PATH="$ANDROID_SDK_ROOT/tools:$ANDROID_SDK_ROOT/tools/bin:$PATH"
-export PATH="$ANDROID_SDK_ROOT/platform-tools:$PATH"
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home
+
+export ANDROID_HOME="/usr/local/share/android-sdk"
+export ANDROID_NDK_HOME="/usr/local/share/android-ndk"
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/tools/bin
+export PATH=$PATH:$ANDROID_HOME/platform-tools
 
 export JAVA_HOME="/Applications/Android Studio.app/Contents/jre/jdk/Contents/Home"
 export PATH="$JAVA_HOME/bin:$PATH"
