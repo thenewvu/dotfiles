@@ -97,19 +97,6 @@ export FLUTTER_ROOT=~/Works/projects/flutter
 export PATH="$FLUTTER_ROOT/bin:$PATH"
 export PATH="/usr/local/opt/libpq/bin:$PATH"
 
-# homebrew llvm need below
-export PATH="/usr/local/opt/llvm/bin:$PATH"
-export CC=clang
-export CXX=clang++
-export LD=ld.lld
-export AR=llvm-ar
-export RANLIB=llvm-ranlib
-export CFLAGS="$CFLAGS -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk"
-export CCFLAGS="$CCFLAGS -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk"
-export CXXFLAGS="$CXXFLAGS -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk"
-export OBJCFLAGS="$OBJCFLAGS -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk"
-export LDFLAGS="$LDFLAGS -L/usr/local/opt/llvm/lib -Wl,-rpath,/usr/local/opt/llvm/lib"
-
 # so cmake can find qt
 export CMAKE_PREFIX_PATH=/usr/local/opt/qt
 
