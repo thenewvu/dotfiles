@@ -12,7 +12,7 @@ let s:cpo_save = &cpo
 set cpo&vim
 
 syn keyword Keyword async await
-syn keyword Keyword function class extends type
+syn keyword Keyword function class extends type interface
 syn keyword Keyword return break continue 
 syn keyword Exception throw try finally
 syn keyword StorageClass const var let
