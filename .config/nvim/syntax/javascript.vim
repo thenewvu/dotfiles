@@ -175,7 +175,6 @@ let s:enable_tagged_jsx = !empty(s:tags)
 
 " add support to JSX inside the tagged template string
 " https://github.com/developit/htm
-if s:enable_tagged_jsx
   exe 'syntax match jsxRegion +\%(' . join(s:tags, '\|') . '\)\%(\_s*`\)\@=+ contains=jsTemplateStringTag,jsTaggedTemplate,javascriptTagRef skipwhite skipempty nextgroup=jsxTaggedRegion'
 
   syntax region jsxTaggedRegion
@@ -213,7 +212,6 @@ if s:enable_tagged_jsx
   syntax match jsxCloseTag +<//>+ contained
 
   syntax match jsxComment +<!--\_.\{-}-->+
-endif
 
 " Highlight the tag name
 highlight def link jsxTag Function
