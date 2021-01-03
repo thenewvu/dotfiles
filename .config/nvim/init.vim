@@ -115,7 +115,7 @@ augroup All
     " https://dmerej.info/blog/post/vim-cwd-and-neovim/
     au TabNewEntered * call TabCD(expand("<amatch>"))
 
-    au FileType c,cpp,javascript,java,go,objc,objcpp,dart,rust
+    au FileType c,cpp,javascript,java,go,objc,objcpp,dart,rust,typescript,typescriptreact
                 \ setlocal foldmethod=expr
                 \ foldexpr=MyFoldExprC()
 
