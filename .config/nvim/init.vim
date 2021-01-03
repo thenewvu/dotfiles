@@ -514,10 +514,10 @@ let g:asyncrun_open = 10
 let g:asyncrun_local = 0
 
 nnoremap ! :AsyncRun<space>
-nnoremap <A-s> :AsyncRun! rg --vimgrep 
-inoremap <A-s> <esc>:AsyncRun! rg --vimgrep 
+nnoremap <A-s> :AsyncRun! rg --vimgrep --fixed-strings 
+inoremap <A-s> <esc>:AsyncRun! rg --vimgrep --fixed-strings 
 vnoremap <A-s> y<esc>:AsyncRun! rg --vimgrep --fixed-strings "<c-r>""
-tnoremap <A-s> <C-\><C-n>:AsyncRun! rg --vimgrep 
+tnoremap <A-s> <C-\><C-n>:AsyncRun! rg --vimgrep --fixed-strings 
 
 " }}}
 
