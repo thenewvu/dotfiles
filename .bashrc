@@ -143,7 +143,7 @@ alias mv="mv -i"
 alias cp="cp -i"
 
 fzf__git_hash="echo {} | grep -o '[a-f0-9]\{7,\}\$' | head -1"
-fzf__git_show="$fzf__git_hash | xargs -I % sh -c 'git show % --color=always | diff-highlight'"
+fzf__git_show="$fzf__git_hash | xargs -I % sh -c 'git show % --color=always | delta -w 200'"
 fzf__git_checkout="$fzf__git_hash | xargs -I % sh -c 'git checkout %'"
 
 gl() {
