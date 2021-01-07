@@ -21,6 +21,7 @@ set showbreak=↳\
 set fillchars+=fold:\ ,diff:\ 
 set updatetime=1000
 set nofoldenable
+set fileformat=unix
 " disable some builtin plugins
 let g:did_install_default_menus = 1
 let g:loaded_2html_plugin       = 1
@@ -369,6 +370,10 @@ Plug 'kassio/neoterm'
 
 Plug '907th/vim-auto-save'
 
+Plug 'tpope/vim-sleuth'
+
+Plug 'sbdchd/neoformat'
+
 call plug#end()
 
 " }}}
@@ -406,14 +411,14 @@ augroup end
 " fzf {{{
 
 command! -bang -nargs=* FzfBufLines
-    \ call fzf#vim#grep('grep --with-filename --line-number . '.fnameescape(expand('%')), 0,
+    \ call fzf#vim#grep('rg --with-filename --line-number . '.fnameescape(expand('%')), 0,
     \   fzf#vim#with_preview({
     \       'options': '--bind change:top --delimiter : --with-nth 3..'
     \       }),
     \   0)
 
 command! -bang -nargs=* FzfTodos
-    \ call fzf#vim#grep('grep -e "\(TODO\|FIXME\|NOTE\)" --with-filename --line-number '.fnameescape(expand('%')), 0,
+    \ call fzf#vim#grep('rg -e "\(TODO\|FIXME\|NOTE\)" --with-filename --line-number '.fnameescape(expand('%')), 0,
     \   fzf#vim#with_preview({
     \       'options': '--bind change:top --delimiter : --with-nth 3..'
     \       }),
@@ -780,6 +785,12 @@ augroup END
 	\ 'b' : 'b',
 	\ 'e' : 'e',
 	\ }
+
+" }}}
+
+" neoformat {{{
+
+let g:neoformat_enabled_javascript = ['standard']
 
 " }}}
 
