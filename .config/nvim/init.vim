@@ -64,6 +64,16 @@ set foldmethod=syntax
 set foldtext=MyFoldText()
 set regexpengine=1
 
+set guifont=Iosevka\ Fixed\ Slab:h12
+set winaltkeys=no
+set guioptions-=m  "remove menu bar
+set guioptions-=T  "remove toolbar
+set guioptions-=r  "remove right-hand scroll bar
+set guioptions-=L  "remove left-hand scroll bar0
+set guioptions+=a
+set mouse=a
+source $VIMRUNTIME/mswin.vim
+
 " Set %% to the dir that contains the current file
 " http://vim.wikia.com/wiki/Easy_edit_of_files_in_the_same_directory
 cabbr <expr> %% fnamemodify(resolve(expand('%:p')), ':h')
@@ -104,6 +114,8 @@ endfunction
 
 augroup All
     au!
+
+    au GUIEnter * simalt ~x
 
     " dont highlight searching matches during inserting
     au InsertEnter * :setlocal nohlsearch
@@ -282,7 +294,7 @@ tnoremap <C-q> <C-\><C-n><C-w>c
 " write current file with sudo
 cmap w! w !sudo tee > /dev/null %
 
-nnoremap <F2> :e ~/.config/nvim/init.vim<cr>
+nnoremap <F2> :e $MYVIMRC<cr>
 
 function! ToggleQuickFix() abort
     if exists("g:qwindow")
@@ -312,7 +324,7 @@ endfunction
 
 " vim-plug {{{
 
-call plug#begin('~/.config/nvim/plugged')
+call plug#begin(fnamemodify($MYVIMRC, ":p:h") . '/plugged')
 
 " commenting
 Plug 'tpope/vim-commentary'
@@ -431,16 +443,16 @@ command! -bang FzfBufTags
     \                 --reverse
     \                 --prompt "> "
     \                 --preview-window="80%"
-    \                 --preview "~/.config/nvim/plugged/fzf.vim/bin/preview.sh {2}:\$(echo {3} | tr -d \";\\\"\")"'
+    \                 --preview fnamemodify($MYVIMRC, ":p:h") . "/plugged/fzf.vim/bin/preview.sh {2}:\$(echo {3} | tr -d \";\\\"\")"'
     \ })
 
 nnoremap / :FzfBufLines<cr>
 nnoremap <tab> :FzfBufTags<cr>
-nnoremap ` :FZF<cr>
+nnoremap <A-p> :FZF<cr>
 
-nnoremap <A-tab> :Buffers<cr>
-tnoremap <A-tab> <C-\><C-n>:Buffers<cr>
-inoremap <A-tab> <esc>:Buffers<cr>
+nnoremap <A-P> :Buffers<cr>
+tnoremap <A-P> <C-\><C-n>:Buffers<cr>
+inoremap <A-P> <esc>:Buffers<cr>
 
 nnoremap <F1> :Help<cr>
 nnoremap ; :Commands<cr>
@@ -461,7 +473,6 @@ xmap a <Plug>(EasyAlign)
 
 " vim-colors-blueprint {{{
 
-" set rtp+=~/.config/nvim/plugged/vim-colors-blueprint
 set termguicolors
 set background=dark
 colorscheme blueprint
@@ -779,18 +790,19 @@ augroup END
 
 " wordmotion {{{
 
-	let g:wordmotion_prefix = '_wm'
-	let g:wordmotion_mappings = {
-	\ 'w' : 'w',
-	\ 'b' : 'b',
-	\ 'e' : 'e',
-	\ }
+	" let g:wordmotion_prefix = '_wm'
+	" let g:wordmotion_mappings = {
+	" \ 'w' : 'w',
+	" \ 'b' : 'b',
+	" \ 'e' : 'e',
+	" \ }
 
 " }}}
 
 " neoformat {{{
 
 let g:neoformat_enabled_javascript = ['standard']
+let g:neoformat_verbose = 1
 
 " }}}
 
