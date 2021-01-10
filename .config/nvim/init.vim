@@ -356,12 +356,9 @@ Plug 'amadeus/vim-convert-color-to', { 'on': 'ConvertColorTo' }
 
 Plug 'skywind3000/asyncrun.vim', { 'on': ['AsyncRun', 'AsyncStop'] }
 
-" Plug 'prabirshrestha/vim-lsp'
-
 Plug 'thosakwe/vim-flutter', { 'on': 'FlutterRun' }
 
 Plug 'neovim/nvim-lsp'
-" Plug 'nvim-lua/completion-nvim'
 
 Plug 'endaaman/vim-case-master', { 'on': 'CaseMasterConvertToSnake' }
 
@@ -522,102 +519,6 @@ vnoremap <A-s> y<esc>:AsyncRun! rg --vimgrep --fixed-strings "<c-r>""
 tnoremap <A-s> <C-\><C-n>:AsyncRun! rg --vimgrep --fixed-strings 
 
 " }}}
-
-" " vim-lsp {{{
-
-" let g:lsp_auto_enable = 1
-" let g:lsp_fold_enabled = 0
-" let g:lsp_text_document_did_save_delay = 0
-" let g:lsp_semantic_enabled = 0
-" let g:lsp_signs_enabled = 0
-" " let g:lsp_text_edit_enabled = 0
-" let g:lsp_signature_help_enabled = 0
-" let g:lsp_diagnostics_echo_cursor = 0
-" let g:lsp_diagnostics_float_cursor = 1
-" let g:lsp_virtual_text_enabled = 0
-" let g:lsp_highlight_references_enabled = 0
-" " let g:lsp_log_file = expand('/tmp/vim-lsp.log')
-
-
-" hi link LspErrorHighlight Underlined
-" hi link LspWarningHighlight Underlined
-" hi link LspInformationHighlight Underlined
-" hi link LspHintHighlight Underlined
-
-" hi link LspErrorText Error
-" hi link LspWarningText WarningMsg
-" hi link LspInformationText WarningMsg
-" hi link LspHintText WarningMsg
-
-" function! s:on_lsp_buffer_enabled() abort
-"     setlocal omnifunc=lsp#complete
-"     inoremap <A-space> <C-x><C-o>
-
-"     setlocal statusline=%F%m
-"     setlocal statusline+=%=
-"     setlocal statusline+=%{lsp#get_buffer_diagnostics_counts().warning}W
-"     setlocal statusline+=:
-"     setlocal statusline+=%{lsp#get_buffer_diagnostics_counts().error}E
-"     nnoremap <buffer> <A-]> :LspNextDiagnostic<cr>
-"     nnoremap <buffer> <A-[> :LspPreviousDiagnostic<cr>
-"     nnoremap <buffer> <A-i> :LspHover<cr>
-"     inoremap <buffer> <A-i> <esc>:LspSignatureHelp<cr>
-"     nnoremap <buffer> <A-o> :LspDefinition<cr>
-"     inoremap <buffer> <A-o> <esc>:LspDefinition<cr>
-"     nnoremap <buffer> <A-\> :LspDocumentDiagnostics<cr>
-" endfunction
-
-" augroup VIM_LSP
-"     au!
-"     au User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
-
-"     if executable('clangd')
-"         au User lsp_setup call lsp#register_server({
-"             \ 'name': 'clangd',
-"             \ 'cmd': {server_info->['clangd', '-background-index']},
-"             \ 'allowlist': ['c', 'cpp', 'objc'],
-"             \ 'initialization_options': {
-"             \   'fallbackFlags': [
-"             \       '-xcpp-output',
-"             \       '-Wall',
-"             \       '-Wextra',
-"             \       '-Wno-missing-braces',
-"             \       '-Wno-initializer-overrides',
-"             \       '-Wno-unused-parameter'
-"             \   ]
-"             \ },
-"             \ })
-"     endif
-
-"     if executable('flutter')
-"         let s:flutter_bin_path = fnamemodify(system('which flutter'), ':p:h')
-"         au User lsp_setup call lsp#register_server({
-"             \   'name': 'flutter-dart',
-"             \   'cmd': {server_info->[
-"             \         s:flutter_bin_path . '/cache/dart-sdk/bin/dart',
-"             \         s:flutter_bin_path . '/cache/dart-sdk/bin/snapshots/analysis_server.dart.snapshot',
-"             \         '--lsp'
-"             \     ]},
-"             \   'allowlist': ['dart'],
-"             \   'config': {
-"             \     'onlyAnalyzeProjectsWithOpenFiles': v:true,
-"             \     'suggestFromUnimportedLibraries': v:false
-"             \   },
-"             \ })
-"     endif
-
-"     if executable('typescript-language-server')
-"       au User lsp_setup call lsp#register_server({
-"         \ 'name': 'typescript-language-server',
-"         \ 'cmd': {server_info->['typescript-language-server', '--stdio']},
-"         \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'package.json'))},
-"         \ 'allowlist': ['javascript', 'javascript.jsx'],
-"         \ })
-"     endif
-
-" augroup END
-
-" " }}}
 
 " nvim-lsp {{{
 
