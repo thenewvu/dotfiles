@@ -72,7 +72,6 @@ set guioptions-=r  "remove right-hand scroll bar
 set guioptions-=L  "remove left-hand scroll bar0
 set guioptions+=a
 set mouse=a
-source $VIMRUNTIME/mswin.vim
 
 " Set %% to the dir that contains the current file
 " http://vim.wikia.com/wiki/Easy_edit_of_files_in_the_same_directory
@@ -382,6 +381,7 @@ Plug 'kassio/neoterm'
 
 Plug '907th/vim-auto-save'
 
+" auto detect indent width
 Plug 'tpope/vim-sleuth'
 
 Plug 'sbdchd/neoformat'
@@ -436,24 +436,10 @@ command! -bang -nargs=* FzfTodos
     \       }),
     \   0)
 
-command! -bang FzfBufTags
-    \ call fzf#vim#buffer_tags('', {
-    \     'options': '--bind change:top
-    \                 --with-nth 1
-    \                 --reverse
-    \                 --prompt "> "
-    \                 --preview-window="80%"
-    \                 --preview fnamemodify($MYVIMRC, ":p:h") . "/plugged/fzf.vim/bin/preview.sh {2}:\$(echo {3} | tr -d \";\\\"\")"'
-    \ })
-
 nnoremap / :FzfBufLines<cr>
-nnoremap <tab> :FzfBufTags<cr>
-nnoremap <A-p> :FZF<cr>
-
-nnoremap <A-P> :Buffers<cr>
-tnoremap <A-P> <C-\><C-n>:Buffers<cr>
-inoremap <A-P> <esc>:Buffers<cr>
-
+nnoremap ' :BTags<cr>
+nnoremap ` :FZF<cr>
+nnoremap <tab> :Buffers<cr>
 nnoremap <F1> :Help<cr>
 nnoremap ; :Commands<cr>
 
@@ -801,8 +787,8 @@ augroup END
 
 " neoformat {{{
 
-let g:neoformat_enabled_javascript = ['standard']
-let g:neoformat_verbose = 1
+let g:neoformat_enabled_json = ['prettier']
+let g:neoformat_enabled_html = ['prettier']
 
 " }}}
 
