@@ -526,6 +526,7 @@ lua << EOF
   local lsp = require 'lspconfig'
 
   lsp.clangd.setup{
+    cmd = {"/usr/local/opt/llvm/bin/clangd", "--background-index"},
     init_options = {
       fallbackFlags = {
         '-xcpp-output',
@@ -576,7 +577,7 @@ function! LspBufSetup() abort
     inoremap <A-space> <C-x><C-o>
     nnoremap ]e <cmd>lua vim.lsp.diagnostic.goto_next()<CR>zz
     nnoremap [e <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>zz
-    nnoremap \e <cmd>vim.lsp.diagnostic.set_loclist()<CR>
+    nnoremap \e <cmd>lua vim.lsp.diagnostic.set_loclist()<CR>
     
     augroup LSP_BUF
         au!
